@@ -1,0 +1,83 @@
+/* ================================================================
+   Footer.css — MIXO Barre bas de page + modals
+   ================================================================ */
+
+/* ── BARRE PRINCIPALE ────────────────────────────────────── */
+.nf-footer {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 500;
+    font-family: 'Poppins', sans-serif;
+}
+
+.nf-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 24px;
+    background: #fff;
+    border-top: 1px solid #E8ECF0;
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.04);
+}
+
+/* Décalage pour la sidebar */
+@media (min-width: 993px) {
+    .nf-bar { padding-left: calc(var(--nl-width, 210px) + 24px); }
+}
+
+.nf-brand {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem; font-weight: 900;
+    letter-spacing: 3px; color: #0A66C2;
+}
+
+.nf-copy {
+    font-size: 0.75rem; color: #94A3B8;
+    letter-spacing: 0.3px;
+}
+
+.nf-links {
+    display: flex; align-items: center; gap: 6px;
+}
+
+.nf-link {
+    background: none; border: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.75rem; font-weight: 500;
+    color: #62676B; cursor: pointer; padding: 0;
+    transition: color 0.2s ease;
+}
+.nf-link:hover { color: #0A66C2; }
+
+.nf-sep { color: #CBD5E1; font-size: 0.75rem; }
+
+/* ── RÉSEAUX DANS LA MODAL ───────────────────────────────── */
+.nf-social {
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 8px;
+    background: #F0F4F9;
+    border: 1px solid #E2E8F0;
+    cursor: pointer; color: #62676B;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+.nf-social:hover {
+    background: #EBF4FF;
+    color: #0A66C2;
+    transform: translateY(-2px);
+}
+.nf-social svg { width: 16px; height: 16px; }
+
+/* ── ESPACE POUR LA BARRE (pages avec contenu défilable) ──── */
+body {
+    padding-bottom: 50px;
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 600px) {
+    .nf-bar { padding: 10px 16px; justify-content: center; }
+    .nf-copy { display: none; }
+    .nf-links { flex-wrap: wrap; justify-content: center; }
+}

@@ -1,0 +1,153 @@
+/* ============================================================
+   AvatarUpload.css — Zone photo de profil + badge rôle
+   Dépend de : variables.css
+   ============================================================ */
+
+/* ── 1. WRAPPER ─────────────────────────────────────────────── */
+.avatar-upload-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+
+/* ── 2. CERCLE AVATAR ───────────────────────────────────────── */
+.avatar-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue), #3b90e7);
+    border: 2px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    /* Ombre bleue caractéristique */
+    box-shadow: var(--shadow-blue);
+    animation: avatarPop 0.6s var(--ease-expo) both;
+    transition:
+        transform 0.3s var(--ease-expo),
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.avatar-circle:hover {
+    transform: scale(1.04);
+    border-color: var(--blue);
+    /* Double halo au hover : focus ring + ombre portée */
+    box-shadow: var(--focus-ring), 0 12px 28px rgba(10, 102, 194, 0.2);
+}
+
+/* ── 3. INITIALES TEXTUELLES ────────────────────────────────── */
+.avatar-initials {
+    font-family: var(--font-ui);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 1px;
+    z-index: 1;
+    user-select: none;
+    transition: opacity 0.2s ease;
+}
+
+/* ── 4. IMAGE UPLOADÉE ──────────────────────────────────────── */
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    z-index: 2;
+    animation: fadeInAvatar 0.3s ease both;
+}
+
+/* ── 5. OVERLAY AU SURVOL ───────────────────────────────────── */
+.avatar-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 102, 194, 0.88);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    opacity: 0;
+    z-index: 3;
+    border-radius: 50%;
+    transition: opacity 0.25s ease;
+}
+
+.avatar-circle:hover .avatar-overlay { opacity: 1; }
+
+.avatar-camera-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--white);
+}
+
+.avatar-overlay-text {
+    font-family: var(--font-ui);
+    font-size: 0.58rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--white);
+    font-weight: 700;
+}
+
+/* ── 6. BADGE RÔLE ──────────────────────────────────────────── */
+.role-badge {
+    background: var(--blue-dim);
+    border: 1px solid var(--blue-border);
+    color: var(--blue);
+    font-family: var(--font-ui);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: var(--radius-pill);
+    white-space: nowrap;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ── 7. RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 992px) {
+    .avatar-circle   { width: 90px; height: 90px; }
+    .avatar-initials { font-size: 1.6rem; }
+}
+
+@media (max-width: 768px) {
+    /* En mode tablette, avatar et badge s'alignent horizontalement */
+    .avatar-upload-wrapper {
+        flex-direction: row;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .avatar-circle   { width: 84px; height: 84px; flex-shrink: 0; }
+    .avatar-initials { font-size: 1.4rem; }
+    .role-badge      { padding: 5px 14px; font-size: 0.65rem; }
+}
+
+@media (max-width: 480px) {
+    /* Repasse en colonne sur petit mobile */
+    .avatar-upload-wrapper { flex-direction: column; gap: 12px; }
+}
+
+/* ── 8. KEYFRAMES ───────────────────────────────────────────── */
+@keyframes avatarPop {
+    from { opacity: 0; transform: scale(0.85); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeInAvatar {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}

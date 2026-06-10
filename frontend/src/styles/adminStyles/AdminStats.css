@@ -1,0 +1,200 @@
+/* ============================================================
+   AdminStats.css — MIXO Tableau de bord analytique (Light Theme)
+   Palette : Blanc (#FFF) • Bleu (#0A66C2) • Noir (#1A1D20)
+   Dépend de : variables.css
+   ============================================================ */
+
+/* ── 1. SECTION WRAPPER ─────────────────────────────────────── */
+.stats-section { animation: fadeUp 0.4s var(--ease-expo) both; }
+
+/* ── 2. KPI GRID ────────────────────────────────────────────── */
+.stats-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.stats-kpi-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 16px 12px;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 7px;
+    box-shadow: var(--shadow-xs);
+    animation: fadeUp 0.5s var(--ease-expo) both;
+    transition: border-color 0.25s ease, transform 0.25s var(--ease-expo), box-shadow 0.25s ease;
+}
+
+/* Stagger en cascade */
+.stats-kpi-card:nth-child(1) { animation-delay: 0.04s; }
+.stats-kpi-card:nth-child(2) { animation-delay: 0.08s; }
+.stats-kpi-card:nth-child(3) { animation-delay: 0.12s; }
+.stats-kpi-card:nth-child(4) { animation-delay: 0.16s; }
+.stats-kpi-card:nth-child(5) { animation-delay: 0.20s; }
+.stats-kpi-card:nth-child(6) { animation-delay: 0.24s; }
+
+.stats-kpi-card:hover {
+    border-color: var(--blue-border);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-blue);
+}
+
+.stats-kpi-card svg { width: 20px; height: 20px; color: var(--blue); }
+.kpi-val   { font-size: 1.7rem; font-weight: 700; color: var(--text-dark); }
+.kpi-label { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-tertiary); text-align: center; }
+
+/* Skeleton loader shimmer clair */
+.kpi-skel {
+    width: 100%; height: 70px;
+    background: linear-gradient(90deg, var(--bg-light) 25%, var(--bg-input) 50%, var(--bg-light) 75%);
+    background-size: 200% 100%;
+    border-radius: var(--radius-sm);
+    animation: shimmer 1.4s infinite linear;
+}
+
+/* ── 3. GRAPHIQUES ──────────────────────────────────────────── */
+.stats-charts-row {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 16px;
+    animation: fadeUp 0.5s var(--ease-expo) 0.15s both;
+}
+
+.stats-chart-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: var(--shadow-xs);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.stats-chart-card:hover { border-color: var(--blue-border); box-shadow: var(--shadow-sm); }
+
+.sc-title  { font-size: 0.68rem; letter-spacing: 2.5px; text-transform: uppercase; color: var(--text-tertiary); margin: 0 0 14px; }
+.sc-legend { display: flex; align-items: center; gap: 7px; margin-bottom: 10px; font-size: 0.72rem; color: var(--text-muted); flex-wrap: wrap; }
+.sc-dot    { width: 9px; height: 9px; border-radius: 2px; display: inline-block; flex-shrink: 0; }
+.sc-scroll { overflow-x: auto; padding-bottom: 2px; }
+.sc-empty  { color: var(--text-tertiary); font-size: 0.8rem; text-align: center; padding: 20px 0; }
+
+/* Typo SVG adaptée au fond clair */
+.sv-val        { font-size: 8px;  fill: var(--text-muted);    font-family: var(--font-main); }
+.sv-lbl        { font-size: 8px;  fill: var(--text-tertiary); font-family: var(--font-main); }
+.sv-center-val { font-size: 17px; fill: var(--text-dark);     font-family: var(--font-main); font-weight: 700; }
+.sv-center-lbl { font-size: 8px;  fill: var(--text-tertiary); font-family: var(--font-main); letter-spacing: 0.5px; text-transform: uppercase; }
+
+.sc-donut-layout { display: flex; align-items: center; gap: 16px; }
+.sc-donut-legend { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.sc-legend-item  { display: flex; align-items: center; gap: 7px; font-size: 0.74rem; }
+.sc-leg-txt { color: var(--text-muted); flex: 1; }
+.sc-leg-pct { color: var(--blue); font-weight: 700; }
+.sc-leg-cnt { color: var(--text-tertiary); font-size: 0.66rem; }
+
+/* ── 4. TABLEAUX CLASSEMENTS ────────────────────────────────── */
+.stats-tables-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 16px;
+    animation: fadeUp 0.5s var(--ease-expo) 0.25s both;
+}
+
+.stats-table-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 18px;
+    box-shadow: var(--shadow-xs);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.stats-table-card:hover { border-color: var(--blue-border); box-shadow: var(--shadow-sm); }
+
+.sc-table { width: 100%; border-collapse: collapse; }
+
+.sc-table thead th {
+    font-size: 0.58rem; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--text-tertiary); padding: 6px 8px;
+    border-bottom: 1px solid var(--border); text-align: left; font-weight: 600;
+}
+
+.sc-table tbody tr { transition: background 0.2s ease; }
+.sc-table tbody tr:hover { background: var(--blue-dim); }
+
+.sc-table td {
+    padding: 8px; font-size: 0.74rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-dark);
+}
+
+.tb-rank { color: var(--text-tertiary); font-weight: 700; width: 22px; }
+.tb-user { display: flex; align-items: center; gap: 8px; color: var(--text-dark); }
+
+.tb-av {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--blue-dim); border: 1px solid var(--blue-border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.56rem; font-weight: 700; color: var(--blue); flex-shrink: 0;
+}
+
+.tb-role { font-size: 0.6rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 2px 7px; border-radius: var(--radius-pill); }
+.tb-role-client   { background: var(--blue-dim);              color: var(--blue); }
+.tb-role-coiffeur { background: rgba(43, 133, 228, 0.08);     color: #2B85E4; }
+.tb-role-admin    { background: rgba(139, 92, 246, 0.08);     color: #7C3AED; }
+
+.tb-date { font-size: 0.68rem; color: var(--text-tertiary); white-space: nowrap; }
+
+/* ── 5. ÉTATS ───────────────────────────────────────────────── */
+.stats-loader {
+    display: flex; justify-content: center; align-items: center;
+    min-height: 200px;
+    animation: fadeUp 0.4s var(--ease-expo) both;
+}
+
+.stats-error {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 12px; padding: 48px 0; text-align: center;
+    color: var(--danger); font-size: 0.88rem; font-weight: 500;
+    animation: fadeUp 0.4s var(--ease-expo) both;
+}
+
+.stats-error svg { width: 32px; height: 32px; opacity: 0.8; }
+
+/* ── 6. RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 1100px) {
+    .stats-kpi-grid   { grid-template-columns: repeat(3, 1fr); }
+    .stats-charts-row { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 800px) {
+    .stats-kpi-grid   { grid-template-columns: repeat(2, 1fr); }
+    .stats-tables-row { grid-template-columns: 1fr; }
+    .sc-donut-layout  { flex-direction: column; align-items: center; text-align: center; }
+    .sc-donut-legend  { width: 100%; }
+}
+
+@media (max-width: 480px) {
+    .stats-kpi-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .kpi-val        { font-size: 1.4rem; }
+    .kpi-label      { font-size: 0.55rem; }
+    .stats-table-card { overflow-x: auto; }
+    .sc-table         { min-width: 380px; }
+}
+
+/* ── 7. KEYFRAMES ───────────────────────────────────────────── */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50%       { opacity: 1; }
+}

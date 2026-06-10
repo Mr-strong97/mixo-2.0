@@ -1,0 +1,378 @@
+/* ============================================================
+   AdminUserSection.css — Liste et gestion des utilisateurs
+   Dépend de : variables.css
+   AVANT : :root local --aus-* dupliqués → remplacés
+   ============================================================ */
+
+/* ── 1. WRAPPER ─────────────────────────────────────────────── */
+.aus-wrapper {
+    width: 100%;
+    padding: 24px;
+    background: linear-gradient(to bottom, var(--white), #f8fbff);
+    border-radius: var(--radius-3xl);
+    animation: fadeUp 0.5s var(--ease-expo) both;
+}
+
+/* ── 2. TITRE ───────────────────────────────────────────────── */
+.aus-title {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dark);
+}
+
+.aus-title svg {
+    width: 24px;
+    height: 24px;
+    color: var(--blue);
+}
+
+/* ── 3. ONGLETS ─────────────────────────────────────────────── */
+.aus-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+    padding: 8px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: var(--shadow-sm);
+}
+
+.aus-tab {
+    flex: 1;
+    min-width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 18px;
+    border: none;
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: var(--text-muted);
+    font-family: var(--font-main);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background 0.25s var(--ease-expo), color 0.25s ease, transform 0.25s var(--ease-expo), box-shadow 0.25s ease;
+}
+
+.aus-tab svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+.aus-tab:hover {
+    background: var(--blue-dim);
+    color: var(--blue);
+    transform: translateY(-2px);
+}
+
+/* Onglet actif — fond dégradé */
+.aus-tab.active {
+    background: linear-gradient(135deg, var(--blue), #3B82F6);
+    color: var(--white);
+    box-shadow: var(--shadow-blue);
+}
+
+/* Pastille compteur dans l'onglet */
+.aus-count {
+    padding: 3px 8px;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, 0.18);
+    font-size: 0.62rem;
+    font-weight: 700;
+}
+
+/* ── 4. RECHERCHE ───────────────────────────────────────────── */
+.aus-search-wrap {
+    position: relative;
+    margin-bottom: 28px;
+}
+
+.aus-search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    color: var(--text-disabled);
+    pointer-events: none;
+}
+
+.aus-search-input {
+    width: 100%;
+    padding: 15px 16px 15px 46px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    background: var(--white);
+    font-family: var(--font-main);
+    font-size: 0.85rem;
+    color: var(--text-dark);
+    outline: none;
+    box-shadow: var(--shadow-sm);
+    box-sizing: border-box;
+    transition: border-color 0.25s var(--ease-expo), box-shadow 0.25s ease;
+}
+
+.aus-search-input:focus {
+    border-color: var(--blue);
+    box-shadow: var(--focus-ring);
+}
+
+.aus-search-input::placeholder { color: var(--text-disabled); }
+
+/* ── 5. CARTE UTILISATEUR ───────────────────────────────────── */
+.aus-card {
+    position: relative;
+    margin-bottom: 16px;
+    padding: 24px;
+    background: var(--white);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    animation: fadeUp 0.4s var(--ease-expo) both;
+    transition: transform 0.25s var(--ease-expo), box-shadow 0.25s ease;
+}
+
+/* Barre décorative bleue à gauche */
+.aus-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--blue), #3B82F6);
+}
+
+.aus-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+/* ── 6. CONTENU DE CARTE ────────────────────────────────────── */
+.aus-card-top {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.aus-avatar {
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, var(--blue), #3B82F6);
+    color: var(--white);
+    font-size: 1.1rem;
+    font-weight: 700;
+    box-shadow: var(--shadow-blue);
+}
+
+.aus-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.aus-username { color: var(--text-dark); font-size: 1rem; font-weight: 700; }
+.aus-email    { color: var(--text-muted); font-size: 0.78rem; }
+.aus-meta     { color: var(--text-disabled); font-size: 0.7rem; }
+.aus-meta strong { color: var(--text-dark); }
+
+/* ── 7. BADGES STATUT ───────────────────────────────────────── */
+.aus-badge {
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family: var(--font-main);
+}
+
+.badge-active {
+    background: rgba(22, 163, 74, 0.10);
+    border: 1px solid rgba(22, 163, 74, 0.18);
+    color: #16A34A;
+}
+
+.badge-paused {
+    background: rgba(148, 163, 184, 0.10);
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    color: var(--text-muted);
+}
+
+.badge-pending {
+    background: rgba(220, 38, 38, 0.10);
+    border: 1px solid rgba(220, 38, 38, 0.18);
+    color: var(--danger);
+}
+
+/* ── 8. BOUTONS D'ACTIONS ───────────────────────────────────── */
+.aus-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.aus-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 18px;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-family: var(--font-main);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 0.25s var(--ease-expo), box-shadow 0.25s ease;
+}
+
+.aus-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+/* Valider — vert */
+.aus-btn-validate {
+    background: linear-gradient(135deg, #16A34A, #22C55E);
+    color: var(--white);
+    box-shadow: 0 8px 18px rgba(22, 163, 74, 0.22);
+}
+
+.aus-btn-validate:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(22, 163, 74, 0.28);
+}
+
+/* Rejeter — rouge */
+.aus-btn-reject {
+    background: linear-gradient(135deg, #DC2626, #EF4444);
+    color: var(--white);
+    box-shadow: 0 8px 18px rgba(220, 38, 38, 0.22);
+}
+
+.aus-btn-reject:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(220, 38, 38, 0.28);
+}
+
+/* ── 9. INPUT RAISON DE REFUS ───────────────────────────────── */
+.aus-raison {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.aus-raison-input {
+    flex: 1;
+    padding: 12px 15px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    outline: none;
+    background: var(--bg-light);
+    font-family: var(--font-main);
+    font-size: 0.88rem;
+    transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.aus-raison-input:focus {
+    border-color: var(--danger);
+    background: var(--white);
+}
+
+.aus-btn-confirm {
+    padding: 12px 18px;
+    border: none;
+    border-radius: var(--radius-md);
+    background: var(--danger);
+    color: var(--white);
+    cursor: pointer;
+    font-family: var(--font-main);
+    font-weight: 700;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.aus-btn-confirm:hover {
+    background: #B91C1C;
+    transform: translateY(-1px);
+}
+
+/* ── 10. LOADER & ÉTAT VIDE ─────────────────────────────────── */
+.aus-loader {
+    display: flex;
+    justify-content: center;
+    padding: 60px 0;
+}
+
+.aus-spinner {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 3px solid var(--blue-dim);
+    border-top-color: var(--blue);
+    animation: spin 0.8s linear infinite;
+}
+
+.aus-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 70px 0;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.aus-empty svg { width: 48px; height: 48px; color: var(--blue); }
+
+/* ── 11. RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 992px) {
+    .aus-wrapper { padding: 18px; }
+    .aus-card    { padding: 20px; }
+}
+
+@media (max-width: 768px) {
+    .aus-wrapper  { padding: 14px; }
+    .aus-tabs     { flex-direction: column; }
+    .aus-tab      { width: 100%; }
+    .aus-card-top { flex-direction: column; align-items: flex-start; }
+    .aus-badge    { margin-top: 8px; }
+    .aus-actions  { flex-direction: column; }
+    .aus-btn      { width: 100%; }
+    .aus-raison   { flex-direction: column; }
+    .aus-btn-confirm { width: 100%; }
+}
+
+@media (max-width: 480px) {
+    .aus-title    { font-size: 0.9rem; }
+    .aus-avatar   { width: 54px; height: 54px; font-size: 1rem; }
+    .aus-card     { padding: 16px; }
+    .aus-username { font-size: 0.92rem; }
+    .aus-email    { font-size: 0.72rem; }
+}
+
+/* ── 12. KEYFRAMES ──────────────────────────────────────────── */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }

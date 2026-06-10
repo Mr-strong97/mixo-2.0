@@ -1,0 +1,244 @@
+/* ============================================================
+   serviceProfile.css — Profil coiffeur (grille image + menu)
+   Dépend de : variables.css
+   ============================================================ */
+
+/* ── 1. CONTENEUR GRILLE ────────────────────────────────────── */
+.profile-page-container {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--white);
+    box-sizing: border-box;
+}
+
+/* ── 2. BLOC IMAGE ──────────────────────────────────────────── */
+.profile-image-banner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.profile-bg-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://images.unsplash.com/photo-1599351431202-1e0f0137899a?q=80&w=1288&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Dégradé du bas vers le haut pour lisibilité du label mobile */
+.profile-image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.04));
+    z-index: 1;
+}
+
+/* Label Mixo — masqué sur desktop, visible sur mobile */
+.brand-mobile-label {
+    display: none;
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+    z-index: 2;
+    color: var(--white);
+    font-family: var(--font-display);
+}
+
+.brand-mobile-label .brand-sub {
+    font-size: 0.9rem;
+    font-weight: 300;
+    letter-spacing: 3px;
+    opacity: 0.8;
+}
+
+.brand-mobile-label .brand-main {
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--blue-light);
+    margin: 0;
+    line-height: 1;
+}
+
+/* ── 3. PANNEAU CONTENU ─────────────────────────────────────── */
+.profile-content-panel {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 24px;
+    background-color: var(--white);
+}
+
+.profile-card-wrapper {
+    width: 100%;
+    max-width: 380px;
+}
+
+/* ── 4. HEADER AVATAR + STATUT ──────────────────────────────── */
+.profile-user-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 32px;
+}
+
+.avatar-circle-blue {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--blue), var(--blue-light));
+    color: var(--white);
+    font-size: 1.25rem;
+    font-weight: 700;
+    box-shadow: var(--shadow-blue);
+    flex-shrink: 0;
+}
+
+.name-status-pill {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 14px 20px;
+    box-shadow: var(--shadow-xs);
+}
+
+.user-profile-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.status-online-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.status-text {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--success);
+    border-radius: 50%;
+    box-shadow: 0 0 6px var(--success);
+}
+
+/* ── 5. LISTE DES MENUS ─────────────────────────────────────── */
+.profile-menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 16px 18px;
+    border-radius: var(--radius-xl);
+    cursor: pointer;
+    transition: all 0.22s var(--ease-expo);
+}
+
+.menu-item:hover {
+    border-color: var(--blue-border);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+.menu-item-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.menu-icon {
+    width: 18px;
+    height: 18px;
+    color: var(--text-muted);
+}
+
+.menu-label {
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+/* Badges */
+.badge-count {
+    background: var(--blue-dim);
+    color: var(--blue);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: var(--radius-xs);
+}
+
+.favori-tag {
+    background: var(--blue-dim);
+    color: var(--blue);
+    border: 1px solid var(--blue-border);
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: var(--radius-xs);
+}
+
+.chevron-icon {
+    width: 16px;
+    height: 16px;
+    color: var(--text-disabled);
+}
+
+/* Item déconnexion */
+.logout-item { margin-top: 6px; border-color: var(--danger-border); }
+.logout-item:hover { background: var(--danger-dim); border-color: var(--danger); }
+
+.power-icon {
+    width: 16px;
+    height: 16px;
+    color: var(--danger);
+    opacity: 0.7;
+}
+
+/* ── 6. RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 992px) {
+    .profile-page-container { grid-template-columns: 1fr 1.1fr; }
+}
+
+@media (max-width: 768px) {
+    .profile-page-container { grid-template-columns: 1fr; }
+
+    .profile-image-banner {
+        height: 35vh;
+        min-height: 240px;
+        border-radius: 0 0 var(--radius-2xl) var(--radius-2xl);
+    }
+
+    /* Label Mixo visible uniquement sur mobile */
+    .brand-mobile-label { display: block; }
+
+    .profile-content-panel { padding: 32px 20px; }
+    .profile-card-wrapper  { max-width: 100%; }
+}

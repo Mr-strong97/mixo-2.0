@@ -1,0 +1,119 @@
+/* ================================================================
+   HomePage.css — COIFFETIME / MIXO
+   Layout Global : Sidebar Gauche · Contenu Central (Hero + Stats) · Footer
+   ================================================================ */
+
+/* ── SQUELETTE DE LA PAGE (LAYOUT PRINCIPAL) ────────────────── */
+.home-page-wrapper {
+    display: flex;
+    min-height: 100vh;
+    background-color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    color: #1A1D20;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* 1. Aligner la Navbar latérale gauche (Si fixe/sticky) */
+.home-page-wrapper > .sidebar-menu-container, /* Ajustez avec la classe exacte de votre Navbar */
+.home-page-wrapper > nav:first-child {
+    width: 260px;
+    min-width: 260px;
+    background: #ffffff;
+    border-right: 1.5px solid #E8ECF0;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-sizing: border-box;
+}
+
+/* 2. Zone centrale contenant le Hero et les Statistiques */
+.home-page-wrapper > main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0; /* Empêche le flex-item de déborder en cas de grands tableaux/images */
+    background-color: #ffffff;
+}
+
+/* 3. Le Footer (Traité soit en bandeau bas, soit en Sidebar droite selon votre UI) */
+.home-page-wrapper > footer {
+    background-color: #ffffff;
+    box-sizing: border-box;
+    /* Si votre Footer est un bandeau du bas classique, laissez le flux normal. 
+       Si c'est une sidebar droite (comme sur le profil), décommentez les lignes ci-dessous : */
+    /*
+    width: 340px;
+    min-width: 340px;
+    border-left: 1.5px solid #E8ECF0;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    */
+}
+
+/* Si votre footer est classique (en bas), on s'assure qu'il s'aligne bien sous le main 
+   au lieu de se mettre à droite (si flex-direction n'est pas modifié) */
+@supports (display: flex) {
+    /* Si vous voulez que le footer soit tout en bas sous le contenu central : */
+    .home-page-wrapper {
+        display: flex;
+        flex-wrap: wrap; /* Permet au footer de passer en dessous si largeur 100% */
+    }
+    .home-page-wrapper > main {
+        width: calc(100% - 260px); /* Prend tout l'espace sauf la Navbar */
+    }
+    .home-page-wrapper > footer {
+        width: calc(100% - 260px);
+        margin-left: 260px; /* Aligné après la barre latérale */
+        border-top: 1.5px solid #E8ECF0;
+        padding: 40px 80px;
+    }
+}
+
+/* ── OPTIMISATION RESPONSIVE GLOBALE ────────────────────────── */
+
+/* 1. Écrans intermédiaires (Petits PC & Tablettes Paysage) */
+@media (max-width: 1024px) {
+    .home-page-wrapper > footer {
+        padding: 40px;
+    }
+}
+
+/* 2. Format Tablette Portrait (Bascule de la Navbar gauche en haut/responsive) */
+@media (max-width: 900px) {
+    .home-page-wrapper {
+        flex-direction: column; /* Tout s'empile verticalement */
+    }
+
+    /* La Navbar prend toute la largeur en haut */
+    .home-page-wrapper > .sidebar-menu-container,
+    .home-page-wrapper > nav:first-child {
+        width: 100% !important;
+        min-width: 100% !important;
+        height: auto !important;
+        position: relative;
+        border-right: none;
+        border-bottom: 1.5px solid #E8ECF0;
+    }
+
+    .home-page-wrapper > main {
+        width: 100% !important;
+    }
+
+    /* Le footer reprend toute sa largeur sans décalage gauche */
+    .home-page-wrapper > footer {
+        width: 100% !important;
+        margin-left: 0 !important;
+        border-left: none;
+        border-top: 1.5px solid #E8ECF0;
+    }
+}
+
+/* 3. Format Mobile */
+@media (max-width: 600px) {
+    .home-page-wrapper > footer {
+        padding: 30px 20px;
+    }
+}

@@ -1,0 +1,113 @@
+/* ============================================================
+   ToggleField.css — Toggle ON/OFF (spécialités coiffeur)
+   Dépend de : variables.css
+   ============================================================ */
+
+.settings-toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 13px 16px;
+    cursor: default;
+    transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.settings-toggle-row:hover {
+    border-color: var(--blue-border);
+    background: var(--blue-dim);
+}
+
+/* Label du toggle */
+.settings-toggle-label {
+    font-family: var(--font-main);
+    font-size: 0.84rem;
+    color: var(--text-tertiary);
+    letter-spacing: 0.5px;
+    transition: color 0.25s ease;
+}
+
+/* Pill toggle */
+.toggle-pill {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Checkbox natif masqué */
+.toggle-pill input[type="checkbox"] { display: none; }
+
+/* Fond de la bascule */
+.toggle-slider {
+    width: 48px;
+    height: 27px;
+    background: var(--bg-input);
+    border-radius: var(--radius-pill);
+    position: relative;
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+/* Pastille mobile */
+.toggle-dot {
+    position: absolute;
+    width: 19px;
+    height: 19px;
+    background: var(--text-disabled);
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+    /* Easing spring pour un effet rebond naturel */
+    transition: transform 0.35s var(--ease-spring), background 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* État ON */
+.toggle-pill input:checked + .toggle-slider {
+    background: var(--blue-dim);
+    border-color: var(--blue-border);
+}
+
+.toggle-pill input:checked + .toggle-slider .toggle-dot {
+    transform: translateX(21px);
+    background: var(--blue);
+    box-shadow: 0 0 8px rgba(10, 102, 194, 0.35);
+}
+
+/* Texte ON/OFF */
+.toggle-status-text {
+    font-family: var(--font-main);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-disabled);
+    min-width: 26px;
+    transition: color 0.25s ease;
+}
+
+.toggle-pill input:checked ~ .toggle-status-text { color: var(--blue); }
+
+/* Champ spécialité qui apparaît sous le toggle quand ON */
+.settings-field-inner.mt-2 {
+    margin-top: 10px;
+    animation: toggleExpand 0.3s var(--ease-smooth) both;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .settings-toggle-row { padding: 12px 14px; }
+    .toggle-slider       { width: 44px; height: 25px; }
+    .toggle-dot          { width: 17px; height: 17px; }
+    .toggle-pill input:checked + .toggle-slider .toggle-dot { transform: translateX(19px); }
+}
+
+@keyframes toggleExpand {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

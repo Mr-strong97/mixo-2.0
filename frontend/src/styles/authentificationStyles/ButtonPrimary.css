@@ -1,0 +1,118 @@
+/* ============================================================
+   Buttons.css — Boutons globaux (fusionné ButtonPrimary + ButtonHero)
+   Dépend de : variables.css
+   AVANT : 2 fichiers avec :root dupliqués → 1 fichier unifié
+   ============================================================ */
+
+/* ── STYLES COMMUNS ─────────────────────────────────────────── */
+.btn-custom,
+.btn-hero-custom {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    font-family: var(--font-main);
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    overflow: hidden;
+    transition:
+        background-color 0.3s var(--ease-expo),
+        border-color     0.3s var(--ease-expo),
+        color            0.3s var(--ease-expo),
+        transform        0.3s var(--ease-expo),
+        box-shadow       0.3s var(--ease-expo);
+}
+
+/* ── BTN-CUSTOM (formulaires, pages internes) ───────────────── */
+.btn-custom {
+    padding: 14px 32px;
+    font-size: 0.95rem;
+    letter-spacing: -0.2px;
+    width: 100%;
+    max-width: 320px;
+    box-sizing: border-box;
+}
+
+/* Variante pleine — bleu */
+.btn-gold {
+    background-color: var(--blue);
+    color: var(--white);
+    box-shadow: var(--shadow-blue);
+}
+
+.btn-gold:hover {
+    background-color: var(--blue-hover);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-blue-hover);
+}
+
+.btn-gold:active { transform: translateY(-1px); }
+
+/* Variante outline / glass */
+.btn-glass {
+    background: rgba(0, 0, 0, 0.02);
+    border-color: var(--blue-border);
+    color: var(--blue);
+}
+
+.btn-glass:hover {
+    background: var(--blue-dim);
+    border-color: var(--blue);
+    transform: translateY(-3px);
+}
+
+.btn-glass:active { transform: translateY(-1px); }
+
+/* Légère translation de l'icône au hover */
+.btn-custom i,
+.btn-custom svg {
+    transition: transform 0.3s var(--ease-expo);
+}
+
+.btn-custom:hover i,
+.btn-custom:hover svg { transform: translateX(3px); }
+
+/* ── BTN-HERO-CUSTOM (section Hero uniquement) ──────────────── */
+.btn-hero-custom {
+    padding: 16px 32px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: var(--radius-xs);
+}
+
+/* Hero — variante pleine */
+.hero-gold {
+    background-color: var(--blue);
+    color: var(--white);
+}
+
+.hero-gold:hover {
+    background-color: var(--blue-hover);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-blue);
+}
+
+/* Hero — variante outline (bordure pilule) */
+.hero-outline {
+    background-color: var(--white);
+    color: var(--blue);
+    border: 1px solid var(--blue) !important;
+    border-radius: var(--radius-pill);
+}
+
+.hero-outline:hover {
+    background-color: var(--blue);
+    color: var(--white);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-blue);
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────────────── */
+@media (max-width: 576px) {
+    .btn-hero-custom { width: 100%; padding: 14px 24px; }
+    .btn-custom      { max-width: 100%; padding: 14px 24px; }
+}

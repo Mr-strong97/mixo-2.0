@@ -1,0 +1,188 @@
+/* ================================================================
+   ZoneHero & StatsCatalogue — STYLES GLOBAL & RESPONSIVE
+   ================================================================ */
+
+/* ── ZONE HERO ──────────────────────────────────────────────── */
+.mixo-hero-section {
+    width: 100%;
+    background-color: #ffffff;
+    overflow: hidden;
+}
+
+.m_hero_container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 550px;
+    align-items: center;
+}
+
+.m_hero_content {
+    padding: 60px 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.m_hero_badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(26, 86, 219, 0.06);
+    color: #1A56DB;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 100px;
+    width: fit-content;
+}
+
+.m_hero_badge svg { width: 14px; height: 14px; }
+
+.m_hero_title {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.15;
+    color: #1A1D20;
+    margin: 0;
+    letter-spacing: -1px;
+}
+
+.m_hero_gradient {
+    color: #1A56DB;
+}
+
+.m_hero_description {
+    font-size: 1rem;
+    color: #62676B;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 480px;
+}
+
+.m_hero_actions {
+    display: flex;
+    gap: 16px;
+}
+
+.m_hero_btn_primary {
+    background-color: #1A1D20;
+    color: #ffffff;
+    border: none;
+    height: 48px;
+    padding: 0 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.m_hero_btn_primary:hover { background-color: #000000; }
+
+.m_hero_btn_secondary {
+    background-color: transparent;
+    color: #1A1D20;
+    border: 1.5px solid #E8ECF0;
+    height: 48px;
+    padding: 0 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.m_hero_btn_secondary:hover { background-color: #F8FAFC; border-color: #CBD5E1; }
+
+.m_hero_image_wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 500px;
+}
+
+.m_hero_image {
+    width: 100%;
+    height: 100%;
+    background-image: url('../assets/images/Main\\ \\(4\\).jpg'); /* Lien vers votre image */
+    background-size: cover;
+    background-position: center;
+}
+
+/* ── STATS CATALOGUE ────────────────────────────────────────── */
+.mixo-stats-catalogue {
+    background-color: #F8FAFC;
+    padding: 40px 80px;
+    border-bottom: 1.5px solid #E8ECF0;
+}
+
+.m_stats_grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.m_stat_card {
+    background: #ffffff;
+    border: 1.5px solid #E8ECF0;
+    border-radius: 16px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.m_stat_icon_box {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.m_stat_icon_box svg { width: 22px; height: 22px; }
+
+.m_stat_info { display: flex; flex-direction: column; gap: 2px; }
+.m_stat_number { font-size: 1.6rem; font-weight: 700; color: #1A1D20; margin: 0; }
+.m_stat_small { font-size: 1rem; color: #94A3B8; }
+.m_stat_label { font-size: 0.82rem; color: #62676B; font-weight: 500; margin: 0; }
+
+/* ── RESPONSIVE COMPLÈTE ────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+    .m_hero_content { padding: 40px; }
+    .m_hero_title { font-size: 2.5rem; }
+    .mixo-stats-catalogue { padding: 30px 40px; }
+    .m_stats_grid { gap: 20px; }
+}
+
+@media (max-width: 900px) {
+    /* Bascule de la zone Hero en une seule colonne */
+    .m_hero_container {
+        grid-template-columns: 1fr;
+    }
+    .m_hero_image_wrapper {
+        height: 350px;
+        min-height: 350px;
+        grid-row: 1; /* Place l'image au-dessus du texte sur tablette/mobile */
+    }
+    
+    /* Stats en 2 colonnes ou adaptatif */
+    .m_stats_grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .m_hero_content { padding: 30px 20px; gap: 16px; }
+    .m_hero_title { font-size: 2.1rem; }
+    .m_hero_actions { flex-direction: column; width: 100%; }
+    .m_hero_btn_primary, .m_hero_btn_secondary { width: 100%; justify-content: center; }
+    
+    .mixo-stats-catalogue { padding: 20px 16px; }
+    .m_stats_grid { grid-template-columns: 1fr; gap: 12px; }
+}
