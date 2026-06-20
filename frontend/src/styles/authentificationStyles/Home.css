@@ -1,0 +1,1087 @@
+/* ================================================================
+   Home.css — MIXO
+   Styles dédiés à la nouvelle page d'accueil (HomePage.js).
+   S'appuie entièrement sur les tokens de variables.css — à importer
+   AVANT ce fichier (aucune nouvelle déclaration :root ici).
+   ================================================================ */
+
+/* ── 0. ALIAS LOCAUX + UTILITAIRES DE SCROLL ─────────────────── */
+
+.home-page-wrapper {
+    /* Alias pratiques pour les patterns rgba(var(--accent-rgb), x) */
+    --accent: var(--blue);
+    --accent-dark: var(--blue-dark);
+    --accent-rgb: 10, 102, 194;
+}
+
+.home-page-wrapper main {
+    min-width: 0;
+}
+
+.home-role-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+    gap: 28px;
+    align-items: stretch;
+    padding: 100px 80px 72px;
+}
+
+.home-role-hero__content,
+.home-role-hero__panel {
+    position: relative;
+}
+
+.home-role-hero__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 18px;
+}
+
+.home-role-hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: rgba(10, 102, 194, 0.08);
+    color: var(--blue);
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.home-role-hero__title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(2.3rem, 4vw, 4rem);
+    line-height: 1.05;
+    color: var(--text-dark);
+    letter-spacing: -0.04em;
+    max-width: 11ch;
+}
+
+.home-role-hero__text {
+    margin: 0;
+    max-width: 62ch;
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+.home-role-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 10px;
+}
+
+.home-role-hero__primary,
+.home-role-hero__secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 14px;
+    padding: 14px 18px;
+    font-weight: 700;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.home-role-hero__primary {
+    background: linear-gradient(135deg, var(--blue), #1d88ff);
+    color: var(--white);
+    box-shadow: 0 18px 30px rgba(10, 102, 194, 0.18);
+}
+
+.home-role-hero__secondary {
+    background: var(--bg-surface);
+    color: var(--text-dark);
+    border-color: var(--border);
+}
+
+.home-role-hero__primary:hover,
+.home-role-hero__secondary:hover {
+    transform: translateY(-2px);
+}
+
+.home-role-hero__panel {
+    display: flex;
+    align-items: center;
+}
+
+.home-role-hero__card {
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(248,250,252,0.96));
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
+}
+
+.home-role-hero__card_label {
+    display: block;
+    margin-bottom: 18px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+}
+
+.home-role-hero__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 16px;
+}
+
+.home-role-hero__list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 16px;
+    background: var(--bg-page);
+    border: 1px solid var(--border);
+}
+
+.home-role-hero__list li svg {
+    width: 18px;
+    height: 18px;
+    color: var(--blue);
+    flex-shrink: 0;
+}
+
+.home-admin-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    padding: 0 80px 80px;
+}
+
+.home-admin-stats__card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+}
+
+.home-admin-stats__card span {
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background: rgba(10, 102, 194, 0.08);
+    color: var(--blue);
+    margin-bottom: 14px;
+}
+
+.home-admin-stats__card strong {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1rem;
+    color: var(--text-dark);
+}
+
+.home-admin-stats__card p {
+    margin: 0;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+@media (max-width: 1024px) {
+    .home-role-hero,
+    .home-admin-stats__grid {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .home-role-hero {
+        grid-template-columns: 1fr;
+    }
+
+    .home-admin-stats__grid {
+        grid-template-columns: 1fr;
+        padding-bottom: 56px;
+    }
+}
+
+@media (max-width: 600px) {
+    .home-role-hero {
+        padding: 64px 20px 48px;
+    }
+
+    .home-role-hero__title {
+        font-size: 2rem;
+    }
+
+    .home-role-hero__card {
+        padding: 22px;
+        border-radius: 22px;
+    }
+
+    .home-admin-stats__grid {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+/* Barre de progression de scroll globale (injectée par initScrollProgress) */
+.mixo-scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--blue), var(--blue-light));
+    z-index: 2000;
+    transition: width 0.12s linear;
+    pointer-events: none;
+    border-radius: 0 2px 2px 0;
+}
+
+/* Reveal-on-scroll : Fade In / Slide Up / Zoom léger (cf. initScrollReveal) */
+[data-animate] {
+    opacity: 0;
+    transition: opacity 0.7s var(--ease-expo), transform 0.7s var(--ease-expo);
+    will-change: opacity, transform;
+}
+[data-animate="fade-up"]    { transform: translateY(36px); }
+[data-animate="fade-in"]    { transform: none; }
+[data-animate="zoom-in"]    { transform: scale(0.94); }
+[data-animate="fade-left"]  { transform: translateX(-36px); }
+[data-animate="fade-right"] { transform: translateX(36px); }
+
+[data-animate].is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-animate] {
+        transition: none;
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* ── 1. COQUILLES DE SECTION PARTAGÉES ───────────────────────── */
+
+.mixo-section {
+    padding: 100px 80px;
+    position: relative;
+}
+
+.mixo-section--tinted {
+    background: var(--bg-page);
+}
+
+.mixo-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.mixo-section-head {
+    max-width: 680px;
+    margin: 0 auto 56px;
+    text-align: center;
+}
+
+.mixo-section-head--left {
+    margin: 0 0 48px;
+    text-align: left;
+}
+
+.mixo-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--blue);
+    background: var(--blue-dim);
+    padding: 6px 16px;
+    border-radius: var(--radius-pill);
+    margin-bottom: 18px;
+}
+
+.mixo-eyebrow svg { width: 13px; height: 13px; }
+
+.mixo-section-title {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--text-dark);
+    letter-spacing: -0.5px;
+    margin: 0 0 14px;
+}
+
+.mixo-section-subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* Responsive — coquilles */
+@media (max-width: 1024px) {
+    .mixo-section { padding: 72px 40px; }
+    .mixo-section-title { font-size: 2rem; }
+}
+
+@media (max-width: 600px) {
+    .mixo-section { padding: 56px 20px; }
+    .mixo-section-head,
+    .mixo-section-head--left { margin-bottom: 40px; }
+    .mixo-section-title { font-size: 1.7rem; }
+    .mixo-eyebrow { font-size: 0.7rem; padding: 5px 14px; }
+}
+
+/* ================================================================
+   2. PLATFORM OVERVIEW — "Qu'est-ce que Mixo ?"
+   ================================================================ */
+
+.mixo-overview__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+}
+
+.mixo-overview__card {
+    background: var(--bg-surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    transition: var(--transition);
+}
+.mixo-overview__card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+}
+
+.mixo-overview__card_header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.mixo-overview__icon {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.mixo-overview__icon svg { width: 24px; height: 24px; }
+
+.mixo-overview__icon--client {
+    background: var(--blue-dim);
+    color: var(--blue);
+}
+.mixo-overview__icon--pro {
+    background: var(--text-dark);
+    color: var(--white);
+}
+
+.mixo-overview__tag {
+    display: block;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: 2px;
+}
+
+.mixo-overview__card_header h3 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0;
+}
+
+.mixo-overview__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.mixo-overview__list li {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.mixo-overview__list_icon {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-md);
+    background: var(--bg-page);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--blue);
+}
+.mixo-overview__card--pro .mixo-overview__list_icon { color: var(--text-dark); }
+.mixo-overview__list_icon svg { width: 18px; height: 18px; }
+
+.mixo-overview__list h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin: 0 0 4px;
+}
+.mixo-overview__list p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0;
+}
+
+@media (max-width: 900px) {
+    .mixo-overview__grid { grid-template-columns: 1fr; gap: 20px; }
+    .mixo-overview__card { padding: 28px; }
+}
+
+@media (max-width: 600px) {
+    .mixo-overview__card { padding: 22px; gap: 22px; }
+    .mixo-overview__icon { width: 44px; height: 44px; }
+    .mixo-overview__card_header h3 { font-size: 1.2rem; }
+    .mixo-overview__list { gap: 18px; }
+}
+
+/* ================================================================
+   3. TRANSFORMATION SHOWCASE — section signature scroll-driven
+   "D'une recherche... à un sourire." (canvas piloté par le scroll)
+   ================================================================ */
+
+.mixo-transform {
+    position: relative;
+    background: var(--bg-surface);
+    isolation: isolate;
+}
+
+.mixo-transform__inner {
+    height: 280vh;
+    position: relative;
+}
+
+.mixo-transform__sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.mixo-transform__glow {
+    position: absolute;
+    width: 620px;
+    height: 620px;
+    border-radius: 50%;
+    background: rgba(var(--accent-rgb), 0.10);
+    filter: blur(110px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Titre, toujours visible en haut de l'écran sticky */
+.mixo-transform__heading {
+    position: absolute;
+    top: 7%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    max-width: 580px;
+    width: 90%;
+    z-index: 3;
+    pointer-events: none;
+}
+.mixo-transform__heading h2 {
+    font-family: var(--font-display);
+    font-size: 2.1rem;
+    font-weight: 800;
+    line-height: 1.25;
+    color: var(--text-dark);
+    letter-spacing: -0.5px;
+    margin: 12px 0 0;
+}
+
+/* Carte canvas, carrée et centrée */
+.mixo-transform__canvas-wrap {
+    position: relative;
+    width: min(58vh, 92vw, 460px);
+    aspect-ratio: 1 / 1;
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+    background: var(--bg-page);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-lg);
+    z-index: 1;
+}
+
+.mixo-transform__canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.mixo-transform__loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    background: var(--bg-page);
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: opacity 0.5s ease;
+}
+.mixo-transform__loading.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+.mixo-transform__spinner {
+    width: 28px;
+    height: 28px;
+    border: 3px solid var(--blue-dim);
+    border-top-color: var(--blue);
+    border-radius: 50%;
+    animation: mixoSpin 0.9s linear infinite;
+}
+@keyframes mixoSpin {
+    to { transform: rotate(360deg); }
+}
+
+/* Cartes-étapes, ancrées en bas — une seule visible à la fois */
+.mixo-transform__step {
+    position: absolute;
+    bottom: 7%;
+    left: 50%;
+    width: min(92%, 480px);
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: var(--blur-lg);
+    -webkit-backdrop-filter: var(--blur-lg);
+    border: 1px solid var(--glass-border-subtle);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    padding: 22px 26px;
+    opacity: 0;
+    transform: translate(-50%, 16px);
+    pointer-events: none;
+    transition: opacity 0.5s var(--ease-smooth), transform 0.5s var(--ease-smooth);
+    z-index: 3;
+}
+.mixo-transform__step.is-active {
+    opacity: 1;
+    transform: translate(-50%, 0);
+    pointer-events: auto;
+}
+.mixo-transform__step_num {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.4rem;
+    color: var(--blue);
+    line-height: 1.3;
+    flex-shrink: 0;
+}
+.mixo-transform__step h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0 0 4px;
+}
+.mixo-transform__step p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mixo-transform__step,
+    .mixo-transform__loading {
+        transition: none;
+    }
+}
+
+/* ── RESPONSIVE — TRANSFORMATION ─────────────────────────────── */
+
+@media (max-width: 1024px) {
+    .mixo-transform__inner { height: 240vh; }
+    .mixo-transform__heading h2 { font-size: 1.8rem; }
+}
+
+@media (max-width: 600px) {
+    .mixo-transform__inner { height: 220vh; }
+    .mixo-transform__heading { top: 5%; }
+    .mixo-transform__heading h2 { font-size: 1.45rem; }
+    .mixo-transform__canvas-wrap { width: min(66vw, 300px); }
+
+    .mixo-transform__step {
+        bottom: 4%;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 18px;
+    }
+    .mixo-transform__step_num { font-size: 1.1rem; }
+    .mixo-transform__step h3 { font-size: 0.92rem; margin: 0; }
+    .mixo-transform__step p { display: none; }
+}
+
+/* ================================================================
+   4. HOW IT WORKS — "Comment ça fonctionne ?" (5 étapes)
+   ================================================================ */
+
+.mixo-howit__track {
+    position: relative;
+    display: flex;
+    gap: 24px;
+}
+
+.mixo-howit__line {
+    position: absolute;
+    top: 32px;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--blue-border) 12%, var(--blue-border) 88%, transparent);
+    z-index: 0;
+}
+
+.mixo-howit__item {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+    padding: 0 8px;
+}
+
+.mixo-howit__icon {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--bg-surface);
+    border: 1.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--blue);
+    transition: var(--transition);
+}
+.mixo-howit__icon svg { width: 26px; height: 26px; }
+.mixo-howit__item:hover .mixo-howit__icon {
+    border-color: var(--blue-border-md);
+    box-shadow: var(--shadow-blue);
+    transform: translateY(-3px);
+}
+
+.mixo-howit__num {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: var(--white);
+    font-size: 0.7rem;
+    font-weight: 700;
+    font-family: var(--font-display);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--bg-page);
+}
+
+.mixo-howit__item h3 {
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0;
+}
+.mixo-howit__item p {
+    font-size: 0.86rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ── RESPONSIVE — HOW IT WORKS ────────────────────────────────── */
+
+@media (max-width: 900px) {
+    .mixo-howit__track {
+        flex-direction: column;
+        gap: 0;
+    }
+    .mixo-howit__line {
+        top: 0;
+        bottom: 0;
+        left: 31px;
+        right: auto;
+        width: 2px;
+        height: auto;
+        background: linear-gradient(180deg, transparent, var(--blue-border) 8%, var(--blue-border) 92%, transparent);
+    }
+    .mixo-howit__item {
+        flex-direction: row;
+        text-align: left;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 22px 0;
+    }
+    .mixo-howit__item:first-child { padding-top: 0; }
+    .mixo-howit__item:last-child { padding-bottom: 0; }
+    .mixo-howit__icon { flex-shrink: 0; }
+}
+
+@media (max-width: 600px) {
+    .mixo-howit__icon { width: 52px; height: 52px; }
+    .mixo-howit__icon svg { width: 22px; height: 22px; }
+    .mixo-howit__line { left: 25px; }
+    .mixo-howit__num { width: 22px; height: 22px; font-size: 0.62rem; }
+    .mixo-howit__item { gap: 16px; padding: 18px 0; }
+    .mixo-howit__item h3 { font-size: 0.96rem; }
+    .mixo-howit__item p { font-size: 0.82rem; }
+}
+
+/* ================================================================
+   5. BENEFITS — "Avantages" (clients / coiffeurs)
+   ================================================================ */
+
+.mixo-benefits__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+}
+
+.mixo-benefits__card {
+    background: var(--bg-surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 36px;
+    transition: var(--transition);
+}
+.mixo-benefits__card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+}
+
+.mixo-benefits__head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 26px;
+}
+.mixo-benefits__icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.mixo-benefits__icon svg { width: 22px; height: 22px; }
+.mixo-benefits__card--client .mixo-benefits__icon { background: var(--blue-dim); color: var(--blue); }
+.mixo-benefits__card--pro .mixo-benefits__icon { background: var(--text-dark); color: var(--white); }
+
+.mixo-benefits__head h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0;
+}
+
+.mixo-benefits__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.mixo-benefits__list li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 12px 0;
+    border-top: 1px solid var(--border-light);
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity 0.5s var(--ease-smooth), transform 0.5s var(--ease-smooth);
+    transition-delay: calc(var(--i, 0) * 70ms);
+}
+.mixo-benefits__list li:first-child { border-top: none; padding-top: 0; }
+
+.mixo-benefits__card.is-visible .mixo-benefits__list li {
+    opacity: 1;
+    transform: none;
+}
+
+.mixo-benefits__check {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--blue-dim);
+    color: var(--blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+.mixo-benefits__card--pro .mixo-benefits__check { background: rgba(0, 0, 0, 0.06); color: var(--text-dark); }
+.mixo-benefits__check svg { width: 14px; height: 14px; }
+
+.mixo-benefits__list h4 {
+    font-size: 0.96rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin: 0 0 2px;
+}
+.mixo-benefits__list p {
+    font-size: 0.84rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mixo-benefits__list li { transition: none; }
+}
+
+/* ── RESPONSIVE — BENEFITS ────────────────────────────────────── */
+
+@media (max-width: 900px) {
+    .mixo-benefits__grid { grid-template-columns: 1fr; gap: 20px; }
+}
+
+@media (max-width: 600px) {
+    .mixo-benefits__card { padding: 24px; }
+    .mixo-benefits__head h3 { font-size: 1.15rem; }
+    .mixo-benefits__list li { padding: 10px 0; }
+    .mixo-benefits__list p { font-size: 0.82rem; }
+}
+
+/* ================================================================
+   6. TESTIMONIALS — "Ce qu'ils en disent"
+   ================================================================ */
+
+.mixo-testimonials__track {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 8px 80px 16px;
+    margin: 0 -80px;
+    cursor: grab;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.mixo-testimonials__track::-webkit-scrollbar { display: none; }
+.mixo-testimonials__track.is-dragging {
+    cursor: grabbing;
+    scroll-snap-type: none;
+    user-select: none;
+}
+
+.mixo-testimonials__card {
+    flex: 0 0 clamp(280px, 32vw, 380px);
+    scroll-snap-align: start;
+    background: var(--bg-surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    transition: var(--transition);
+}
+.mixo-testimonials__card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+}
+
+.mixo-testimonials__stars {
+    display: flex;
+    gap: 3px;
+}
+.mixo-testimonials__stars svg {
+    width: 15px;
+    height: 15px;
+    color: var(--border-md);
+}
+.mixo-testimonials__stars svg.is-filled {
+    color: var(--warning);
+    fill: var(--warning);
+}
+
+.mixo-testimonials__quote {
+    font-size: 0.94rem;
+    color: var(--text-dark);
+    line-height: 1.7;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.mixo-testimonials__author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-light);
+}
+
+.mixo-testimonials__avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+    font-family: var(--font-display);
+}
+.mixo-testimonials__avatar--client { background-color: var(--blue-dim); color: var(--blue); }
+.mixo-testimonials__avatar--pro { background-color: var(--text-dark); color: var(--white); }
+
+.mixo-testimonials__author_text { display: flex; flex-direction: column; line-height: 1.35; min-width: 0; }
+.mixo-testimonials__author_text strong { font-size: 0.9rem; color: var(--text-dark); }
+.mixo-testimonials__author_text span { font-size: 0.76rem; color: var(--text-muted); }
+
+.mixo-testimonials__badge {
+    margin-left: auto;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 5px 10px;
+    border-radius: var(--radius-pill);
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+.mixo-testimonials__badge--client { background: var(--blue-dim); color: var(--blue); }
+.mixo-testimonials__badge--pro { background: rgba(0, 0, 0, 0.06); color: var(--text-dark); }
+
+/* ── RESPONSIVE — TESTIMONIALS ────────────────────────────────── */
+
+@media (max-width: 1024px) {
+    .mixo-testimonials__track { padding: 8px 40px 16px; margin: 0 -40px; }
+}
+
+@media (max-width: 600px) {
+    .mixo-testimonials__track { padding: 8px 20px 16px; margin: 0 -20px; gap: 16px; }
+    .mixo-testimonials__card { flex: 0 0 82vw; padding: 22px; }
+}
+
+/* ================================================================
+   7. FINAL CTA — "Prêt à commencer ?"
+   ================================================================ */
+
+.mixo-cta {
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+    background: var(--bg-page);
+    border-top: 1.5px solid var(--border);
+}
+
+.mixo-cta__glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    background: rgba(var(--accent-rgb), 0.12);
+    filter: blur(120px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.mixo-cta__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+}
+
+.mixo-cta__title {
+    font-family: var(--font-display);
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    letter-spacing: -0.5px;
+    margin: 0 0 16px;
+}
+
+.mixo-cta__subtitle {
+    font-size: 1.02rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin: 0 0 32px;
+}
+
+.mixo-cta__actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+/* ── RESPONSIVE — FINAL CTA ───────────────────────────────────── */
+
+@media (max-width: 600px) {
+    .mixo-cta__title { font-size: 1.9rem; }
+    .mixo-cta__subtitle { font-size: 0.94rem; }
+    .mixo-cta__actions { flex-direction: column; }
+    .mixo-cta__actions .m_hero_btn_primary,
+    .mixo-cta__actions .m_hero_btn_secondary {
+        width: 100%;
+        justify-content: center;
+    }
+}

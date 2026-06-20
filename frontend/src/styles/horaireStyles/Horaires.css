@@ -1,0 +1,127 @@
+/* ================================================================
+   Horaires.css — MIXO · Module Horaires & Disponibilités
+   ================================================================ */
+
+.hrp-page { min-height: 100vh; background: #F8FAFC; font-family: 'Poppins', sans-serif; }
+.hrp-main { max-width: 1200px; margin: 0 auto; padding: 32px 24px 80px; }
+.hrp-loader { display: flex; justify-content: center; padding: 100px 0; }
+.hrp-header h1 { font-family: 'Montserrat', sans-serif; font-size: 1.8rem; font-weight: 800; color: #1A1D20; margin: 0 0 6px; }
+.hrp-header p { color: #62676B; margin: 0 0 28px; }
+
+.hrp-section { margin-bottom: 32px; }
+.hrp-section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.hrp-section-title {
+    display: flex; align-items: center; gap: 8px;
+    font-family: 'Montserrat', sans-serif; font-size: 1.05rem; font-weight: 700; color: #1A1D20;
+    margin: 0 0 14px;
+}
+.hrp-section-title svg { width: 18px; height: 18px; color: #0A66C2; }
+.hrp-empty { color: #94A3B8; font-size: 0.88rem; text-align: center; padding: 32px 0; }
+.hrp-error { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 80px 0; color: #94A3B8; }
+
+.hrp-btn-add {
+    display: flex; align-items: center; gap: 6px;
+    background: #0A66C2; color: #fff; border: none; border-radius: 10px;
+    padding: 10px 18px; font-size: 0.82rem; font-weight: 700; cursor: pointer;
+}
+.hrp-btn-add:hover { background: #004182; }
+
+
+/* ═══════════════ WEEK SCHEDULE GRID (wsg-*) ═══════════════ */
+.wsg-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
+.wsg-col { background: #fff; border: 1.5px solid #E8ECF0; border-radius: 14px; padding: 12px; min-height: 160px; }
+.wsg-col-header {
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 0.78rem; font-weight: 700; color: #1A1D20; margin-bottom: 10px;
+    padding-bottom: 8px; border-bottom: 1px solid #F0F4F9;
+}
+.wsg-add-btn {
+    width: 24px; height: 24px; border-radius: 50%; border: none;
+    background: #EBF4FF; color: #0A66C2; display: flex; align-items: center; justify-content: center; cursor: pointer;
+}
+.wsg-add-btn svg { width: 13px; height: 13px; }
+.wsg-add-btn:hover { background: #0A66C2; color: #fff; }
+
+.wsg-slots { display: flex; flex-direction: column; gap: 6px; }
+.wsg-empty { font-size: 0.72rem; color: #CBD5E1; text-align: center; padding: 16px 0; }
+.wsg-slot {
+    background: #F0F7FF; border-radius: 8px; padding: 8px 10px;
+    display: flex; align-items: center; justify-content: space-between; gap: 6px;
+}
+.wsg-slot-inactive { background: #F8FAFC; opacity: 0.6; }
+.wsg-slot-time { font-size: 0.72rem; font-weight: 600; color: #0A66C2; }
+.wsg-slot-actions { display: flex; gap: 4px; }
+.wsg-icon-btn {
+    width: 22px; height: 22px; border-radius: 6px; border: none; background: transparent;
+    color: #62676B; display: flex; align-items: center; justify-content: center; cursor: pointer;
+}
+.wsg-icon-btn svg { width: 12px; height: 12px; }
+.wsg-icon-btn:hover { background: #fff; color: #0A66C2; }
+.wsg-icon-danger:hover { color: #DC2626; }
+
+
+/* ═══════════════ EXCEPTION CARD (exc-*) ═══════════════ */
+.exc-card {
+    display: flex; align-items: center; gap: 14px;
+    background: #fff; border: 1.5px solid #E8ECF0; border-radius: 12px;
+    padding: 14px 16px; margin-bottom: 10px;
+}
+.exc-card-closed { border-left: 3px solid #D97706; }
+.exc-card-open { border-left: 3px solid #16A34A; }
+.exc-icon {
+    width: 38px; height: 38px; border-radius: 10px; background: #F0F4F9;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #62676B;
+}
+.exc-icon svg { width: 17px; height: 17px; }
+.exc-info { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
+.exc-date { font-size: 0.86rem; font-weight: 700; color: #1A1D20; text-transform: capitalize; }
+.exc-label { font-size: 0.78rem; color: #62676B; }
+.exc-motif { font-size: 0.74rem; color: #94A3B8; font-style: italic; }
+.exc-status-badge { font-size: 0.7rem; font-weight: 700; padding: 5px 12px; border-radius: 100px; white-space: nowrap; }
+.exc-status-closed { background: #FEF3C7; color: #D97706; }
+.exc-status-open   { background: #DCFCE7; color: #16A34A; }
+.exc-del-btn {
+    width: 32px; height: 32px; border-radius: 8px; border: 1.5px solid #E8ECF0; background: #fff;
+    color: #62676B; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;
+}
+.exc-del-btn svg { width: 14px; height: 14px; }
+.exc-del-btn:hover { border-color: #DC2626; color: #DC2626; }
+
+
+/* ═══════════════ MODAL (dsr-*) — partagé Horaires + Exceptions ═══════════════ */
+.dsr-overlay {
+    position: fixed; inset: 0; background: rgba(15,23,42,0.5);
+    display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 20px;
+}
+.dsr-modal { background: #fff; border-radius: 18px; width: 100%; max-width: 420px; overflow: hidden; }
+.dsr-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; border-bottom: 1px solid #F0F4F9; }
+.dsr-header h3 { font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 700; color: #1A1D20; margin: 0; }
+.dsr-close { width: 30px; height: 30px; border: none; background: #F0F4F9; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #62676B; }
+.dsr-close svg { width: 14px; height: 14px; }
+.dsr-body { padding: 20px 22px; display: flex; flex-direction: column; gap: 14px; }
+.dsr-row { display: flex; gap: 12px; }
+.dsr-field { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.dsr-field label { font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase; color: #62676B; font-weight: 700; }
+.dsr-field input, .dsr-field select {
+    height: 44px; padding: 0 14px; border: 1.5px solid #E8ECF0; border-radius: 10px;
+    font-family: 'Poppins', sans-serif; font-size: 0.86rem; outline: none;
+}
+.dsr-field input:focus, .dsr-field select:focus { border-color: #0A66C2; }
+.dsr-checkbox-row { display: flex; align-items: center; gap: 10px; font-size: 0.82rem; color: #1A1D20; cursor: pointer; }
+.dsr-error { color: #DC2626; font-size: 0.8rem; margin: 0; }
+.dsr-footer { display: flex; gap: 10px; padding: 16px 22px; border-top: 1px solid #F0F4F9; }
+.dsr-btn-cancel, .dsr-btn-save {
+    flex: 1; height: 44px; border-radius: 10px; font-size: 0.84rem; font-weight: 700; cursor: pointer; border: none;
+}
+.dsr-btn-cancel { background: #F0F4F9; color: #62676B; }
+.dsr-btn-save { background: #0A66C2; color: #fff; }
+.dsr-btn-save:hover { background: #004182; }
+
+
+@media (max-width: 1000px) {
+    .wsg-grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 640px) {
+    .wsg-grid { grid-template-columns: repeat(2, 1fr); }
+    .hrp-section-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+}

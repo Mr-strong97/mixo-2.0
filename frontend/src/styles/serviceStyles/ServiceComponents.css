@@ -1,0 +1,430 @@
+/* ================================================================
+   ServiceComponents.css — MIXO · Module Services
+   Styles PARTAGÉS de tous les composants réutilisables :
+   WizardStepper · ImageDropzone · ImageGalleryGrid · ServiceCard ·
+   CategoryFilterBar · ServiceStatsCards · TopPrestationsSection ·
+   ServiceTableRow · ServiceGallerySlider · BarbierSidebarCard ·
+   ReservationSecuriseeCard
+   À importer dans CHAQUE page du module Services.
+   ================================================================ */
+
+/* ── SPINNER PARTAGÉ ─────────────────────────────────────────── */
+.mxo-spinner {
+    width: 32px; height: 32px; border-radius: 50%;
+    border: 3px solid #EBF4FF; border-top-color: #0A66C2;
+    animation: mxoSpin 0.7s linear infinite;
+}
+@keyframes mxoSpin { to { transform: rotate(360deg); } }
+
+/* ── BOUTONS PARTAGÉS (svc-btn-*) ────────────────────────────── */
+.svc-btn {
+    flex: 1; height: 42px; border-radius: 10px;
+    font-family: 'Poppins', sans-serif; font-size: 0.84rem; font-weight: 600;
+    cursor: pointer; transition: all 0.2s ease;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.svc-btn-outline { background: #fff; border: 1.5px solid #E8ECF0; color: #1A1D20; }
+.svc-btn-outline:hover { border-color: #0A66C2; color: #0A66C2; }
+.svc-btn-primary { background: #0A66C2; border: none; color: #fff; }
+.svc-btn-primary:hover { background: #004182; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   WIZARD STEPPER (wzs-*)
+   ═══════════════════════════════════════════════════════════════ */
+.wzs-stepper {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0; padding: 8px 0 24px; flex-wrap: wrap;
+}
+.wzs-step { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 90px; }
+.wzs-circle {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 0.9rem;
+    transition: all 0.25s ease;
+}
+.wzs-circle svg { width: 18px; height: 18px; }
+.wzs-pending { background: #F0F4F9; color: #94A3B8; border: 2px solid #E8ECF0; }
+.wzs-active  { background: #0A66C2; color: #fff; box-shadow: 0 0 0 4px rgba(10,102,194,0.12); }
+.wzs-done    { background: #DCFCE7; color: #16A34A; border: 2px solid #BBF7D0; }
+.wzs-label {
+    font-family: 'Poppins', sans-serif; font-size: 0.74rem; font-weight: 600;
+    color: #94A3B8; letter-spacing: 1px; text-transform: uppercase; text-align: center;
+}
+.wzs-label-active { color: #0A66C2; }
+.wzs-label-done   { color: #16A34A; }
+.wzs-line {
+    flex: 1; min-width: 40px; max-width: 120px; height: 2px;
+    background: #E8ECF0; margin: 0 4px; align-self: center;
+    transform: translateY(-14px); transition: background 0.25s ease;
+}
+.wzs-line-done { background: #0A66C2; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   IMAGE DROPZONE (idz-*)
+   ═══════════════════════════════════════════════════════════════ */
+.idz-wrapper { width: 100%; }
+.idz-zone {
+    position: relative;
+    border: 2px dashed #CBD5E1; border-radius: 16px;
+    background: #F8FAFC; min-height: 220px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all 0.2s ease; outline: none;
+}
+.idz-zone:hover, .idz-zone:focus-visible { border-color: #0A66C2; background: #F0F7FF; }
+.idz-dragover { border-color: #0A66C2; background: #EBF4FF; }
+
+.idz-empty { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 32px; text-align: center; }
+.idz-icon-wrap { position: relative; margin-bottom: 4px; }
+.idz-icon { width: 36px; height: 36px; color: #0A66C2; }
+.idz-icon-plus {
+    position: absolute; bottom: -4px; right: -6px;
+    width: 16px; height: 16px; color: #fff;
+    background: #0A66C2; border-radius: 50%; padding: 2px;
+}
+.idz-text { font-family: 'Poppins', sans-serif; font-size: 0.92rem; font-weight: 700; color: #1A1D20; margin: 0; }
+.idz-hint { font-size: 0.76rem; color: #94A3B8; }
+
+.idz-preview { width: 100%; height: 100%; max-height: 320px; object-fit: cover; border-radius: 14px; }
+.idz-remove {
+    position: absolute; top: 10px; right: 10px;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(26,29,32,0.6); border: none; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: background 0.2s ease;
+}
+.idz-remove:hover { background: #DC2626; }
+.idz-remove svg { width: 16px; height: 16px; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   IMAGE GALLERY GRID (igg-*)
+   ═══════════════════════════════════════════════════════════════ */
+.igg-wrapper { width: 100%; }
+.igg-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.igg-title   { font-family: 'Poppins', sans-serif; font-size: 0.92rem; font-weight: 700; color: #1A1D20; }
+.igg-counter { font-size: 0.76rem; font-weight: 600; color: #94A3B8; }
+
+.igg-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+.igg-cell {
+    position: relative; aspect-ratio: 1/1;
+    border-radius: 12px; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+}
+.igg-cell img { width: 100%; height: 100%; object-fit: cover; }
+
+.igg-add {
+    background: #F8FAFC; border: 1.5px dashed #CBD5E1; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+    color: #94A3B8; font-family: 'Poppins', sans-serif; font-size: 0.7rem; font-weight: 600;
+    transition: all 0.2s ease;
+}
+.igg-add:hover { border-color: #0A66C2; color: #0A66C2; background: #F0F7FF; }
+.igg-add svg { width: 22px; height: 22px; }
+
+.igg-empty { background: #fff; border: 1px solid #F0F4F9; }
+.igg-empty svg { width: 22px; height: 22px; color: #E2E8F0; }
+
+.igg-filled { border: 1px solid #E8ECF0; }
+.igg-new-badge {
+    position: absolute; top: 6px; left: 6px;
+    background: #0A66C2; color: #fff; font-size: 0.58rem; font-weight: 700;
+    padding: 2px 8px; border-radius: 100px; letter-spacing: 0.5px;
+}
+.igg-del {
+    position: absolute; top: 6px; right: 6px;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: rgba(26,29,32,0.6); border: none; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; opacity: 0; transition: opacity 0.2s ease, background 0.2s ease;
+}
+.igg-filled:hover .igg-del { opacity: 1; }
+.igg-del:hover { background: #DC2626; }
+.igg-del svg { width: 14px; height: 14px; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   SERVICE CARD — Espace Client (svc-card-*)
+   ═══════════════════════════════════════════════════════════════ */
+.svc-card {
+    background: #fff; border: 1px solid #E8ECF0; border-radius: 16px;
+    overflow: hidden; transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex; flex-direction: column;
+}
+.svc-card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(15,23,42,0.08); }
+
+.svc-card-media { position: relative; aspect-ratio: 16/10; cursor: pointer; overflow: hidden; background: #F0F4F9; }
+.svc-card-img   { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+.svc-card:hover .svc-card-img { transform: scale(1.05); }
+.svc-card-placeholder {
+    width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+    color: #CBD5E1; background: linear-gradient(135deg,#F0F4F9,#E8ECF0);
+}
+.svc-card-placeholder svg { width: 40px; height: 40px; }
+
+.svc-card-badge {
+    position: absolute; top: 12px; left: 12px;
+    background: rgba(255,255,255,0.92); color: #0A66C2;
+    font-size: 0.62rem; font-weight: 700; letter-spacing: 1px;
+    padding: 5px 12px; border-radius: 100px; backdrop-filter: blur(4px);
+}
+.svc-card-fav {
+    position: absolute; top: 12px; right: 12px;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(255,255,255,0.92); border: none;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; color: #94A3B8; transition: all 0.2s ease;
+}
+.svc-card-fav svg { width: 17px; height: 17px; }
+.svc-card-fav:hover { color: #DC2626; transform: scale(1.08); }
+.svc-card-fav-active { color: #DC2626; }
+.svc-card-fav-active svg { fill: #DC2626; }
+
+.svc-card-body { padding: 16px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.svc-card-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.svc-card-title { font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 700; color: #1A1D20; margin: 0; line-height: 1.3; }
+.svc-card-price { font-family: 'Montserrat', sans-serif; font-size: 1.05rem; font-weight: 800; color: #0A66C2; white-space: nowrap; }
+
+.svc-card-rating { display: flex; align-items: center; gap: 5px; font-size: 0.8rem; color: #62676B; }
+.svc-star { width: 14px; height: 14px; color: #F59E0B; fill: #F59E0B; }
+
+.svc-card-coiffeur { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: #1A1D20; padding-top: 6px; border-top: 1px solid #F0F4F9; }
+.svc-card-avatar { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+.svc-card-avatar-placeholder {
+    background: linear-gradient(135deg,#0A66C2,#3B82F6); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: 700;
+}
+
+.svc-card-meta { display: flex; align-items: center; gap: 16px; font-size: 0.78rem; color: #94A3B8; }
+.svc-card-meta span { display: flex; align-items: center; gap: 5px; }
+.svc-card-meta svg { width: 14px; height: 14px; }
+
+.svc-card-actions { display: flex; gap: 10px; margin-top: 4px; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   CATEGORY FILTER BAR (cfb-*)
+   ═══════════════════════════════════════════════════════════════ */
+.cfb-wrapper {
+    display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px;
+    scrollbar-width: thin;
+}
+.cfb-wrapper::-webkit-scrollbar { height: 4px; }
+.cfb-wrapper::-webkit-scrollbar-thumb { background: #E8ECF0; border-radius: 4px; }
+
+.cfb-chip {
+    flex-shrink: 0; padding: 10px 18px; border-radius: 100px;
+    background: #F0F4F9; border: 1.5px solid transparent; color: #62676B;
+    font-family: 'Poppins', sans-serif; font-size: 0.82rem; font-weight: 600;
+    cursor: pointer; white-space: nowrap; transition: all 0.2s ease;
+    display: flex; align-items: center; gap: 6px;
+}
+.cfb-chip:hover { border-color: #0A66C2; color: #0A66C2; }
+.cfb-active { background: #0A66C2; color: #fff; }
+.cfb-active:hover { color: #fff; }
+.cfb-icon { font-size: 0.95rem; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   SERVICE STATS CARDS (ssc-*)
+   ═══════════════════════════════════════════════════════════════ */
+.ssc-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+    margin-bottom: 24px;
+}
+.ssc-card {
+    background: #fff; border: 1.5px solid #E8ECF0; border-radius: 14px;
+    padding: 18px 20px; display: flex; align-items: center; justify-content: space-between;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.ssc-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(15,23,42,0.05); }
+.ssc-text { display: flex; flex-direction: column; gap: 6px; }
+.ssc-label { font-size: 0.62rem; letter-spacing: 2px; text-transform: uppercase; color: #94A3B8; font-weight: 700; }
+.ssc-value { font-family: 'Montserrat', sans-serif; font-size: 1.8rem; font-weight: 800; color: #1A1D20; }
+.ssc-icon {
+    width: 46px; height: 46px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.ssc-icon svg { width: 22px; height: 22px; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   TOP PRESTATIONS SECTION (tps-*)
+   ═══════════════════════════════════════════════════════════════ */
+.tps-wrapper {
+    background: #F8FAFC; border: 1px solid #E8ECF0; border-radius: 14px;
+    padding: 20px; margin-bottom: 24px;
+}
+.tps-header {
+    display: flex; align-items: center; gap: 8px;
+    font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 700;
+    color: #1A1D20; margin-bottom: 14px;
+}
+.tps-header svg { width: 18px; height: 18px; color: #0A66C2; }
+
+.tps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.tps-card {
+    background: #fff; border: 1px solid #E8ECF0; border-radius: 12px;
+    padding: 12px; display: flex; align-items: center; gap: 12px;
+    transition: box-shadow 0.2s ease;
+}
+.tps-card:hover { box-shadow: 0 6px 16px rgba(15,23,42,0.06); }
+.tps-thumb {
+    position: relative; width: 54px; height: 54px; border-radius: 10px;
+    overflow: hidden; flex-shrink: 0; background: #F0F4F9;
+    display: flex; align-items: center; justify-content: center; color: #CBD5E1;
+}
+.tps-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.tps-medal {
+    position: absolute; top: -4px; right: -4px;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: #F59E0B; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 6px rgba(245,158,11,0.4);
+}
+.tps-medal svg { width: 12px; height: 12px; }
+.tps-info { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.tps-name { font-size: 0.86rem; font-weight: 700; color: #1A1D20; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tps-count { font-size: 0.74rem; color: #94A3B8; }
+.tps-empty { font-size: 0.84rem; color: #94A3B8; margin: 0; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   SERVICE TABLE ROW — Espace Coiffeur (str-*)
+   ═══════════════════════════════════════════════════════════════ */
+.str-service { display: flex; align-items: center; gap: 12px; min-width: 240px; }
+.str-thumb { width: 48px; height: 48px; border-radius: 10px; object-fit: cover; flex-shrink: 0; }
+.str-thumb-placeholder {
+    background: #F0F4F9; display: flex; align-items: center; justify-content: center; color: #CBD5E1;
+}
+.str-thumb-placeholder svg { width: 20px; height: 20px; }
+.str-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.str-name { font-weight: 600; color: #1A1D20; font-size: 0.88rem; }
+.str-desc { font-size: 0.74rem; color: #94A3B8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 240px; }
+.str-badge-cat {
+    background: #EBF4FF; color: #0A66C2; font-size: 0.7rem; font-weight: 600;
+    padding: 4px 10px; border-radius: 100px; white-space: nowrap;
+}
+.str-price { font-weight: 700; color: #1A1D20; white-space: nowrap; }
+.str-muted { color: #62676B; font-size: 0.84rem; }
+
+.str-toggle { position: relative; display: inline-block; width: 42px; height: 24px; }
+.str-toggle input { opacity: 0; width: 0; height: 0; }
+.str-toggle-slider {
+    position: absolute; inset: 0; background: #E8ECF0; border-radius: 100px;
+    cursor: pointer; transition: background 0.2s ease;
+}
+.str-toggle-slider::before {
+    content: ''; position: absolute; width: 18px; height: 18px; left: 3px; top: 3px;
+    background: #fff; border-radius: 50%; transition: transform 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+.str-toggle input:checked + .str-toggle-slider { background: #16A34A; }
+.str-toggle input:checked + .str-toggle-slider::before { transform: translateX(18px); }
+
+.str-actions { display: flex; gap: 8px; }
+.str-icon-btn {
+    width: 34px; height: 34px; border-radius: 50%;
+    border: 1.5px solid #E8ECF0; background: #fff; color: #62676B;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all 0.2s ease;
+}
+.str-icon-btn svg { width: 15px; height: 15px; }
+.str-icon-btn:hover { border-color: #0A66C2; color: #0A66C2; }
+.str-icon-danger:hover { border-color: #DC2626; color: #DC2626; background: #FEF2F2; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   SERVICE GALLERY SLIDER — Détail Client (sgs-*)
+   ═══════════════════════════════════════════════════════════════ */
+.sgs-wrapper { display: flex; flex-direction: column; gap: 10px; }
+.sgs-main {
+    border-radius: 16px; overflow: hidden; aspect-ratio: 16/9;
+    background: #F0F4F9; display: flex; align-items: center; justify-content: center;
+}
+.sgs-main-img { width: 100%; height: 100%; object-fit: cover; }
+.sgs-main-placeholder { color: #CBD5E1; }
+.sgs-main-placeholder svg { width: 56px; height: 56px; }
+
+.sgs-thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.sgs-thumb {
+    position: relative; aspect-ratio: 1.6/1; border-radius: 12px; overflow: hidden;
+    cursor: pointer; transition: opacity 0.2s ease;
+}
+.sgs-thumb:hover { opacity: 0.88; }
+.sgs-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.sgs-overlay {
+    position: absolute; inset: 0; background: rgba(26,29,32,0.55);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 0.86rem; font-weight: 700;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   BARBIER SIDEBAR CARD (bsc-*)
+   ═══════════════════════════════════════════════════════════════ */
+.bsc-card {
+    background: #fff; border: 1px solid #E8ECF0; border-radius: 16px;
+    padding: 20px; display: flex; flex-direction: column; gap: 12px;
+}
+.bsc-label { font-size: 0.62rem; letter-spacing: 2px; text-transform: uppercase; color: #94A3B8; font-weight: 700; }
+.bsc-header { display: flex; align-items: center; gap: 12px; }
+.bsc-avatar { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+.bsc-avatar-placeholder {
+    background: linear-gradient(135deg,#0A66C2,#3B82F6); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; font-weight: 700;
+}
+.bsc-identity { display: flex; flex-direction: column; gap: 3px; }
+.bsc-name { font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 700; color: #1A1D20; }
+.bsc-rating { display: flex; align-items: center; gap: 4px; font-size: 0.8rem; color: #62676B; }
+.bsc-star { width: 14px; height: 14px; color: #F59E0B; fill: #F59E0B; }
+.bsc-bio { font-size: 0.84rem; color: #62676B; line-height: 1.6; margin: 0; }
+.bsc-meta { display: flex; flex-direction: column; gap: 8px; font-size: 0.82rem; color: #1A1D20; }
+.bsc-meta span { display: flex; align-items: center; gap: 8px; }
+.bsc-meta svg { width: 15px; height: 15px; color: #0A66C2; flex-shrink: 0; }
+.bsc-btn {
+    width: 100%; height: 44px; border-radius: 10px;
+    background: #fff; border: 1.5px solid #0A66C2; color: #0A66C2;
+    font-family: 'Poppins', sans-serif; font-size: 0.84rem; font-weight: 700;
+    cursor: pointer; transition: all 0.2s ease;
+}
+.bsc-btn:hover { background: #0A66C2; color: #fff; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   RÉSERVATION SÉCURISÉE CARD (rsc-*)
+   ═══════════════════════════════════════════════════════════════ */
+.rsc-card {
+    background: #EBF4FF; border: 1px solid rgba(10,102,194,0.15); border-radius: 14px;
+    padding: 16px; display: flex; align-items: flex-start; gap: 12px;
+}
+.rsc-icon { width: 22px; height: 22px; color: #0A66C2; flex-shrink: 0; margin-top: 1px; }
+.rsc-title { display: block; font-size: 0.86rem; font-weight: 700; color: #0A66C2; margin-bottom: 4px; }
+.rsc-text { font-size: 0.8rem; color: #475569; margin: 0; line-height: 1.5; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE — composants partagés
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+    .ssc-grid { grid-template-columns: repeat(2, 1fr); }
+    .tps-grid { grid-template-columns: 1fr; }
+    .igg-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 640px) {
+    .ssc-grid { grid-template-columns: 1fr; gap: 10px; }
+    .ssc-value { font-size: 1.5rem; }
+    .igg-grid { grid-template-columns: repeat(2, 1fr); }
+    .sgs-thumbs { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .wzs-step { min-width: 64px; }
+    .wzs-label { font-size: 0.62rem; }
+    .wzs-circle { width: 32px; height: 32px; font-size: 0.78rem; }
+    .wzs-line { min-width: 16px; }
+}

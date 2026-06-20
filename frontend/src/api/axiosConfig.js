@@ -8,10 +8,10 @@
  */
 import axios from 'axios';
 
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000/api/';
+export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000/api/';
 
 export const api = axios.create({
-    baseURL: BASE_URL,
+    baseURL: API_BASE_URL,
     timeout: 8000,
     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
 });
@@ -33,7 +33,7 @@ api.interceptors.response.use(
             const refresh = localStorage.getItem('refresh_token');
             if (refresh) {
                 try {
-                    const res = await axios.post(`${BASE_URL}auth/connexion/rafraichir/`, { refresh });
+                    const res = await axios.post(`${API_BASE_URL}auth/connexion/rafraichir/`, { refresh });
                     const newToken = res.data.access;
                     localStorage.setItem('access_token', newToken);
                     original.headers.Authorization = `Bearer ${newToken}`;

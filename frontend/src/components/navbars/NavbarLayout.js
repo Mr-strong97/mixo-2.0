@@ -24,6 +24,11 @@ export const NavbarLayout = (links = [], activeRoute = '') => {
 
     const nav = document.createElement('nav');
     nav.className = 'nl-sidebar';
+    const closeOnOutsideClick = (e) => {
+        if (nav.classList.contains('nl-open') && !nav.contains(e.target) && e.target !== burgerBtn) {
+            closeMenu();
+        }
+    };
 
     nav.innerHTML = `
         <!-- Logo -->
@@ -95,9 +100,11 @@ export const NavbarLayout = (links = [], activeRoute = '') => {
         document.body.classList.toggle('no-scroll');
     });
 
-    document.addEventListener('click', e => {
-        if (nav.classList.contains('nl-open') && !nav.contains(e.target) && e.target !== burgerBtn) closeMenu();
-    });
+    if (document.__mixoNavbarOutsideClickHandler) {
+        document.removeEventListener('click', document.__mixoNavbarOutsideClickHandler);
+    }
+    document.__mixoNavbarOutsideClickHandler = closeOnOutsideClick;
+    document.addEventListener('click', closeOnOutsideClick);
 
     // ── Vérification statut ─────────────────────────────────
     if (isAuthenticated) setTimeout(() => checkUserStatus(), 600);

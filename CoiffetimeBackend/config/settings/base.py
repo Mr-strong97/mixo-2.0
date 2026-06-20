@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'notifications',
     'media_portfolio',
     'administration',
+    'abonnements',
 ]
 
 # ------------------------------------------------------------------ #

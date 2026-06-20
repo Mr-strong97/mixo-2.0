@@ -31,8 +31,9 @@ import './styles/authentificationStyles/RegisterPage.css';
 import './styles/authentificationStyles/ForgotPasswordPage.css';
 import'./styles/authentificationStyles/serviceProfile.css';
 
+
 // ── 1.5. PARAMÈTRES UTILISATEUR & COIFFEURS ──
-import './styles/authentificationStyles/SettingsPage.css';
+import './styles/authentificationStyles/Settings.css';
 import './styles/authentificationStyles/SettingsForm.css';
 
 // ── 1.6. MODULE NOTIFICATIONS ──
@@ -46,6 +47,12 @@ import './styles/adminStyles/AdminProfile.css';
 import './styles/adminStyles/AdminPlaceholder.css';
 
 // ── 1.8. MODULE SERVICES ──
+// import './styles/serviceStyles/ServiceComponents.css';
+// import './styles/serviceStyles/ClientServices.css';
+// import './styles/serviceStyles/ServiceDetail.css';
+// import './styles/serviceStyles/CoiffeurServices.css';
+// import './styles/serviceStyles/ServiceWizard.css';
+// import './styles/serviceStyles/ServiceEdit.css';
 
 
 

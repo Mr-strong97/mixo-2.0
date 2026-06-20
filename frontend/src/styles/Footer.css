@@ -13,18 +13,28 @@
 .nf-bar {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 0;
     padding: 10px 24px;
     background: #fff;
     border-top: 1px solid #E8ECF0;
     box-shadow: 0 -2px 12px rgba(0,0,0,0.04);
 }
 
+.nf-bar-inner {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
 /* Décalage pour la sidebar */
 @media (min-width: 993px) {
-    .nf-bar { padding-left: calc(var(--nl-width, 210px) + 24px); }
+    .nf-bar { padding-left: 24px; }
+    .nf-bar-inner { padding-left: calc(var(--nl-width, 210px) + 24px); }
 }
 
 .nf-brand {
@@ -71,13 +81,14 @@
 .nf-social svg { width: 16px; height: 16px; }
 
 /* ── ESPACE POUR LA BARRE (pages avec contenu défilable) ──── */
-body {
+.body1 {
     padding-bottom: 50px;
 }
 
 /* ── RESPONSIVE ──────────────────────────────────────────── */
 @media (max-width: 600px) {
-    .nf-bar { padding: 10px 16px; justify-content: center; }
+    .nf-bar { padding: 10px 16px; }
+    .nf-bar-inner { padding-left: 0; justify-content: center; }
     .nf-copy { display: none; }
     .nf-links { flex-wrap: wrap; justify-content: center; }
 }

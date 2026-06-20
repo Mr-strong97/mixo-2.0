@@ -23,8 +23,10 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    animation: nlSlideIn 0.4s var(--nl-ease) both;
+    animation: nlSlideIn 0.55s var(--nl-ease) both;
     transition: transform 0.35s var(--nl-ease);
+    will-change: transform, opacity;
+    box-sizing: border-box;
 }
 
 /* ── LOGO ────────────────────────────────────────────────── */
@@ -48,6 +50,7 @@
 /* ── LIENS ───────────────────────────────────────────────── */
 .nl-nav-scroll {
     flex: 1;
+    min-height: 0;
     overflow-y: auto;
     overflow-x: hidden;
     padding: 10px 10px; /* espacement réduit */
@@ -74,18 +77,20 @@
     font-size: 0.84rem;
     font-weight: 500;
     position: relative;
-    transition: background 0.2s, color 0.2s, transform 0.2s var(--nl-ease);
+    transition: background 0.22s, color 0.22s, transform 0.22s var(--nl-ease), box-shadow 0.22s var(--nl-ease);
     user-select: none;
 }
 .nl-item:hover {
     background: #EBF4FF;
     color: var(--nl-blue);
-    transform: translateX(3px);
+    transform: translateX(4px) translateZ(0);
+    box-shadow: inset 0 0 0 1px rgba(10, 102, 194, 0.08);
 }
 .nl-item.nl-active {
     background: #EBF4FF;
     color: var(--nl-blue);
     font-weight: 600;
+    box-shadow: 0 10px 24px rgba(10, 102, 194, 0.10);
 }
 .nl-item.nl-active::before {
     content: '';
@@ -115,6 +120,7 @@
 /* ── PROFIL BAS ──────────────────────────────────────────── */
 .nl-profile {
     flex-shrink: 0;
+    margin-top: auto;
     padding: 12px 14px 16px; /* espacement compact bas */
     border-top: 1px solid #E8ECF0;
     display: flex;
@@ -181,7 +187,7 @@
 /* ── RESPONSIVE ──────────────────────────────────────────── */
 @media (min-width: 993px) {
     .nl-burger { display: none !important; }
-    body, #app-root, main, .main-content, .adm-main,
+     #app-root, main, .main-content, .adm-main,
     .audit-main, .stats-pg-main, .adm-sett-main,
     .adm-prof-main, .notif-main, .sett-main {
         padding-left: var(--nl-width) !important;
@@ -201,6 +207,9 @@
         animation: none;
         box-shadow: none;
         transition: transform 0.35s var(--nl-ease), box-shadow 0.35s;
+        backdrop-filter: blur(20px);
+        will-change: transform;
+        height: 100dvh;
     }
     .nl-sidebar.nl-open {
         transform: translateX(0);
@@ -225,4 +234,14 @@
 @keyframes nlSlideIn {
     from { transform: translateX(-100%); opacity: 0; }
     to   { transform: translateX(0);     opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .nl-sidebar,
+    .nl-item,
+    .nl-logout,
+    .nl-burger span {
+        animation: none !important;
+        transition: none !important;
+    }
 }

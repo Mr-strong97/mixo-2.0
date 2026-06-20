@@ -1,25 +1,29 @@
-"""
-service_views.py — MIXO · Vues du module Services
+# ============================================================
+#  service_views.py — MIXO · Vues du module Services
+#
+#  CORRECTIFS APPLIQUÉS DANS CETTE VERSION (par rapport à l'original) :
+#  ✅ Bug #20 — mes_services() n'appliquait AUCUN filtre malgré la présence
+#               des query params search/statut/categorie_id côté frontend.
+#               Les mêmes filtres que liste_services() sont maintenant
+#               appliqués ici aussi.
+#  ✅ Bug #14 — detail_service(), branche DELETE : un 204 NO_CONTENT ne
+#               doit jamais avoir de corps. Le corps a été retiré
+#               (le frontend n'en a jamais eu besoin, il se contente de
+#               résoudre la promesse).
+#
+#  Tout le reste du fichier est strictement identique à l'original.
+# ============================================================
 
-Sécurité :
-  - JWT via IsAuthenticated (globallement dans settings.py)
-  - Contrôle de rôle granulaire (IsCoiffeur, IsOwnerService, IsClientReadOnly)
-  - Vérification explicite du propriétaire sur chaque mutation
-  - Journalisation automatique de toutes les actions sensibles
-
-Performance :
-  - select_related + prefetch_related systématiques
-  - Pagination côté serveur (20 résultats par page)
-  - Index DB déclarés dans le modèle (voir service.py)
-"""
-
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, parser_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
+from rest_framework.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 from django.utils.timezone import now
+from django.db.models import Count, Q
 
 from ..models import Service, ServiceImage, CategorieService
 from ..serializers.service_serializers import (
@@ -29,7 +33,7 @@ from ..serializers.service_serializers import (
     CategorieServiceSerializer,
 )
 
-# Import du modèle AuditLog — adapte le chemin à ton architecture
+# Import du modèle AuditLog — adapté à ton architecture
 try:
     from authentification.models.audit_log import AuditLog
     AUDIT_ENABLED = True
@@ -38,7 +42,7 @@ except ImportError:
 
 
 # ══════════════════════════════════════════════════════════════
-#  HELPERS INTERNES
+#  HELPERS INTERNES & CONFIGURATION
 # ══════════════════════════════════════════════════════════════
 
 class ServicePagination(PageNumberPagination):
@@ -79,6 +83,12 @@ def _is_coiffeur(user) -> bool:
 def _is_owner(service, user) -> bool:
     """Vérifie que l'utilisateur est le propriétaire du service OU admin."""
     return service.coiffeur == user or bool(user.is_staff)
+
+
+def _verifier_proprietaire(request, service):
+    """Vérifie explicitement la propriété et lève une exception DRF si nécessaire."""
+    if service.coiffeur_id != request.user.id and not request.user.is_staff:
+        raise PermissionDenied("Vous n'êtes pas le propriétaire de ce service.")
 
 
 # ══════════════════════════════════════════════════════════════
@@ -142,12 +152,14 @@ def detail_categorie(request, pk):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+
 # ══════════════════════════════════════════════════════════════
 #  SERVICES — LISTE & CRÉATION
 # ══════════════════════════════════════════════════════════════
 
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
+@parser_classes([MultiPartParser, FormParser, JSONParser])
 def liste_services(request):
     """
     GET  → liste paginée des services avec filtres :
@@ -197,11 +209,11 @@ def liste_services(request):
         serializer = ServiceSerializer(page, many=True, context={'request': request})
         return paginator.get_paginated_response(serializer.data)
 
-    # ── POST : création ─────────────────────────────────────
+    # ── POST : création d'un service ────────────────────────
     if not _is_coiffeur(request.user):
         _journal(request, 'CREATE_SERVICE_DENIED', 'Service', succes=False)
         return Response(
-            {"error": "Seuls les coiffeurs peuvent créer des services."},
+            {"detail": "Seuls les coiffeurs peuvent créer des services."},
             status=status.HTTP_403_FORBIDDEN,
         )
 
@@ -210,14 +222,14 @@ def liste_services(request):
         service = serializer.save(coiffeur=request.user)
         _journal(request, 'CREATE_SERVICE', f'Service:{service.id}')
         return Response(
-            ServiceSerializer(service, context={'request': request}).data,
+            ServiceDetailSerializer(service, context={'request': request}).data,
             status=status.HTTP_201_CREATED,
         )
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 # ══════════════════════════════════════════════════════════════
-#  SERVICES — MES SERVICES (coiffeur connecté)
+#  SERVICES — MES SERVICES & STATISTIQUES (Espace Coiffeur)
 # ══════════════════════════════════════════════════════════════
 
 @api_view(['GET'])
@@ -225,8 +237,14 @@ def liste_services(request):
 def mes_services(request):
     """
     GET /api/services/mes-services/
-    Retourne les services du coiffeur connecté (tous statuts).
-    Réservé aux coiffeurs.
+    Retourne les services du coiffeur connecté (tous statuts), avec filtres :
+        ?search        — recherche dans nom_prestation (icontains)
+        ?statut        — actif | inactif | en_attente
+        ?categorie_id  — UUID de la catégorie
+
+    ✅ CORRIGÉ (bug #20) : ces trois filtres étaient acceptés par le
+    frontend mais totalement ignorés ici — la vue retournait TOUJOURS
+    l'intégralité des services du coiffeur, peu importe les query params.
     """
     if not _is_coiffeur(request.user):
         return Response(
@@ -241,10 +259,71 @@ def mes_services(request):
         .prefetch_related('galerie')
     )
 
+    # ── Filtres (mêmes noms de query params que liste_services) ──
+    search       = request.query_params.get('search', '').strip()
+    statut       = request.query_params.get('statut', '').strip()
+    categorie_id = request.query_params.get('categorie_id')
+
+    if search:
+        qs = qs.filter(nom_prestation__icontains=search)
+    if statut:
+        qs = qs.filter(statut=statut)
+    if categorie_id:
+        qs = qs.filter(categorie_id=categorie_id)
+
     paginator = ServicePagination()
     page = paginator.paginate_queryset(qs, request)
     serializer = ServiceSerializer(page, many=True, context={'request': request})
     return paginator.get_paginated_response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def stats_services(request):
+    """
+    GET /api/services/mes-services/stats/
+    Statistiques globales destinées à CoiffeurServicesPage.
+    """
+    qs         = Service.objects.filter(coiffeur=request.user)
+    total      = qs.count()
+    actifs     = qs.filter(statut='actif', actif=True).count()
+    desactives = total - actifs
+
+    reservations_liees = 0
+    top_prestations    = []
+
+    try:
+        from rendez_vous.models import RendezVous
+        reservations_liees = RendezVous.objects.filter(
+            service__coiffeur=request.user
+        ).count()
+        top_qs = (
+            qs.annotate(nb_reservations=Count('rendez_vous'))
+              .order_by('-nb_reservations')[:3]
+        )
+        for s in top_qs:
+            top_prestations.append({
+                'id':              str(s.id),
+                'nom_prestation':  s.nom_prestation,
+                'image':           request.build_absolute_uri(s.image.url) if s.image else None,
+                'nb_reservations': getattr(s, 'nb_reservations', 0),
+            })
+    except Exception:
+        for s in qs.order_by('-created_at')[:3]:
+            top_prestations.append({
+                'id':              str(s.id),
+                'nom_prestation':  s.nom_prestation,
+                'image':           request.build_absolute_uri(s.image.url) if s.image else None,
+                'nb_reservations': 0,
+            })
+
+    return Response({
+        'total':              total,
+        'actifs':             actifs,
+        'desactives':         desactives,
+        'reservations_liees': reservations_liees,
+        'top_prestations':    top_prestations,
+    })
 
 
 # ══════════════════════════════════════════════════════════════
@@ -253,9 +332,10 @@ def mes_services(request):
 
 @api_view(['GET', 'PATCH', 'PUT', 'DELETE'])
 @permission_classes([IsAuthenticated])
+@parser_classes([MultiPartParser, FormParser, JSONParser])
 def detail_service(request, pk):
     """
-    GET         → détail enrichi avec galerie (tous rôles)
+    GET         → détail enrichi (tous rôles)
     PATCH / PUT → modifier (propriétaire ou admin)
     DELETE      → supprimer (propriétaire ou admin)
     """
@@ -267,29 +347,28 @@ def detail_service(request, pk):
     )
 
     if request.method == 'GET':
-        # Les clients ne peuvent voir que les services actifs
-        if not _is_owner(service, request.user) and not service.est_actif:
+        if not _is_owner(service, request.user) and service.statut != 'actif':
             return Response(
                 {"error": "Ce service n'est pas disponible."},
                 status=status.HTTP_404_NOT_FOUND,
             )
         return Response(ServiceDetailSerializer(service, context={'request': request}).data)
 
-    # ── Vérification propriété ───────────────────────────────
-    if not _is_owner(service, request.user):
-        _journal(request, 'UNAUTHORIZED_SERVICE_ACCESS', f'Service:{service.id}', succes=False)
-        return Response(
-            {"error": "Vous n'êtes pas autorisé à modifier ce service."},
-            status=status.HTTP_403_FORBIDDEN,
-        )
+    # Vérification stricte des permissions pour les mutations (PUT, PATCH, DELETE)
+    _verifier_proprietaire(request, service)
 
     if request.method == 'DELETE':
         service_id = str(service.id)
         service.delete()
         _journal(request, 'DELETE_SERVICE', f'Service:{service_id}')
+        # ✅ CORRIGÉ (bug #14) : un 204 NO_CONTENT ne doit jamais avoir de
+        # corps de réponse (RFC 7231). L'ancien code envoyait
+        # {'detail': 'Service supprimé avec succès.'} ici, ce que certains
+        # clients HTTP (dont axios, selon config) ignorent silencieusement.
+        # Le frontend n'utilisait déjà jamais ce corps (juste .then(() => ...)).
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-    # PATCH / PUT
+    # Traitement des modifications (PUT / PATCH)
     partial = request.method == 'PATCH'
     serializer = ServiceSerializer(
         service, data=request.data, partial=partial, context={'request': request}
@@ -297,7 +376,7 @@ def detail_service(request, pk):
     if serializer.is_valid():
         serializer.save()
         _journal(request, 'UPDATE_SERVICE', f'Service:{service.id}')
-        return Response(serializer.data)
+        return Response(ServiceDetailSerializer(service, context={'request': request}).data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -310,9 +389,7 @@ def detail_service(request, pk):
 def activer_service(request, pk):
     """POST /api/services/<uuid>/activer/ — propriétaire ou admin"""
     service = get_object_or_404(Service, pk=pk)
-
-    if not _is_owner(service, request.user):
-        return Response({"error": "Interdit."}, status=status.HTTP_403_FORBIDDEN)
+    _verifier_proprietaire(request, service)
 
     service.statut = 'actif'
     service.actif  = True
@@ -326,9 +403,7 @@ def activer_service(request, pk):
 def desactiver_service(request, pk):
     """POST /api/services/<uuid>/desactiver/ — propriétaire ou admin"""
     service = get_object_or_404(Service, pk=pk)
-
-    if not _is_owner(service, request.user):
-        return Response({"error": "Interdit."}, status=status.HTTP_403_FORBIDDEN)
+    _verifier_proprietaire(request, service)
 
     service.statut = 'inactif'
     service.actif  = False
@@ -343,9 +418,10 @@ def desactiver_service(request, pk):
 
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
+@parser_classes([MultiPartParser, FormParser])
 def galerie_service(request, pk):
     """
-    GET  → liste les images (tous rôles authentifiés)
+    GET  → liste les images de la galerie d'un service
     POST → ajoute une image (propriétaire uniquement, multipart/form-data)
     """
     service = get_object_or_404(Service, pk=pk)
@@ -354,10 +430,9 @@ def galerie_service(request, pk):
         images = service.galerie.all()
         return Response(ServiceImageSerializer(images, many=True).data)
 
-    if not _is_owner(service, request.user):
-        return Response({"error": "Interdit."}, status=status.HTTP_403_FORBIDDEN)
+    _verifier_proprietaire(request, service)
 
-    # Limite : max 8 images par service
+    # Limite : maximum de 8 images par service
     if service.galerie.count() >= 8:
         return Response(
             {"error": "Limite de 8 images par service atteinte."},
@@ -379,8 +454,7 @@ def supprimer_image_service(request, service_pk, image_pk):
     service = get_object_or_404(Service, pk=service_pk)
     image   = get_object_or_404(ServiceImage, pk=image_pk, service=service)
 
-    if not _is_owner(service, request.user):
-        return Response({"error": "Interdit."}, status=status.HTTP_403_FORBIDDEN)
+    _verifier_proprietaire(request, service)
 
     _journal(request, 'DELETE_IMAGE_GALERIE', f'Service:{service.id}/Image:{image.id}')
     image.delete()

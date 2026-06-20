@@ -1,119 +1,99 @@
-// ============================================================
-//  ServiceCard.js — Carte de service (Client)
-//  Mixo · Module Services
-// ============================================================
+/**
+ * ServiceCard.js — MIXO
+ * Carte service côté client — grille ClientServicesPage (Image 3).
+ * Badge catégorie en haut à gauche, cœur favoris en haut à droite,
+ * note + avis, avatar coiffeur, durée + ville, boutons Voir / Réserver.
+ *
+ * @param {Object} service {
+ *   id, nom_prestation, prix, duree_minutes, image, ville,
+ *   categorie_nom, categorie_icone, coiffeur_username, coiffeur_photo,
+ *   note_moyenne, nb_avis, est_favori
+ * }
+ * @param {Function|null} onFavoriteToggle (serviceId, actif) => void
+ * @returns {HTMLElement}
+ */
+export const ServiceCard = (service, onFavoriteToggle = null) => {
+    const card = document.createElement('div');
+    card.className = 'svc-card';
 
-export class ServiceCard {
-  /**
-   * Retourne le HTML d'une carte de service.
-   * @param {Object} s - Objet service
-   * @returns {string} HTML string
-   */
-  static html(s) {
-    const prix = parseFloat(s.prix).toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' });
-    const duree = _formatDuration(s.duree_minutes);
-    const note = parseFloat(s.note_moyenne || 0).toFixed(1);
-    const stars = _renderStars(s.note_moyenne || 0);
+    const badge = (service.categorie_nom || 'Service').toUpperCase();
+    const note  = service.note_moyenne ?? 4.8;
+    const avis  = service.nb_avis ?? 0;
+    const initiale = (service.coiffeur_username || '?').charAt(0).toUpperCase();
 
-    return `
-      <article class="service-card" data-id="${s.id}">
-        <!-- Image -->
-        <div class="service-card__img-wrap">
-          ${s.image_principale
-            ? `<img class="service-card__img" src="${s.image_principale}" alt="${s.nom_prestation}" loading="lazy">`
-            : `<div class="service-card__img-placeholder">
-                 <span class="service-card__cat-icon">${_catIcon(s.categorie)}</span>
-               </div>`
-          }
-          ${s.categorie
-            ? `<span class="service-card__badge">${s.categorie}</span>`
-            : ''}
-          <button class="service-card__wishlist" title="Sauvegarder">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-          </button>
-        </div>
-
-        <!-- Corps -->
-        <div class="service-card__body">
-          <h3 class="service-card__title">${s.nom_prestation}</h3>
-
-          <!-- Coiffeur -->
-          <div class="service-card__coiffeur">
-            <div class="service-card__avatar">
-              ${s.coiffeur_photo
-                ? `<img src="${s.coiffeur_photo}" alt="${s.coiffeur_nom}">`
-                : `<span>${(s.coiffeur_nom || '?').charAt(0).toUpperCase()}</span>`}
-            </div>
-            <span class="service-card__coiffeur-name">${s.coiffeur_nom || 'Coiffeur'}</span>
-          </div>
-
-          <!-- Note -->
-          <div class="service-card__rating">
-            <div class="service-card__stars">${stars}</div>
-            <span class="service-card__rating-score">${note}</span>
-            <span class="service-card__rating-count">(${s.nb_avis || 0} avis)</span>
-          </div>
-
-          <!-- Meta -->
-          <div class="service-card__meta">
-            <span class="service-card__meta-item">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              ${duree}
-            </span>
-            ${s.ville ? `
-            <span class="service-card__meta-item">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              ${s.ville}
-            </span>` : ''}
-          </div>
-        </div>
-
-        <!-- Footer -->
-        <div class="service-card__footer">
-          <div class="service-card__price">${prix}</div>
-          <div class="service-card__actions">
-            <a href="#/services/${s.id}" class="service-card__btn service-card__btn--ghost" data-detail="${s.id}">
-              Voir
-            </a>
-            <button class="service-card__btn service-card__btn--primary" data-book="${s.id}">
-              Réserver
+    card.innerHTML = `
+        <div class="svc-card-media">
+            ${service.image
+                ? `<img src="${service.image}" alt="${escapeHtml(service.nom_prestation)}" class="svc-card-img" loading="lazy"/>`
+                : `<div class="svc-card-placeholder"><i data-lucide="image"></i></div>`
+            }
+            <span class="svc-card-badge">${escapeHtml(badge)}</span>
+            <button class="svc-card-fav ${service.est_favori ? 'svc-card-fav-active' : ''}" type="button" title="Ajouter aux favoris">
+                <i data-lucide="heart"></i>
             </button>
-          </div>
         </div>
-      </article>
+        <div class="svc-card-body">
+            <div class="svc-card-title-row">
+                <h3 class="svc-card-title">${escapeHtml(service.nom_prestation)}</h3>
+                <span class="svc-card-price">${formatPrix(service.prix)}€</span>
+            </div>
+            <div class="svc-card-rating">
+                <i data-lucide="star" class="svc-star"></i>
+                <span>${note} (${avis} avis)</span>
+            </div>
+            <div class="svc-card-coiffeur">
+                ${service.coiffeur_photo
+                    ? `<img src="${service.coiffeur_photo}" class="svc-card-avatar" alt=""/>`
+                    : `<div class="svc-card-avatar svc-card-avatar-placeholder">${initiale}</div>`
+                }
+                <span>Par ${escapeHtml(service.coiffeur_username || '—')}</span>
+            </div>
+            <div class="svc-card-meta">
+                <span><i data-lucide="clock"></i> ${service.duree_minutes} min</span>
+                <span><i data-lucide="map-pin"></i> ${escapeHtml(service.ville || '—')}</span>
+            </div>
+            <div class="svc-card-actions">
+                <button class="svc-btn svc-btn-outline" data-action="voir" type="button">Voir</button>
+                <button class="svc-btn svc-btn-primary" data-action="reserver" type="button">Réserver</button>
+            </div>
+        </div>
     `;
-  }
+
+    // ── Favoris ─────────────────────────────────────────────
+    const favBtn = card.querySelector('.svc-card-fav');
+    let isFav = !!service.est_favori;
+    favBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        isFav = !isFav;
+        favBtn.classList.toggle('svc-card-fav-active', isFav);
+        if (onFavoriteToggle) onFavoriteToggle(service.id, isFav);
+    });
+
+    // ── Navigation ──────────────────────────────────────────
+    const goToDetail = () => window.navigate?.(`/services/${service.id}`);
+
+    card.querySelector('[data-action="voir"]').addEventListener('click', goToDetail);
+    card.querySelector('[data-action="reserver"]').addEventListener('click', () =>
+        window.navigate?.(`/services/${service.id}?reserver=1`));
+    card.querySelector('.svc-card-media').addEventListener('click', (e) => {
+        if (e.target.closest('.svc-card-fav')) return;
+        goToDetail();
+    });
+
+    setTimeout(() => { if (window.lucide) window.lucide.createIcons(); }, 0);
+    return card;
+};
+
+// ── Helpers ─────────────────────────────────────────────────
+function formatPrix(prix) {
+    const n = parseFloat(prix);
+    if (Number.isNaN(n)) return '0';
+    return Number.isInteger(n) ? String(n) : n.toFixed(2);
 }
 
-// ── Helpers ────────────────────────────────────────────────────
-function _formatDuration(min) {
-  if (!min) return '—';
-  if (min < 60) return `${min} min`;
-  const h = Math.floor(min / 60);
-  const m = min % 60;
-  return m > 0 ? `${h}h${String(m).padStart(2, '0')}` : `${h}h`;
-}
-
-function _renderStars(note) {
-  const full = Math.floor(note);
-  const half = note % 1 >= 0.5;
-  let html = '';
-  for (let i = 0; i < 5; i++) {
-    if (i < full) {
-      html += `<svg width="12" height="12" viewBox="0 0 24 24" fill="#F59E0B" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
-    } else if (i === full && half) {
-      html += `<svg width="12" height="12" viewBox="0 0 24 24" fill="#F59E0B" stroke="none" style="clip-path:inset(0 50% 0 0)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
-    } else {
-      html += `<svg width="12" height="12" viewBox="0 0 24 24" fill="#E5E7EB" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
-    }
-  }
-  return html;
-}
-
-function _catIcon(cat) {
-  const map = {
-    'Coupe': '✂️', 'Coloration': '🎨', 'Soin': '💆', 'Coiffage': '💇',
-    'Tresse': '🪢', 'Lissage': '✨', 'Barbe': '🧔', 'Brushing': '💨',
-  };
-  return map[cat] || '💈';
+function escapeHtml(str = '') {
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
 }

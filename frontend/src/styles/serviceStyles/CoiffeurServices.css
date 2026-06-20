@@ -1,0 +1,180 @@
+/* ================================================================
+   CoiffeurServices.css — MIXO · Espace Coiffeur
+   Pages "Mes services" (Image 8, csv-*) et "Détail service" (cvd-*)
+   Dépend de ServiceComponents.css (ssc-*, tps-*, str-*, sgs-*, mxo-spinner)
+   ================================================================ */
+
+.csv-page, .cvd-page { min-height: 100vh; background: #F8FAFC; font-family: 'Poppins', sans-serif; }
+.csv-main, .cvd-main { max-width: 1280px; margin: 0 auto; padding: 32px 24px 80px; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   MES SERVICES (csv-*)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── BANNIÈRE ────────────────────────────────────────────────── */
+.csv-header {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px; margin-bottom: 28px;
+}
+.csv-header-title { display: flex; align-items: center; gap: 16px; }
+.csv-header-icon {
+    width: 52px; height: 52px; border-radius: 14px;
+    background: #EBF4FF; color: #0A66C2;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.csv-header-icon svg { width: 24px; height: 24px; }
+.csv-header-title h1 { font-family: 'Montserrat', sans-serif; font-size: 1.6rem; font-weight: 800; color: #1A1D20; margin: 0 0 4px; }
+.csv-header-title p  { font-size: 0.86rem; color: #62676B; margin: 0; }
+
+.csv-btn-add {
+    display: flex; align-items: center; gap: 8px;
+    height: 48px; padding: 0 22px; border-radius: 12px;
+    background: #0A66C2; border: none; color: #fff;
+    font-family: 'Poppins', sans-serif; font-size: 0.86rem; font-weight: 700;
+    cursor: pointer; transition: background 0.2s ease; white-space: nowrap;
+}
+.csv-btn-add:hover { background: #004182; }
+.csv-btn-add svg { width: 17px; height: 17px; }
+
+/* ── TOOLBAR ─────────────────────────────────────────────────── */
+.csv-toolbar { display: flex; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+.csv-search-wrap { position: relative; flex: 1; min-width: 220px; }
+.csv-search-ico {
+    position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+    width: 17px; height: 17px; color: #94A3B8; pointer-events: none;
+}
+.csv-search {
+    width: 100%; height: 48px; padding: 0 16px 0 44px;
+    background: #fff; border: 1.5px solid #E8ECF0; border-radius: 10px;
+    font-family: 'Poppins', sans-serif; font-size: 0.86rem; color: #1A1D20;
+    outline: none; box-sizing: border-box; transition: border-color 0.2s ease;
+}
+.csv-search:focus { border-color: #0A66C2; }
+.csv-select {
+    height: 48px; padding: 0 14px; min-width: 180px;
+    background: #fff; border: 1.5px solid #E8ECF0; border-radius: 10px;
+    font-family: 'Poppins', sans-serif; font-size: 0.84rem; color: #1A1D20;
+    outline: none; cursor: pointer; transition: border-color 0.2s ease;
+}
+.csv-select:focus { border-color: #0A66C2; }
+
+/* ── TABLE ───────────────────────────────────────────────────── */
+.csv-table-wrap {
+    background: #fff; border: 1.5px solid #E8ECF0; border-radius: 14px;
+    overflow-x: auto;
+}
+.csv-table { width: 100%; border-collapse: collapse; min-width: 760px; }
+.csv-table thead th {
+    font-size: 0.62rem; letter-spacing: 2px; text-transform: uppercase; color: #94A3B8;
+    padding: 16px 18px; border-bottom: 1px solid #E8ECF0; text-align: left; font-weight: 700;
+    white-space: nowrap;
+}
+.csv-table tbody tr { border-bottom: 1px solid #F0F4F9; transition: background 0.15s ease; }
+.csv-table tbody tr:last-child { border-bottom: none; }
+.csv-table tbody tr:hover { background: #F8FAFC; }
+.csv-table tbody td { padding: 14px 18px; font-size: 0.86rem; vertical-align: middle; }
+
+.csv-loader { display: flex; justify-content: center; padding: 50px 0; }
+.csv-empty {
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+    padding: 50px 0; color: #94A3B8; text-align: center;
+}
+.csv-empty svg { width: 40px; height: 40px; color: #0A66C2; opacity: 0.4; }
+.csv-empty p { margin: 0; font-size: 0.9rem; }
+
+/* ── PAGINATION ──────────────────────────────────────────────── */
+.csv-pagination {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; margin-top: 18px; flex-wrap: wrap;
+}
+.csv-page-info { font-size: 0.8rem; color: #94A3B8; }
+.csv-page-nav { display: flex; gap: 6px; }
+.csv-page-btn {
+    min-width: 36px; height: 36px; padding: 0 10px;
+    background: #fff; border: 1.5px solid #E8ECF0; border-radius: 8px;
+    color: #62676B; font-family: 'Poppins', sans-serif; font-size: 0.8rem; font-weight: 600;
+    cursor: pointer; transition: all 0.2s ease;
+}
+.csv-page-btn:hover  { border-color: #0A66C2; color: #0A66C2; }
+.csv-page-btn.active { background: #0A66C2; border-color: #0A66C2; color: #fff; }
+.csv-page-btn:disabled { opacity: 0.4; cursor: default; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   DÉTAIL SERVICE — COIFFEUR (cvd-*)
+   ═══════════════════════════════════════════════════════════════ */
+.cvd-loader { display: flex; justify-content: center; padding: 100px 0; }
+
+.cvd-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+.cvd-back {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: #fff; border: 1.5px solid #E8ECF0; color: #1A1D20;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all 0.2s ease; flex-shrink: 0;
+}
+.cvd-back:hover { border-color: #0A66C2; color: #0A66C2; }
+.cvd-back svg { width: 18px; height: 18px; }
+.cvd-header h1 { font-family: 'Montserrat', sans-serif; font-size: 1.6rem; font-weight: 800; color: #1A1D20; margin: 0; flex: 1; }
+.cvd-status {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 16px; border-radius: 100px;
+    font-size: 0.8rem; font-weight: 700; white-space: nowrap;
+}
+.cvd-status-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+.cvd-layout { display: grid; grid-template-columns: 1fr 360px; gap: 28px; align-items: start; }
+
+.cvd-info-card {
+    background: #fff; border: 1.5px solid #E8ECF0; border-radius: 16px; padding: 24px;
+    display: flex; flex-direction: column; gap: 4px;
+}
+.cvd-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 0; border-bottom: 1px solid #F0F4F9; font-size: 0.88rem;
+}
+.cvd-row:last-of-type { border-bottom: none; }
+.cvd-row span { color: #62676B; }
+.cvd-row strong { color: #1A1D20; font-weight: 700; text-align: right; }
+
+.cvd-desc { margin-top: 14px; padding-top: 14px; border-top: 1px solid #F0F4F9; }
+.cvd-desc-label { display: block; font-size: 0.62rem; letter-spacing: 2px; text-transform: uppercase; color: #94A3B8; font-weight: 700; margin-bottom: 8px; }
+.cvd-desc p { font-size: 0.88rem; color: #475569; line-height: 1.7; margin: 0; }
+
+.cvd-btn-row { display: flex; gap: 10px; margin-top: 18px; }
+.cvd-edit-btn, .cvd-toggle-btn {
+    flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+    height: 48px; border-radius: 10px;
+    font-family: 'Poppins', sans-serif; font-size: 0.84rem; font-weight: 700;
+    cursor: pointer; transition: all 0.2s ease;
+}
+.cvd-edit-btn svg, .cvd-toggle-btn svg { width: 16px; height: 16px; }
+.cvd-edit-btn { background: #0A66C2; border: none; color: #fff; }
+.cvd-edit-btn:hover { background: #004182; }
+.cvd-toggle-btn { background: #fff; border: 1.5px solid #E8ECF0; color: #1A1D20; }
+.cvd-toggle-btn:hover { border-color: #D97706; color: #D97706; }
+
+.cvd-error {
+    display: flex; flex-direction: column; align-items: center; gap: 14px;
+    padding: 100px 0; color: #94A3B8; text-align: center;
+}
+.cvd-error svg { width: 48px; height: 48px; color: #DC2626; opacity: 0.5; }
+.cvd-error p { font-size: 0.95rem; margin: 0; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+    .cvd-layout { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+    .csv-main, .cvd-main { padding: 20px 16px 60px; }
+    .csv-header { flex-direction: column; align-items: stretch; }
+    .csv-btn-add { justify-content: center; }
+    .csv-toolbar { flex-direction: column; }
+    .csv-select { width: 100%; }
+    .csv-pagination { flex-direction: column; align-items: flex-start; }
+    .cvd-header h1 { font-size: 1.25rem; }
+    .cvd-btn-row { flex-direction: column; }
+}

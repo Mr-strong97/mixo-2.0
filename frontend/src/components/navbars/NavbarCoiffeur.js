@@ -7,9 +7,10 @@ import { NavbarLayout } from './NavbarLayout.js';
 export const NavbarCoiffeur = () => NavbarLayout([
     { id: 'dashboard', icon: 'layout-dashboard', label: 'Tableau de bord', route: '/home' },
     { id: 'rdv', icon: 'calendar', label: 'Mes rendez-vous', route: '/rendez-vous' },
-    { id: 'plannings', icon: 'clock', label: 'Plannings', route: '/plannings' },
     { id: 'mes services', icon: 'scissors', label: 'Mes services', route: '/coiffeur/services' },
+    { id: 'abonnement', icon: 'credit-card', label: 'Abonnement', route: '/coiffeur/abonnement' },
+    { id: 'horaires', icon: 'calendar-clock', label: 'Horaires', route: '/coiffeur/horaires' },
+    { id: 'portfolio', icon: 'image', label: 'Portfolio', route: '/coiffeur/portfolio' },
     { id: 'avis', icon: 'star', label: 'Avis clients', route: '/avis' },
-    { id: 'notifications', icon: 'bell', label: 'Notifications', route: '/notifications' },
-    { id: 'profil', icon: 'user-circle', label: 'Mon profil', route: `/${localStorage.getItem('username')}/${localStorage.getItem('user_id')}` },
+    { id: 'parametres', icon: 'settings', label: 'Paramètres', route: '/parametres/coiffeur' },
 ]);

@@ -39,10 +39,9 @@ class ServiceImageSerializer(serializers.ModelSerializer):
 class ServiceSerializer(serializers.ModelSerializer):
     """Sérialiseur utilisé pour la liste, la création et les mises à jour."""
 
-    # Champs calculés en lecture seule
     coiffeur_username = serializers.CharField(source='coiffeur.username', read_only=True)
     coiffeur_photo    = serializers.SerializerMethodField()
-    categorie_nom     = serializers.CharField(source='categorie.nom', read_only=True)
+    categorie_nom     = serializers.CharField(source='categorie.nom',   read_only=True)
     categorie_icone   = serializers.CharField(source='categorie.icone', read_only=True)
 
     class Meta:
@@ -64,7 +63,6 @@ class ServiceSerializer(serializers.ModelSerializer):
         ]
 
     def get_coiffeur_photo(self, obj):
-        """Retourne l'URL de la photo de profil du coiffeur si disponible."""
         try:
             profil = getattr(obj.coiffeur, 'profil_coiffeur', None)
             if profil and hasattr(profil, 'photo') and profil.photo:
@@ -104,21 +102,17 @@ class ServiceSerializer(serializers.ModelSerializer):
         return value
 
     def validate(self, attrs):
-        """Validation croisée des champs."""
         statut = attrs.get('statut', 'actif')
         actif  = attrs.get('actif', True)
-
-        # Cohérence statut / actif
         if statut == 'actif' and not actif:
             attrs['actif'] = True
         if statut == 'inactif' and actif:
             attrs['actif'] = False
-
         return attrs
 
 
 # ──────────────────────────────────────────────────────────────
-#  SERVICE — détail enrichi (lecture seule)
+#  SERVICE — détail enrichi avec galerie (lecture seule)
 # ──────────────────────────────────────────────────────────────
 class ServiceDetailSerializer(ServiceSerializer):
     """Sérialiseur complet avec galerie d'images imbriquée."""

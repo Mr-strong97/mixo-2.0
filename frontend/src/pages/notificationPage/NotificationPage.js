@@ -136,7 +136,9 @@ export const NotificationPage = () => {
             try {
                 await api.patch(`notifications/${n.id}/lire/`);
                 charger();
-            } catch { showToast("Erreur."); }
+            } catch {
+                showToast("Impossible de marquer cette notification comme lue.");
+            }
         });
 
         // Événement Supprimer
@@ -148,7 +150,9 @@ export const NotificationPage = () => {
                 item.style.transform = 'translateY(10px)';
                 item.style.transition = 'all 0.25s ease';
                 setTimeout(() => { item.remove(); charger(); }, 250);
-            } catch { showToast("Erreur de suppression."); }
+            } catch {
+                showToast("Impossible de supprimer cette notification.");
+            }
         });
 
         // Redirection vers le lien
@@ -170,7 +174,9 @@ export const NotificationPage = () => {
             await api.patch('notifications/tout-lire/');
             showToast('✅ Toutes les notifications marquées comme lues.');
             charger();
-        } catch { showToast('Erreur.'); }
+        } catch {
+            showToast("Impossible de marquer toutes les notifications comme lues.");
+        }
     });
 
     // Filtre

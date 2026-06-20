@@ -7,11 +7,45 @@
 .home-page-wrapper {
     display: flex;
     min-height: 100vh;
-    background-color: #ffffff;
-    font-family: 'Poppins', sans-serif;
-    color: #1A1D20;
-    overflow-x: hidden;
+    background-color: var(--bg-surface);
+    font-family: var(--font-main);
+    color: var(--text-dark);
+    /* `clip` (et non `hidden`) : masque le débordement horizontal des
+       décorations (orbes, halos) SANS transformer ce conteneur en nouveau
+       contexte de scroll — indispensable pour que `position: sticky`
+       fonctionne dans la section "Transformation" plus bas dans la page. */
+    overflow-x: clip;
     position: relative;
+    isolation: isolate;
+}
+
+.home-page-wrapper::before,
+.home-page-wrapper::after {
+    content: '';
+    position: fixed;
+    border-radius: 999px;
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(30px);
+    opacity: 0.55;
+    animation: floatSoft 10s ease-in-out infinite;
+}
+
+.home-page-wrapper::before {
+    top: 7%;
+    right: 7%;
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(10, 102, 194, 0.18), transparent 68%);
+}
+
+.home-page-wrapper::after {
+    bottom: 8%;
+    left: 5%;
+    width: 240px;
+    height: 240px;
+    background: radial-gradient(circle, rgba(112, 181, 249, 0.22), transparent 70%);
+    animation-delay: -4s;
 }
 
 /* 1. Aligner la Navbar latérale gauche (Si fixe/sticky) */
@@ -19,8 +53,8 @@
 .home-page-wrapper > nav:first-child {
     width: 260px;
     min-width: 260px;
-    background: #ffffff;
-    border-right: 1.5px solid #E8ECF0;
+    background: var(--bg-surface);
+    border-right: 1.5px solid var(--border-md);
     height: 100vh;
     position: sticky;
     top: 0;
@@ -28,92 +62,40 @@
     box-sizing: border-box;
 }
 
-/* 2. Zone centrale contenant le Hero et les Statistiques */
+/* 2. Zone centrale contenant le Hero et les sections de contenu */
 .home-page-wrapper > main {
     flex: 1;
     display: flex;
     flex-direction: column;
     min-width: 0; /* Empêche le flex-item de déborder en cas de grands tableaux/images */
-    background-color: #ffffff;
+    background-color: var(--bg-surface);
+    position: relative;
+    z-index: 1;
 }
 
 /* 3. Le Footer (Traité soit en bandeau bas, soit en Sidebar droite selon votre UI) */
 .home-page-wrapper > footer {
-    background-color: #ffffff;
+    background-color: var(--bg-surface);
     box-sizing: border-box;
-    /* Si votre Footer est un bandeau du bas classique, laissez le flux normal. 
+    /* Si votre Footer est un bandeau du bas classique, laissez le flux normal.
        Si c'est une sidebar droite (comme sur le profil), décommentez les lignes ci-dessous : */
     /*
     width: 340px;
     min-width: 340px;
-    border-left: 1.5px solid #E8ECF0;
+    border-left: 1.5px solid var(--border-md);
     height: 100vh;
     position: sticky;
     top: 0;
     */
 }
 
-/* Si votre footer est classique (en bas), on s'assure qu'il s'aligne bien sous le main 
-   au lieu de se mettre à droite (si flex-direction n'est pas modifié) */
-@supports (display: flex) {
-    /* Si vous voulez que le footer soit tout en bas sous le contenu central : */
+@media (max-width: 768px) {
     .home-page-wrapper {
-        display: flex;
-        flex-wrap: wrap; /* Permet au footer de passer en dessous si largeur 100% */
-    }
-    .home-page-wrapper > main {
-        width: calc(100% - 260px); /* Prend tout l'espace sauf la Navbar */
-    }
-    .home-page-wrapper > footer {
-        width: calc(100% - 260px);
-        margin-left: 260px; /* Aligné après la barre latérale */
-        border-top: 1.5px solid #E8ECF0;
-        padding: 40px 80px;
-    }
-}
-
-/* ── OPTIMISATION RESPONSIVE GLOBALE ────────────────────────── */
-
-/* 1. Écrans intermédiaires (Petits PC & Tablettes Paysage) */
-@media (max-width: 1024px) {
-    .home-page-wrapper > footer {
-        padding: 40px;
-    }
-}
-
-/* 2. Format Tablette Portrait (Bascule de la Navbar gauche en haut/responsive) */
-@media (max-width: 900px) {
-    .home-page-wrapper {
-        flex-direction: column; /* Tout s'empile verticalement */
+        flex-direction: column;
     }
 
-    /* La Navbar prend toute la largeur en haut */
-    .home-page-wrapper > .sidebar-menu-container,
-    .home-page-wrapper > nav:first-child {
-        width: 100% !important;
-        min-width: 100% !important;
-        height: auto !important;
-        position: relative;
-        border-right: none;
-        border-bottom: 1.5px solid #E8ECF0;
-    }
-
-    .home-page-wrapper > main {
-        width: 100% !important;
-    }
-
-    /* Le footer reprend toute sa largeur sans décalage gauche */
-    .home-page-wrapper > footer {
-        width: 100% !important;
-        margin-left: 0 !important;
-        border-left: none;
-        border-top: 1.5px solid #E8ECF0;
-    }
-}
-
-/* 3. Format Mobile */
-@media (max-width: 600px) {
-    .home-page-wrapper > footer {
-        padding: 30px 20px;
+    .home-page-wrapper::before,
+    .home-page-wrapper::after {
+        display: none;
     }
 }

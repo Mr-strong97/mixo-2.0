@@ -89,10 +89,15 @@ export const ForgotPasswordPage = () => {
 
         try {
             await api.post('auth/password/demander-reset/', { email });
-        } catch { /* toujours afficher succès */ }
-        finally {
-            btn.disabled = false; btn.innerHTML = orig;
             showSuccess();
+        } catch (error) {
+            showToast(
+                error?.response?.data?.detail
+                    || "Impossible d'envoyer le lien de réinitialisation pour le moment."
+            );
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = orig;
         }
     });
 

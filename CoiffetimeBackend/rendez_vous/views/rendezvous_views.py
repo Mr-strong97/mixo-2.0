@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 
 # Imports des modèles
 from ..models.rendezvous import RendezVous
-from ..models.notification import Notification
+from notifications.models import Notification
 
 # Imports des serializers
 from ..serializers.rendezvous_serializers import RendezVousSerializer, NotificationSerializer

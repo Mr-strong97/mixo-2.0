@@ -54,7 +54,7 @@ def envoyer_email_verification(utilisateur, token_brut):
             fail_silently=False,
         )
     except Exception as e:
-        print(f"⚠️  Email non envoyé (backend console actif) : {e}")
+        print(f"  Email non envoyé (backend console actif) : {e}")
 
 
 def envoyer_email_reset_password(utilisateur, token_brut):
@@ -62,7 +62,7 @@ def envoyer_email_reset_password(utilisateur, token_brut):
     lien = f"{frontend_url}/reset-password?token={token_brut}"
 
     print(f"\n{'='*60}")
-    print(f"🔑  RESET MOT DE PASSE — @{utilisateur.username}")
+    print(f"  RESET MOT DE PASSE — @{utilisateur.username}")
     print(f"🔗  LIEN : {lien}")
     print(f"{'='*60}\n")
 
@@ -83,7 +83,7 @@ def envoyer_email_reset_password(utilisateur, token_brut):
             fail_silently=False,
         )
     except Exception as e:
-        print(f"⚠️  Email reset non envoyé : {e}")
+        print(f"  Email reset non envoyé : {e}")
 
 
 def envoyer_email_suspension(utilisateur, raison, duree=None):
@@ -94,7 +94,7 @@ def envoyer_email_suspension(utilisateur, raison, duree=None):
     duree_txt = f"<br>Durée : <strong>{duree}</strong>" if duree else ""
 
     print(f"\n{'='*60}")
-    print(f"🚫  SUSPENSION — @{utilisateur.username} | Raison : {raison}")
+    print(f"  SUSPENSION — @{utilisateur.username} | Raison : {raison}")
     print(f"{'='*60}\n")
 
     corps = f"""
@@ -122,13 +122,13 @@ def envoyer_email_suspension(utilisateur, raison, duree=None):
             fail_silently=False,
         )
     except Exception as e:
-        print(f"⚠️  Email suspension non envoyé : {e}")
+        print(f"  Email suspension non envoyé : {e}")
 
 
 def envoyer_email_bannissement(utilisateur, raison):
     """Email envoyé à l'utilisateur lors d'un bannissement définitif."""
     print(f"\n{'='*60}")
-    print(f"⛔  BANNISSEMENT — @{utilisateur.username} | Raison : {raison}")
+    print(f" BANNISSEMENT — @{utilisateur.username} | Raison : {raison}")
     print(f"{'='*60}\n")
 
     corps = f"""
@@ -155,4 +155,4 @@ def envoyer_email_bannissement(utilisateur, raison):
             fail_silently=False,
         )
     except Exception as e:
-        print(f"⚠️  Email bannissement non envoyé : {e}")
+        print(f"  Email bannissement non envoyé : {e}")

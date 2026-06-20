@@ -69,7 +69,7 @@ def listeDemandesReactivation(request):
     from authentification.models.audit_log import AuditLog
     demandes = AuditLog.objects.filter(
         action='DEMANDE_REACTIVATION'
-    ).select_related('utilisateur').order_by('-cree_le')
+    ).select_related('utilisateur').order_by('-created_at')
 
     resultats = []
     for d in demandes:
@@ -80,7 +80,7 @@ def listeDemandesReactivation(request):
                 "username":     d.utilisateur.username,
                 "email":        d.utilisateur.email,
                 "message":      d.details.get('message', ''),
-                "date_demande": d.cree_le.isoformat(),
+                "date_demande": d.created_at.isoformat(),
             })
 
     return Response({"count": len(resultats), "resultats": resultats})

@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     # Interface d'administration par défaut de Django
@@ -20,4 +22,11 @@ urlpatterns = [
     path('api/rendez-vous/', include('rendez_vous.urls.rendezvous_urls')),
     path('api/admin/', include('administration.urls')),
     path('api/notifications/', include('notifications.urls')), 
+    path('api/abonnements/', include('abonnements.urls')), 
+    path('api/planning/',    include('planning.urls.horaire_urls')),
+    path('api/media-portfolio/',   include('media_portfolio.urls.portfolio_urls')),
+    path('api/admin/extended/', include('administration.urls.admin_extended_urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

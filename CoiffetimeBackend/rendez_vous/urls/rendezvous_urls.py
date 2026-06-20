@@ -10,5 +10,5 @@ urlpatterns = [
     path('notifications/', rendezvous_views.liste_notifications, name='liste_notifications'),
     
     # URL finale : /api/rendez-vous/notifications/<id>/
-    path('notifications/<int:pk>/', rendezvous_views.detail_notification, name='detail_notification'),
+    path('notifications/<uuid:pk>/', rendezvous_views.detail_notification, name='detail_notification'),
 ]

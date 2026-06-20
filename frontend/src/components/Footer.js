@@ -109,17 +109,19 @@ export const Footer = () => {
     footer.innerHTML = `
         <!-- Barre principale -->
         <div class="nf-bar">
-            <span class="nf-brand">MIXO</span>
-            <span class="nf-copy">© 2026 MIXO — Style Premium</span>
-            <nav class="nf-links">
-                <button class="nf-link" data-modal="confidentialite">Confidentialité</button>
-                <span class="nf-sep">·</span>
-                <button class="nf-link" data-modal="conditions">Conditions</button>
-                <span class="nf-sep">·</span>
-                <button class="nf-link" data-modal="contact">Contact</button>
-                <span class="nf-sep">·</span>
-                <button class="nf-link" data-modal="support">Support</button>
-            </nav>
+            <div class="nf-bar-inner">
+                <span class="nf-brand">MIXO</span>
+                <span class="nf-copy">© 2026 MIXO — Style Premium</span>
+                <nav class="nf-links">
+                    <button class="nf-link" data-modal="confidentialite">Confidentialité</button>
+                    <span class="nf-sep">·</span>
+                    <button class="nf-link" data-modal="conditions">Conditions</button>
+                    <span class="nf-sep">·</span>
+                    <button class="nf-link" data-modal="contact">Contact</button>
+                    <span class="nf-sep">·</span>
+                    <button class="nf-link" data-modal="support">Support</button>
+                </nav>
+            </div>
         </div>
 
         <!-- Modals Bootstrap -->

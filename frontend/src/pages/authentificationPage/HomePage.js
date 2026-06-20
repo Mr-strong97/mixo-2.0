@@ -1,44 +1,24 @@
-import { Navbar } from '../../components/navbars/Navbar.js';
-import { ZoneHero } from '../../components/ZoneHero.js';
-import { StatsCatalogue } from '../../components/StatsCatalogue.js';
-import { Footer } from '../../components/Footer.js';
-
+import { HomeClientPage } from './HomeClientPage.js';
+import { HomeCoiffeurPage } from './HomeCoiffeurPage.js';
+import { HomeAdminPage } from './HomeAdminPage.js';
 
 /**
  * Page : HomePage
- * Orchestre les différents composants pour construire l'accueil.
+ * Orchestre les sections de la nouvelle page d'accueil Mixo :
+ *
+ *   1. ZoneHero               — accroche + carte vidéo "client satisfait"
+ *   2. PlatformOverview        — "Qu'est-ce que Mixo ?" (clients / coiffeurs)
+ *   3. TransformationShowcase  — section signature scroll-driven (canvas)
+ *   4. HowItWorks              — "Comment ça fonctionne ?" (5 étapes)
+ *   5. Benefits                — avantages (clients / coiffeurs)
+ *   6. StatsCatalogue          — statistiques animées (count-up)
+ *   7. Testimonials            — avis clients & coiffeurs
+ *   8. FinalCta                — appel à l'action de clôture
  */
 export const HomePage = () => {
-    // 1. Création du conteneur racine de la page
-    const page = document.createElement('div');
-    page.className = 'home-page-wrapper';
+    const role = (localStorage.getItem('user_role') || 'client').toLowerCase().trim();
 
-    // 2. Initialisation des composants (Pattern MVC : Vue)
-    const nav = Navbar();
-    const hero = ZoneHero();
-    const stats = StatsCatalogue(); 
-    const footer = Footer();
-
-    // 3. Assemblage des composants dans le DOM (Règle 2)
-    page.appendChild(nav);
-    
-    // On peut ajouter un conteneur "main" pour le SEO et la structure
-    const main = document.createElement('main');
-    main.appendChild(hero);
-    main.appendChild(stats);
-    
-    // Ici, nous pourrons ajouter d'autres sections plus tard (ServicesCard, etc.)
-    
-    page.appendChild(main);
-    page.appendChild(footer);
-
-    // Initialisation des icônes Lucide après l'injection (Règle 5)
-    // On utilise un setTimeout pour s'assurer que le DOM est prêt
-    setTimeout(() => {
-        if (window.lucide) {
-            window.lucide.createIcons();
-        }
-    }, 0);
-
-    return page;
+    if (role === 'admin') return HomeAdminPage();
+    if (role === 'coiffeur') return HomeCoiffeurPage();
+    return HomeClientPage();
 };

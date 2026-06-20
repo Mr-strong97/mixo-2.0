@@ -1,3 +1,5 @@
+import { API_BASE_URL } from '../api/axiosConfig.js';
+
 // ============================================================
 //  BookingModal.js — Modal de réservation
 //  Mixo · Module Services
@@ -263,7 +265,7 @@ export class BookingModal {
     btn.innerHTML = '<span class="bm-spinner"></span> Réservation…';
 
     try {
-      const resp = await fetch('/api/rendezvous/', {
+      const resp = await fetch(`${API_BASE_URL}rendez-vous/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -276,10 +278,14 @@ export class BookingModal {
         })
       });
       if (!resp.ok) throw new Error();
-    } catch {/* Démo */ }
-
-    this.close();
-    window.showToast && window.showToast('Réservation confirmée ! Vous recevrez une notification.', 'success');
+      this.close();
+      window.showToast && window.showToast('Réservation confirmée ! Vous recevrez une notification.', 'success');
+    } catch (error) {
+      btn.disabled = false;
+      btn.innerHTML = '<i data-lucide="check"></i> Confirmer la réservation';
+      if (window.lucide) window.lucide.createIcons();
+      window.showToast && window.showToast(error?.message || 'Impossible de confirmer la réservation.', 'error');
+    }
   }
 
   _bindEvents() {

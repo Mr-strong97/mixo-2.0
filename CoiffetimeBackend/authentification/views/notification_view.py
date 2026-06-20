@@ -6,13 +6,13 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from ..models.notification import Notification
+from notifications.models import Notification
 
 
 class NotificationSerializer(serializers.ModelSerializer):
     class Meta:
         model  = Notification
-        fields = ['id', 'titre', 'message', 'type', 'lu', 'lien', 'cree_le']
+        fields = ['id', 'titre', 'message', 'type', 'statut', 'lien', 'created_at']
 
 
 @api_view(['GET'])
@@ -20,7 +20,7 @@ class NotificationSerializer(serializers.ModelSerializer):
 def mesNotifications(request):
     """GET /api/auth/notifications/"""
     notifs    = Notification.objects.filter(utilisateur=request.user)
-    non_lues  = notifs.filter(lu=False).count()
+    non_lues  = notifs.filter(statut='NON_LU').count()
     return Response({
         "count":     notifs.count(),
         "non_lues":  non_lues,
@@ -34,8 +34,8 @@ def marquerCommeLue(request, id):
     """PATCH /api/auth/notifications/{id}/lire/"""
     try:
         notif    = Notification.objects.get(id=id, utilisateur=request.user)
-        notif.lu = True
-        notif.save(update_fields=['lu'])
+        notif.statut = 'LU'
+        notif.save(update_fields=['statut'])
         return Response({"message": "Notification marquée comme lue."})
     except Notification.DoesNotExist:
         return Response({"detail": "Introuvable."}, status=status.HTTP_404_NOT_FOUND)
@@ -45,7 +45,7 @@ def marquerCommeLue(request, id):
 @permission_classes([IsAuthenticated])
 def toutMarquerCommeLu(request):
     """PATCH /api/auth/notifications/tout-lire/"""
-    Notification.objects.filter(utilisateur=request.user, lu=False).update(lu=True)
+    Notification.objects.filter(utilisateur=request.user, statut='NON_LU').update(statut='LU')
     return Response({"message": "Toutes marquées comme lues."})
 
 

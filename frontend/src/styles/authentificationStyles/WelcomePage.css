@@ -10,15 +10,51 @@
     overflow: hidden;
     background-color: var(--white);
     display: flex;
+    position: relative;
+    overflow: hidden;
+}
+.container-fluid {
+    overflow-x: hidden;
 }
 
 /* ── 2. SECTION GAUCHE (Visuelle) ───────────────────────────── */
 .bg-image-section {
-    background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%);
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.18), transparent 24%),
+        radial-gradient(circle at 80% 30%, rgba(255,255,255,0.12), transparent 18%),
+        linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%);
     position: relative;
     height: 100%;
     /* Slide depuis la gauche */
     animation: slideInLeft 0.8s var(--ease-expo) both;
+    overflow: hidden;
+}
+
+.bg-image-section::before,
+.bg-image-section::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(18px);
+    opacity: 0.35;
+    animation: orbDrift 10s ease-in-out infinite;
+}
+
+.bg-image-section::before {
+    width: 280px;
+    height: 280px;
+    background: rgba(255,255,255,0.18);
+    top: -60px;
+    left: -40px;
+}
+
+.bg-image-section::after {
+    width: 180px;
+    height: 180px;
+    background: rgba(255,255,255,0.14);
+    bottom: 14%;
+    right: 12%;
+    animation-delay: -3s;
 }
 
 /* Overlay glassmorphism centré sur l'image */
@@ -62,6 +98,7 @@
     /* Slide depuis la droite avec léger décalage */
     animation: slideInRight 0.8s var(--ease-expo) 0.1s both;
     z-index: 2;
+    box-shadow: -20px 0 60px rgba(15, 23, 42, 0.04);
 }
 
 .form-content-wrapper {
@@ -94,12 +131,29 @@
 
 /* ── 4. RESPONSIVE ──────────────────────────────────────────── */
 @media (max-width: 768px) {
+    .welcome-container {
+        height: auto;
+        min-height: 100vh;
+        flex-direction: column;
+    }
+    .bg-image-section {
+        min-height: 40vh;
+    }
     .bg-form-section {
         border-left: none;
         padding: 2rem !important;
     }
     .welcome-title       { font-size: 1.35rem; }
     .welcome-description { font-size: 0.9rem; margin-bottom: 2rem; }
+}
+
+@media (max-width: 576px) {
+    .glass-overlay {
+        padding: 1.75rem 1.5rem;
+    }
+    .welcome-tagline {
+        font-size: 1.25rem;
+    }
 }
 
 /* ── 5. KEYFRAMES ───────────────────────────────────────────── */
@@ -116,4 +170,9 @@
 @keyframes fadeInScale {
     from { opacity: 0; transform: scale(0.96) translateY(8px); }
     to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes orbDrift {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(18px, -10px, 0) scale(1.08); }
 }

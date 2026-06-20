@@ -1,0 +1,91 @@
+/* ================================================================
+   Abonnements.css — MIXO · Module Abonnements
+   ================================================================ */
+
+.abp-page { min-height: 100vh; background: #F8FAFC; font-family: 'Poppins', sans-serif; }
+.abp-main { max-width: 1100px; margin: 0 auto; padding: 32px 24px 80px; }
+.abp-loader { display: flex; justify-content: center; padding: 100px 0; }
+.abp-header h1 { font-family: 'Montserrat', sans-serif; font-size: 1.8rem; font-weight: 800; color: #1A1D20; margin: 0 0 6px; }
+.abp-header p { color: #62676B; margin: 0 0 24px; }
+
+/* ── Carte statut ─────────────────────────────────────────── */
+.abp-status-card {
+    background: #fff; border: 1.5px solid #E8ECF0; border-radius: 16px;
+    padding: 20px 24px; display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 24px;
+}
+.abp-status-label { display: block; font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase; color: #94A3B8; margin-bottom: 4px; }
+.abp-status-card strong { font-size: 1.1rem; color: #1A1D20; }
+.abp-status-detail { background: #EBF4FF; color: #0A66C2; padding: 8px 16px; border-radius: 100px; font-size: 0.84rem; font-weight: 600; }
+
+/* ── Grille de plans ──────────────────────────────────────── */
+.abp-plans-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.abp-error { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 80px 0; color: #94A3B8; }
+
+
+/* ═══════════════════ PLAN CARD (pln-*) ═══════════════════ */
+.pln-card {
+    position: relative; background: #fff; border: 1.5px solid #E8ECF0; border-radius: 18px;
+    padding: 28px 24px; display: flex; flex-direction: column; gap: 16px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.pln-card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(15,23,42,0.08); }
+.pln-card-highlight { border-color: #0A66C2; box-shadow: 0 8px 24px rgba(10,102,194,0.12); }
+.pln-card-current { background: #F8FAFC; }
+
+.pln-badge {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: #0A66C2; color: #fff; font-size: 0.66rem; font-weight: 700;
+    padding: 5px 16px; border-radius: 100px; letter-spacing: 0.5px;
+}
+.pln-name { font-family: 'Montserrat', sans-serif; font-size: 1.15rem; font-weight: 800; color: #1A1D20; margin: 0; }
+.pln-price { display: flex; align-items: baseline; gap: 4px; }
+.pln-amount { font-family: 'Montserrat', sans-serif; font-size: 2.2rem; font-weight: 800; color: #0A66C2; }
+.pln-period { color: #94A3B8; font-size: 0.86rem; }
+
+.pln-avantages { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.pln-avantages li { display: flex; align-items: flex-start; gap: 8px; font-size: 0.86rem; color: #475569; }
+.pln-avantages svg { width: 16px; height: 16px; color: #16A34A; flex-shrink: 0; margin-top: 1px; }
+
+.pln-btn {
+    height: 48px; border-radius: 10px; font-family: 'Poppins', sans-serif;
+    font-size: 0.86rem; font-weight: 700; cursor: pointer; border: none; transition: all 0.2s ease;
+}
+.pln-btn-primary { background: #0A66C2; color: #fff; }
+.pln-btn-primary:hover { background: #004182; }
+.pln-btn-current { background: #DCFCE7; color: #16A34A; cursor: default; }
+
+
+/* ═══════════════════ TRIAL BANNER (trb-*) ═══════════════════ */
+.trb-banner {
+    display: flex; align-items: center; justify-content: space-between;
+    background: linear-gradient(135deg, #EBF4FF, #F0F7FF); border: 1px solid rgba(10,102,194,0.15);
+    border-radius: 14px; padding: 16px 20px; margin-bottom: 20px; gap: 16px; flex-wrap: wrap;
+}
+.trb-urgent { background: linear-gradient(135deg, #FEF3C7, #FEF9E7); border-color: rgba(217,119,6,0.2); }
+.trb-content { display: flex; align-items: center; gap: 12px; }
+.trb-content svg { width: 22px; height: 22px; color: #0A66C2; flex-shrink: 0; }
+.trb-urgent .trb-content svg { color: #D97706; }
+.trb-content strong { display: block; font-size: 0.9rem; color: #1A1D20; }
+.trb-content span { font-size: 0.8rem; color: #62676B; }
+.trb-btn {
+    background: #0A66C2; color: #fff; border: none; border-radius: 10px;
+    padding: 10px 20px; font-size: 0.82rem; font-weight: 700; cursor: pointer; white-space: nowrap;
+}
+.trb-btn:hover { background: #004182; }
+
+
+/* ═══════════════════ STATUS BADGE (asb-*) ═══════════════════ */
+.asb-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px; border-radius: 100px; font-size: 0.76rem; font-weight: 700;
+}
+.asb-badge svg { width: 13px; height: 13px; }
+.asb-inactive { background: #F0F4F9; color: #94A3B8; }
+.asb-trial    { background: #EBF4FF; color: #0A66C2; }
+.asb-active   { background: #DCFCE7; color: #16A34A; }
+
+
+@media (max-width: 900px) {
+    .abp-plans-grid { grid-template-columns: 1fr; }
+}
