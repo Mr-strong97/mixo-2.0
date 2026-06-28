@@ -1,0 +1,114 @@
+/* ================================================================
+   RendezVous.css — MIXO · Module Rendez-vous & Réservation
+   ================================================================ */
+
+.rvp-page, .rsv-page { min-height: 100vh; background: #F8FAFC; font-family: 'Poppins', sans-serif; }
+.rvp-main, .rsv-main { max-width: 960px; margin: 0 auto; padding: 32px 24px 80px; }
+.rvp-loader { display: flex; justify-content: center; padding: 80px 0; }
+.rvp-header h1, .rsv-header h1 { font-family: 'Montserrat', sans-serif; font-size: 1.7rem; font-weight: 800; color: #1A1D20; margin: 0 0 4px; }
+.rvp-header p, .rsv-header p { color: #62676B; margin: 0 0 20px; font-size: 0.88rem; }
+.rvp-empty { text-align: center; color: #94A3B8; padding: 48px 0; font-size: 0.9rem; }
+
+/* ── Filtres ──────────────────────────────────────────────── */
+.rvp-filters { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+.rvp-filter-btn {
+    padding: 8px 18px; border-radius: 100px; border: 1.5px solid #E8ECF0;
+    background: #fff; color: #62676B; font-family: 'Poppins', sans-serif;
+    font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+}
+.rvp-filter-btn:hover { border-color: #0A66C2; color: #0A66C2; }
+.rvp-filter-active { background: #0A66C2; border-color: #0A66C2; color: #fff; }
+
+/* ── Liste ────────────────────────────────────────────────── */
+.rvp-list { display: flex; flex-direction: column; gap: 14px; }
+
+/* ── RENDEZ-VOUS CARD (rvc-*) ─────────────────────────────── */
+.rvc-card {
+    background: #fff; border: 1.5px solid #E8ECF0; border-radius: 16px;
+    padding: 20px 22px; display: flex; flex-direction: column; gap: 12px;
+}
+.rvc-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.rvc-title { font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 700; color: #1A1D20; margin: 0 0 4px; }
+.rvc-coiffeur { font-size: 0.82rem; color: #62676B; }
+.rvc-meta { display: flex; gap: 18px; flex-wrap: wrap; font-size: 0.82rem; color: #62676B; }
+.rvc-meta span { display: flex; align-items: center; gap: 6px; }
+.rvc-meta svg { width: 14px; height: 14px; }
+.rvc-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.rvc-btn {
+    display: flex; align-items: center; gap: 6px;
+    height: 38px; padding: 0 16px; border-radius: 9px;
+    font-family: 'Poppins', sans-serif; font-size: 0.8rem; font-weight: 700;
+    cursor: pointer; border: none; transition: all 0.2s;
+}
+.rvc-btn svg { width: 14px; height: 14px; }
+.rvc-btn-primary { background: #0A66C2; color: #fff; }
+.rvc-btn-primary:hover { background: #004182; }
+.rvc-btn-outline { background: #fff; border: 1.5px solid #E8ECF0; color: #1A1D20; }
+.rvc-btn-outline:hover { border-color: #0A66C2; color: #0A66C2; }
+.rvc-btn-danger { background: #FEF2F2; border: 1.5px solid #FECACA; color: #DC2626; }
+.rvc-btn-danger:hover { background: #DC2626; color: #fff; }
+
+/* ── STATUT BADGE (sbg-*) ─────────────────────────────────── */
+.sbg-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 5px 12px; border-radius: 100px;
+    font-size: 0.72rem; font-weight: 700; white-space: nowrap;
+}
+.sbg-badge svg { width: 12px; height: 12px; }
+
+/* ── RÉSERVATION (rsv-*) ──────────────────────────────────── */
+.rsv-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 24px; }
+.rsv-back {
+    width: 42px; height: 42px; border-radius: 50%; border: 1.5px solid #E8ECF0;
+    background: #fff; color: #1A1D20; display: flex; align-items: center;
+    justify-content: center; cursor: pointer; flex-shrink: 0;
+}
+.rsv-back:hover { border-color: #0A66C2; color: #0A66C2; }
+.rsv-back svg { width: 18px; height: 18px; }
+
+.rsv-layout { display: grid; grid-template-columns: 1fr 320px; gap: 24px; align-items: start; }
+
+.rsv-summary {
+    background: #fff; border: 1.5px solid #E8ECF0; border-radius: 16px;
+    padding: 22px; display: flex; flex-direction: column; gap: 4px;
+    position: sticky; top: 20px;
+}
+.rsv-summary h3 { font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 700; color: #1A1D20; margin: 0 0 12px; }
+.rsv-summary-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #F0F4F9; font-size: 0.86rem; }
+.rsv-summary-row span { color: #62676B; }
+.rsv-summary-row strong { color: #1A1D20; }
+.rsv-btn-confirm {
+    margin-top: 14px; width: 100%; height: 50px; border-radius: 12px;
+    background: #0A66C2; border: none; color: #fff;
+    font-family: 'Poppins', sans-serif; font-size: 0.9rem; font-weight: 700;
+    cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.rsv-btn-confirm:hover:not(:disabled) { background: #004182; }
+.rsv-btn-confirm:disabled { opacity: 0.5; cursor: not-allowed; }
+.rsv-btn-confirm svg { width: 18px; height: 18px; }
+
+/* ── CRÉNEAU PICKER (crp-*) ───────────────────────────────── */
+.crp-wrapper { background: #fff; border: 1.5px solid #E8ECF0; border-radius: 16px; padding: 22px; }
+.crp-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
+.crp-field label { font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase; color: #62676B; font-weight: 700; }
+.crp-field input[type="date"] {
+    height: 48px; padding: 0 14px; border: 1.5px solid #E8ECF0; border-radius: 10px;
+    font-family: 'Poppins', sans-serif; font-size: 0.88rem; outline: none;
+}
+.crp-field input[type="date"]:focus { border-color: #0A66C2; }
+.crp-slots-wrap label { display: block; font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase; color: #62676B; font-weight: 700; margin-bottom: 10px; }
+.crp-slots { display: flex; flex-wrap: wrap; gap: 8px; min-height: 40px; }
+.crp-slot-btn {
+    padding: 8px 16px; border-radius: 8px; border: 1.5px solid #E8ECF0;
+    background: #F8FAFC; color: #1A1D20; font-family: 'Poppins', sans-serif;
+    font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+}
+.crp-slot-btn:hover { border-color: #0A66C2; color: #0A66C2; background: #EBF4FF; }
+.crp-slot-active { background: #0A66C2; border-color: #0A66C2; color: #fff; }
+.crp-empty { font-size: 0.82rem; color: #94A3B8; padding: 12px 0; }
+
+@media (max-width: 768px) {
+    .rsv-layout { grid-template-columns: 1fr; }
+    .rsv-summary { position: static; }
+}

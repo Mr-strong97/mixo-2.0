@@ -1,0 +1,101 @@
+/* LaisserAvisPage.css — MIXO */
+.lap-main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 36px 20px 48px;
+}
+
+.lap-card {
+    padding: 28px;
+    border-radius: var(--radius-2xl);
+    border: 1px solid var(--border);
+    background: linear-gradient(180deg, #fff, #fbfdff);
+    box-shadow: var(--shadow-sm);
+}
+
+.lap-summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin: 24px 0;
+}
+
+.lap-summary div {
+    padding: 14px 16px;
+    border-radius: 16px;
+    background: var(--blue-dim);
+}
+
+.lap-summary span {
+    display: block;
+    font-size: .74rem;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.lap-summary strong { color: var(--blue-dark); }
+
+.lap-rating, .lap-comment {
+    margin-top: 18px;
+}
+
+.lap-rating label, .lap-comment label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    color: var(--text-muted);
+    font-weight: 800;
+}
+
+.lap-stars {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.lap-star {
+    width: 46px;
+    height: 46px;
+    border: 0;
+    border-radius: 50%;
+    background: #eef3f8;
+    color: #c7d2e0;
+    display: grid;
+    place-items: center;
+}
+
+.lap-star-active {
+    background: rgba(245,158,11,.15);
+    color: #f59e0b;
+}
+
+.lap-star svg { width: 18px; height: 18px; }
+
+.lap-comment textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    background: var(--bg-surface);
+    outline: 0;
+    resize: vertical;
+    min-height: 120px;
+}
+
+.lap-actions {
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+@media (max-width: 700px) {
+    .lap-main { padding-inline: 14px; }
+    .lap-summary { grid-template-columns: 1fr; }
+    .lap-actions { flex-direction: column; }
+}
+

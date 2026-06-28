@@ -62,19 +62,43 @@ export const ServiceCard = (service, onFavoriteToggle = null) => {
     // ── Favoris ─────────────────────────────────────────────
     const favBtn = card.querySelector('.svc-card-fav');
     let isFav = !!service.est_favori;
-    favBtn.addEventListener('click', (e) => {
+    favBtn.addEventListener('click', async (e) => {
         e.stopPropagation();
-        isFav = !isFav;
-        favBtn.classList.toggle('svc-card-fav-active', isFav);
-        if (onFavoriteToggle) onFavoriteToggle(service.id, isFav);
+        const nextState = !isFav;
+        favBtn.classList.add('svc-fav-pulse');
+        setTimeout(() => favBtn.classList.remove('svc-fav-pulse'), 320);
+        favBtn.disabled = true;
+        favBtn.classList.toggle('svc-card-fav-active', nextState);
+        favBtn.title = nextState ? 'Retirer des favoris' : 'Ajouter aux favoris';
+        try {
+            if (onFavoriteToggle) {
+                const result = await onFavoriteToggle(service.id, nextState, service);
+                if (result && typeof result.est_favori === 'boolean') {
+                    isFav = result.est_favori;
+                    favBtn.classList.toggle('svc-card-fav-active', isFav);
+                    favBtn.title = isFav ? 'Retirer des favoris' : 'Ajouter aux favoris';
+                } else {
+                    isFav = nextState;
+                }
+            } else {
+                isFav = nextState;
+            }
+        } catch (error) {
+            isFav = !nextState;
+            favBtn.classList.toggle('svc-card-fav-active', isFav);
+            favBtn.title = isFav ? 'Retirer des favoris' : 'Ajouter aux favoris';
+            console.error('[ServiceCard] Favori impossible :', error);
+        } finally {
+            favBtn.disabled = false;
+        }
     });
 
     // ── Navigation ──────────────────────────────────────────
     const goToDetail = () => window.navigate?.(`/services/${service.id}`);
+    const goToReservation = () => window.navigate?.(`/services/${service.id}/reserver`);
 
     card.querySelector('[data-action="voir"]').addEventListener('click', goToDetail);
-    card.querySelector('[data-action="reserver"]').addEventListener('click', () =>
-        window.navigate?.(`/services/${service.id}?reserver=1`));
+    card.querySelector('[data-action="reserver"]').addEventListener('click', goToReservation);
     card.querySelector('.svc-card-media').addEventListener('click', (e) => {
         if (e.target.closest('.svc-card-fav')) return;
         goToDetail();

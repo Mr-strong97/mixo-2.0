@@ -15,11 +15,16 @@ urlpatterns = [
     # Module Services (Avis, Horaires, Prestations)
     # Note la virgule à la fin de la ligne suivante
     path('api/services/', include('services.urls.service_urls')),
+    path('api/avis/', include('avis.urls.avis_urls')),
+    path('api/favoris/', include('favoris.urls')),
+    path('api/historique/', include('historique.urls')),
+    path('api/dashboard-coiffeur/', include('dashboard_coiffeur.urls')),
 
     # Module Rendez-vous (Réservations, Notifications)
     # Note le '#' pour le commentaire ci-dessous
     # Les routes seront préfixées par 'api/rendez-vous/'
-    path('api/rendez-vous/', include('rendez_vous.urls.rendezvous_urls')),
+    path('api/rendez-vous/', include('rendez_vous.urls.rendez_vous_urls')),
+    path('api/paiements/', include('paiements.urls.paiement_urls')),
     path('api/admin/', include('administration.urls')),
     path('api/notifications/', include('notifications.urls')), 
     path('api/abonnements/', include('abonnements.urls')), 

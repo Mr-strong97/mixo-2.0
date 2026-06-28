@@ -1,5 +1,8 @@
+"""apps.py — MIXO · Module Paiements"""
 from django.apps import AppConfig
 
 
 class PaiementsConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
     name = 'paiements'
+    verbose_name = 'Paiements'

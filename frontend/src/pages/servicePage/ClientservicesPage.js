@@ -13,7 +13,9 @@ import { Footer }            from '../../components/Footer.js';
 import { ServiceCard }       from '../../components/servicesComponents/ServiceCard.js';
 import { CategoryFilterBar } from '../../components/servicesComponents/CategoryFilterBar.js';
 import { ServiceAPI }        from '../../api/ServiceAPI.js';
+import { FavorisAPI }        from '../../api/FavorisAPI.js';
 import { requireAuth }       from '../../utils/AuthGuard.js';
+import { showToast }         from '../../utils/toast.js';
 
 import '../../styles/serviceStyles/ServiceComponents.css';
 import '../../styles/serviceStyles/ClientServices.css';
@@ -118,7 +120,12 @@ export const ClientServicesPage = () => {
             }
 
             grid.innerHTML = '';
-            data.resultats.forEach(s => grid.appendChild(ServiceCard(s)));
+            data.resultats.forEach(s => grid.appendChild(ServiceCard(s, async (serviceId, isFav) => {
+                const res = await FavorisAPI.toggle(serviceId);
+                showToast(isFav ? 'Service ajouté aux favoris.' : 'Service retiré des favoris.', 'success');
+                window.dispatchEvent(new CustomEvent('mixo:favorites-updated', { detail: { count: res.count ?? 0 } }));
+                return res;
+            })));
             buildPagination(data.pages, data.page);
 
         } catch (err) {

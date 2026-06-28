@@ -33,11 +33,20 @@ import { AuditLogPage }          from './pages/authentificationPage/AuditLogPage
 //   Espace Client
 import { ClientServicesPage }        from './pages/servicePage/ClientservicesPage.js';
 import { ServiceDetailPage }         from './pages/servicePage/ServiceDetailPage.js';
+import { ReservationPage }          from './pages/rendezvousPage/ReservationPage.js';
 //   Espace Coiffeur
 import { CoiffeurServicesPage }      from './pages/servicePage/CoiffeurServicesPage.js';
 import { CoiffeurServiceDetailPage } from './pages/servicePage/CoiffeurServiceDetailPage.js';
 import { CoiffeurServiceEditPage }   from './pages/servicePage/CoiffeurServiceEditPage.js';
 import { ServiceWizardPage }         from './pages/servicePage/ServiceWizardPage.js';
+import { ClientRendezVousPage }      from './pages/rendezvousPage/ClientRendezVousPage.js';
+import { CoiffeurRendezVousPage }     from './pages/rendezvousPage/CoiffeurRendezVousPage.js';
+import { PaiementPage }              from './pages/paiementPage/PaiementPage.js';
+import { CoiffeurAvisPage }          from './pages/avisPage/CoiffeurAvisPage.js';
+import { LaisserAvisPage }           from './pages/avisPage/LaisserAvisPage.js';
+import { FavorisPage }               from './pages/favorisPage/FavorisPage.js';
+import { HistoriquePage }            from './pages/historiquePage/HistoriquePage.js';
+import { CoiffeurDashboardPage }     from './pages/dashboardPage/CoiffeurDashboardPage.js';
 
 
 // services du coiffeur dans le systeme
@@ -45,6 +54,7 @@ import { CoiffeurAbonnementPage } from './pages/abonnementPage/CoiffeurAbonnemen
 import { CoiffeurHorairesPage }   from './pages/horairePage/CoiffeurHorairesPage.js';
 import { CoiffeurPortfolioPage }  from './pages/portfolioPage/CoiffeurPortfolioPage.js';
 import { AdminServicesDashboardPage } from './pages/adminPage/AdminServicesDashboardPage.js';
+import { CoiffeurProfilPage } from './pages/profilPage/CoiffeurProfilPage.js';
 
 
 const createInfoPage = (title, description) => (extra = {}) => {
@@ -62,6 +72,15 @@ const createInfoPage = (title, description) => (extra = {}) => {
     `;
     if (window.lucide) window.lucide.createIcons();
     return page;
+};
+
+const getUserRole = () => (localStorage.getItem('user_role') || '').toLowerCase();
+
+const roleBasedPage = (clientPage, coiffeurPage, fallbackPage = null) => () => {
+    const role = getUserRole();
+    if (role === 'client') return clientPage();
+    if (role === 'coiffeur') return coiffeurPage();
+    return fallbackPage ? fallbackPage() : createInfoPage('Accès', 'Cette page est réservée à un rôle connecté.')();
 };
 
 
@@ -97,11 +116,13 @@ const routes = [
     { path: /^\/notifications$/,   component: NotificationPage },
 
     // Pages en cours de réalisation mais déjà reliées à la navigation
-    { path: /^\/favoris$/,         component: createInfoPage('Favoris', 'La liste de favoris sera disponible dans une prochaine itération.') },
-    { path: /^\/historique$/,      component: createInfoPage('Historique', 'Vos rendez-vous passés et à venir apparaîtront ici.') },
-    { path: /^\/rendez-vous$/,     component: createInfoPage('Rendez-vous', 'La gestion détaillée des rendez-vous coiffeur arrive bientôt.') },
+    { path: /^\/favoris$/,         component: FavorisPage },
+    { path: /^\/historique$/,      component: HistoriquePage },
+    { path: /^\/rendez-vous$/,     component: roleBasedPage(ClientRendezVousPage, CoiffeurRendezVousPage) },
+    { path: /^\/paiement\/([a-zA-Z0-9_-]+)$/, component: (params) => PaiementPage(params), paramKeys: ['id'] },
+    { path: /^\/avis\/laisser\/([a-fA-F0-9-]{36})$/, component: (params) => LaisserAvisPage(params), paramKeys: ['id'] },
+    { path: /^\/avis$/,            component: roleBasedPage(createInfoPage('Avis', 'L’espace avis clients est disponible pour les coiffeurs.'), CoiffeurAvisPage) },
     { path: /^\/plannings$/,       component: createInfoPage('Plannings', 'La gestion des plannings coiffeur est en préparation.') },
-    { path: /^\/avis$/,            component: createInfoPage('Avis', 'L’espace avis clients sera relié prochainement.') },
 
 
     // ════════════════════════════════════════════════════════
@@ -110,8 +131,10 @@ const routes = [
     // ════════════════════════════════════════════════════════
 
     // ── Espace Coiffeur — routes fixes (avant /:id) ──────────
+    { path: /^\/coiffeur\/dashboard$/,     component: CoiffeurDashboardPage },
     { path: /^\/coiffeur\/services$/,     component: CoiffeurServicesPage },
     { path: /^\/coiffeur\/services\/new$/, component: ServiceWizardPage },
+    { path: /^\/services\/([a-zA-Z0-9_-]+)\/reserver$/, component: (params) => ReservationPage(params), paramKeys: ['id'] },
     
 
     // ── Espace Coiffeur — routes paramétrées ─────────────────
@@ -128,15 +151,13 @@ const routes = [
 
     // ── Espace Client — liste puis détail ────────────────────
     { path: /^\/services$/, component: ClientServicesPage },
-    {
-        path: /^\/services\/([a-zA-Z0-9_-]+)$/,
-        component: (params) => ServiceDetailPage(params),
-        paramKeys: ['id'],
-    },
+    { path: /^\/services\/([a-zA-Z0-9_-]+)$/, component: (params) => ServiceDetailPage(params), paramKeys: ['id'] },
 
     { path: /^\/coiffeur\/abonnement$/, component: CoiffeurAbonnementPage },
     { path: /^\/coiffeur\/horaires$/,   component: CoiffeurHorairesPage },
     { path: /^\/coiffeur\/portfolio$/,  component: CoiffeurPortfolioPage },
+    { path: /^\/profil\/([a-zA-Z0-9_-]+)\/([a-fA-F0-9-]{36})$/, component: (params) => CoiffeurProfilPage(params), paramKeys: ['username', 'id'] },
+    { path: /^\/([a-zA-Z0-9_-]+)\/([a-fA-F0-9-]{36})$/, component: (params) => CoiffeurProfilPage(params), paramKeys: ['username', 'id'] },
     { path: /^\/admin\/services$/,      component: AdminServicesDashboardPage },
 
 ];

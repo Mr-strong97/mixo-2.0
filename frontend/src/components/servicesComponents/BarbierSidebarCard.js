@@ -40,7 +40,7 @@ export const BarbierSidebarCard = (coiffeur = {}) => {
 
     card.querySelector('#bsc-voir-profil')?.addEventListener('click', () => {
         if (coiffeur.username && coiffeur.id) {
-            window.navigate?.(`/${coiffeur.username}/${coiffeur.id}`);
+            window.navigate?.(`/profil/${coiffeur.username}/${coiffeur.id}`);
         }
     });
 

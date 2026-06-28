@@ -1,0 +1,104 @@
+/* ================================================================
+   Paiement.css — MIXO · Module Paiements
+   ================================================================ */
+
+.pap-page { min-height: 100vh; background: #F8FAFC; font-family: 'Poppins', sans-serif; }
+.pap-main { max-width: 900px; margin: 0 auto; padding: 32px 24px 80px; }
+.pap-loader { display: flex; justify-content: center; padding: 80px 0; }
+.pap-empty { text-align: center; color: #94A3B8; padding: 60px 0; }
+
+/* ── Header ───────────────────────────────────────────────── */
+.pap-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 28px; }
+.pap-header h1 { font-family: 'Montserrat', sans-serif; font-size: 1.6rem; font-weight: 800; color: #1A1D20; margin: 0 0 4px; }
+.pap-header p  { color: #62676B; font-size: 0.86rem; margin: 0; }
+
+/* ── Layout ───────────────────────────────────────────────── */
+.pap-layout { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; }
+.pap-left { display: flex; flex-direction: column; gap: 18px; }
+.pap-section-title { font-family: 'Montserrat', sans-serif; font-size: 0.98rem; font-weight: 700; color: #1A1D20; margin: 0; }
+
+/* ── Méthode selector (pms-*) ─────────────────────────────── */
+.pms-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.pms-card {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    padding: 18px 12px; border-radius: 14px; border: 1.5px solid #E8ECF0;
+    background: #fff; cursor: pointer; transition: all 0.2s ease;
+}
+.pms-card:hover { border-color: #0A66C2; background: #F0F7FF; }
+.pms-card-active { border-color: #0A66C2; background: #EBF4FF; }
+.pms-emoji { font-size: 1.8rem; }
+.pms-label { font-size: 0.8rem; font-weight: 700; color: #1A1D20; text-align: center; }
+
+/* ── Tel field ────────────────────────────────────────────── */
+.pap-field { display: flex; flex-direction: column; gap: 6px; }
+.pap-field label { font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase; color: #62676B; font-weight: 700; }
+.pap-field input {
+    height: 48px; padding: 0 16px; border: 1.5px solid #E8ECF0; border-radius: 10px;
+    font-family: 'Poppins', sans-serif; font-size: 0.88rem; outline: none;
+}
+.pap-field input:focus { border-color: #0A66C2; }
+
+/* ── Pay button ───────────────────────────────────────────── */
+.pap-btn-pay {
+    width: 100%; height: 54px; border-radius: 12px; border: none;
+    background: #0A66C2; color: #fff;
+    font-family: 'Poppins', sans-serif; font-size: 0.92rem; font-weight: 700;
+    cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: background 0.2s;
+}
+.pap-btn-pay:hover:not(:disabled) { background: #004182; }
+.pap-btn-pay:disabled { opacity: 0.5; cursor: not-allowed; }
+.pap-btn-pay svg { width: 18px; height: 18px; }
+
+.pap-secure { display: flex; align-items: center; gap: 6px; font-size: 0.76rem; color: #94A3B8; margin: 0; }
+.pap-secure svg { width: 14px; height: 14px; color: #16A34A; }
+
+/* ── Summary ──────────────────────────────────────────────── */
+.pap-summary {
+    background: #fff; border: 1.5px solid #E8ECF0; border-radius: 16px;
+    padding: 22px; position: sticky; top: 20px;
+}
+.pap-summary h3 { font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 700; color: #1A1D20; margin: 0 0 14px; }
+.pap-sum-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #F0F4F9; font-size: 0.84rem; }
+.pap-sum-row span { color: #62676B; }
+.pap-sum-row strong { color: #1A1D20; font-weight: 600; }
+.pap-total strong { color: #0A66C2; font-size: 1rem; font-weight: 800; }
+.pap-notice {
+    display: flex; align-items: flex-start; gap: 8px; margin-top: 14px;
+    font-size: 0.76rem; color: #62676B; line-height: 1.5;
+}
+.pap-notice svg { width: 14px; height: 14px; color: #0A66C2; flex-shrink: 0; margin-top: 1px; }
+
+/* ── Result / Success / Error ─────────────────────────────── */
+.pap-result, .pap-success, .pap-error {
+    display: flex; flex-direction: column; align-items: center; gap: 18px;
+    padding: 60px 0; text-align: center;
+}
+.pap-result h2, .pap-success h2 { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 800; color: #1A1D20; margin: 0; }
+.pap-error p { color: #94A3B8; font-size: 0.9rem; }
+.pap-btn-back {
+    padding: 12px 28px; border-radius: 10px; border: 1.5px solid #E8ECF0;
+    background: #fff; color: #1A1D20; font-family: 'Poppins', sans-serif;
+    font-size: 0.84rem; font-weight: 700; cursor: pointer;
+}
+.pap-btn-back:hover { border-color: #0A66C2; color: #0A66C2; }
+
+/* ── Paiement Status Card (psc-*) ────────────────────────── */
+.psc-card {
+    background: #F8FAFC; border: 1.5px solid #E8ECF0; border-radius: 14px;
+    padding: 20px; width: 100%; max-width: 380px; display: flex; flex-direction: column; gap: 14px;
+}
+.psc-top { display: flex; align-items: center; gap: 14px; }
+.psc-statut { display: block; font-size: 1rem; font-weight: 700; }
+.psc-methode { font-size: 0.8rem; color: #62676B; }
+.psc-montants { display: flex; flex-direction: column; gap: 8px; }
+.psc-row { display: flex; justify-content: space-between; font-size: 0.84rem; }
+.psc-row span { color: #62676B; }
+.psc-row strong, .psc-row code { color: #1A1D20; font-weight: 700; }
+.psc-row code { font-size: 0.78rem; background: #F0F4F9; padding: 2px 8px; border-radius: 6px; }
+
+@media (max-width: 700px) {
+    .pap-layout { grid-template-columns: 1fr; }
+    .pap-summary { position: static; }
+    .pms-grid { grid-template-columns: repeat(2, 1fr); }
+}

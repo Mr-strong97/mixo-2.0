@@ -9,6 +9,7 @@ import { ServiceGallerySlider }     from '../../components/servicesComponents/Se
 import { BarbierSidebarCard }       from '../../components/servicesComponents/BarbierSidebarCard.js';
 import { ReservationSecuriseeCard } from '../../components/servicesComponents/ReservationSecuriseeCard.js';
 import { ServiceAPI }               from '../../api/ServiceAPI.js';
+import { FavorisAPI }               from '../../api/FavorisAPI.js';
 import { requireAuth }              from '../../utils/AuthGuard.js';
 import { showToast }                from '../../utils/toast.js';
 
@@ -74,6 +75,8 @@ export const ServiceDetailPage = ({ id } = {}) => {
                 </div>
             `;
 
+            let isFav = !!s.est_favori;
+
             // ── Galerie ──────────────────────────────────────────
             const galleryUrls = (s.galerie || []).map(g => g.image);
             main.querySelector('#sdp-gallery').appendChild(
@@ -96,8 +99,26 @@ export const ServiceDetailPage = ({ id } = {}) => {
 
             // ── Actions ──────────────────────────────────────────
             main.querySelector('#sdp-retour').addEventListener('click', () => window.navigate?.('/services'));
-            main.querySelector('#sdp-reserver').addEventListener('click', () => showToast('🚧 La réservation arrive bientôt !'));
-            main.querySelector('#sdp-fav').addEventListener('click', (e) => e.currentTarget.classList.toggle('sdp-fav-active'));
+            main.querySelector('#sdp-reserver').addEventListener('click', () => window.navigate?.(`/services/${id}/reserver`));
+            const favBtn = main.querySelector('#sdp-fav');
+            const syncFavUI = () => {
+                favBtn.classList.toggle('sdp-fav-active', isFav);
+                favBtn.title = isFav ? 'Retirer des favoris' : 'Ajouter aux favoris';
+            };
+            syncFavUI();
+            favBtn.addEventListener('click', async () => {
+                try {
+                    const res = await FavorisAPI.toggle(id);
+                    isFav = !!res.ajoute || false;
+                    if (typeof res.count === 'number') {
+                        window.dispatchEvent(new CustomEvent('mixo:favorites-updated', { detail: { count: res.count } }));
+                    }
+                    syncFavUI();
+                    showToast(isFav ? 'Service ajouté aux favoris.' : 'Service retiré des favoris.');
+                } catch (error) {
+                    showToast(error.response?.data?.detail || 'Impossible de mettre à jour les favoris.', 'error');
+                }
+            });
             main.querySelector('#sdp-share').addEventListener('click', () => {
                 navigator.clipboard?.writeText(window.location.href);
                 showToast('🔗 Lien copié dans le presse-papiers !');

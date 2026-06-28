@@ -8,7 +8,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from ..models.notification import Notification
+from notifications.models import Notification, StatutNotification
 
 
 @api_view(['GET'])
@@ -19,7 +19,10 @@ def monStatut(request):
     Retourne le statut et le nombre de notifications non lues.
     """
     user     = request.user
-    non_lues = Notification.objects.filter(utilisateur=user, lu=False).count()
+    non_lues = Notification.objects.filter(
+        utilisateur=user,
+        statut=StatutNotification.NON_LU,
+    ).count()
 
     return Response({
         "id":          str(user.id),

@@ -69,7 +69,7 @@ export const NavbarLayout = (links = [], activeRoute = '') => {
     // ── Navigation ──────────────────────────────────────────
     const go = path => { if (window.navigate) window.navigate(path); else window.location.href = path; };
 
-    nav.querySelector('#nl-logo').addEventListener('click', () => go('/home'));
+    nav.querySelector('#nl-logo').addEventListener('click', () => go(role === 'coiffeur' ? '/coiffeur/dashboard' : '/home'));
 
     nav.querySelectorAll('.nl-item[data-route]').forEach(item => {
         item.addEventListener('click', () => {

@@ -187,7 +187,7 @@
 /* ── RESPONSIVE ──────────────────────────────────────────── */
 @media (min-width: 993px) {
     .nl-burger { display: none !important; }
-     #app-root, main, .main-content, .adm-main,
+     /* #app-root, main, .main-content, .adm-main, */
     .audit-main, .stats-pg-main, .adm-sett-main,
     .adm-prof-main, .notif-main, .sett-main {
         padding-left: var(--nl-width) !important;

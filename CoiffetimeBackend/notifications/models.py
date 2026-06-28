@@ -19,6 +19,22 @@ class TypeNotification(models.TextChoices):
     AVERTISSEMENT = 'AVERTISSEMENT', 'Avertissement'
     DANGER        = 'DANGER',        'Danger'
     SYSTEME       = 'SYSTEME',       'Système'
+    RDV_DEMANDE_ENVOYEE   = 'RDV_DEMANDE_ENVOYEE',   'Demande envoyée'
+    RDV_NOUVELLE_DEMANDE  = 'RDV_NOUVELLE_DEMANDE',  'Nouvelle demande'
+    RDV_ACCEPTE           = 'RDV_ACCEPTE',           'Rendez-vous accepté'
+    RDV_REFUSE            = 'RDV_REFUSE',            'Rendez-vous refusé'
+    RDV_ANNULE            = 'RDV_ANNULE',            'Rendez-vous annulé'
+    RDV_MODIFIE           = 'RDV_MODIFIE',           'Rendez-vous modifié'
+    PAIEMENT_VALIDE       = 'PAIEMENT_VALIDE',       'Paiement validé'
+    PAIEMENT_RECU         = 'PAIEMENT_RECU',         'Paiement reçu'
+    PAIEMENT_ECHOUE       = 'PAIEMENT_ECHOUE',       'Paiement échoué'
+    PAIEMENT_ECHEC_ADMIN  = 'PAIEMENT_ECHEC_ADMIN',  'Échec paiement'
+    AVIS_DEMANDE          = 'AVIS_DEMANDE',          'Demande d’avis'
+    AVIS_REPONSE_COIFFEUR = 'AVIS_REPONSE_COIFFEUR', 'Réponse du coiffeur'
+    NOUVEL_AVIS           = 'NOUVEL_AVIS',           'Nouvel avis'
+    NOUVEL_UTILISATEUR    = 'NOUVEL_UTILISATEUR',    'Nouvel utilisateur'
+    SIGNALEMENT           = 'SIGNALEMENT',           'Signalement'
+    ALERTE_SYSTEME        = 'ALERTE_SYSTEME',        'Alerte système'
 
 
 class Notification(models.Model):
@@ -42,7 +58,7 @@ class Notification(models.Model):
                         default=StatutNotification.NON_LU
                     )
     type          = models.CharField(
-                        max_length=20,
+                        max_length=32,
                         choices=TypeNotification.choices,
                         default=TypeNotification.INFO
                     )

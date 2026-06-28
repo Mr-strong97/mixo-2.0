@@ -1,0 +1,2 @@
+"""App Historique de MIXO."""
+

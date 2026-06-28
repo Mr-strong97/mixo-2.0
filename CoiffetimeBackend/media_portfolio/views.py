@@ -1,3 +1,4 @@
-from django.shortcuts import render
+"""Compatibilité pour permettre `media_portfolio.views.*`."""
+from pathlib import Path
 
-# Create your views here.
+__path__ = [str(Path(__file__).resolve().with_name('views'))]

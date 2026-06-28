@@ -3,12 +3,39 @@
  * Liens : Accueil · Services · Espace Client · Favoris · Historique · Notifications
  */
 import { NavbarLayout } from './NavbarLayout.js';
+import { FavorisAPI } from '../../api/FavorisAPI.js';
 
-export const NavbarClient = () => NavbarLayout([
-    { id: 'home',          icon: 'home',          label: 'Accueil',        route: '/home' },
-    { id: 'services',      icon: 'grid',           label: 'Services',       route: '/services' },
-    { id: 'favoris',       icon: 'heart',          label: 'Favoris',        route: '/favoris' },
-    { id: 'historique',    icon: 'clock',          label: 'Historique',     route: '/historique' },
-    { id: 'notifications', icon: 'bell',           label: 'Notifications',  route: '/notifications' },
-    { id: 'parametres',    icon: 'settings',      label: 'Paramètres',     route: '/parametres/client' },
-]);
+const applyBadge = (count) => {
+    const badge = document.querySelector('#nl-favoris .nl-badge') || (() => {
+        const el = document.querySelector('#nl-favoris');
+        if (!el) return null;
+        const span = document.createElement('span');
+        span.className = 'nl-badge';
+        el.appendChild(span);
+        return span;
+    })();
+    if (!badge) return;
+    badge.textContent = count > 9 ? '9+' : String(count);
+    badge.style.display = count > 0 ? 'inline-flex' : 'none';
+};
+
+export const NavbarClient = () => {
+    const nav = NavbarLayout([
+        { id: 'home',          icon: 'home',          label: 'Accueil',        route: '/home' },
+        { id: 'services',      icon: 'grid',           label: 'Services',       route: '/services' },
+        { id: 'favoris',       icon: 'heart',          label: 'Favoris',        route: '/favoris' },
+        { id: 'historique',    icon: 'clock',          label: 'Historique',     route: '/historique' },
+        { id: 'notifications', icon: 'bell',           label: 'Notifications',  route: '/notifications' },
+        { id: 'parametres',    icon: 'settings',      label: 'Paramètres',     route: '/parametres/client' },
+    ]);
+
+    FavorisAPI.compter().then(({ count }) => applyBadge(count || 0)).catch(() => applyBadge(0));
+
+    if (document.__mixoFavoritesHandler) {
+        window.removeEventListener('mixo:favorites-updated', document.__mixoFavoritesHandler);
+    }
+    document.__mixoFavoritesHandler = (event) => applyBadge(event.detail?.count ?? 0);
+    window.addEventListener('mixo:favorites-updated', document.__mixoFavoritesHandler);
+
+    return nav;
+};

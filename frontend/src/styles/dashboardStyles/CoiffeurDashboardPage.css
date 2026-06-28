@@ -1,0 +1,211 @@
+/* CoiffeurDashboardPage.css — MIXO */
+.cdp-main {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 32px 20px 48px;
+}
+
+.cdp-hero {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 20px;
+    padding: 28px;
+    border-radius: var(--radius-2xl);
+    border: 1px solid var(--border);
+    background:
+        radial-gradient(circle at top right, rgba(10,102,194,.12), transparent 30%),
+        linear-gradient(180deg, #fff, #fbfdff);
+    box-shadow: var(--shadow-sm);
+}
+
+.cdp-hero-revenue {
+    padding: 18px 20px;
+    border-radius: var(--radius-2xl);
+    background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+    color: #fff;
+    min-width: 220px;
+    box-shadow: var(--shadow-blue);
+}
+
+.cdp-hero-revenue span { display: block; opacity: .9; font-size: .78rem; text-transform: uppercase; letter-spacing: .12em; }
+.cdp-hero-revenue strong { font-size: 2rem; }
+
+.cdp-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.cdp-stat, .cdp-revenue-card, .cdp-panel {
+    border-radius: var(--radius-2xl);
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-xs);
+}
+
+.cdp-stat {
+    padding: 18px;
+    min-height: 128px;
+}
+
+.cdp-stat-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    background: var(--blue-dim);
+    color: var(--blue-dark);
+    margin-bottom: 14px;
+}
+
+.cdp-stat span { display: block; color: var(--text-muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .12em; }
+.cdp-stat strong { font-size: 1.7rem; color: var(--text-dark); }
+
+.cdp-revenue-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.cdp-revenue-card {
+    padding: 18px;
+}
+
+.cdp-revenue-card span { display: block; color: var(--text-muted); font-size: .8rem; text-transform: uppercase; letter-spacing: .12em; }
+.cdp-revenue-card strong { font-size: 1.4rem; color: var(--blue-dark); }
+
+.cdp-columns, .cdp-charts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.cdp-panel {
+    padding: 18px;
+}
+
+.cdp-panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.cdp-panel-head h2 {
+    margin: 0;
+    font-size: 1.05rem;
+}
+
+.cdp-panel-head span {
+    color: var(--text-tertiary);
+    font-size: .82rem;
+}
+
+.cdp-table, .cdp-review-list, .cdp-top-services {
+    display: grid;
+    gap: 12px;
+}
+
+.cdp-table-row, .cdp-top-item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 12px;
+    align-items: center;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: #f8fbff;
+}
+
+.cdp-table-row strong, .cdp-top-item strong { display: block; }
+.cdp-table-row span, .cdp-top-item span { color: var(--text-muted); font-size: .86rem; }
+
+.cdp-status {
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: .75rem;
+    font-weight: 800;
+    background: var(--blue-dim);
+    color: var(--blue-dark);
+}
+
+.cdp-review-card {
+    padding: 14px;
+    border-radius: 16px;
+    background: #f8fbff;
+}
+
+.cdp-review-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.cdp-review-card p { margin: 0; color: var(--text-muted); }
+.cdp-review-reply {
+    margin-top: 10px;
+    padding: 10px 12px;
+    border-radius: 14px;
+    background: rgba(10,102,194,.08);
+    color: var(--text-dark);
+}
+
+.cdp-review-actions { margin-top: 12px; }
+
+.cdp-mini-score {
+    padding: 8px 10px;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--blue-dark);
+    font-weight: 800;
+    box-shadow: var(--shadow-xs);
+}
+
+.cdp-chart {
+    display: grid;
+    gap: 10px;
+}
+
+.cdp-chart-row {
+    display: grid;
+    grid-template-columns: 90px minmax(0, 1fr) 70px;
+    gap: 12px;
+    align-items: center;
+}
+
+.cdp-chart-label { color: var(--text-muted); font-size: .86rem; }
+.cdp-chart-bar {
+    height: 12px;
+    border-radius: 999px;
+    background: #eef3f8;
+    overflow: hidden;
+}
+.cdp-chart-bar span {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--blue), var(--blue-light));
+}
+
+.cdp-empty-inline {
+    margin: 0;
+    color: var(--text-muted);
+}
+
+@media (max-width: 1100px) {
+    .cdp-stats-grid, .cdp-revenue-grid, .cdp-columns, .cdp-charts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 760px) {
+    .cdp-main { padding-inline: 14px; }
+    .cdp-stats-grid, .cdp-revenue-grid, .cdp-columns, .cdp-charts { grid-template-columns: 1fr; }
+    .cdp-table-row, .cdp-top-item, .cdp-chart-row { grid-template-columns: 1fr; }
+}
+

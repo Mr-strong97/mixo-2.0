@@ -138,7 +138,6 @@
 /* ═══════════════ PLAN FORM (apf-modal) ═══════════════ */
 .apf-modal { max-width: 480px; }
 
-
 @media (max-width: 1000px) {
     .adb-layout { grid-template-columns: 1fr; }
     .asm-nav { position: static; flex-direction: row; overflow-x: auto; }

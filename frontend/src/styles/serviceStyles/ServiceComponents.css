@@ -183,6 +183,12 @@
 .svc-card-fav:hover { color: #DC2626; transform: scale(1.08); }
 .svc-card-fav-active { color: #DC2626; }
 .svc-card-fav-active svg { fill: #DC2626; }
+.svc-fav-pulse { animation: svcFavPulse 0.32s ease; }
+@keyframes svcFavPulse {
+    0% { transform: scale(1); }
+    45% { transform: scale(1.18); }
+    100% { transform: scale(1); }
+}
 
 .svc-card-body { padding: 16px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .svc-card-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }

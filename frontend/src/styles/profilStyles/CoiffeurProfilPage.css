@@ -1,0 +1,686 @@
+/* ================================================================
+   CoiffeurProfilPage.css — MIXO
+   Profil public complet d'un coiffeur.
+   ================================================================ */
+
+.cpp-page {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at top left, rgba(10, 102, 194, 0.08), transparent 28%),
+        radial-gradient(circle at top right, rgba(59, 130, 246, 0.06), transparent 24%),
+        linear-gradient(180deg, #F8FAFC 0%, #EEF4FF 100%);
+    font-family: 'Poppins', sans-serif;
+}
+
+.cpp-main {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 28px 20px 84px;
+}
+
+.cpp-loader,
+.cpp-error {
+    min-height: 56vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 14px;
+    text-align: center;
+}
+
+.cpp-error {
+    max-width: 540px;
+    margin: 0 auto;
+    color: #475569;
+}
+
+.cpp-error svg {
+    width: 48px;
+    height: 48px;
+    color: #DC2626;
+}
+
+.cpp-shell {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.cpp-hero {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    border-radius: 28px;
+    padding: 24px;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+    backdrop-filter: blur(10px);
+}
+
+.cpp-hero-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+.cpp-back-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1.5px solid #E2E8F0;
+    background: #fff;
+    color: #334155;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.cpp-back-btn:hover {
+    border-color: #0A66C2;
+    color: #0A66C2;
+    transform: translateX(-1px);
+}
+
+.cpp-back-btn svg,
+.cpp-hero-actions .cpp-btn svg,
+.cpp-side-actions .cpp-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.cpp-hero-main {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex: 1;
+    min-width: 0;
+}
+
+.cpp-avatar {
+    width: 86px;
+    height: 86px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0A66C2, #3B82F6);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    box-shadow: 0 18px 30px rgba(10, 102, 194, 0.22);
+    flex-shrink: 0;
+}
+
+.cpp-identity {
+    min-width: 0;
+}
+
+.cpp-kicker,
+.cpp-section-kicker,
+.cpp-card-label {
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #8AA0C5;
+}
+
+.cpp-title {
+    margin: 4px 0 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.7rem);
+    line-height: 1.05;
+    color: #111827;
+}
+
+.cpp-hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.cpp-rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #334155;
+    font-size: 0.92rem;
+    font-weight: 600;
+}
+
+.cpp-star {
+    width: 16px;
+    height: 16px;
+    color: #F59E0B;
+    fill: #F59E0B;
+}
+
+.cpp-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.cpp-pill svg { width: 14px; height: 14px; }
+.cpp-pill-success {
+    background: #ECFDF5;
+    color: #047857;
+    border: 1px solid #BBF7D0;
+}
+
+.cpp-pill-warn {
+    background: #FFF7ED;
+    color: #C2410C;
+    border: 1px solid #FED7AA;
+}
+
+.cpp-hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.cpp-btn {
+    height: 46px;
+    padding: 0 18px;
+    border-radius: 14px;
+    border: 1.5px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.cpp-btn-primary {
+    background: linear-gradient(135deg, #0A66C2, #1D4ED8);
+    color: #fff;
+    box-shadow: 0 12px 20px rgba(10, 102, 194, 0.16);
+}
+
+.cpp-btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 26px rgba(10, 102, 194, 0.22);
+}
+
+.cpp-btn-ghost {
+    background: #fff;
+    border-color: #E2E8F0;
+    color: #334155;
+}
+
+.cpp-btn-ghost:hover,
+.cpp-btn-share:hover {
+    border-color: #0A66C2;
+    color: #0A66C2;
+    transform: translateY(-1px);
+}
+
+.cpp-btn-share {
+    background: #F8FAFC;
+    border-color: #E2E8F0;
+    color: #334155;
+}
+
+.cpp-hero-grid {
+    margin-top: 22px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(320px, 0.8fr);
+    gap: 16px;
+}
+
+.cpp-about-card,
+.cpp-stat-card,
+.cpp-side-card,
+.cpp-section,
+.cpp-day-card,
+.cpp-exception-card {
+    background: #fff;
+    border: 1px solid #E2E8F0;
+    border-radius: 22px;
+    box-shadow: 0 14px 28px rgba(15, 23, 42, 0.04);
+}
+
+.cpp-about-card {
+    padding: 20px;
+}
+
+.cpp-card-head,
+.cpp-side-head,
+.cpp-section-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.cpp-card-chip {
+    padding: 8px 12px;
+    border-radius: 100px;
+    background: #EBF4FF;
+    color: #0A66C2;
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.cpp-about-text {
+    margin: 14px 0 16px;
+    color: #475569;
+    line-height: 1.85;
+    font-size: 0.95rem;
+}
+
+.cpp-about-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+}
+
+.cpp-about-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #334155;
+    font-size: 0.82rem;
+}
+
+.cpp-about-meta svg,
+.cpp-contact-row svg {
+    width: 16px;
+    height: 16px;
+    color: #0A66C2;
+}
+
+.cpp-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.cpp-stat-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 18px 18px 18px 20px;
+}
+
+.cpp-stat-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.cpp-stat-label {
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 0.66rem;
+    color: #8AA0C5;
+    font-weight: 700;
+}
+
+.cpp-stat-value {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.38rem;
+    font-weight: 800;
+    color: #111827;
+}
+
+.cpp-stat-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #F8FAFC;
+    color: #0A66C2;
+}
+
+.cpp-stat-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+.cpp-stat-blue .cpp-stat-icon { background: #EBF4FF; color: #0A66C2; }
+.cpp-stat-amber .cpp-stat-icon { background: #FFF7ED; color: #D97706; }
+.cpp-stat-green .cpp-stat-icon { background: #ECFDF5; color: #047857; }
+.cpp-stat-slate .cpp-stat-icon { background: #F8FAFC; color: #334155; }
+
+.cpp-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    gap: 18px;
+    align-items: start;
+}
+
+.cpp-content {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.cpp-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: sticky;
+    top: 18px;
+}
+
+.cpp-section {
+    padding: 20px;
+}
+
+.cpp-section-title {
+    margin: 4px 0 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.35rem;
+    color: #111827;
+}
+
+.cpp-section-count {
+    padding: 8px 12px;
+    border-radius: 100px;
+    background: #F8FAFC;
+    color: #475569;
+    font-size: 0.76rem;
+    font-weight: 700;
+}
+
+.cpp-service-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 16px;
+}
+
+.cpp-rating-panel {
+    margin-top: 16px;
+}
+
+.cpp-avis-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 16px;
+}
+
+.cpp-schedule-grid {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: repeat(7, minmax(120px, 1fr));
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+}
+
+.cpp-day-card {
+    padding: 14px;
+    min-width: 120px;
+}
+
+.cpp-day-name {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #0F172A;
+    text-transform: uppercase;
+}
+
+.cpp-day-slots {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.cpp-day-slot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    padding: 10px 12px;
+    background: #EBF4FF;
+    color: #0A66C2;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.cpp-day-slot.is-muted {
+    background: #F8FAFC;
+    color: #94A3B8;
+}
+
+.cpp-exception-list {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cpp-exception-card {
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.cpp-exception-card.is-open {
+    border-color: #BBF7D0;
+    background: linear-gradient(180deg, #F0FDF4, #fff);
+}
+
+.cpp-exception-card.is-closed {
+    border-color: #FECACA;
+    background: linear-gradient(180deg, #FFF1F2, #fff);
+}
+
+.cpp-exception-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    background: #F8FAFC;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.cpp-exception-card.is-open .cpp-exception-icon {
+    background: #DCFCE7;
+    color: #047857;
+}
+
+.cpp-exception-card.is-closed .cpp-exception-icon {
+    background: #FEE2E2;
+    color: #B91C1C;
+}
+
+.cpp-exception-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.cpp-exception-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.cpp-exception-date {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #0F172A;
+}
+
+.cpp-exception-label {
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: #475569;
+}
+
+.cpp-exception-motif {
+    margin: 0;
+    color: #64748B;
+    font-size: 0.8rem;
+    line-height: 1.55;
+}
+
+.cpp-exception-badge {
+    padding: 8px 10px;
+    border-radius: 100px;
+    background: #F8FAFC;
+    color: #334155;
+    font-size: 0.72rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.cpp-side-card {
+    padding: 18px;
+}
+
+.cpp-contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.cpp-contact-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: #334155;
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+.cpp-side-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.cpp-empty-block {
+    grid-column: 1 / -1;
+    min-height: 160px;
+    border: 1px dashed #CBD5E1;
+    border-radius: 18px;
+    background: #F8FAFC;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #94A3B8;
+    text-align: center;
+    padding: 24px;
+}
+
+.cpp-empty-block svg {
+    width: 38px;
+    height: 38px;
+    color: #CBD5E1;
+}
+
+.cpp-empty-block p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 1180px) {
+    .cpp-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .cpp-sidebar {
+        position: static;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 900px) {
+    .cpp-hero-grid,
+    .cpp-stats-grid,
+    .cpp-service-grid,
+    .cpp-sidebar {
+        grid-template-columns: 1fr;
+    }
+
+    .cpp-hero-main {
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 640px) {
+    .cpp-main {
+        padding: 20px 14px 72px;
+    }
+
+    .cpp-hero {
+        padding: 18px;
+        border-radius: 22px;
+    }
+
+    .cpp-hero-top {
+        gap: 14px;
+    }
+
+    .cpp-hero-main {
+        width: 100%;
+        gap: 14px;
+    }
+
+    .cpp-avatar {
+        width: 72px;
+        height: 72px;
+        font-size: 1.5rem;
+    }
+
+    .cpp-hero-actions,
+    .cpp-side-actions {
+        width: 100%;
+    }
+
+    .cpp-btn {
+        width: 100%;
+    }
+
+    .cpp-section {
+        padding: 18px;
+        border-radius: 20px;
+    }
+
+    .cpp-section-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .cpp-schedule-grid {
+        grid-template-columns: repeat(7, minmax(112px, 1fr));
+    }
+}

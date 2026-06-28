@@ -1,14 +1,4 @@
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from .models import Coiffeur
-from .serializers import CoiffeurSerializer
+"""Compatibilité pour permettre `authentification.views.*`."""
+from pathlib import Path
 
-@api_view(['GET'])
-def listerTousLesCoiffeurs(request):
-    """
-    Récupère la liste de tous les coiffeurs inscrits.
-    """
-    tousLesCoiffeurs = Coiffeur.objects.all()
-    transformateur = CoiffeurSerializer(tousLesCoiffeurs, many=True)
-    
-    return Response(transformateur.data)
+__path__ = [str(Path(__file__).resolve().with_name('views'))]

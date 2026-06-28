@@ -1,0 +1,99 @@
+/* ================================================================
+   Avis.css — MIXO · Module Avis
+   ================================================================ */
+
+.avp-page { min-height:100vh; background:#F8FAFC; font-family:'Poppins',sans-serif; }
+.avp-main { max-width:860px; margin:0 auto; padding:32px 24px 80px; }
+.avp-loader { display:flex; justify-content:center; padding:80px 0; }
+.avp-header h1 { font-family:'Montserrat',sans-serif; font-size:1.7rem; font-weight:800; color:#1A1D20; margin:0 0 4px; }
+.avp-header p { color:#62676B; margin:0 0 24px; font-size:0.88rem; }
+.avp-empty { text-align:center; color:#94A3B8; padding:48px 0; }
+.avp-list { display:flex; flex-direction:column; gap:14px; margin-top:24px; }
+
+/* ── Rating Stars Bar (rsb-*) ──────────────────────────────── */
+.rsb-wrapper {
+    background:#fff; border:1.5px solid #E8ECF0; border-radius:16px;
+    padding:24px; display:flex; gap:32px; align-items:center; flex-wrap:wrap;
+}
+.rsb-global { display:flex; flex-direction:column; align-items:center; gap:6px; min-width:90px; }
+.rsb-moyenne { font-family:'Montserrat',sans-serif; font-size:2.8rem; font-weight:800; color:#1A1D20; line-height:1; }
+.rsb-stars { display:flex; gap:3px; }
+.rsb-star { width:18px; height:18px; color:#E2E8F0; }
+.rsb-star-filled { color:#F59E0B; fill:#F59E0B; }
+.rsb-total { font-size:0.78rem; color:#94A3B8; }
+
+.rsb-bars { flex:1; min-width:200px; display:flex; flex-direction:column; gap:8px; }
+.rsb-row { display:flex; align-items:center; gap:10px; }
+.rsb-label { font-size:0.78rem; color:#62676B; width:28px; text-align:right; flex-shrink:0; }
+.rsb-bar-track { flex:1; height:8px; background:#F0F4F9; border-radius:100px; overflow:hidden; }
+.rsb-bar-fill { height:100%; background:#F59E0B; border-radius:100px; transition:width 0.4s ease; }
+.rsb-count { font-size:0.72rem; color:#94A3B8; width:20px; }
+
+/* ── Avis Card (avc-*) ─────────────────────────────────────── */
+.avc-card {
+    background:#fff; border:1.5px solid #E8ECF0; border-radius:14px;
+    padding:18px 20px; display:flex; flex-direction:column; gap:12px;
+}
+.avc-top { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+.avc-author { display:flex; align-items:center; gap:10px; }
+.avc-avatar {
+    width:38px; height:38px; border-radius:50%; flex-shrink:0;
+    background:linear-gradient(135deg,#0A66C2,#3B82F6); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.9rem; font-weight:700;
+}
+.avc-name { display:block; font-size:0.9rem; font-weight:700; color:#1A1D20; }
+.avc-date { font-size:0.74rem; color:#94A3B8; }
+.avc-stars { display:flex; gap:2px; }
+.avc-star { width:16px; height:16px; color:#E2E8F0; }
+.avc-star-filled { color:#F59E0B; fill:#F59E0B; }
+
+.avc-commentaire { font-size:0.86rem; color:#475569; line-height:1.7; margin:0; }
+.avc-reponse {
+    display:flex; gap:10px; background:#F0F7FF; border-radius:10px;
+    padding:12px 14px; font-size:0.82rem; color:#0A66C2;
+}
+.avc-reponse svg { width:16px; height:16px; flex-shrink:0; margin-top:2px; }
+.avc-reponse p { margin:0; line-height:1.6; }
+
+.avc-actions { display:flex; gap:8px; }
+.avc-btn {
+    display:flex; align-items:center; gap:5px;
+    height:32px; padding:0 12px; border-radius:8px;
+    border:1.5px solid #E8ECF0; background:#fff; color:#62676B;
+    font-size:0.76rem; font-weight:600; cursor:pointer; font-family:'Poppins',sans-serif;
+}
+.avc-btn svg { width:13px; height:13px; }
+.avc-btn:hover { border-color:#0A66C2; color:#0A66C2; }
+.avc-btn-warn:hover { border-color:#DC2626; color:#DC2626; }
+
+.avc-reply-form { display:flex; flex-direction:column; gap:8px; }
+.avc-reply-form textarea {
+    padding:10px 14px; border:1.5px solid #E8ECF0; border-radius:10px;
+    font-family:'Poppins',sans-serif; font-size:0.84rem; resize:vertical; outline:none;
+}
+.avc-reply-form textarea:focus { border-color:#0A66C2; }
+.avc-reply-actions { display:flex; gap:8px; }
+.avc-reply-cancel {
+    padding:8px 16px; border-radius:8px; border:1.5px solid #E8ECF0;
+    background:#fff; color:#62676B; font-size:0.78rem; font-weight:600; cursor:pointer;
+}
+.avc-reply-save {
+    padding:8px 16px; border-radius:8px; border:none;
+    background:#0A66C2; color:#fff; font-size:0.78rem; font-weight:600; cursor:pointer;
+}
+.avc-reply-save:hover { background:#004182; }
+
+/* ── Modal styles réutilisés (lam-*) ──────────────────────── */
+.lam-modal { max-width:460px; }
+.lam-service { font-size:0.86rem; color:#62676B; margin:0; }
+.lam-service strong { color:#1A1D20; }
+.lam-stars { display:flex; gap:6px; }
+.lam-star {
+    background:none; border:none; cursor:pointer; color:#E2E8F0;
+    transition:color 0.15s ease; padding:4px;
+}
+.lam-star svg { width:28px; height:28px; }
+.lam-star-active { color:#F59E0B; }
+.lam-star-active svg { fill:#F59E0B; }
+.lam-note-label { font-size:0.82rem; color:#62676B; margin:0; text-align:center; }

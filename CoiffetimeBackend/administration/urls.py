@@ -1,6 +1,7 @@
 """
 administration/urls.py — URLs complètes
 """
+from pathlib import Path
 from django.urls import path
 from .views.dashboard_view    import statistiquesDashboard
 from .views.stats_view        import statistiquesUtilisateurs
@@ -36,3 +37,7 @@ urlpatterns = [
     path('comptes/<uuid:id>/decision/',  validerOuRejeterCompte,     name='admin-decision'),
     path('comptes/<uuid:id>/suspendre/', suspendreUtilisateur,       name='admin-suspendre'),
 ]
+
+# Permet à ce module de se comporter aussi comme un package pour
+# `administration.urls.admin_extended_urls`.
+__path__ = [str(Path(__file__).resolve().with_name('urls'))]

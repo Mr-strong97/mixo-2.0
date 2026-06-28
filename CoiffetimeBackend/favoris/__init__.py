@@ -1,0 +1,2 @@
+"""App Favoris de MIXO."""
+
