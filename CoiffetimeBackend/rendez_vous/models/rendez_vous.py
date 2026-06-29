@@ -27,6 +27,7 @@ class RendezVous(models.Model):
         ('ACCEPTE',    _('Accepté')),
         ('REFUSE',     _('Refusé')),
         ('ANNULE',     _('Annulé')),
+        ('SUSPENDU',   _('Suspendu')),
         ('TERMINE',    _('Terminé')),
     ]
 

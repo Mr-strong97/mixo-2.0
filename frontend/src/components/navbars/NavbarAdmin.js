@@ -7,7 +7,7 @@ import { NavbarLayout } from './NavbarLayout.js';
 export const NavbarAdmin = () => NavbarLayout([
     { id: 'dashboard',     icon: 'layout-dashboard', label: 'Tableau de bord',  route: '/admin' },
     { id: 'users',         icon: 'users',             label: 'Utilisateurs',     route: '/admin' },
-    { id: 'rdv',           icon: 'calendar',          label: 'Rendez-vous',      route: '/admin' },
+    { id: 'rdv',           icon: 'calendar-range',    label: 'Rendez-vous',      route: '/admin/rendez-vous' },
     { id: 'services',      icon: 'scissors',          label: 'Services',         route: '/admin/services' },
     { id: 'stats',         icon: 'bar-chart-2',       label: 'Statistiques',     route: '/admin/stats' },
     { id: 'journal',       icon: 'activity',          label: 'Journal de bord',  route: '/admin/journal' },

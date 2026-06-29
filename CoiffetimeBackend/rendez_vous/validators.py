@@ -55,7 +55,7 @@ def verifier_conflits(coiffeur, date_heure_debut, date_heure_fin, exclure_id=Non
 
     qs = RendezVous.objects.filter(
         coiffeur=coiffeur,
-        statut__in=['EN_ATTENTE', 'ACCEPTE'],
+        statut__in=['EN_ATTENTE', 'ACCEPTE', 'SUSPENDU'],
         date_heure_debut__lt=date_heure_fin,
         date_heure_fin__gt=date_heure_debut,
     )

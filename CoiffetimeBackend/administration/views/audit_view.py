@@ -39,6 +39,9 @@ class AuditLogSerializer(serializers.ModelSerializer):
             'SUPPRESSION_COMPTE':  'Suppression compte',
             'VERIF_EMAIL':         'Vérification email',
             'VERROUILLAGE':        'Compte verrouillé',
+            'ADMIN_RDV_MODIF':     'Modification rendez-vous admin',
+            'ADMIN_RDV_ANNULE':    'Annulation rendez-vous admin',
+            'ADMIN_RDV_SUSPEND':   'Suspension rendez-vous admin',
         }
         return labels.get(obj.action, obj.action)
 

@@ -83,6 +83,10 @@ class Utilisateur(AbstractUser):
     tentatives_connexion = models.PositiveIntegerField(default=0)
     verrouille_jusqua    = models.DateTimeField(null=True, blank=True)
 
+    # --- Profil partagé ---
+    telephone = models.CharField(max_length=20, blank=True, default='')
+    photo = models.ImageField(upload_to='avatars/%Y/%m/', blank=True, null=True)
+
     # --- RGPD : suppression douce ---
     # Quand deleted_at est renseigné, le compte est "supprimé" sans l'être
     deleted_at = models.DateTimeField(null=True, blank=True)

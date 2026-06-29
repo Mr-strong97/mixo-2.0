@@ -19,6 +19,9 @@ class ActionChoix(models.TextChoices):
     MODIF_MOT_DE_PASSE = 'MODIF_MOT_DE_PASSE','Changement de mot de passe'
     SUPPRESSION_COMPTE = 'SUPPRESSION_COMPTE', 'Suppression du compte'
     COMPTE_VERROUILLE  = 'COMPTE_VERROUILLE',  'Compte verrouillé'
+    ADMIN_RDV_MODIF    = 'ADMIN_RDV_MODIF',    'Modification rendez-vous admin'
+    ADMIN_RDV_ANNULE   = 'ADMIN_RDV_ANNULE',   'Annulation rendez-vous admin'
+    ADMIN_RDV_SUSPEND  = 'ADMIN_RDV_SUSPEND',  'Suspension rendez-vous admin'
 
 
 class AuditLog(models.Model):

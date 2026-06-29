@@ -19,15 +19,16 @@ import { SuspendedAccountPage }  from './pages/authentificationPage/SuspendedAcc
 import { SettingsPage }            from './pages/authentificationPage/SettingsPage.js';
 import { ClientSettingsPage }      from './pages/authentificationPage/ClientSettingsPage.js';
 import { CoiffeurSettingsPage }    from './pages/authentificationPage/CoiffeurSettingsPage.js';
+import { AdminSettingsPage }       from './pages/authentificationPage/AdminSettingsPage.js';
 
 // ── 2.4. NOTIFICATIONS ──
 import { NotificationPage }      from './pages/notificationPage/NotificationPage.js';
 
 // ── 2.5. ADMINISTRATION ──
-import { AdminPage }             from './pages/authentificationPage/AdminPage.js';
 import { AdminProfilePage }      from './pages/authentificationPage/AdminProfilePage.js';
 import { AdminStatsPage }        from './pages/authentificationPage/AdminStatsPage.js';
 import { AuditLogPage }          from './pages/authentificationPage/AuditLogPage.js';
+import { AdminDashboardPage }    from './pages/adminDashboard/AdminDashboardPage.js';
 
 // ── 2.6. MODULE SERVICES ──
 //   Espace Client
@@ -55,6 +56,7 @@ import { CoiffeurHorairesPage }   from './pages/horairePage/CoiffeurHorairesPage
 import { CoiffeurPortfolioPage }  from './pages/portfolioPage/CoiffeurPortfolioPage.js';
 import { AdminServicesDashboardPage } from './pages/adminPage/AdminServicesDashboardPage.js';
 import { CoiffeurProfilPage } from './pages/profilPage/CoiffeurProfilPage.js';
+import { AdminRendezVousPage } from './pages/adminRendezVous/AdminRendezVousPage.js';
 
 
 const createInfoPage = (title, description) => (extra = {}) => {
@@ -106,11 +108,13 @@ const routes = [
     { path: /^\/admin\/home$/,     component: HomeAdminPage },
 
     // Administration
-    { path: /^\/admin$/,             component: AdminPage },
+    { path: /^\/admin$/,             component: AdminDashboardPage },
+    { path: /^\/admin\/dashboard$/,  component: AdminDashboardPage },
     { path: /^\/admin\/profile$/,    component: AdminProfilePage },
     { path: /^\/admin\/stats$/,      component: AdminStatsPage },
     { path: /^\/admin\/journal$/,    component: AuditLogPage },
-    { path: /^\/admin\/parametres$/, component: createInfoPage('Paramètres administrateur', 'Les paramètres admin seront exposés dans un écran dédié.') },
+    { path: /^\/admin\/rendez-vous$/, component: AdminRendezVousPage },
+    { path: /^\/admin\/parametres$/, component: AdminSettingsPage },
 
     // Notifications
     { path: /^\/notifications$/,   component: NotificationPage },

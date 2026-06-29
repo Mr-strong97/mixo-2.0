@@ -16,6 +16,7 @@ from .views.verification_view      import (
     verifierEmail,
     demanderResetMotDePasse,
     confirmerResetMotDePasse,
+    modifierMotDePasse,
 )
 from .views.status_view            import monStatut
 from .views.reactivation_view      import demanderReactivation
@@ -36,6 +37,7 @@ urlpatterns = [
     # Reset mot de passe
     path('password/demander-reset/',     demanderResetMotDePasse,       name='demander-reset'),
     path('password/confirmer-reset/',    confirmerResetMotDePasse,      name='confirmer-reset'),
+    path('password/modifier/',           modifierMotDePasse,            name='modifier-mot-de-passe'),
 
     # Réactivation compte suspendu
     path('reactivation/demander/',       demanderReactivation,          name='reactivation'),

@@ -19,6 +19,7 @@ from ..views import (
     admin_paiements_views,
     admin_avis_views,
     admin_supervision_views,
+    security_view,
 )
 
 urlpatterns = [
@@ -48,6 +49,10 @@ urlpatterns = [
     # ── Gestion des rendez-vous ──────────────────────────────────
     path('rendez-vous/',                 admin_rendezvous_views.admin_liste_rendezvous,   name='admin-rdv-list'),
     path('rendez-vous/stats/',           admin_rendezvous_views.admin_stats_rendezvous,   name='admin-rdv-stats'),
+    path('rendez-vous/<uuid:pk>/',       admin_rendezvous_views.admin_detail_rendezvous,  name='admin-rdv-detail'),
+    path('rendez-vous/<uuid:pk>/modifier/', admin_rendezvous_views.admin_modifier_rendezvous, name='admin-rdv-modifier'),
+    path('rendez-vous/<uuid:pk>/annuler/', admin_rendezvous_views.admin_annuler_rendezvous, name='admin-rdv-annuler'),
+    path('rendez-vous/<uuid:pk>/suspendre/', admin_rendezvous_views.admin_suspendre_rendezvous, name='admin-rdv-suspendre'),
 
     # ── Gestion des paiements ────────────────────────────────────
     path('paiements/',                   admin_paiements_views.admin_liste_paiements,     name='admin-paiements-list'),
@@ -63,4 +68,6 @@ urlpatterns = [
     path('favoris/',            admin_supervision_views.admin_liste_favoris,      name='admin-favoris-list'),
     path('historique/',         admin_supervision_views.admin_historique_global,   name='admin-historique-global'),
     path('coiffeurs/stats/',    admin_supervision_views.admin_stats_coiffeurs,    name='admin-coiffeurs-stats'),
+    path('security/',           security_view.admin_security_overview,             name='admin-security'),
+    path('security/revoke-sessions/', security_view.admin_revoquer_sessions,       name='admin-security-revoke-sessions'),
 ]

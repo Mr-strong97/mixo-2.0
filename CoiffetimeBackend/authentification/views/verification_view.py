@@ -199,3 +199,45 @@ def confirmerResetMotDePasse(request):
         {"message": "Mot de passe réinitialisé. Vous pouvez vous connecter."},
         status=status.HTTP_200_OK
     )
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def modifierMotDePasse(request):
+    """
+    POST /api/auth/password/modifier/
+    Body: { "ancien_mot_de_passe": "...", "nouveau_mot_de_passe": "..." }
+    """
+    ancien = request.data.get('ancien_mot_de_passe', '')
+    nouveau = request.data.get('nouveau_mot_de_passe', '')
+
+    if not ancien or not nouveau:
+        return Response(
+            {"detail": "Ancien et nouveau mot de passe requis."},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    if not request.user.check_password(ancien):
+        return Response(
+            {"detail": "Mot de passe actuel invalide."},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    try:
+        validerMotDePasse(nouveau)
+    except Exception as e:
+        return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    request.user.set_password(nouveau)
+    request.user.save(update_fields=['password'])
+
+    AuditLog.enregistrer(
+        request, ActionChoix.MODIF_MOT_DE_PASSE,
+        utilisateur=request.user, succes=True,
+        details={'action': 'modification_compte'}
+    )
+
+    return Response(
+        {"message": "Mot de passe modifié avec succès."},
+        status=status.HTTP_200_OK
+    )

@@ -14,6 +14,7 @@ class UtilisateurAdminSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'username', 'email',
             'first_name', 'last_name',
+            'telephone', 'photo',
             'role', 'statut',
             'email_verifie',
             'tentatives_connexion',

@@ -45,6 +45,7 @@
     letter-spacing: 4px;
     color: var(--nl-blue);
     display: block;
+    text-align: right;
 }
 
 /* ── LIENS ───────────────────────────────────────────────── */
@@ -193,6 +194,7 @@
         padding-left: var(--nl-width) !important;
         transition: padding 0.3s var(--nl-ease);
     }
+    
 }
 
 @media (max-width: 992px) {

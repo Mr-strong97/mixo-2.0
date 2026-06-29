@@ -17,6 +17,8 @@ class UtilisateurSerializer(serializers.ModelSerializer):
             'email',
             'first_name',
             'last_name',
+            'telephone',
+            'photo',
             'role',
             'statut',
             'email_verifie',
