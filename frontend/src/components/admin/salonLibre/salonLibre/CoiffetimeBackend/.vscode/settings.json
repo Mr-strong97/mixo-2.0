@@ -1,0 +1,4 @@
+{
+    "python.defaultInterpreterPath": "./venv/bin/python",
+    "pyrefly.pythonInterpreter": "./venv/bin/python"
+}

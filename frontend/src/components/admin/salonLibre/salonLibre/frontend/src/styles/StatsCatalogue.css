@@ -1,0 +1,115 @@
+/* ============================================================
+   StatsCatalogue.css — Bandeau de statistiques (dark glass)
+   Dépend de : variables.css
+   Note : ce composant utilise un fond sombre — les couleurs
+   de texte sont inversées par rapport au reste de l'app.
+   ============================================================ */
+
+/* ── CONTENEUR BANDEAU ──────────────────────────────────────── */
+.glass-strip-container {
+    background: var(--glass-bg-subtle);
+    backdrop-filter: var(--blur-lg);
+    -webkit-backdrop-filter: var(--blur-lg);
+    border: 1px solid var(--glass-border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    /* Ombre forte pour renforcer le contraste sur fond sombre */
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    animation: premiumReveal 0.7s var(--ease-expo) both;
+}
+
+/* ── CARTE STAT ─────────────────────────────────────────────── */
+.stats-card-item {
+    height: 140px;
+    padding: 20px;
+    border-radius: var(--radius-xs);
+    background: rgba(0, 0, 0, 0.28);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.35s var(--ease-expo);
+}
+
+.stats-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    /* Blanc sur fond sombre */
+    color: rgba(255, 255, 255, 0.95);
+    letter-spacing: -1px;
+    transition: transform 0.3s var(--ease-expo);
+}
+
+.stats-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.38);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 6px;
+}
+
+/* ── VARIANTES ──────────────────────────────────────────────── */
+/* Standard */
+.card-glass-standard:hover {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.12);
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* Or — mise en avant (ex: meilleur coiffeur) */
+.card-glass-gold {
+    border: 1px solid rgba(10, 102, 194, 0.2);
+    background: linear-gradient(135deg, var(--blue-dim) 0%, rgba(0, 0, 0, 0.35) 100%);
+}
+
+.card-glass-gold .stats-number {
+    color: var(--blue-light);
+    text-shadow: 0 0 20px rgba(10, 102, 194, 0.4);
+}
+
+.card-glass-gold:hover {
+    border-color: var(--blue);
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px var(--blue-dim);
+}
+
+/* Publicité / slot */
+.card-glass-ad {
+    background: rgba(255, 255, 255, 0.005);
+    border: 1px dashed var(--glass-border-subtle);
+}
+
+.card-glass-ad .stats-number {
+    font-size: 1.25rem;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────────────── */
+@media (max-width: 991px) {
+    .stats-card-item { height: 120px; }
+    .stats-number    { font-size: 2.2rem; }
+}
+
+@media (max-width: 576px) {
+    .glass-strip-container {
+        padding: 16px;
+        border-radius: var(--radius-md);
+        margin: 0 8px;
+    }
+    .stats-card-item { height: 110px; }
+    .stats-number    { font-size: 2rem; }
+}
+
+@media (max-width: 380px) {
+    .stats-card-item { height: 95px; }
+    .stats-number    { font-size: 1.7rem; }
+    .stats-label     { font-size: 0.65rem; }
+}
+
+/* ── KEYFRAMES ──────────────────────────────────────────────── */
+@keyframes premiumReveal {
+    from { opacity: 0; transform: translateY(24px) scale(0.98); filter: blur(6px); }
+    to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}

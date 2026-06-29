@@ -1,0 +1,215 @@
+/* ============================================================
+   Footer.css — Sidebar droite fixe (desktop uniquement)
+   Dépend de : variables.css
+   ============================================================ */
+
+/* ── 1. STRUCTURE ───────────────────────────────────────────── */
+.footer-premium-desktop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: var(--footer-width);
+    height: 100vh;
+    z-index: 998;
+    background: var(--white);
+    border-left: 1px solid var(--border);
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.02);
+    overflow: hidden;
+    /* Animation d'entrée : délai de 0.2s pour laisser la navbar arriver d'abord */
+    animation: slideInRightFooter 0.6s var(--ease-expo) 0.2s both;
+    transition: transform 0.4s var(--ease-expo);
+}
+
+.footer-desktop-wrapper {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 32px 20px;
+    box-sizing: border-box;
+}
+
+/* ── 2. SECTION TOP (Brand + Description + Réseaux) ─────────── */
+.footer-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    /* Apparition avec légère montée */
+    animation: fadeUpFooter 0.5s var(--ease-expo) 0.4s both;
+}
+
+.footer-brand {
+    cursor: pointer;
+    transition: transform 0.3s var(--ease-expo), opacity 0.2s ease;
+}
+
+.footer-brand:hover { transform: scale(1.03); opacity: 0.85; }
+
+.footer-brand .brand-text {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: var(--text-dark);
+}
+
+.footer-description {
+    text-align: center;
+    font-family: var(--font-main);
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    max-width: 190px;
+    margin: 0;
+}
+
+/* Réseaux sociaux */
+.social-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.social-circle {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    background: var(--bg-light);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    cursor: pointer;
+    overflow: hidden;
+    /* Stagger — chaque bouton arrive avec un léger décalage */
+    animation: fadeUpFooter 0.5s var(--ease-expo) both;
+    transition: all 0.3s var(--ease-expo);
+}
+
+/* Décalage temporel en cascade */
+.social-circle:nth-child(1) { animation-delay: 0.45s; }
+.social-circle:nth-child(2) { animation-delay: 0.52s; }
+.social-circle:nth-child(3) { animation-delay: 0.59s; }
+.social-circle:nth-child(4) { animation-delay: 0.66s; }
+
+.social-circle:hover {
+    transform: translateY(-3px);
+    background: var(--blue-dim);
+    border-color: var(--blue);
+    color: var(--blue);
+    box-shadow: 0 6px 16px rgba(10, 102, 194, 0.12);
+}
+
+.social-circle svg {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.3s var(--ease-expo);
+}
+
+.social-circle:hover svg { transform: scale(1.08); }
+
+/* ── 3. SÉPARATEUR DÉCORATIF CENTRAL ────────────────────────── */
+.footer-center {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-center::before {
+    content: '';
+    width: 1px;
+    height: 80px;
+    background: linear-gradient(to bottom, transparent, var(--border), transparent);
+}
+
+/* ── 4. SECTION INFÉRIEURE (Contact + Copyright) ────────────── */
+.footer-bottom-desktop {
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    animation: fadeUpFooter 0.5s var(--ease-expo) 0.5s both;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-light);
+    border: 1px solid transparent;
+    color: var(--text-muted);
+    font-family: var(--font-main);
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all 0.3s var(--ease-expo);
+}
+
+.contact-item:hover {
+    background: var(--white);
+    border-color: var(--blue);
+    color: var(--text-dark);
+    /* Déplacement vers la gauche (vers le contenu) */
+    transform: translateX(-3px);
+    box-shadow: var(--shadow-xs);
+}
+
+.contact-item svg {
+    width: 15px;
+    height: 15px;
+    color: var(--blue);
+    flex-shrink: 0;
+}
+
+.copyright {
+    text-align: center;
+    font-family: var(--font-main);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--blue);
+    text-transform: uppercase;
+    margin: 0;
+}
+
+/* ── 5. RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 1200px) {
+    .footer-premium-desktop { width: 220px; }
+}
+
+/* Masqué en dessous de 992px — la sidebar droite n'a pas de place */
+@media (max-width: 992px) {
+    .footer-premium-desktop { display: none !important; }
+    main, .main-content, #app-root { padding-right: 0 !important; }
+}
+
+@media (min-width: 993px) {
+    main, .main-content, #app-root {
+        padding-right: var(--footer-width);
+        transition: padding 0.4s var(--ease-expo);
+    }
+}
+
+/* ── 6. KEYFRAMES ───────────────────────────────────────────── */
+@keyframes slideInRightFooter {
+    from { transform: translateX(100%); opacity: 0; }
+    to   { transform: translateX(0);    opacity: 1; }
+}
+
+/* Correction : animation unifiée (l'original avait fadeInScaleFooter peu cohérent) */
+@keyframes fadeUpFooter {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

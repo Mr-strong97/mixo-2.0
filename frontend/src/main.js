@@ -45,14 +45,9 @@ import './styles/adminStyles/AdminStats.css';
 import './styles/adminStyles/AdminUserSection.css';
 import './styles/adminStyles/AdminProfile.css';
 import './styles/adminStyles/AdminPlaceholder.css';
+import'./styles/adminStyles/AdminUsers.css';
 
-// ── 1.8. MODULE SERVICES ──
-// import './styles/serviceStyles/ServiceComponents.css';
-// import './styles/serviceStyles/ClientServices.css';
-// import './styles/serviceStyles/ServiceDetail.css';
-// import './styles/serviceStyles/CoiffeurServices.css';
-// import './styles/serviceStyles/ServiceWizard.css';
-// import './styles/serviceStyles/ServiceEdit.css';
+
 
 
 

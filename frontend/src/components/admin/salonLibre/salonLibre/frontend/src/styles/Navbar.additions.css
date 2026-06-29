@@ -1,0 +1,156 @@
+/* ============================================================
+   Navbar_additions.css — Dropdowns sidebar verticale
+   Dépend de : variables.css + Navbar.css
+   ============================================================ */
+
+/* ── 1. CONTENEUR PARENT AVEC DROPDOWN ─────────────────────── */
+.nav-has-dropdown {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Bouton déclencheur (ex: "Statistiques") */
+.nav-dropdown-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 12px 16px;
+    cursor: pointer;
+    border-radius: var(--radius-md);
+    transition: background 0.25s var(--ease-expo), color 0.25s ease;
+}
+
+/* Rotation de la flèche à l'ouverture */
+.nav-dropdown-trigger .chevron-icon {
+    transition: transform 0.3s var(--ease-expo);
+    flex-shrink: 0;
+}
+
+.nav-has-dropdown.dropdown-open .nav-dropdown-trigger .chevron-icon {
+    transform: rotate(180deg);
+}
+
+/* ── 2. LISTE DÉROULANTE ────────────────────────────────────── */
+.nav-dropdown {
+    /* Caché par défaut — animation via max-height pour éviter display:none brusque */
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    list-style: none;
+    padding: 4px 0 4px 12px;
+    margin: 2px 0 0;
+
+    /* État masqué */
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition:
+        max-height 0.35s var(--ease-expo),
+        opacity 0.25s ease,
+        transform 0.25s var(--ease-expo);
+}
+
+/* État ouvert — JS ajoute .dropdown-open sur le parent */
+.nav-has-dropdown.dropdown-open .nav-dropdown {
+    max-height: 400px;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ── 3. ITEMS DU DROPDOWN ───────────────────────────────────── */
+.nav-dropdown-item {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    list-style: none;
+    transition:
+        background 0.25s var(--ease-expo),
+        transform 0.25s var(--ease-expo),
+        box-shadow 0.25s ease;
+}
+
+/* Fond glow subtil au hover */
+.nav-dropdown-item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--blue-dim), transparent);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.nav-dropdown-item:hover {
+    background: var(--blue-dim);
+    transform: translateX(3px);
+    box-shadow: inset 0 0 0 1px rgba(10, 102, 194, 0.06);
+}
+
+.nav-dropdown-item:hover::before { opacity: 1; }
+
+.nav-dropdown-item:active {
+    transform: scale(0.98) translateX(3px);
+}
+
+/* ── 4. ICÔNES ET TEXTES ────────────────────────────────────── */
+.nav-dropdown-item svg {
+    position: relative;
+    z-index: 1;
+    width: 15px;
+    height: 15px;
+    color: var(--blue);
+    flex-shrink: 0;
+    transition: transform 0.25s var(--ease-expo), color 0.25s ease;
+}
+
+.nav-dropdown-item:hover svg {
+    transform: scale(1.08);
+    color: var(--blue-dark);
+}
+
+.dd-label {
+    position: relative;
+    z-index: 1;
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    letter-spacing: 0.1px;
+    transition: color 0.25s ease;
+}
+
+.dd-sub {
+    position: relative;
+    z-index: 1;
+    display: block;
+    margin-top: 1px;
+    font-size: 0.71rem;
+    line-height: 1.3;
+    color: var(--text-muted);
+    transition: color 0.25s ease;
+}
+
+.nav-dropdown-item:hover .dd-label { color: var(--blue-dark); }
+.nav-dropdown-item:hover .dd-sub   { color: var(--text-dark); }
+
+/* ── 5. ÉTAT DÉSACTIVÉ ──────────────────────────────────────── */
+.nav-dropdown-disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* ── 6. RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .nav-dropdown { padding-left: 8px; }
+    .nav-dropdown-item { padding: 11px 14px; }
+    .dd-label { font-size: 0.83rem; }
+    .dd-sub   { font-size: 0.69rem; }
+}

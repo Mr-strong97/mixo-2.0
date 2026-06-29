@@ -1,0 +1,168 @@
+/* ============================================================
+   AdminPlaceholder.css — Écran vide / section en construction
+   Dépend de : variables.css
+   ============================================================ */
+
+/* ── 1. WRAPPER ─────────────────────────────────────────────── */
+.placeholder-section {
+    width: 100%;
+    animation: fadeUp 0.4s var(--ease-expo) both;
+}
+
+/* ── 2. CARTE PRINCIPALE ────────────────────────────────────── */
+.placeholder-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-2xl);
+    padding: 48px 42px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.25s var(--ease-expo), box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.placeholder-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--blue-border);
+    box-shadow: var(--shadow-md);
+}
+
+/* ── 3. ICÔNE CENTRALE ──────────────────────────────────────── */
+.placeholder-icon {
+    width: 88px;
+    height: 88px;
+    margin: 0 auto 28px;
+    border-radius: var(--radius-2xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--blue-dim), rgba(112, 181, 249, 0.08));
+    border: 1px solid var(--blue-border);
+}
+
+.placeholder-icon i,
+.placeholder-icon svg {
+    width: 42px;
+    height: 42px;
+    color: var(--blue);
+}
+
+/* ── 4. TITRE & DESCRIPTION ─────────────────────────────────── */
+.placeholder-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 18px;
+    font-family: var(--font-display);
+}
+
+.placeholder-desc {
+    max-width: 720px;
+    margin: 0 auto 36px;
+    text-align: center;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+    font-family: var(--font-main);
+}
+
+/* ── 5. BLOC FEATURES ───────────────────────────────────────── */
+.placeholder-features {
+    background: var(--bg-page);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 28px;
+}
+
+.features-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--blue);
+    margin-bottom: 22px;
+    font-family: var(--font-main);
+}
+
+.placeholder-features ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+}
+
+.placeholder-features li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 16px 18px;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    font-family: var(--font-main);
+    transition: transform 0.2s var(--ease-expo), border-color 0.2s ease;
+}
+
+.placeholder-features li:hover {
+    transform: translateY(-2px);
+    border-color: var(--blue-border);
+}
+
+.feature-check {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    color: var(--blue);
+}
+
+/* ── 6. BADGE STATUT ────────────────────────────────────────── */
+.placeholder-badge {
+    width: fit-content;
+    margin: 32px auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 22px;
+    border-radius: var(--radius-pill);
+    background: var(--blue-dim);
+    border: 1px solid var(--blue-border);
+    color: var(--blue);
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-family: var(--font-main);
+}
+
+.placeholder-badge i,
+.placeholder-badge svg { width: 16px; height: 16px; }
+
+/* ── 7. RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .placeholder-card  { padding: 36px 24px; }
+    .placeholder-title { font-size: 1.6rem; }
+    .placeholder-features ul { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 576px) {
+    .placeholder-card  { padding: 28px 18px; border-radius: var(--radius-xl); }
+    .placeholder-icon  { width: 72px; height: 72px; }
+    .placeholder-icon i,
+    .placeholder-icon svg { width: 30px; height: 30px; }
+    .placeholder-title { font-size: 1.35rem; }
+    .placeholder-desc  { font-size: 0.92rem; line-height: 1.6; }
+    .placeholder-features { padding: 20px; }
+    .placeholder-features li { font-size: 0.85rem; }
+    .placeholder-badge { width: 100%; }
+}
+
+/* ── 8. KEYFRAMES ───────────────────────────────────────────── */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

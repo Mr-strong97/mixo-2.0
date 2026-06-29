@@ -131,7 +131,7 @@ body {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-    body {
+    .perspective-3d {
         perspective: 1200px;
         transform-style: preserve-3d;
     }

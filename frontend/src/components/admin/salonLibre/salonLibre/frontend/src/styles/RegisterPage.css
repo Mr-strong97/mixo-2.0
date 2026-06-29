@@ -1,0 +1,226 @@
+/* ============================================================
+   RegisterPage.css — Page d'inscription (split screen)
+   Dépend de : variables.css
+   ============================================================ */
+
+/* ── 1. CONTENEUR GLOBAL ────────────────────────────────────── */
+/* Force le layout plein écran sans scroll — identique à WelcomePage */
+.welcome-container {
+    height: 100vh;
+    min-height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+}
+
+/* ── 2. SECTION IMAGE GAUCHE ────────────────────────────────── */
+.bg-image-section-register {
+    background: linear-gradient(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08)),
+                url('https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?q=80&w=1000')
+                center / cover no-repeat;
+    height: 100vh;
+    flex: 0 0 50%;
+    max-width: 50%;
+    animation: slideInLeft 0.8s var(--ease-expo) both;
+}
+
+/* Encart glassmorphism sur la photo */
+.glass-overlay-register {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: var(--blur-md);
+    -webkit-backdrop-filter: var(--blur-md);
+    padding: 2.5rem 3.5rem;
+    border-radius: var(--radius-2xl);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: var(--shadow-md);
+    transition: transform 0.4s var(--ease-expo), box-shadow 0.4s ease;
+}
+
+.glass-overlay-register:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.register-tagline {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--text-dark);
+    margin: 0;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ── 3. SECTION FORMULAIRE DROITE ───────────────────────────── */
+.register-title {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--text-dark);
+    margin-bottom: 2rem;
+    text-align: center;
+    animation: slideInRight 0.8s var(--ease-expo) 0.1s both;
+}
+
+#register-form {
+    animation: slideInRight 0.8s var(--ease-expo) 0.2s both;
+}
+
+/* ── 4. RÈGLES MOT DE PASSE ─────────────────────────────────── */
+.password-rules-container { max-width: 450px; }
+
+.password-rules-text {
+    font-family: var(--font-main);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ── 5. SELECT RÔLE ─────────────────────────────────────────── */
+.register-select {
+    font-family: var(--font-main);
+    background-color: var(--bg-light);
+    border: 1px solid var(--border-md);
+    color: var(--text-dark);
+    padding: 14px 48px 14px 18px;
+    border-radius: var(--radius-md);
+    outline: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    appearance: none;
+    -webkit-appearance: none;
+    /* Chevron SVG intégré dans le background */
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%230A66C2' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 16px;
+    transition: border-color 0.25s var(--ease-expo), background-color 0.25s ease;
+}
+
+.register-select:focus {
+    border-color: var(--blue);
+    background-color: var(--white);
+    box-shadow: var(--focus-ring);
+}
+
+/* ── 6. BOÎTE D'INFO COIFFEUR ───────────────────────────────── */
+.info-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--blue-dim);
+    border: 1px solid var(--blue-border);
+    border-radius: var(--radius-md);
+    max-width: 450px;
+    width: 100%;
+    animation: fadeInScale 0.6s var(--ease-expo) 0.3s both;
+}
+
+.info-icon {
+    color: var(--blue);
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.info-text {
+    font-family: var(--font-main);
+    color: var(--blue);
+    font-size: 0.82rem;
+    font-weight: 500;
+    margin-left: 10px;
+    line-height: 1.4;
+}
+
+/* ── 7. BOUTON RETOUR ───────────────────────────────────────── */
+.btn-back-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--white);
+    border: 1px solid var(--blue);
+    color: var(--blue);
+    font-family: var(--font-main);
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    margin-left: 52px;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 315px;
+    box-sizing: border-box;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        background 0.25s var(--ease-expo),
+        transform 0.25s var(--ease-expo),
+        box-shadow 0.25s ease;
+}
+
+.btn-back-link:hover {
+    background-color: var(--blue-dim);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-blue);
+}
+
+/* ── 8. TOGGLE VISIBILITÉ MOT DE PASSE ──────────────────────── */
+/* Correction : padding-right uniquement sur les champs password */
+.glass-input.password-field { padding-right: 48px !important; }
+
+.btn-toggle-password {
+    position: absolute;
+    right: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 4;
+}
+
+.eye-icon {
+    color: var(--text-tertiary);
+    width: 20px;
+    height: 20px;
+    transition: color 0.2s ease;
+}
+
+.btn-toggle-password:hover .eye-icon { color: var(--blue); }
+
+/* ── 9. RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .bg-image-section-register { display: none !important; }
+    .register-title { font-size: 1.75rem; }
+    .btn-back-link{margin-left: 0;}
+}
+
+@media (max-width: 576px) {
+    .btn-back-link { max-width: 100%; padding: 12px 16px; }
+    .btn-back-link{margin-left: 0;}
+}
+
+/* ── 10. KEYFRAMES ──────────────────────────────────────────── */
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-50px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(50px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.96) translateY(8px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+}

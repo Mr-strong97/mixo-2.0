@@ -1,0 +1,140 @@
+/* ================================================================
+   AdminUsers.css — MIXO · Page Gestion des Utilisateurs
+   ================================================================ */
+
+.adm-users-page {
+    min-height: 100vh;
+    background: #F8FAFC;
+    font-family: 'Poppins', sans-serif;
+}
+
+.adm-users-main {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 32px 24px 80px;
+}
+
+/* ── Topbar ───────────────────────────────────────────────── */
+.adm-users-topbar {
+    margin-bottom: 24px;
+}
+
+.adm-users-heading {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.adm-users-heading-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: #EBF4FF;
+    color: #0A66C2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.adm-users-heading-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.adm-users-heading h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #1A1D20;
+    margin: 0 0 4px;
+}
+
+.adm-users-heading p {
+    font-size: 0.84rem;
+    color: #62676B;
+    margin: 0;
+}
+
+/* ── KPI Cards ────────────────────────────────────────────── */
+.adm-users-kpi {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.adm-kpi-card {
+    background: #fff;
+    border: 1.5px solid #E8ECF0;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: box-shadow 0.2s ease;
+}
+
+.adm-kpi-card:hover {
+    box-shadow: 0 6px 18px rgba(10, 102, 194, 0.07);
+}
+
+.adm-kpi-skeleton {
+    justify-content: center;
+    min-height: 84px;
+    background: #F8FAFC;
+}
+
+.adm-kpi-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.adm-kpi-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.adm-kpi-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.adm-kpi-value {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #1A1D20;
+    line-height: 1;
+}
+
+.adm-kpi-label {
+    font-size: 0.72rem;
+    color: #94A3B8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 1024px) {
+    .adm-users-kpi {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 560px) {
+    .adm-users-kpi {
+        grid-template-columns: 1fr;
+    }
+
+    .adm-users-heading h1 {
+        font-size: 1.2rem;
+    }
+}

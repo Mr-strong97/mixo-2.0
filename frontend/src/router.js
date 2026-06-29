@@ -29,6 +29,8 @@ import { AdminProfilePage }      from './pages/authentificationPage/AdminProfile
 import { AdminStatsPage }        from './pages/authentificationPage/AdminStatsPage.js';
 import { AuditLogPage }          from './pages/authentificationPage/AuditLogPage.js';
 import { AdminDashboardPage }    from './pages/adminDashboard/AdminDashboardPage.js';
+import { AdminUsersPage }        from './pages/adminPage/AdminPage.js';
+
 
 // ── 2.6. MODULE SERVICES ──
 //   Espace Client
@@ -108,6 +110,7 @@ const routes = [
     { path: /^\/admin\/home$/,     component: HomeAdminPage },
 
     // Administration
+    { path: /^\/admin\/users$/, component: AdminUsersPage },
     { path: /^\/admin$/,             component: AdminDashboardPage },
     { path: /^\/admin\/dashboard$/,  component: AdminDashboardPage },
     { path: /^\/admin\/profile$/,    component: AdminProfilePage },

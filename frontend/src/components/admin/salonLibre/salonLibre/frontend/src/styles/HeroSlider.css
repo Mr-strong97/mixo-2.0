@@ -1,0 +1,62 @@
+/* =========================================
+   HERO SLIDER
+   Styles déplacés depuis ZoneHero.css
+========================================= */
+
+.glass-frame {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    border-radius: var(--radius-xl);
+    padding: 15px;
+    background: var(--glass-bg-subtle);
+    border: 1px solid var(--glass-border-subtle);
+    backdrop-filter: var(--blur-effect);
+}
+
+#slider-mount {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    position: relative;
+}
+
+.hero-slider-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transform: scale(1.1);
+    transition: opacity 1.5s ease-in-out, transform 5s linear;
+}
+
+.slide.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 991px) {
+    .glass-frame {
+        height: 400px;
+        margin-top: 50px;
+    }
+}
+
+@media (max-width: 576px) {
+    .glass-frame {
+        height: 300px;
+        border-radius: var(--radius-lg);
+        padding: 10px;
+    }
+}

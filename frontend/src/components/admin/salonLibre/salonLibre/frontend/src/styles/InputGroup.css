@@ -1,0 +1,89 @@
+/* ============================================================
+   InputGroup.css — Champs de saisie avec icône (formulaires)
+   Dépend de : variables.css
+   ============================================================ */
+
+/* ── WRAPPER ────────────────────────────────────────────────── */
+.input-group-custom {
+    position: relative;
+    width: 100%;
+    max-width: 450px;
+    margin-bottom: 16px;
+    /* Entrée depuis la droite — cohérente avec les pages Login/Register */
+    animation: slideInRight 0.7s var(--ease-expo) both;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+/* ── ICÔNE INTERNE ──────────────────────────────────────────── */
+.input-icon {
+    position: absolute;
+    left: 16px;
+    color: var(--blue);
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+    z-index: 3;
+    transition: transform 0.25s var(--ease-expo), color 0.25s ease;
+}
+
+/* Animation légère de l'icône au focus */
+.input-wrapper:focus-within .input-icon {
+    color: var(--blue-dark);
+    transform: scale(1.05);
+}
+
+/* ── CHAMP DE SAISIE ────────────────────────────────────────── */
+.glass-input {
+    width: 100%;
+    padding: 14px 16px 14px 46px;
+    background: var(--bg-input);
+    border: 1px solid var(--border-md);
+    border-radius: var(--radius-md);
+    color: var(--text-dark);
+    font-family: var(--font-main);
+    font-size: 0.95rem;
+    font-weight: 500;
+    outline: none;
+    box-sizing: border-box;
+    transition:
+        border-color 0.3s var(--ease-expo),
+        background-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.glass-input:focus {
+    border-color: var(--blue);
+    background-color: var(--white);
+    box-shadow: var(--focus-ring);
+}
+
+.glass-input::placeholder {
+    color: var(--text-tertiary);
+    font-size: 0.88rem;
+    font-weight: 400;
+}
+
+/* Options select sur fond clair */
+.glass-input.custom-select option {
+    background-color: var(--white);
+    color: var(--text-dark);
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────────────── */
+@media (max-width: 576px) {
+    .input-group-custom { max-width: 100%; margin-bottom: 12px; }
+    .glass-input        { padding: 13px 14px 13px 42px; font-size: 0.9rem; border-radius: var(--radius-sm); }
+    .input-icon         { left: 14px; width: 16px; height: 16px; }
+}
+
+/* ── KEYFRAMES ──────────────────────────────────────────────── */
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(40px); }
+    to   { opacity: 1; transform: translateX(0); }
+}

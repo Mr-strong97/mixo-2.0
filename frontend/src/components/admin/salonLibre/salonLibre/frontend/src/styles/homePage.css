@@ -1,0 +1,71 @@
+/* ============================================================
+   homePage.css — Layout principal (conteneur central)
+   Dépend de : variables.css
+   ============================================================ */
+
+/* ── 1. WRAPPER PAGE ────────────────────────────────────────── */
+.home-page-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    background: var(--bg-page);
+    overflow-x: hidden;
+}
+
+/* ── 2. LAYOUT CENTRAL (entre sidebar gauche et footer droit) ── */
+.main-content-layout {
+    position: relative;
+    min-height: 100vh;
+    /* Valeurs synchronisées avec --nav-width et --footer-width de variables.css */
+    margin-left: var(--nav-width);
+    margin-right: var(--footer-width);
+    display: flex;
+    flex-direction: column;
+    transition: margin 0.4s var(--ease-expo);
+}
+
+.main-content-layout main {
+    flex: 1;
+    width: 100%;
+    padding: 40px 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.section-wrapper {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Glow décoratif fixe en coin — pointer-events:none pour ne pas bloquer les clics */
+.main-content-layout::before {
+    content: '';
+    position: fixed;
+    top: -250px;
+    right: -250px;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--blue-dim), transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ── 3. RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 991px) {
+    /* Sur mobile, les sidebars sont masquées — on retire les marges */
+    .main-content-layout {
+        margin-left: 0;
+        margin-right: 0;
+        /* Espace pour le burger menu fixe en haut */
+        padding-top: 80px;
+    }
+
+    .main-content-layout main { padding: 25px 20px; }
+    .section-wrapper           { max-width: 100%; }
+}
+
+@media (max-width: 576px) {
+    .main-content-layout main { padding: 20px 14px; gap: 35px; }
+}

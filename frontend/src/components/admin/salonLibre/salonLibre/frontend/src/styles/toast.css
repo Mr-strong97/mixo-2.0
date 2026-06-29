@@ -1,0 +1,83 @@
+/* ============================================================
+   toast.css — Notifications Toastify
+   Dépend de : variables.css
+   ============================================================ */
+
+/* ── TOAST PRINCIPAL ────────────────────────────────────────── */
+.toastify {
+    background: var(--blue) !important;
+    color: var(--white) !important;
+    padding: 14px 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    font-family: var(--font-display) !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    border-radius: var(--radius-sm) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    box-shadow: var(--shadow-md) !important;
+    backdrop-filter: var(--blur-sm) !important;
+    -webkit-backdrop-filter: var(--blur-sm) !important;
+    z-index: 10000 !important;
+    animation: toastIn 0.32s var(--ease-expo) both !important;
+    transition: transform 0.25s var(--ease-expo), box-shadow 0.25s ease !important;
+}
+
+.toastify:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg) !important;
+}
+
+/* ── BOUTON FERMETURE ───────────────────────────────────────── */
+.toast-close {
+    opacity: 0.5 !important;
+    font-size: 18px !important;
+    color: var(--white) !important;
+    padding: 0 5px !important;
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.2s ease !important;
+}
+
+.toast-close:hover {
+    opacity: 1 !important;
+    transform: scale(1.1);
+}
+
+/* ── TYPES (bandeau coloré à gauche) ────────────────────────── */
+.toastify-success { border-left: 4px solid var(--success) !important; }
+.toastify-error   { border-left: 4px solid var(--danger) !important; }
+.toastify-warning { border-left: 4px solid var(--warning) !important; }
+.toastify-info    { border-left: 4px solid var(--blue-light) !important; }
+
+/* Icônes */
+.toastify i,
+.toastify svg { color: var(--white); flex-shrink: 0; }
+
+/* ── RESPONSIVE (Mobile : toast centré pleine largeur) ──────── */
+@media only screen and (max-width: 767px) {
+    .toastify {
+        margin: 0 12px !important;
+        width: calc(100% - 24px) !important;
+        max-width: 420px !important;
+        position: fixed !important;
+        left: 50% !important;
+        /* Correction : translateX(-50%) centré, translateY géré par hover */
+        transform: translateX(-50%) !important;
+        border-radius: var(--radius-md) !important;
+        font-size: 13px !important;
+        padding: 13px 16px !important;
+    }
+
+    /* Override hover mobile — le -50% doit être conservé */
+    .toastify:hover { transform: translateX(-50%) translateY(-2px) !important; }
+
+    .toastify.toastify-top { top: 15px !important; }
+}
+
+/* ── KEYFRAMES ──────────────────────────────────────────────── */
+/* Correction : animation renommée pour éviter le conflit avec slideInRight */
+@keyframes toastIn {
+    from { opacity: 0; transform: translateY(-110%) scale(0.94); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
