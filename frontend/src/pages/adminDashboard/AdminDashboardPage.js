@@ -395,7 +395,7 @@ function formatNumber(value) {
 
 function formatMoney(value) {
     const n = Number(value || 0);
-    return `${n.toLocaleString('fr-FR', { maximumFractionDigits: 2 })} €`;
+    return `${n.toLocaleString('fr-FR', { maximumFractionDigits: 2 })} FC`;
 }
 
 function formatDate(value) {

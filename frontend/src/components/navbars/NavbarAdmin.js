@@ -11,6 +11,7 @@ export const NavbarAdmin = () => NavbarLayout([
     { id: 'services',      icon: 'scissors',          label: 'Services',         route: '/admin/services' },
     { id: 'stats',         icon: 'bar-chart-2',       label: 'Statistiques',     route: '/admin/stats' },
     { id: 'journal',       icon: 'activity',          label: 'Journal de bord',  route: '/admin/journal' },
+    { id: 'factures',      icon: 'receipt-text',      label: 'Factures',         route: '/factures' },
     { id: 'notifications', icon: 'bell',              label: 'Notifications',    route: '/notifications' },
     { id: 'profil',        icon: 'user-cog',          label: 'Profil Admin',     route: '/admin/profile' },
     { id: 'parametres',    icon: 'settings',          label: 'Paramètres',       route: '/admin/parametres' },

@@ -58,7 +58,7 @@ class Service(models.Model):
         max_digits=8,
         decimal_places=2,
         validators=[MinValueValidator(0.01)],
-        verbose_name=_("Prix (€)"),
+        verbose_name=_("Prix (FC)"),
     )
     image = models.ImageField(
         upload_to='services/images/%Y/%m/',

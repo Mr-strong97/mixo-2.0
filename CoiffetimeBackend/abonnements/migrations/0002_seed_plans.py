@@ -18,7 +18,7 @@ PLANS = [
     {
         'nom': 'Standard',
         'plan': 'STANDARD',
-        'prix_mensuel': 9.99,
+        'prix_mensuel': 5000,
         'duree_mois': 1,
         'description': "Pour les coiffeurs qui démarrent leur activité.",
         'avantages': "Jusqu'à 10 services actifs\nGalerie 8 photos par service\nStatistiques de base",
@@ -27,7 +27,7 @@ PLANS = [
     {
         'nom': 'Premium',
         'plan': 'PREMIUM',
-        'prix_mensuel': 19.99,
+        'prix_mensuel': 10000,
         'duree_mois': 1,
         'description': "Visibilité renforcée pour développer sa clientèle.",
         'avantages': "Services illimités\nMise en avant prioritaire\nStatistiques avancées\nBadge Premium",
@@ -36,7 +36,7 @@ PLANS = [
     {
         'nom': 'Pro',
         'plan': 'PRO',
-        'prix_mensuel': 39.99,
+        'prix_mensuel': 30000,
         'duree_mois': 1,
         'description': "Pour les salons établis qui veulent maximiser leur visibilité.",
         'avantages': "Tout Premium inclus\nMise en avant maximale\nSupport prioritaire\nBadge Pro Certifié",
@@ -66,5 +66,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(seed_plans, supprimer_plans),
+        migrations.RunPython(seed_plans, supprimer_plans)
     ]

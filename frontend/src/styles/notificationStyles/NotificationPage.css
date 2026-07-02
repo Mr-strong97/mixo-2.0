@@ -218,6 +218,7 @@
 /* Boutons d'action rapides (Poubelle, Check) au survol ou à droite */
 .notif-item-actions {
     display: flex;
+    flex-wrap: wrap;
     gap: 6px;
     align-items: center;
     opacity: 0.4; /* Discret par défaut, s'illumine au survol de la carte */
@@ -228,9 +229,11 @@
     opacity: 1;
 }
 
+.notif-btn-avis,
 .notif-btn-read,
 .notif-btn-del {
-    width: 32px;
+    min-height: 32px;
+    padding: 0 10px;
     height: 32px;
     border-radius: 8px;
     border: none;
@@ -242,12 +245,24 @@
     transition: all 0.2s ease;
 }
 
+.notif-btn-avis {
+    width: auto;
+    gap: 6px;
+    color: #0A66C2;
+    background: rgba(10, 102, 194, 0.08);
+    font-size: 0.72rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+.notif-btn-avis:hover { background: rgba(10, 102, 194, 0.14); }
+
 .notif-btn-read { color: #10B981; }
 .notif-btn-read:hover { background-color: rgba(16, 185, 129, 0.08); }
 
 .notif-btn-del { color: #EF4444; }
 .notif-btn-del:hover { background-color: rgba(239, 68, 68, 0.08); }
 
+.notif-btn-avis svg,
 .notif-btn-read svg,
 .notif-btn-del svg {
     width: 15px;
@@ -379,4 +394,83 @@
         margin-top: 4px;
         justify-content: flex-end;
     }
+}
+
+/* ── Factures ───────────────────────────────────────────── */
+.factures-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 24px;
+}
+
+.facture-card {
+    background: #fff;
+    border: 1px solid #E2E8F0;
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: 0 14px 30px rgba(15,23,42,0.06);
+}
+
+.facture-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.facture-head strong {
+    display: block;
+    color: #0F172A;
+    font-size: 1rem;
+}
+
+.facture-head span {
+    color: #64748B;
+    font-size: 0.82rem;
+}
+
+.facture-badge {
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: #EBF4FF;
+    color: #0A66C2;
+    font-size: 0.72rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.facture-meta {
+    display: grid;
+    gap: 10px;
+}
+
+.facture-meta div {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 0.86rem;
+}
+
+.facture-meta span {
+    color: #64748B;
+}
+
+.facture-meta strong {
+    color: #0F172A;
+    text-align: right;
+}
+
+.facture-proof {
+    margin-top: 14px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: #F8FAFC;
+    color: #334155;
+    font-size: 0.84rem;
+}
+
+@media (max-width: 760px) {
+    .factures-grid { grid-template-columns: 1fr; }
 }

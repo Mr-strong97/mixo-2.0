@@ -11,6 +11,7 @@ urlpatterns = [
     path('mes-avis/',                    v.mes_avis,         name='avis-mes-avis'),
     path('mes-avis-recus/',              v.mes_avis_recus,   name='avis-mes-avis-recus'),
     path('coiffeur/<uuid:coiffeur_id>/', v.avis_coiffeur,    name='avis-coiffeur-public'),
+    path('<uuid:pk>/modifier/',          v.modifier_avis,    name='avis-modifier'),
     path('<uuid:pk>/repondre/',          v.repondre_avis,    name='avis-repondre'),
     path('<uuid:pk>/signaler/',          v.signaler_avis,    name='avis-signaler'),
 ]

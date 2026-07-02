@@ -31,6 +31,13 @@ class RendezVous(models.Model):
         ('TERMINE',    _('Terminé')),
     ]
 
+    STATUT_PAIEMENT_CHOICES = [
+        ('NON_PAYE',      _('Non payé')),
+        ('PAYE_EN_LIGNE', _('Payé en ligne')),
+        ('PAYE_SUR_PLACE', _('Payé sur place')),
+        ('ANNULE',        _('Annulé')),
+    ]
+
     id               = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     client           = models.ForeignKey(
@@ -62,6 +69,10 @@ class RendezVous(models.Model):
     statut           = models.CharField(
         max_length=20, choices=STATUT_CHOICES, default='EN_ATTENTE',
         verbose_name=_("Statut"),
+    )
+    statut_paiement  = models.CharField(
+        max_length=20, choices=STATUT_PAIEMENT_CHOICES,
+        default='NON_PAYE', verbose_name=_("Statut du paiement"),
     )
 
     # ── FK paiement — colonne créée par la migration 0002 ────────
@@ -101,4 +112,6 @@ class RendezVous(models.Model):
     @property
     def est_paye(self) -> bool:
         paiement = getattr(self, 'paiement', None)
-        return bool(paiement and paiement.statut == 'PAYE')
+        if paiement and paiement.statut in {'PAYE_EN_LIGNE', 'PAYE_SUR_PLACE', 'PAYE'}:
+            return True
+        return self.statut_paiement in {'PAYE_EN_LIGNE', 'PAYE_SUR_PLACE'}

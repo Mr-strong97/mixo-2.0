@@ -57,7 +57,7 @@ export const CoiffeurServiceDetailPage = ({ id } = {}) => {
 
                     <div class="cvd-info-card">
                         <div class="cvd-row"><span>Catégorie</span><strong>${escapeHtml(s.categorie_nom || '—')}</strong></div>
-                        <div class="cvd-row"><span>Prix</span><strong>${formatPrix(s.prix)} €</strong></div>
+                        <div class="cvd-row"><span>Prix</span><strong>${formatPrix(s.prix)} FC</strong></div>
                         <div class="cvd-row"><span>Durée</span><strong>${s.duree_minutes} min</strong></div>
                         <div class="cvd-row"><span>Ville / Salon</span><strong>${escapeHtml(s.ville || '—')}</strong></div>
                         <div class="cvd-row"><span>Publié le</span><strong>${date}</strong></div>

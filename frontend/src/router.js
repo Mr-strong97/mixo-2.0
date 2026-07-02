@@ -45,8 +45,10 @@ import { ServiceWizardPage }         from './pages/servicePage/ServiceWizardPage
 import { ClientRendezVousPage }      from './pages/rendezvousPage/ClientRendezVousPage.js';
 import { CoiffeurRendezVousPage }     from './pages/rendezvousPage/CoiffeurRendezVousPage.js';
 import { PaiementPage }              from './pages/paiementPage/PaiementPage.js';
+import { FacturesPage }              from './pages/facturePage/FacturesPage.js';
 import { CoiffeurAvisPage }          from './pages/avisPage/CoiffeurAvisPage.js';
 import { LaisserAvisPage }           from './pages/avisPage/LaisserAvisPage.js';
+import { AvisDetailPage }            from './pages/avisPage/AvisDetailPage.js';
 import { FavorisPage }               from './pages/favorisPage/FavorisPage.js';
 import { HistoriquePage }            from './pages/historiquePage/HistoriquePage.js';
 import { CoiffeurDashboardPage }     from './pages/dashboardPage/CoiffeurDashboardPage.js';
@@ -117,17 +119,26 @@ const routes = [
     { path: /^\/admin\/stats$/,      component: AdminStatsPage },
     { path: /^\/admin\/journal$/,    component: AuditLogPage },
     { path: /^\/admin\/rendez-vous$/, component: AdminRendezVousPage },
+    { path: /^\/admin\/extended\/paiements\/([a-fA-F0-9-]{36})\/?$/, component: createInfoPage('Paiement administrateur', 'La consultation détaillée de ce paiement est en cours de mise en place.') },
     { path: /^\/admin\/parametres$/, component: AdminSettingsPage },
 
     // Notifications
     { path: /^\/notifications$/,   component: NotificationPage },
+    { path: /^\/factures$/,        component: FacturesPage },
+    { path: /^\/factures\/([a-fA-F0-9-]{36})$/, component: (params) => FacturesPage(params), paramKeys: ['id'] },
 
     // Pages en cours de réalisation mais déjà reliées à la navigation
     { path: /^\/favoris$/,         component: FavorisPage },
     { path: /^\/historique$/,      component: HistoriquePage },
+    { path: /^\/rendez-vous\/([a-fA-F0-9-]{36})$/, component: (params) => ClientRendezVousPage(params), paramKeys: ['id'] },
     { path: /^\/rendez-vous$/,     component: roleBasedPage(ClientRendezVousPage, CoiffeurRendezVousPage) },
+    { path: /^\/coiffeur\/rendez-vous\/([a-fA-F0-9-]{36})$/, component: (params) => CoiffeurRendezVousPage(params), paramKeys: ['id'] },
+    { path: /^\/coiffeur\/rendez-vous$/, component: CoiffeurRendezVousPage },
     { path: /^\/paiement\/([a-zA-Z0-9_-]+)$/, component: (params) => PaiementPage(params), paramKeys: ['id'] },
     { path: /^\/avis\/laisser\/([a-fA-F0-9-]{36})$/, component: (params) => LaisserAvisPage(params), paramKeys: ['id'] },
+    { path: /^\/avis\/([a-fA-F0-9-]{36})$/, component: (params) => AvisDetailPage(params), paramKeys: ['id'] },
+    { path: /^\/coiffeur\/avis\/([a-fA-F0-9-]{36})$/, component: (params) => AvisDetailPage(params), paramKeys: ['id'] },
+    { path: /^\/coiffeur\/avis$/, component: CoiffeurAvisPage },
     { path: /^\/avis$/,            component: roleBasedPage(createInfoPage('Avis', 'L’espace avis clients est disponible pour les coiffeurs.'), CoiffeurAvisPage) },
     { path: /^\/plannings$/,       component: createInfoPage('Plannings', 'La gestion des plannings coiffeur est en préparation.') },
 
@@ -172,6 +183,11 @@ const routes = [
 // ─────────────────────────────────────────────────────────────
 export const initRouter = (appElement) => {
     const render = () => {
+        if (typeof window.__mixoPageCleanup === 'function') {
+            try { window.__mixoPageCleanup(); } catch (error) { console.warn('[Router] cleanup failed', error); }
+            window.__mixoPageCleanup = null;
+        }
+
         const path  = window.location.pathname;
         const route = routes.find(r => r.path.test(path));
         const Ctor  = route ? route.component : WelcomePage;

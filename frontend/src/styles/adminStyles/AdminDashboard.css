@@ -148,6 +148,63 @@
     .app-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
+@media (max-width: 768px) {
+    .adb-main {
+        padding: 24px 16px 72px;
+    }
+
+    .adb-header {
+        align-items: flex-start;
+    }
+
+    .adb-layout {
+        gap: 16px;
+    }
+
+    .asm-nav {
+        position: static;
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 8px;
+    }
+
+    .asm-item {
+        white-space: nowrap;
+    }
+
+    .aap-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .app-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 560px) {
+    .adb-main {
+        padding: 20px 12px 64px;
+    }
+
+    .adb-header {
+        gap: 12px;
+    }
+
+    .adb-header h1 {
+        font-size: 1.3rem;
+    }
+
+    .adb-search {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .app-grid,
+    .aap-stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* ═══════════════ CONFIRM MODAL ═══════════════ */
 .mxo-confirm-overlay {
     position: fixed;

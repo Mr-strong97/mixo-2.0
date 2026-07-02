@@ -3,12 +3,14 @@ paiement_serializers.py — MIXO · Module Paiements
 """
 from rest_framework import serializers
 from ..models import Paiement
+from .facture_serializers import FactureSerializer
 
 
 class PaiementSerializer(serializers.ModelSerializer):
     methode_label = serializers.CharField(source='get_methode_display', read_only=True)
     statut_label  = serializers.CharField(source='get_statut_display', read_only=True)
     service_nom   = serializers.CharField(source='rendez_vous.service_nom_snapshot', read_only=True)
+    facture       = FactureSerializer(read_only=True)
 
     class Meta:
         model  = Paiement
@@ -16,7 +18,7 @@ class PaiementSerializer(serializers.ModelSerializer):
             'id', 'rendez_vous', 'service_nom',
             'montant_total', 'montant_commission', 'montant_coiffeur',
             'statut', 'statut_label', 'methode', 'methode_label',
-            'transaction_id', 'created_at',
+            'transaction_id', 'facture', 'created_at',
         ]
         read_only_fields = fields
 

@@ -15,6 +15,7 @@ from rest_framework.response import Response
 
 from authentification.models.audit_log import AuditLog, ActionChoix
 from rendez_vous.models import RendezVous
+from rendez_vous.services import notifier_demande_avis
 from ..serializers.admin_rendezvous_serializers import (
     AdminRendezVousDetailSerializer,
     AdminRendezVousListSerializer,
@@ -111,6 +112,7 @@ def admin_modifier_rendezvous(request, pk):
         'service': str(rdv.service_id) if rdv.service_id else None,
     }
 
+    ancien_statut = rdv.statut
     serializer = AdminRendezVousUpdateSerializer(rdv, data=request.data, partial=True)
     serializer.is_valid(raise_exception=True)
     updated = serializer.save()
@@ -124,6 +126,8 @@ def admin_modifier_rendezvous(request, pk):
         'date_heure_fin': updated.date_heure_fin.isoformat() if updated.date_heure_fin else None,
         'service': str(updated.service_id) if updated.service_id else None,
     }
+    if ancien_statut != 'TERMINE' and updated.statut == 'TERMINE':
+        notifier_demande_avis(updated)
     _log(request, ActionChoix.ADMIN_RDV_MODIF, updated, details={'ancien': ancien, 'nouveau': nouveau})
     return Response(AdminRendezVousDetailSerializer(updated, context={'request': request}).data)
 

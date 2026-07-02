@@ -9,6 +9,8 @@
 import { AuthentificationUtilisateurs } from '../../api/axiosConfig.js';
 import { checkUserStatus } from '../../utils/AuthGuard.js';
 
+const BADGEABLE_IDS = new Set(['notifications', 'services', 'avis', 'rdv', 'factures']);
+
 export const NavbarLayout = (links = [], activeRoute = '') => {
     const username = localStorage.getItem('username') || 'Utilisateur';
     const role     = (localStorage.getItem('user_role') || 'client').toLowerCase();
@@ -44,7 +46,7 @@ export const NavbarLayout = (links = [], activeRoute = '') => {
                         data-route="${l.route || ''}" id="nl-${l.id}">
                         <i data-lucide="${l.icon}" class="nl-icon"></i>
                         <span class="nl-label">${l.label}</span>
-                        ${l.badge ? `<span class="nl-badge" id="badge-${l.id}">${l.badge}</span>` : ''}
+                        ${(l.badge || BADGEABLE_IDS.has(l.id)) ? `<span class="nl-badge" id="badge-${l.id}" style="${l.badge ? '' : 'display:none;'}">${l.badge || ''}</span>` : ''}
                     </li>
                 `).join('')}
             </ul>
@@ -86,6 +88,30 @@ export const NavbarLayout = (links = [], activeRoute = '') => {
         AuthentificationUtilisateurs.logout();
     });
 
+    const syncProfile = () => {
+        const nextUsername = localStorage.getItem('username') || 'Utilisateur';
+        const nextInitials = nextUsername.substring(0, 2).toUpperCase();
+        const nameEl = nav.querySelector('.nl-profile-name');
+        const avatarEl = nav.querySelector('.nl-avatar');
+        if (nameEl) nameEl.textContent = nextUsername;
+        if (avatarEl) avatarEl.textContent = nextInitials;
+    };
+
+    const applyBadges = (counts = {}) => {
+        BADGEABLE_IDS.forEach((id) => {
+            const badge = nav.querySelector(`#badge-${id}`);
+            if (!badge) return;
+            const count = Number(counts[id] || 0);
+            if (count > 0) {
+                badge.textContent = count > 99 ? '99+' : String(count);
+                badge.style.display = 'inline-flex';
+            } else {
+                badge.textContent = '';
+                badge.style.display = 'none';
+            }
+        });
+    };
+
     // ── Burger ──────────────────────────────────────────────
     const closeMenu = () => {
         burgerBtn.classList.remove('active');
@@ -107,7 +133,34 @@ export const NavbarLayout = (links = [], activeRoute = '') => {
     document.addEventListener('click', closeOnOutsideClick);
 
     // ── Vérification statut ─────────────────────────────────
-    if (isAuthenticated) setTimeout(() => checkUserStatus(), 600);
+    if (isAuthenticated) {
+        setTimeout(() => checkUserStatus(), 600);
+        if (!window.__mixoStatusPoller) {
+            window.__mixoStatusPoller = setInterval(() => {
+                if (localStorage.getItem('access_token')) checkUserStatus();
+            }, 10000);
+        }
+        if (!window.__mixoNavbarBadgeListener) {
+            window.__mixoNavbarBadgeListener = (event) => applyBadges(event.detail || {});
+            window.addEventListener('mixo:badges-updated', window.__mixoNavbarBadgeListener);
+        }
+        if (!window.__mixoNavbarFocusListener) {
+            window.__mixoNavbarFocusListener = () => {
+                if (localStorage.getItem('access_token')) checkUserStatus();
+            };
+            window.addEventListener('focus', window.__mixoNavbarFocusListener);
+        }
+        if (!window.__mixoNavbarVisibilityListener) {
+            window.__mixoNavbarVisibilityListener = () => {
+                if (!document.hidden && localStorage.getItem('access_token')) checkUserStatus();
+            };
+            document.addEventListener('visibilitychange', window.__mixoNavbarVisibilityListener);
+        }
+        if (!window.__mixoNavbarProfileListener) {
+            window.__mixoNavbarProfileListener = () => syncProfile();
+            window.addEventListener('mixo:profile-updated', window.__mixoNavbarProfileListener);
+        }
+    }
 
     setTimeout(() => { if (window.lucide) window.lucide.createIcons(); }, 50);
 

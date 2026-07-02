@@ -55,7 +55,7 @@ export const ServiceDetailPage = ({ id } = {}) => {
                             <div class="sdp-meta-row">
                                 <i data-lucide="clock"></i> ${s.duree_minutes} min
                                 <span class="sdp-sep">•</span>
-                                <span class="sdp-price">${formatPrix(s.prix)}€</span>
+                                <span class="sdp-price">${formatPrix(s.prix)}FC</span>
                             </div>
 
                             <p class="sdp-description">${escapeHtml(s.description) || 'Aucune description disponible pour ce service.'}</p>

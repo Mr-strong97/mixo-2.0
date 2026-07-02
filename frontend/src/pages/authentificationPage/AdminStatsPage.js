@@ -91,7 +91,7 @@ export const AdminStatsPage = () => {
         // KPI
         const kpis = [
             { icon:'users',    label:'UTILISATEURS TOTAUX', val:c.total,    trend:'+12%', up:true  },
-            { icon:'credit-card', label:'REVENU MENSUEL',   val:'12,450€',  trend:'+8.4%',up:true  },
+            { icon:'credit-card', label:'REVENU MENSUEL',   val:'12,45000FC',  trend:'+8.4%',up:true  },
             { icon:'calendar', label:'VOLUME RENDEZ-VOUS',  val:c.actifs_7j||842, trend:'-2.1%',up:false },
         ];
 

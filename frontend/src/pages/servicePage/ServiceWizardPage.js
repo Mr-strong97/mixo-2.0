@@ -149,7 +149,7 @@ export const ServiceWizardPage = () => {
             <div class="swz-card">
                 <div class="swz-row">
                     <div class="swz-field">
-                        <label>Prix (€)</label>
+                        <label>Prix (FC)</label>
                         <input id="f-prix" type="number" min="0.01" step="0.01"
                                class="swz-input" placeholder="ex : 35.00"
                                value="${state.prix}"/>
@@ -285,7 +285,7 @@ export const ServiceWizardPage = () => {
                     </div>
                     ${publishRow('Nom du service', escapeHtml(state.nom_prestation) || '—')}
                     ${publishRow('Catégorie',      categorie ? `${categorie.icone || ''} ${escapeHtml(categorie.nom)}` : '—')}
-                    ${publishRow('Prix',           state.prix ? `${state.prix} €` : '—')}
+                    ${publishRow('Prix',           state.prix ? `${state.prix} FC` : '—')}
                     ${publishRow('Durée',          `${state.duree_minutes} minutes`)}
                     ${publishRow('Salon',          escapeHtml(state.nom_salon) || '—')}
                     ${publishRow('Ville',          escapeHtml(state.ville) || '—')}
@@ -305,7 +305,7 @@ export const ServiceWizardPage = () => {
                                 ? `<img src="${coverUrl}" alt=""/>`
                                 : `<div class="swz-apercu-placeholder"><i data-lucide="image"></i></div>`
                             }
-                            <span class="swz-apercu-price">${state.prix || '0'} €</span>
+                            <span class="swz-apercu-price">${state.prix || '0'} FC</span>
                         </div>
                         <div class="swz-apercu-info">
                             <strong>${escapeHtml(state.nom_prestation) || 'Nom du service'}</strong>
@@ -444,7 +444,7 @@ export const ServiceWizardPage = () => {
                 return false;
             }
             if (prix > 9999) {
-                showToast('Le prix ne peut pas dépasser 9 999 €.');
+                showToast('Le prix ne peut pas dépasser 9 9999 FC.');
                 return false;
             }
         }

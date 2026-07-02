@@ -8,6 +8,25 @@ from ..models import Service, ServiceImage, CategorieService
 IMAGE_MAX_BYTES = 5 * 1024 * 1024
 
 
+class AbsoluteImageField(serializers.ImageField):
+    def to_representation(self, value):
+        if not value:
+            return None
+
+        url = super().to_representation(value)
+        if not url:
+            return None
+
+        request = self.context.get('request')
+        if not request:
+            return url
+
+        try:
+            return request.build_absolute_uri(url)
+        except DisallowedHost:
+            return url
+
+
 class CategorieServiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = CategorieService
@@ -16,24 +35,12 @@ class CategorieServiceSerializer(serializers.ModelSerializer):
 
 
 class ServiceImageSerializer(serializers.ModelSerializer):
-    image = serializers.SerializerMethodField()
+    image = AbsoluteImageField()
 
     class Meta:
         model = ServiceImage
         fields = ['id', 'image', 'created_at']
         read_only_fields = ['id', 'created_at']
-
-    def get_image(self, obj):
-        if not obj.image:
-            return None
-        request = self.context.get('request')
-        url = obj.image.url
-        if not request:
-            return url
-        try:
-            return request.build_absolute_uri(url)
-        except DisallowedHost:
-            return url
 
     def validate_image(self, value):
         if value.size > IMAGE_MAX_BYTES:
@@ -46,7 +53,7 @@ class ServiceSerializer(serializers.ModelSerializer):
     coiffeur_photo = serializers.SerializerMethodField()
     categorie_nom = serializers.SerializerMethodField()
     categorie_icone = serializers.SerializerMethodField()
-    image = serializers.SerializerMethodField()
+    image = AbsoluteImageField(required=False, allow_null=True)
     est_favori = serializers.SerializerMethodField()
     nb_favoris = serializers.SerializerMethodField()
     note_moyenne = serializers.SerializerMethodField()
@@ -94,18 +101,6 @@ class ServiceSerializer(serializers.ModelSerializer):
     def get_categorie_icone(self, obj):
         categorie = getattr(obj, 'categorie', None)
         return getattr(categorie, 'icone', None)
-
-    def get_image(self, obj):
-        if not obj.image:
-            return None
-        request = self.context.get('request')
-        url = obj.image.url
-        if not request:
-            return url
-        try:
-            return request.build_absolute_uri(url)
-        except DisallowedHost:
-            return url
 
     def get_est_favori(self, obj):
         annotated = getattr(obj, 'est_favori_agg', None)
@@ -163,9 +158,9 @@ class ServiceSerializer(serializers.ModelSerializer):
 
     def validate_prix(self, value):
         if value <= 0:
-            raise serializers.ValidationError("Le prix doit être supérieur à 0 €.")
+            raise serializers.ValidationError("Le prix doit être supérieur à 0 FC.")
         if value > 9999:
-            raise serializers.ValidationError("Le prix ne peut pas dépasser 9 999 €.")
+            raise serializers.ValidationError("Le prix ne peut pas dépasser 9 999 FC.")
         return value
 
     def validate_duree_minutes(self, value):

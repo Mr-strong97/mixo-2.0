@@ -99,3 +99,47 @@
         display: none;
     }
 }
+
+@media (max-width: 1024px) {
+    .home-page-wrapper > .sidebar-menu-container,
+    .home-page-wrapper > nav:first-child {
+        width: 220px;
+        min-width: 220px;
+    }
+
+    .home-page-wrapper > main {
+        min-width: 0;
+    }
+}
+
+@media (max-width: 992px) {
+    .home-page-wrapper > .sidebar-menu-container,
+    .home-page-wrapper > nav:first-child {
+        width: 100%;
+        min-width: 0;
+        height: auto;
+        position: relative;
+        top: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border-md);
+    }
+
+    .home-page-wrapper > main {
+        width: 100%;
+    }
+
+    .home-page-wrapper > footer {
+        width: 100%;
+    }
+}
+
+@media (max-width: 640px) {
+    .home-page-wrapper::before,
+    .home-page-wrapper::after {
+        opacity: 0.25;
+    }
+
+    .home-page-wrapper > main {
+        overflow-x: clip;
+    }
+}

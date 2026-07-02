@@ -7,7 +7,7 @@ avis n'existe déjà pour ce rendez-vous (garanti aussi par le OneToOne en
 base, mais vérifié ici pour renvoyer un message clair plutôt qu'une 500).
 """
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.exceptions import PermissionDenied
@@ -56,6 +56,23 @@ def creer_avis(request):
     return Response(AvisSerializer(avis).data, status=status.HTTP_201_CREATED)
 
 
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated, IsClient])
+def modifier_avis(request, pk):
+    """PATCH /api/avis/<uuid>/modifier/ — permet au client de mettre à jour son avis."""
+    avis = get_object_or_404(Avis, pk=pk, client=request.user)
+    if avis.rendez_vous.client_id != request.user.id:
+        raise PermissionDenied("Cet avis ne vous appartient pas.")
+    if avis.rendez_vous.statut != 'TERMINE':
+        return Response({"error": "Seul un rendez-vous terminé peut être modifié."}, status=400)
+
+    serializer = AvisCreateSerializer(avis, data=request.data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(AvisSerializer(avis).data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated, IsClient])
 def mes_avis(request):
@@ -65,7 +82,7 @@ def mes_avis(request):
 
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def avis_coiffeur(request, coiffeur_id):
     """
     GET /api/avis/coiffeur/<uuid:coiffeur_id>/

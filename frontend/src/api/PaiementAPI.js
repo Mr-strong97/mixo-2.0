@@ -15,8 +15,20 @@ export const PaiementAPI = {
         }));
     },
 
+    payerSurPlace(rendezVousId) {
+        return _data(axiosInstance.post(`paiements/sur-place/${rendezVousId}/`));
+    },
+
     getMesPaiements() {
         return _data(axiosInstance.get('paiements/mes-paiements/'));
+    },
+
+    getMesFactures() {
+        return _data(axiosInstance.get('paiements/factures/'));
+    },
+
+    getFactureDetail(id) {
+        return _data(axiosInstance.get(`paiements/factures/${id}/`));
     },
 
     getDetail(id) {

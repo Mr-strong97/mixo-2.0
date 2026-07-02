@@ -80,12 +80,18 @@ export const AuthentificationUtilisateurs = {
                 const statut = d?.statut;
                 if (statut === 'EN_ATTENTE') throw new Error(d.detail);
                 if (statut === 'INACTIF') {
+                    localStorage.setItem('mixo_account_status', JSON.stringify(d || {}));
                     // Redirige vers la page compte suspendu
                     if (window.navigate) window.navigate('/compte-suspendu');
                     else window.location.href = '/compte-suspendu';
                     throw new Error('SUSPENDED');
                 }
-                if (statut === 'BANNI') throw new Error(d?.detail || "Votre compte a été banni définitivement.");
+                if (statut === 'BANNI') {
+                    localStorage.setItem('mixo_account_status', JSON.stringify(d || {}));
+                    if (window.navigate) window.navigate('/compte-suspendu');
+                    else window.location.href = '/compte-suspendu';
+                    throw new Error('BANNED');
+                }
                 throw new Error(d?.detail || "Accès refusé.");
             }
 
@@ -96,6 +102,7 @@ export const AuthentificationUtilisateurs = {
     logout: () => {
         ['access_token', 'refresh_token', 'user_id', 'user_role', 'username']
             .forEach(k => localStorage.removeItem(k));
+        localStorage.removeItem('mixo_account_status');
         if (window.navigate) window.navigate('/login');
         else window.location.href = '/login';
     },

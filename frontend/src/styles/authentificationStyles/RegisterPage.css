@@ -13,16 +13,6 @@
     display: flex;
 }
 
-/* ── 2. SECTION IMAGE GAUCHE ────────────────────────────────── */
-.bg-image-section-register {
-    background: linear-gradient(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08)),
-                url('https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?q=80&w=1000')
-                center / cover no-repeat;
-    height: 100vh;
-    flex: 0 0 50%;
-    max-width: 50%;
-    animation: slideInLeft 0.8s var(--ease-expo) both;
-}
 
 /* Encart glassmorphism sur la photo */
 .glass-overlay-register {

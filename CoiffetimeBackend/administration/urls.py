@@ -6,7 +6,7 @@ from django.urls import path
 from .views.dashboard_view    import statistiquesDashboard
 from .views.stats_view        import statistiquesUtilisateurs
 from .views.audit_view        import listeAuditLogs
-from .views.reactivation_view import listeDemandesReactivation
+from .views.reactivation_view import listeDemandesReactivation, traiterDemandeReactivation
 from .views.security_view     import admin_security_overview, admin_revoquer_sessions
 from .views.admin_rendezvous_views import (
     admin_liste_rendezvous,
@@ -37,6 +37,7 @@ urlpatterns = [
 
     # Demandes de réactivation
     path('reactivations/',               listeDemandesReactivation,  name='admin-reactivations'),
+    path('reactivations/<uuid:id>/traiter/', traiterDemandeReactivation, name='admin-reactivations-traiter'),
 
     # Sécurité & sessions
     path('security/',                    admin_security_overview,    name='admin-security'),

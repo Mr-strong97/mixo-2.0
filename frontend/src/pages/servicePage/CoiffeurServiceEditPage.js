@@ -98,7 +98,7 @@ export const CoiffeurServiceEditPage = ({ id } = {}) => {
                                 </select>
                             </div>
                             <div class="cse-field">
-                                <label>Prix (€)</label>
+                                <label>Prix (FC)</label>
                                 <input id="f-prix" type="number" min="0.01" step="0.01" class="cse-input" value="${service.prix}"/>
                             </div>
                         </div>
@@ -229,7 +229,7 @@ export const CoiffeurServiceEditPage = ({ id } = {}) => {
 
         if (nom.length < 3) { showToast('Le nom du service doit contenir au moins 3 caractères.'); return false; }
         if (!prix || prix <= 0) { showToast('Veuillez indiquer un prix valide.'); return false; }
-        if (prix > 9999) { showToast('Le prix ne peut pas dépasser 9999€.'); return false; }
+        if (prix > 9999) { showToast('Le prix ne peut pas dépasser 9999FC.'); return false; }
         return true;
     };
 

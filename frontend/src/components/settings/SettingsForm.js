@@ -216,6 +216,14 @@ export const SettingsForm = (model, onUpdate = null) => {
                 localStorage.setItem('username', updatedModel.username.toLowerCase().trim());
             }
 
+            window.dispatchEvent(new CustomEvent('mixo:profile-updated', {
+                detail: {
+                    role: model.role,
+                    id: model.id,
+                    username: updatedModel.username,
+                },
+            }));
+
             showToast('Profil mis à jour avec succès !');
 
             // --- REPASSE LE BOUTON EN MODE "MODIFIER" & ACTUALISE LA PAGE ---

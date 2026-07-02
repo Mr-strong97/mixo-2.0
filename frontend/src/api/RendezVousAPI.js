@@ -21,14 +21,20 @@ export const RendezVousAPI = {
         }));
     },
 
-    getMesDemandes(statut = '') {
-        const qs = statut ? `?statut=${statut}` : '';
-        return _data(axiosInstance.get(`rendez-vous/mes-demandes/${qs}`));
+    getMesDemandes(statut = '', search = '') {
+        const params = new URLSearchParams();
+        if (statut) params.set('statut', statut);
+        if (search) params.set('search', search);
+        const qs = params.toString();
+        return _data(axiosInstance.get(`rendez-vous/mes-demandes/${qs ? `?${qs}` : ''}`));
     },
 
-    getMesRendezVous(statut = '') {
-        const qs = statut ? `?statut=${statut}` : '';
-        return _data(axiosInstance.get(`rendez-vous/mes-rendez-vous/${qs}`));
+    getMesRendezVous(statut = '', search = '') {
+        const params = new URLSearchParams();
+        if (statut) params.set('statut', statut);
+        if (search) params.set('search', search);
+        const qs = params.toString();
+        return _data(axiosInstance.get(`rendez-vous/mes-rendez-vous/${qs ? `?${qs}` : ''}`));
     },
 
     getDetail(id) {

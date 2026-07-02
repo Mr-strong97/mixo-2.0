@@ -37,7 +37,7 @@ export const ReservationPage = ({ id } = {}) => {
                     <button class="rsv-back" id="rsv-back" type="button"><i data-lucide="arrow-left"></i></button>
                     <div>
                         <h1>Réserver « ${escapeHtml(service.nom_prestation)} »</h1>
-                        <p>Avec ${escapeHtml(service.coiffeur_username)} — ${service.duree_minutes} min — ${service.prix} €</p>
+                        <p>Avec ${escapeHtml(service.coiffeur_username)} — ${service.duree_minutes} min — ${service.prix} FC</p>
                     </div>
                 </div>
 
@@ -47,7 +47,7 @@ export const ReservationPage = ({ id } = {}) => {
                         <h3>Récapitulatif</h3>
                         <div class="rsv-summary-row"><span>Service</span><strong>${escapeHtml(service.nom_prestation)}</strong></div>
                         <div class="rsv-summary-row"><span>Durée</span><strong>${service.duree_minutes} min</strong></div>
-                        <div class="rsv-summary-row"><span>Prix</span><strong>${service.prix} €</strong></div>
+                        <div class="rsv-summary-row"><span>Prix</span><strong>${service.prix} FC</strong></div>
                         <div class="rsv-summary-row" id="rsv-summary-date"><span>Créneau</span><strong>Non sélectionné</strong></div>
                         <button class="rsv-btn-confirm" id="rsv-confirm" type="button" disabled>
                             <i data-lucide="calendar-check"></i> Envoyer la demande
@@ -82,8 +82,8 @@ export const ReservationPage = ({ id } = {}) => {
         btn.innerHTML = `<span class="cse-spinner"></span> Envoi…`;
 
         try {
-            const dateHeureISO = new Date(`${selection.date}T${selection.heure}:00`).toISOString();
-            await RendezVousAPI.creer(id, dateHeureISO);
+            const dateHeureLocale = `${selection.date}T${selection.heure}:00`;
+            await RendezVousAPI.creer(id, dateHeureLocale);
             showToast('✅ Demande envoyée ! Le coiffeur va la confirmer.');
             window.navigate?.('/rendez-vous');
         } catch (e) {

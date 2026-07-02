@@ -19,6 +19,6 @@ class AirtelMoneyProvider(PaiementProviderBase):
         return {
             'succes': True,
             'transaction_id': transaction_id,
-            'statut': 'PAYE',
-            'message': f"[TEST] Paiement Airtel Money de {montant}€ simulé avec succès.",
+            'statut': 'PAYE_EN_LIGNE',
+            'message': f"[TEST] Paiement Airtel Money de {montant} CDF simulé avec succès.",
         }

@@ -4,27 +4,35 @@
    Dépend de ServiceComponents.css (sgs-*, bsc-*, rsc-*, mxo-spinner)
    ================================================================ */
 
-.sdp-page { min-height: 100vh; background: #F8FAFC; font-family: 'Poppins', sans-serif; }
+.sdp-page {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #F8FAFC 0%, #F4F8FD 100%);
+    font-family: 'Poppins', sans-serif;
+    overflow-x: clip;
+}
 .sdp-main { max-width: 1280px; margin: 0 auto; padding: 32px 24px 80px; }
 
-.sdp-loader { display: flex; justify-content: center; padding: 100px 0; }
+.sdp-loader { display: flex; justify-content: center; padding: 100px 0; animation: sdpFadeUp 0.45s ease both; }
 
 /* ── LAYOUT 2 COLONNES ───────────────────────────────────────── */
 .sdp-layout { display: grid; grid-template-columns: 1fr 340px; gap: 32px; align-items: start; }
 .sdp-content { display: flex; flex-direction: column; gap: 24px; }
-.sdp-sidebar { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 24px; }
+.sdp-sidebar {
+    display: flex; flex-direction: column; gap: 16px; position: sticky; top: 24px;
+    animation: sdpFadeUp 0.5s ease both;
+}
 
 /* ── INFOS ───────────────────────────────────────────────────── */
-.sdp-info { display: flex; flex-direction: column; gap: 14px; }
+.sdp-info { display: flex; flex-direction: column; gap: 14px; animation: sdpFadeUp 0.5s ease both; }
 
-.sdp-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.sdp-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .sdp-title { font-family: 'Montserrat', sans-serif; font-size: 2rem; font-weight: 800; color: #1A1D20; margin: 0; }
 .sdp-title-actions { display: flex; gap: 10px; flex-shrink: 0; }
 .sdp-icon-btn {
     width: 42px; height: 42px; border-radius: 50%;
     border: 1.5px solid #E8ECF0; background: #fff; color: #62676B;
     display: flex; align-items: center; justify-content: center;
-    cursor: pointer; transition: all 0.2s ease;
+    cursor: pointer; transition: all 0.2s ease; will-change: transform;
 }
 .sdp-icon-btn svg { width: 18px; height: 18px; }
 .sdp-icon-btn:hover { border-color: #0A66C2; color: #0A66C2; }
@@ -43,7 +51,7 @@
 .sdp-btn {
     height: 52px; padding: 0 28px; border-radius: 12px;
     font-family: 'Poppins', sans-serif; font-size: 0.92rem; font-weight: 700;
-    cursor: pointer; transition: all 0.2s ease;
+    cursor: pointer; transition: all 0.2s ease; will-change: transform;
     display: flex; align-items: center; gap: 8px;
 }
 .sdp-btn svg { width: 18px; height: 18px; }
@@ -69,7 +77,28 @@
 @media (max-width: 640px) {
     .sdp-main { padding: 20px 16px 60px; }
     .sdp-title { font-size: 1.5rem; }
+    .sdp-title-row { gap: 12px; }
+    .sdp-meta-row { flex-wrap: wrap; row-gap: 6px; }
     .sdp-actions { flex-direction: column; }
     .sdp-btn { width: 100%; justify-content: center; }
     .sdp-sidebar { flex-direction: column; }
+    .sdp-sidebar > * { min-width: 0; }
+}
+
+@media (max-width: 420px) {
+    .sdp-icon-btn { width: 38px; height: 38px; }
+    .sdp-title { font-size: 1.3rem; }
+}
+
+@keyframes sdpFadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sdp-loader,
+    .sdp-sidebar,
+    .sdp-info {
+        animation: none !important;
+    }
 }

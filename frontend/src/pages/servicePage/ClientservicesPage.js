@@ -53,7 +53,7 @@ export const ClientServicesPage = () => {
         <!-- Panneau filtres avancés (masqué par défaut) -->
         <div class="csp-filters-panel" id="csp-filters-panel" style="display:none;">
             <div class="csp-filter-group">
-                <label>Prix max (€)</label>
+                <label>Prix max (FC)</label>
                 <input type="number" id="f-prix-max" min="0" placeholder="ex : 100"/>
             </div>
             <div class="csp-filter-group">

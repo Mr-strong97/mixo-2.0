@@ -8,6 +8,7 @@
     bottom: 0; left: 0; right: 0;
     z-index: 500;
     font-family: 'Poppins', sans-serif;
+    pointer-events: none;
 }
 
 .nf-bar {
@@ -20,6 +21,8 @@
     background: #fff;
     border-top: 1px solid #E8ECF0;
     box-shadow: 0 -2px 12px rgba(0,0,0,0.04);
+    pointer-events: auto;
+    animation: footerRise 0.55s var(--ease-expo) both;
 }
 
 .nf-bar-inner {
@@ -91,4 +94,17 @@
     .nf-bar-inner { padding-left: 0; justify-content: center; }
     .nf-copy { display: none; }
     .nf-links { flex-wrap: wrap; justify-content: center; }
+    .nf-brand { font-size: 0.82rem; letter-spacing: 2px; }
+    .nf-link { font-size: 0.72rem; }
+}
+
+@supports (padding: max(0px)) {
+    .nf-bar {
+        padding-bottom: max(10px, env(safe-area-inset-bottom));
+    }
+}
+
+@keyframes footerRise {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }

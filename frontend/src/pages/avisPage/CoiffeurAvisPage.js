@@ -10,6 +10,7 @@ import { RatingStarsBar } from '../../components/avisComponents/RatingStarsBar.j
 import { AvisAPI }        from '../../api/AvisAPI.js';
 import { requireRole }    from '../../utils/AuthGuard.js';
 import { showToast }      from '../../utils/toast.js';
+import { attachLiveRefresh } from '../../utils/liveRefresh.js';
 
 import '../../styles/avisStyles/Avis.css';
 
@@ -66,6 +67,6 @@ export const CoiffeurAvisPage = () => {
         }
     };
 
-    charger();
+    attachLiveRefresh(charger, { intervalMs: 15000 });
     return page;
 };

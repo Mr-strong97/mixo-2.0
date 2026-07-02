@@ -23,10 +23,10 @@ class Migration(migrations.Migration):
                 ('montant_total', models.DecimalField(
                     decimal_places=2, max_digits=10,
                     validators=[django.core.validators.MinValueValidator(Decimal('0.01'))],
-                    verbose_name='Montant total (€)',
+                    verbose_name='Montant total (FC)',
                 )),
-                ('montant_commission', models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Commission plateforme (€)')),
-                ('montant_coiffeur', models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Part coiffeur (€)')),
+                ('montant_commission', models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Commission plateforme (FC)')),
+                ('montant_coiffeur', models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Part coiffeur (FC)')),
                 ('statut', models.CharField(
                     choices=[
                         ('EN_ATTENTE', 'En attente'), ('PAYE', 'Payé'),

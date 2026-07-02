@@ -50,13 +50,13 @@ export const ZoneHero = () => {
                 <div class="m_hero_visual_glow" aria-hidden="true"></div>
 
                 <div class="m_hero_video_card">
-                    <video
+                    <img
                         class="m_hero_video"
-                        autoplay muted loop playsinline
-                        poster="/images/transformation/poster-neutral.jpg"
+                        src="/images/mixo3.png"
+                        alt="Client Mixo souriant"
+                        loading="eager"
+                        decoding="async"
                     >
-                        <source src="/videos/mixo-satisfaction-loop.mp4" type="video/mp4">
-                    </video>
                     <div class="m_hero_video_badge">
                         <i data-lucide="badge-check"></i>
                         <span>Client Mixo &middot; rendez-vous réussi</span>

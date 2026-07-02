@@ -348,3 +348,83 @@
     .adm-prof-right { padding:20px 16px; }
     .adm-prof-fields-row { grid-template-columns:1fr; }
 }
+
+@media (max-width: 1100px) {
+    .adm-kpi-row,
+    .audit-kpi-row,
+    .stats-pg-kpi-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .adm-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .adm-sidebar {
+        height: auto;
+        position: relative;
+        top: auto;
+        padding: 18px 14px;
+        border-right: none;
+        border-bottom: 1px solid #E8ECF0;
+    }
+
+    .adm-content,
+    .audit-main,
+    .stats-pg-main {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .adm-user-section,
+    .adm-kpi-card,
+    .audit-kpi-card,
+    .stats-pg-kpi-card,
+    .adm-prof-quote-card,
+    .adm-prof-id-card,
+    .adm-prof-security {
+        border-radius: 12px;
+    }
+
+    .adm-tbl,
+    .audit-table-card .adm-tbl {
+        min-width: 720px;
+    }
+}
+
+@media (max-width: 560px) {
+    .adm-kpi-row,
+    .audit-kpi-row,
+    .stats-pg-kpi-row,
+    .aap-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .adm-page-btn,
+    .audit-btn-export,
+    .audit-btn-refresh,
+    .stats-pg-export,
+    .stats-pg-filter,
+    .adm-btn-add,
+    .adm-btn-action {
+        min-height: 42px;
+    }
+
+    .audit-page-header,
+    .stats-pg-header {
+        align-items: stretch;
+    }
+
+    .audit-page-btns,
+    .stats-pg-filters {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .adm-prof-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

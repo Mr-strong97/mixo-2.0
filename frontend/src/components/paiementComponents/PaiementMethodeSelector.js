@@ -6,10 +6,10 @@
  * @returns {{ element: HTMLElement, getMethode: Function }}
  */
 const METHODES = [
-    { val: 'AIRTEL_MONEY',   label: 'Airtel Money',   emoji: '📱' },
-    { val: 'ORANGE_MONEY',   label: 'Orange Money',   emoji: '🟠' },
-    { val: 'MPESA',          label: 'M-Pesa',         emoji: '💚' },
-    { val: 'AFRICELL_MONEY', label: 'Africell Money', emoji: '🔵' },
+    { val: 'AIRTEL_MONEY',   label: 'Airtel Money',   emoji: '<img src="/images/airtel.png" alt="Airtel Money" />' },
+    { val: 'ORANGE_MONEY',   label: 'Orange Money',   emoji: '<img src="/images/orange.png" alt="Orange Money" />' },
+    { val: 'MPESA',          label: 'M-Pesa',         emoji: '<img src="/images/vodacom.png" alt="M-Pesa" />' },
+    { val: 'AFRICELL_MONEY', label: 'Africell Money', emoji: '<img src="/images/africell.png" alt="Africell Money" />' },
 ];
 
 export const PaiementMethodeSelector = (onChange = null) => {

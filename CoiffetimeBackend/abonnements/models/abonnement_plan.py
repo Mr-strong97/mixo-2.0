@@ -27,7 +27,7 @@ class AbonnementPlan(models.Model):
     prix_mensuel   = models.DecimalField(
         max_digits=8, decimal_places=2, default=0,
         validators=[MinValueValidator(0)],
-        verbose_name=_("Prix mensuel (€)"),
+        verbose_name=_("Prix mensuel (FC)"),
     )
     duree_mois     = models.PositiveIntegerField(
         default=1, validators=[MinValueValidator(1)],

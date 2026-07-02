@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
                 ('prix_mensuel', models.DecimalField(
                     decimal_places=2, default=0, max_digits=8,
                     validators=[django.core.validators.MinValueValidator(0)],
-                    verbose_name='Prix mensuel (€)',
+                    verbose_name='Prix mensuel (FC)',
                 )),
                 ('duree_mois', models.PositiveIntegerField(
                     default=1,

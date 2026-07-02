@@ -156,3 +156,36 @@ body {
     0% { background-position: 0% 50%; }
     100% { background-position: 100% 50%; }
 }
+
+@keyframes floatDrift {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(0, -12px, 0) scale(1.02); }
+}
+
+@keyframes softRise {
+    0% { opacity: 0; transform: translate3d(0, 14px, 0); }
+    100% { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes breathPulse {
+    0%, 100% { transform: scale(1); filter: saturate(1); }
+    50% { transform: scale(1.015); filter: saturate(1.08); }
+}
+
+@keyframes shineSweep {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 180% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+}

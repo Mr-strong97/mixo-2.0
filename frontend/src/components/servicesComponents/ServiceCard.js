@@ -35,7 +35,7 @@ export const ServiceCard = (service, onFavoriteToggle = null) => {
         <div class="svc-card-body">
             <div class="svc-card-title-row">
                 <h3 class="svc-card-title">${escapeHtml(service.nom_prestation)}</h3>
-                <span class="svc-card-price">${formatPrix(service.prix)}€</span>
+                <span class="svc-card-price">${formatPrix(service.prix)}FC</span>
             </div>
             <div class="svc-card-rating">
                 <i data-lucide="star" class="svc-star"></i>

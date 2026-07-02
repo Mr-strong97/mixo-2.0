@@ -11,16 +11,14 @@ import { AvisCard } from '../../components/avisComponents/AvisCard.js';
 import { ServiceAPI } from '../../api/ServiceAPI.js';
 import { AvisAPI } from '../../api/AvisAPI.js';
 import { ProfilUtilisateur, api } from '../../api/axiosConfig.js';
-import { requireAuth } from '../../utils/AuthGuard.js';
 import { showToast } from '../../utils/toast.js';
+import { attachLiveRefresh } from '../../utils/liveRefresh.js';
 
 import '../../styles/serviceStyles/ServiceComponents.css';
 import '../../styles/avisStyles/Avis.css';
 import '../../styles/profilStyles/CoiffeurProfilPage.css';
 
 export const CoiffeurProfilPage = ({ username = '', id = '' } = {}) => {
-    if (!requireAuth()) return document.createElement('div');
-
     const page = document.createElement('div');
     page.className = 'cpp-page';
     page.appendChild(Navbar());
@@ -51,13 +49,7 @@ export const CoiffeurProfilPage = ({ username = '', id = '' } = {}) => {
     };
 
     const loadData = async () => {
-        const [profilRes, servicesRes, avisRes, horairesRes, exceptionsRes] = await Promise.all([
-            fetchSafe(ProfilUtilisateur.getUserProfile('coiffeur', id)),
-            fetchSafe(ServiceAPI.getServices({ coiffeur_id: id, page_size: 8 })),
-            fetchSafe(AvisAPI.getAvisCoiffeur(id)),
-            fetchSafe(api.get(`planning/planning/${id}/`).then(r => r.data)),
-            fetchSafe(api.get(`planning/disponibilites/${id}/`).then(r => r.data)),
-        ]);
+        const profilRes = await fetchSafe(ProfilUtilisateur.getUserProfile('coiffeur', id));
 
         if (profilRes.__error) {
             const status = profilRes.__error?.response?.status;
@@ -65,13 +57,23 @@ export const CoiffeurProfilPage = ({ username = '', id = '' } = {}) => {
                 state.error = "Profil introuvable ou inaccessible.";
                 state.loading = false;
                 render();
-                return;
+                return false;
             }
 
             state.profil = createFallbackProfil(id, username);
+            state.loading = false;
+            render();
+            return false;
         } else {
             state.profil = profilRes;
         }
+
+        const [servicesRes, avisRes, horairesRes, exceptionsRes] = await Promise.all([
+            fetchSafe(ServiceAPI.getServices({ coiffeur_id: id, page_size: 8 })),
+            fetchSafe(AvisAPI.getAvisCoiffeur(id)),
+            fetchSafe(api.get(`planning/planning/${id}/`).then(r => r.data)),
+            fetchSafe(api.get(`planning/disponibilites/${id}/`).then(r => r.data)),
+        ]);
 
         if (servicesRes && !servicesRes.__error) {
             state.services = Array.isArray(servicesRes)
@@ -98,6 +100,7 @@ export const CoiffeurProfilPage = ({ username = '', id = '' } = {}) => {
 
         state.loading = false;
         render();
+        return true;
     };
 
     const render = () => {
@@ -314,7 +317,13 @@ export const CoiffeurProfilPage = ({ username = '', id = '' } = {}) => {
         if (window.lucide) window.lucide.createIcons();
     };
 
-    loadData();
+    window.addEventListener('mixo:profile-updated', loadData);
+    const previousCleanup = window.__mixoPageCleanup;
+    window.__mixoPageCleanup = () => {
+        window.removeEventListener('mixo:profile-updated', loadData);
+        if (typeof previousCleanup === 'function') previousCleanup();
+    };
+    attachLiveRefresh(loadData, { intervalMs: 15000, stopWhenFalse: true });
     return page;
 };
 

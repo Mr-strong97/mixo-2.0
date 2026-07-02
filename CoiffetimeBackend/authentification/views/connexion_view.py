@@ -74,7 +74,13 @@ class ConnexionPersonnaliseeView(TokenObtainPairView):
         # Compte banni
         if utilisateur.statut == StatutChoix.BANNI:
             return Response(
-                {"detail": "Votre compte a été suspendu. Contactez le support."},
+                {
+                    "detail": "Votre compte a été suspendu ou banni.",
+                    "statut": "BANNI",
+                    "motif_sanction": utilisateur.motif_sanction,
+                    "date_sanction": utilisateur.date_sanction.isoformat() if utilisateur.date_sanction else None,
+                    "conditions_reactivation": utilisateur.conditions_reactivation,
+                },
                 status=status.HTTP_403_FORBIDDEN
             )
 

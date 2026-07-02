@@ -12,6 +12,10 @@ export const AvisAPI = {
         return _data(axiosInstance.post('avis/creer/', data));
     },
 
+    modifierAvis(avisId, data) {
+        return _data(axiosInstance.patch(`avis/${avisId}/modifier/`, data));
+    },
+
     getMesAvis() {
         return _data(axiosInstance.get('avis/mes-avis/'));
     },

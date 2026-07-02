@@ -3,7 +3,7 @@
  * Carte demande de rendez-vous — Espace Coiffeur.
  *
  * @param {Object} rdv { id, service_nom_snapshot, service_prix_snapshot, client_username,
- *                        date_heure_debut, statut, est_passe }
+ *                        date_heure_debut, statut, est_passe, mode_paiement_label }
  * @param {Object} handlers { onAccepter, onRefuser, onTerminer, onAnnuler }
  * @returns {HTMLElement}
  */
@@ -16,6 +16,10 @@ export const RendezVousRequestCard = (rdv, handlers = {}) => {
     const date = new Date(rdv.date_heure_debut).toLocaleDateString('fr-FR', {
         weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit',
     });
+    const paymentLabel = rdv.mode_paiement_label || rdv.statut_paiement_label || '';
+    const paymentMeta = paymentLabel && paymentLabel !== 'Non disponible'
+        ? `<span><i data-lucide="credit-card"></i> ${escapeHtml(paymentLabel)}</span>`
+        : '';
 
     card.innerHTML = `
         <div class="rvc-top">
@@ -27,7 +31,8 @@ export const RendezVousRequestCard = (rdv, handlers = {}) => {
         </div>
         <div class="rvc-meta">
             <span><i data-lucide="calendar"></i> ${date}</span>
-            <span><i data-lucide="euro"></i> ${rdv.service_prix_snapshot} €</span>
+            <span><i data-lucide="banknote"></i> ${rdv.service_prix_snapshot} CDF</span>
+            ${paymentMeta}
         </div>
         <div class="rvc-actions" id="rvc-actions"></div>
     `;

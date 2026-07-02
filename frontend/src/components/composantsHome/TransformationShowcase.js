@@ -7,13 +7,20 @@ import { onSectionScrollProgress } from '../../utils/scrollReveal.js';
  * scroll — la même technique que les pages produit Apple, appliquée au
  * parcours Mixo : "D'une recherche... à un sourire."
  *
- * - Préchargement de 56 frames (public/images/transformation/frame_XXXX.jpg)
+ * - Préchargement d'une courte séquence d'images existantes dans public/images
  * - Mapping scroll -> index de frame (rAF-throttlé, cf. utils/scrollReveal.js)
  * - 3 cartes-étapes qui s'activent en fonction de la progression du scroll
  */
 
-const FRAME_COUNT = 56;
-const FRAME_PATH = '/images/transformation/frame_';
+const FRAME_SOURCES = [
+    '/images/mixo1.png',
+    '/images/mixo2.png',
+    '/images/mixo3.png',
+    '/images/mixo4.png',
+    '/images/mixo5.png',
+    '/images/mixo6.png',
+];
+const FRAME_COUNT = FRAME_SOURCES.length;
 
 export const TransformationShowcase = () => {
     const section = document.createElement('section');
@@ -129,10 +136,10 @@ export const TransformationShowcase = () => {
         }
     }
 
-    // Préchargement de la séquence de frames
-    for (let i = 1; i <= FRAME_COUNT; i++) {
+    // Préchargement de la séquence d'images existantes.
+    FRAME_SOURCES.forEach((src) => {
         const img = new Image();
-        img.src = `${FRAME_PATH}${String(i).padStart(4, '0')}.jpg`;
+        img.src = src;
         const onDone = () => {
             loadedCount++;
             if (loadingText) {
@@ -148,7 +155,7 @@ export const TransformationShowcase = () => {
         img.onload = onDone;
         img.onerror = onDone;
         frames.push(img);
-    }
+    });
 
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();

@@ -102,7 +102,7 @@ export const FavorisPage = () => {
                 <div class="fav-card-body">
                     <div class="fav-card-head">
                         <h2>${escapeHtml(service.nom_prestation || 'Service')}</h2>
-                        <span class="fav-card-price">${formatPrix(service.prix)}€</span>
+                        <span class="fav-card-price">${formatPrix(service.prix)}FC</span>
                     </div>
                     <div class="fav-card-meta">
                         <span><i data-lucide="user-round"></i> ${escapeHtml(service.coiffeur_username || '—')}</span>

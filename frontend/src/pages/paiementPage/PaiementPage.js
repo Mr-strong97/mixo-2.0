@@ -78,10 +78,15 @@ export const PaiementPage = ({ id } = {}) => {
                             <input type="tel" id="pap-tel" placeholder="ex : +243 812 345 678"/>
                         </div>
 
-                        <button class="pap-btn-pay" id="pap-pay" type="button" disabled>
-                            <i data-lucide="lock"></i> Payer ${rdv.service_prix_snapshot} €
-                        </button>
-                        <p class="pap-secure"><i data-lucide="shield-check"></i> Paiement sécurisé — Mixo ne stocke pas vos coordonnées bancaires.</p>
+                        <div class="pap-actions">
+                            <button class="pap-btn-pay" id="pap-pay" type="button" disabled>
+                                <i data-lucide="lock"></i> Payer ${rdv.service_prix_snapshot} CDF
+                            </button>
+                            <button class="pap-btn-ghost" id="pap-pay-place" type="button">
+                                <i data-lucide="badge-check"></i> Payer sur place
+                            </button>
+                        </div>
+                        <p class="pap-secure"><i data-lucide="shield-check"></i> Le rendez-vous reste confirmé même si vous payez plus tard dans le salon.</p>
                     </div>
 
                     <div class="pap-summary">
@@ -89,8 +94,8 @@ export const PaiementPage = ({ id } = {}) => {
                         <div class="pap-sum-row"><span>Service</span><strong>${escapeHtml(rdv.service_nom_snapshot)}</strong></div>
                         <div class="pap-sum-row"><span>Coiffeur</span><strong>${escapeHtml(rdv.coiffeur_username)}</strong></div>
                         <div class="pap-sum-row"><span>Date</span><strong>${date}</strong></div>
-                        <div class="pap-sum-row pap-total"><span>Total</span><strong>${rdv.service_prix_snapshot} €</strong></div>
-                        <p class="pap-notice"><i data-lucide="info"></i> Le créneau est confirmé. Finalisez le paiement pour valider définitivement votre réservation.</p>
+                        <div class="pap-sum-row pap-total"><span>Total</span><strong>${rdv.service_prix_snapshot} CDF</strong></div>
+                        <p class="pap-notice"><i data-lucide="info"></i> Le créneau est confirmé. Vous pouvez régler en ligne ou sur place au salon.</p>
                     </div>
                 </div>
             `;
@@ -102,7 +107,8 @@ export const PaiementPage = ({ id } = {}) => {
             main.querySelector('#pap-methode').appendChild(selector.element);
 
             main.querySelector('#pap-back').addEventListener('click', () => window.navigate('/rendez-vous'));
-            main.querySelector('#pap-pay').addEventListener('click', () => payer(rdv));
+            main.querySelector('#pap-pay').addEventListener('click', () => payerEnLigne(rdv));
+            main.querySelector('#pap-pay-place').addEventListener('click', () => payerSurPlace(rdv));
 
             if (window.lucide) window.lucide.createIcons();
 
@@ -111,7 +117,7 @@ export const PaiementPage = ({ id } = {}) => {
         }
     };
 
-    const payer = async (rdv) => {
+    const payerEnLigne = async (rdv) => {
         const methode = selector.getMethode();
         if (!methode) { showToast('Veuillez choisir une méthode de paiement.'); return; }
 
@@ -126,7 +132,7 @@ export const PaiementPage = ({ id } = {}) => {
 
             main.innerHTML = `
                 <div class="pap-result">
-                    <h2>${paiement.statut === 'PAYE' ? '✅ Paiement validé !' : '❌ Paiement échoué'}</h2>
+                    <h2>${paiement.statut === 'PAYE_EN_LIGNE' ? '✅ Paiement validé !' : '❌ Paiement échoué'}</h2>
                     <div id="pap-status-card"></div>
                     <button class="pap-btn-back" id="pap-retour" type="button">Mes rendez-vous</button>
                 </div>`;
@@ -136,6 +142,30 @@ export const PaiementPage = ({ id } = {}) => {
 
         } catch (e) {
             showToast(`❌ ${e.response?.data?.error || 'Erreur lors du paiement.'}`);
+            btn.disabled = false;
+            btn.innerHTML = orig;
+            if (window.lucide) window.lucide.createIcons();
+        }
+    };
+
+    const payerSurPlace = async (rdv) => {
+        const btn = main.querySelector('#pap-pay-place');
+        const orig = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = `<span class="cse-spinner"></span> Enregistrement…`;
+        try {
+            const res = await PaiementAPI.payerSurPlace(rdv.id);
+            main.innerHTML = `
+                <div class="pap-result">
+                    <h2>✅ Paiement enregistré</h2>
+                    <div id="pap-status-card"></div>
+                    <button class="pap-btn-back" id="pap-retour" type="button">Mes rendez-vous</button>
+                </div>`;
+            main.querySelector('#pap-status-card').appendChild(PaiementStatusCard(res.paiement));
+            main.querySelector('#pap-retour').addEventListener('click', () => window.navigate('/rendez-vous'));
+            if (window.lucide) window.lucide.createIcons();
+        } catch (e) {
+            showToast(`❌ ${e.response?.data?.error || 'Erreur lors de l\'enregistrement du paiement.'}`);
             btn.disabled = false;
             btn.innerHTML = orig;
             if (window.lucide) window.lucide.createIcons();

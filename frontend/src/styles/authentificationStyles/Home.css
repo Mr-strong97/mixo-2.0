@@ -1085,3 +1085,57 @@
         justify-content: center;
     }
 }
+
+@media (max-width: 768px) {
+    .mixo-overview__card,
+    .mixo-howit__item,
+    .mixo-testimonials__card,
+    .mixo-cta__inner {
+        animation: softRise 0.55s var(--ease-expo) both;
+    }
+
+    .mixo-transform__canvas-wrap,
+    .mixo-overview__icon,
+    .mixo-howit__icon {
+        animation: breathPulse 7s ease-in-out infinite;
+    }
+}
+
+@media (max-width: 480px) {
+    .mixo-overview__card {
+        border-radius: 18px;
+        padding: 20px;
+    }
+
+    .mixo-overview__card_header {
+        gap: 12px;
+    }
+
+    .mixo-overview__list {
+        gap: 16px;
+    }
+
+    .mixo-transform__canvas-wrap {
+        width: min(78vw, 280px);
+    }
+
+    .mixo-howit__icon {
+        width: 56px;
+        height: 56px;
+    }
+
+    .mixo-cta__glow {
+        width: 480px;
+        height: 480px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mixo-overview__card,
+    .mixo-howit__icon,
+    .mixo-transform__canvas-wrap,
+    .mixo-testimonials__card,
+    .mixo-cta__inner {
+        animation: none !important;
+    }
+}

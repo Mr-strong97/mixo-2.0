@@ -50,14 +50,14 @@ export const CoiffeurDashboardPage = () => {
                 </div>
                 <div class="cdp-hero-revenue">
                     <span>Revenus totaux</span>
-                    <strong>${formatPrix(revenus.total)} €</strong>
+                    <strong>${formatPrix(revenus.total)} FC</strong>
                 </div>
             </section>
 
             <section class="cdp-stats-grid" id="cdp-stats-grid">
                 ${statCard('Rendez-vous', indicateurs.total_rendezvous, 'calendar-range')}
                 ${statCard("Aujourd'hui", indicateurs.rendezvous_aujourdhui, 'calendar-check')}
-                ${statCard('Cette semaine', indicateurs.rendezvous_semaine, 'calendar-week')}
+                ${statCard('Cette semaine', indicateurs.rendezvous_semaine, 'calendar-days')}
                 ${statCard('Services', indicateurs.total_services, 'scissors')}
                 ${statCard('Clients', indicateurs.total_clients, 'users')}
                 ${statCard('Avis reçus', indicateurs.nombre_avis, 'star')}
@@ -145,7 +145,7 @@ export const CoiffeurDashboardPage = () => {
                                     <strong>${escapeHtml(service.nom_prestation)}</strong>
                                     <span>${service.total_reservations} réservations</span>
                                 </div>
-                                <div class="cdp-mini-score">${formatPrix(service.revenu_total)} €</div>
+                                <div class="cdp-mini-score">${formatPrix(service.revenu_total)} FC</div>
                             </div>
                         `).join('') || '<p class="cdp-empty-inline">Aucune donnée disponible.</p>'}
                     </div>
@@ -220,7 +220,7 @@ function metricCard(label, value) {
     return `
         <div class="cdp-revenue-card">
             <span>${escapeHtml(label)}</span>
-            <strong>${formatPrix(value)} €</strong>
+            <strong>${formatPrix(value)} FC</strong>
         </div>
     `;
 }
@@ -247,4 +247,3 @@ function escapeHtml(str = '') {
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;');
 }
-

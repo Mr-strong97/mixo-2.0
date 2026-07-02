@@ -33,7 +33,7 @@ export const AdminPlanForm = (planExistant, onSave, onClose) => {
                         </select>
                     </div>
                     <div class="dsr-field">
-                        <label>Prix mensuel (€)</label>
+                        <label>Prix mensuel (FC)</label>
                         <input type="number" id="apf-prix" min="0" step="0.01" value="${planExistant?.prix_mensuel || ''}"/>
                     </div>
                 </div>

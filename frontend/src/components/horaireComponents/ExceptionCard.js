@@ -7,7 +7,7 @@
  * @returns {HTMLElement}
  */
 const CATEGORIE_ICONS = {
-    conge:                    'palm-tree',
+    conge:                    'calendar-off',
     maladie:                  'thermometer',
     ferie:                    'flag',
     fermeture_exceptionnelle: 'door-closed',

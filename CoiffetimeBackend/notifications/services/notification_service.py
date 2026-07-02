@@ -17,6 +17,7 @@ ou valider un paiement ne doit JAMAIS dépendre du succès d'une notif.
 """
 import logging
 
+from authentification.models.utilisateur import Utilisateur, RoleChoix
 from notifications.models import Notification, StatutNotification, TypeNotification
 
 logger = logging.getLogger('mixo.notifications_ext')
@@ -49,3 +50,10 @@ def notifier(utilisateur, titre: str, message: str, type_notif: str = TypeNotifi
             "Notification non créée (utilisateur=%s, type=%s) : %s",
             getattr(utilisateur, 'username', utilisateur), type_notif, exc,
         )
+
+
+def notifier_admins(titre: str, message: str, type_notif: str = TypeNotification.SYSTEME, lien: str = None):
+    """Diffuse une notification à tous les comptes administrateurs."""
+    admins = Utilisateur.all_objects.filter(role=RoleChoix.ADMIN)
+    for admin in admins:
+        notifier(admin, titre, message, type_notif=type_notif, lien=lien)

@@ -85,6 +85,7 @@ def validerOuRejeterCompte(request, id):
     raison = serializer.validated_data.get('raison', '')
 
     if action == 'valider':
+        utilisateur.reinitialiser_sanction()
         utilisateur.statut = StatutChoix.ACTIF
         utilisateur.save(update_fields=['statut'])
         Notification.creer(
@@ -98,8 +99,7 @@ def validerOuRejeterCompte(request, id):
                              succes=True, details={'cible': str(utilisateur.id), 'action': 'validation'})
         return Response({"message": f"@{utilisateur.username} activé.", "statut": "ACTIF"})
 
-    utilisateur.statut = StatutChoix.BANNI
-    utilisateur.save(update_fields=['statut'])
+    utilisateur.enregistrer_sanction(raison or 'Non conforme.', StatutChoix.BANNI)
     Notification.creer(
         utilisateur=utilisateur,
         titre="Compte rejeté",
@@ -129,9 +129,11 @@ def suspendreUtilisateur(request, id):
         )
 
     if action == 'suspendre':
-        utilisateur.statut = StatutChoix.INACTIF
-        utilisateur.save(update_fields=['statut'])
-        msg = f"Votre compte a été suspendu. Motif : {raison}"
+        utilisateur.enregistrer_sanction(raison, StatutChoix.INACTIF, conditions=duree)
+        msg = (
+            f"Votre compte a été suspendu le {utilisateur.date_sanction:%d/%m/%Y à %H:%M}."
+            f"\nMotif : {raison}"
+        )
         if duree: msg += f" | Durée : {duree}"
         Notification.creer(
             utilisateur=utilisateur,
@@ -146,12 +148,14 @@ def suspendreUtilisateur(request, id):
         return Response({"message": f"@{utilisateur.username} suspendu.", "statut": "INACTIF"})
 
     elif action == 'bannir':
-        utilisateur.statut = StatutChoix.BANNI
-        utilisateur.save(update_fields=['statut'])
+        utilisateur.enregistrer_sanction(raison, StatutChoix.BANNI)
         Notification.creer(
             utilisateur=utilisateur,
             titre="⛔ Compte banni",
-            message=f"Votre compte Mixo a été définitivement banni. Motif : {raison}",
+            message=(
+                f"Votre compte Mixo a été définitivement banni le "
+                f"{utilisateur.date_sanction:%d/%m/%Y à %H:%M}.\nMotif : {raison}"
+            ),
             type=TypeNotification.DANGER
         )
         envoyer_email_bannissement(utilisateur, raison)
@@ -160,6 +164,7 @@ def suspendreUtilisateur(request, id):
         return Response({"message": f"@{utilisateur.username} banni.", "statut": "BANNI"})
 
     else:  # reactiver
+        utilisateur.reinitialiser_sanction()
         utilisateur.statut = StatutChoix.ACTIF
         utilisateur.save(update_fields=['statut'])
         Notification.creer(

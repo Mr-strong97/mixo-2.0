@@ -26,7 +26,7 @@ class PaiementProviderBase(ABC):
         @return dict {
             'succes': bool,
             'transaction_id': str,
-            'statut': 'PAYE' | 'EN_ATTENTE' | 'ECHOUE',
+            'statut': 'PAYE_EN_LIGNE' | 'EN_ATTENTE' | 'ECHOUE',
             'message': str,
         }
         """

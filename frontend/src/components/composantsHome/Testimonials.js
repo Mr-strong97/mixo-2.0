@@ -16,7 +16,7 @@ export const Testimonials = () => {
             quote: 'J\'ai trouvé mon coiffeur en moins de 5 minutes et le rendez-vous a été confirmé instantanément. Je ne réserve plus que comme ça.',
             name: 'Jordan M.',
             meta: 'Client Mixo · Paris',
-            avatar: '/images/transformation/poster-smile.jpg'
+            avatar: '/images/mixo4.png'
         },
         {
             role: 'pro',

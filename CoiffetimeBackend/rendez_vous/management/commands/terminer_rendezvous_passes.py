@@ -11,7 +11,7 @@ fin est dépassée, et notifie le client pour l'inviter à laisser un avis.
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 from rendez_vous.models import RendezVous
-from notifications.services.notification_service import notifier, TypeNotification
+from rendez_vous.services import notifier_demande_avis
 
 
 class Command(BaseCommand):
@@ -24,11 +24,7 @@ class Command(BaseCommand):
         for rdv in qs:
             rdv.statut = 'TERMINE'
             rdv.save(update_fields=['statut', 'updated_at'])
-            notifier(
-                rdv.client, "Rendez-vous terminé",
-                "Votre rendez-vous est terminé. Souhaitez-vous laisser un avis sur votre expérience ?",
-                TypeNotification.AVIS_DEMANDE, lien=f"/avis/laisser/{rdv.id}",
-            )
+            notifier_demande_avis(rdv)
             count += 1
 
         if count:

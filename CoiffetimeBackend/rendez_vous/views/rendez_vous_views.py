@@ -9,6 +9,7 @@ from rest_framework import status
 from rest_framework.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
+from django.db.models import Q
 
 from ..models import RendezVous
 from ..serializers.rendez_vous_serializers import RendezVousCreateSerializer, RendezVousSerializer
@@ -18,6 +19,7 @@ from services.models import Service
 from authentification.models.utilisateur import Utilisateur
 from planning.models import Horaire, DisponibiliteException
 from notifications.services.notification_service import notifier, TypeNotification
+from ..services import notifier_demande_avis
 
 
 def _verifier_acces(request, rdv):
@@ -142,10 +144,18 @@ def creer_rendezvous(request):
 @permission_classes([IsAuthenticated, IsClient])
 def mes_demandes(request):
     """GET /api/rendez-vous/mes-demandes/?statut=... — RDV du client connecté."""
-    qs = RendezVous.objects.filter(client=request.user).select_related('coiffeur', 'service')
+    qs = RendezVous.objects.filter(client=request.user).select_related('coiffeur', 'service', 'paiement')
     statut = request.query_params.get('statut')
+    search = request.query_params.get('search', '').strip()
     if statut:
         qs = qs.filter(statut=statut)
+    if search:
+        qs = qs.filter(
+            Q(service_nom_snapshot__icontains=search)
+            | Q(coiffeur__username__icontains=search)
+            | Q(statut__icontains=search)
+            | Q(statut_paiement__icontains=search)
+        )
     return Response(RendezVousSerializer(qs, many=True).data)
 
 
@@ -153,10 +163,18 @@ def mes_demandes(request):
 @permission_classes([IsAuthenticated, IsCoiffeur])
 def mes_rendezvous(request):
     """GET /api/rendez-vous/mes-rendez-vous/?statut=... — RDV du coiffeur connecté."""
-    qs = RendezVous.objects.filter(coiffeur=request.user).select_related('client', 'service')
+    qs = RendezVous.objects.filter(coiffeur=request.user).select_related('client', 'service', 'paiement')
     statut = request.query_params.get('statut')
+    search = request.query_params.get('search', '').strip()
     if statut:
         qs = qs.filter(statut=statut)
+    if search:
+        qs = qs.filter(
+            Q(service_nom_snapshot__icontains=search)
+            | Q(client__username__icontains=search)
+            | Q(statut__icontains=search)
+            | Q(statut_paiement__icontains=search)
+        )
     return Response(RendezVousSerializer(qs, many=True).data)
 
 
@@ -164,7 +182,7 @@ def mes_rendezvous(request):
 @permission_classes([IsAuthenticated])
 def detail_rendezvous(request, pk):
     """GET /api/rendez-vous/<uuid>/ — accessible au client, au coiffeur concerné, ou à un admin."""
-    rdv = get_object_or_404(RendezVous.objects.select_related('client', 'coiffeur', 'service'), pk=pk)
+    rdv = get_object_or_404(RendezVous.objects.select_related('client', 'coiffeur', 'service', 'paiement'), pk=pk)
     _verifier_acces(request, rdv)
     return Response(RendezVousSerializer(rdv).data)
 
@@ -250,9 +268,5 @@ def terminer_rendezvous(request, pk):
     rdv.statut = 'TERMINE'
     rdv.save(update_fields=['statut', 'updated_at'])
 
-    notifier(
-        rdv.client, "Rendez-vous terminé",
-        "Votre rendez-vous est terminé. Souhaitez-vous laisser un avis sur votre expérience ?",
-        TypeNotification.AVIS_DEMANDE, lien=f"/avis/laisser/{rdv.id}",
-    )
+    notifier_demande_avis(rdv)
     return Response(RendezVousSerializer(rdv).data)

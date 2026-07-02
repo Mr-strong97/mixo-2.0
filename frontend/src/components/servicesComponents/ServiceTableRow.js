@@ -29,7 +29,7 @@ export const ServiceTableRow = (service, handlers = {}) => {
             </div>
         </td>
         <td><span class="str-badge-cat">${escapeHtml(service.categorie_nom || '—')}</span></td>
-        <td class="str-price">${formatPrix(service.prix)}&nbsp;€</td>
+        <td class="str-price">${formatPrix(service.prix)}&nbsp;FC</td>
         <td class="str-muted">${service.duree_minutes} min</td>
         <td class="str-muted">${service.nb_reservations ?? 0}</td>
         <td>

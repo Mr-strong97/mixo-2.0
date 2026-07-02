@@ -87,6 +87,12 @@ class Utilisateur(AbstractUser):
     telephone = models.CharField(max_length=20, blank=True, default='')
     photo = models.ImageField(upload_to='avatars/%Y/%m/', blank=True, null=True)
 
+    # --- Sanctions / réactivation ---
+    motif_sanction = models.TextField(blank=True, default='')
+    date_sanction = models.DateTimeField(null=True, blank=True)
+    conditions_reactivation = models.TextField(blank=True, default='')
+    date_demande_reactivation = models.DateTimeField(null=True, blank=True)
+
     # --- RGPD : suppression douce ---
     # Quand deleted_at est renseigné, le compte est "supprimé" sans l'être
     deleted_at = models.DateTimeField(null=True, blank=True)
@@ -141,3 +147,39 @@ class Utilisateur(AbstractUser):
         self.deleted_at = timezone.now()
         self.is_active  = False
         self.save(update_fields=['deleted_at', 'is_active'])
+
+    def enregistrer_sanction(self, motif: str, statut: str, conditions: str = ''):
+        """Centralise l'écriture des informations de sanction."""
+        self.statut = statut
+        self.motif_sanction = motif
+        self.date_sanction = timezone.now()
+        self.conditions_reactivation = conditions or ''
+        self.date_demande_reactivation = None
+        self.is_active = statut != StatutChoix.BANNI
+        self.save(
+            update_fields=[
+                'statut',
+                'motif_sanction',
+                'date_sanction',
+                'conditions_reactivation',
+                'date_demande_reactivation',
+                'is_active',
+            ]
+        )
+
+    def reinitialiser_sanction(self):
+        """Efface les traces de sanction quand le compte est réactivé."""
+        self.motif_sanction = ''
+        self.date_sanction = None
+        self.conditions_reactivation = ''
+        self.date_demande_reactivation = None
+        self.is_active = True
+        self.save(
+            update_fields=[
+                'motif_sanction',
+                'date_sanction',
+                'conditions_reactivation',
+                'date_demande_reactivation',
+                'is_active',
+            ]
+        )

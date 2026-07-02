@@ -107,7 +107,7 @@ export const HistoriquePage = () => {
             const card = document.createElement('article');
             card.className = `his-card his-${item.type.toLowerCase()}`;
             const meta = item.type === 'PAIEMENT'
-                ? `Montant payé : ${formatPrix(item.montant)} €`
+                ? `Montant payé : ${formatPrix(item.montant)} FC`
                 : item.type === 'AVIS'
                     ? `Note : ${item.note}/5`
                     : `Statut : ${labelStatut(item.statut)}`;

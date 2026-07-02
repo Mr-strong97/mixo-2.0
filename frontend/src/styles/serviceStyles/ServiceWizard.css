@@ -4,12 +4,17 @@
    Dépend de ServiceComponents.css (wzs-*, idz-*, igg-*, mxo-spinner)
    ================================================================ */
 
-.swz-page { min-height: 100vh; background: #F8FAFC; font-family: 'Poppins', sans-serif; }
+.swz-page {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #F8FAFC 0%, #F4F8FD 100%);
+    font-family: 'Poppins', sans-serif;
+    overflow-x: clip;
+}
 .swz-main { max-width: 1100px; margin: 0 auto; padding: 32px 24px 100px; }
-.swz-loader { display: flex; justify-content: center; padding: 100px 0; }
+.swz-loader { display: flex; justify-content: center; padding: 100px 0; animation: swzFadeUp 0.45s ease both; }
 
 /* ── TOPBAR (breadcrumb + titre) ─────────────────────────────── */
-.swz-topbar { margin-bottom: 8px; }
+.swz-topbar { margin-bottom: 8px; animation: swzFadeUp 0.45s ease both; }
 .swz-breadcrumb { font-size: 0.8rem; color: #94A3B8; margin-bottom: 8px; }
 .swz-title    { font-family: 'Montserrat', sans-serif; font-size: 1.8rem; font-weight: 800; color: #1A1D20; margin: 0 0 6px; }
 .swz-subtitle { font-size: 0.88rem; color: #62676B; margin: 0 0 8px; }
@@ -19,6 +24,7 @@
 .swz-card {
     background: #fff; border: 1.5px solid #E8ECF0; border-radius: 16px;
     padding: 28px; display: flex; flex-direction: column; gap: 18px;
+    animation: swzFadeUp 0.5s ease both;
 }
 .swz-card-title { font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 700; color: #1A1D20; margin: 0 0 6px; display: flex; align-items: center; gap: 8px; }
 .swz-card-title svg { width: 17px; height: 17px; color: #0A66C2; }
@@ -33,7 +39,7 @@
 .swz-input, .swz-textarea {
     width: 100%; background: #F8FAFC; border: 1.5px solid #E8ECF0; border-radius: 10px;
     font-family: 'Poppins', sans-serif; font-size: 0.88rem; color: #1A1D20;
-    outline: none; box-sizing: border-box; transition: border-color 0.2s ease, background 0.2s ease;
+    outline: none; box-sizing: border-box; transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
 }
 .swz-input { height: 50px; padding: 0 16px; }
 .swz-textarea { padding: 14px 16px; resize: vertical; line-height: 1.6; }
@@ -68,7 +74,7 @@ select.swz-input { cursor: pointer; }
     height: 50px; padding: 0 18px; border-radius: 10px;
     background: #F8FAFC; border: 1.5px solid #E8ECF0; color: #62676B;
     font-family: 'Poppins', sans-serif; font-size: 0.84rem; font-weight: 600;
-    cursor: pointer; transition: all 0.2s ease;
+    cursor: pointer; transition: all 0.2s ease; will-change: transform;
 }
 .swz-chip:hover { border-color: #0A66C2; color: #0A66C2; }
 .swz-chip-active { background: #0A66C2; border-color: #0A66C2; color: #fff; }
@@ -91,6 +97,7 @@ select.swz-input { cursor: pointer; }
 .swz-tip-card {
     background: #0A66C2; border-radius: 16px; padding: 20px;
     color: #fff;
+    animation: swzFloat 6s ease-in-out infinite;
 }
 .swz-tip-card h3 { display: flex; align-items: center; gap: 8px; font-size: 0.92rem; font-weight: 700; margin: 0 0 10px; }
 .swz-tip-card h3 svg { width: 17px; height: 17px; }
@@ -154,7 +161,7 @@ select.swz-input { cursor: pointer; }
     display: flex; align-items: center; justify-content: center; gap: 8px;
     width: 100%; height: 52px; border-radius: 12px;
     font-family: 'Poppins', sans-serif; font-size: 0.9rem; font-weight: 700;
-    cursor: pointer; transition: all 0.2s ease;
+    cursor: pointer; transition: all 0.2s ease; will-change: transform;
 }
 .swz-btn-publish svg, .swz-btn-preview svg { width: 18px; height: 18px; }
 .swz-btn-publish { background: #0A66C2; border: none; color: #fff; }
@@ -214,9 +221,36 @@ select.swz-input { cursor: pointer; }
     .swz-card { padding: 18px; }
     .swz-row { flex-direction: column; }
     .swz-field, .swz-field-grow { min-width: 0; }
+    .swz-toggle-row { flex-direction: column; align-items: flex-start; }
+    .swz-toggle { align-self: flex-end; }
     .swz-footer { flex-direction: column-reverse; align-items: stretch; }
     .swz-footer-right { width: 100%; flex-direction: column-reverse; margin-left: 0; }
     .swz-btn-primary, .swz-btn-secondary, .swz-btn-draft { width: 100%; justify-content: center; }
     .swz-chips { gap: 6px; }
     .swz-chip { flex: 1; min-width: 70px; padding: 0 10px; }
+}
+
+@media (max-width: 420px) {
+    .swz-main { padding-left: 14px; padding-right: 14px; }
+    .swz-title { font-size: 1.25rem; }
+    .swz-chip { min-width: 0; font-size: 0.78rem; }
+}
+
+@keyframes swzFadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes swzFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .swz-loader,
+    .swz-topbar,
+    .swz-card,
+    .swz-tip-card {
+        animation: none !important;
+    }
 }

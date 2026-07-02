@@ -10,5 +10,5 @@ class AbonnementsConfig(AppConfig):
     verbose_name = 'Abonnements'
 
     def ready(self):
-        # Branche les signaux (essai gratuit auto à l'inscription d'un coiffeur)
-        import abonnements.signals  # noqa: F401
+        # Module désactivé en Version 1.
+        return

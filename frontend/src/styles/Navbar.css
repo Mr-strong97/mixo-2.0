@@ -196,6 +196,24 @@
     }
 }
 
+@media (min-width: 993px) and (max-width: 1200px) {
+    :root { --nl-width: 200px; }
+    .nl-logo {
+        padding: 18px 16px 14px;
+    }
+    .nl-logo-text {
+        font-size: 1.15rem;
+        letter-spacing: 3px;
+    }
+    .nl-item {
+        padding: 9px 11px;
+        font-size: 0.8rem;
+    }
+    .nl-profile {
+        padding: 10px 12px 14px;
+    }
+}
+
 @media (max-width: 992px) {
     body, #app-root, main, .main-content,
     .adm-main, .audit-main, .stats-pg-main,
@@ -229,6 +247,9 @@
 
 @media (max-width: 480px) {
     .nl-sidebar { width: 82vw; }
+    .nl-logo-text { font-size: 1.05rem; letter-spacing: 2.5px; }
+    .nl-item { padding: 9px 11px; }
+    .nl-profile-name { font-size: 0.76rem; }
 }
 
 /* ── KEYFRAMES ───────────────────────────────────────────── */

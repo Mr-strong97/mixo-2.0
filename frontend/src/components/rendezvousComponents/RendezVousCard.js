@@ -3,7 +3,8 @@
  * Carte rendez-vous — Espace Client.
  *
  * @param {Object} rdv { id, service_nom_snapshot, service_prix_snapshot, coiffeur_username,
- *                        date_heure_debut, statut, peut_etre_annule, est_paye }
+ *                        date_heure_debut, statut, peut_etre_annule, est_paye,
+ *                        mode_paiement_label, statut_paiement_label }
  * @param {Object} handlers { onAnnuler, onPayer, onLaisserAvis, onVoir }
  * @returns {HTMLElement}
  */
@@ -16,6 +17,10 @@ export const RendezVousCard = (rdv, handlers = {}) => {
     const date = new Date(rdv.date_heure_debut).toLocaleDateString('fr-FR', {
         weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit',
     });
+    const paymentLabel = rdv.mode_paiement_label || rdv.statut_paiement_label || '';
+    const paymentMeta = paymentLabel && paymentLabel !== 'Non disponible'
+        ? `<span><i data-lucide="credit-card"></i> ${escapeHtml(paymentLabel)}</span>`
+        : '';
 
     card.innerHTML = `
         <div class="rvc-top">
@@ -27,7 +32,8 @@ export const RendezVousCard = (rdv, handlers = {}) => {
         </div>
         <div class="rvc-meta">
             <span><i data-lucide="calendar"></i> ${date}</span>
-            <span><i data-lucide="euro"></i> ${rdv.service_prix_snapshot} €</span>
+            <span><i data-lucide="banknote"></i> ${rdv.service_prix_snapshot} CDF</span>
+            ${paymentMeta}
         </div>
         <div class="rvc-actions" id="rvc-actions"></div>
     `;
@@ -45,13 +51,18 @@ export const RendezVousCard = (rdv, handlers = {}) => {
         actions.appendChild(btn);
     }
 
-    if (rdv.statut === 'TERMINE') {
+    if (rdv.statut === 'TERMINE' && !rdv.a_un_avis) {
         const btn = document.createElement('button');
         btn.className = 'rvc-btn rvc-btn-outline';
         btn.type = 'button';
         btn.innerHTML = `<i data-lucide="star"></i> Laisser un avis`;
         btn.addEventListener('click', () => handlers.onLaisserAvis?.(rdv));
         actions.appendChild(btn);
+    } else if (rdv.statut === 'TERMINE' && rdv.a_un_avis) {
+        const done = document.createElement('span');
+        done.className = 'rvc-completed-label';
+        done.textContent = 'Avis déjà publié';
+        actions.appendChild(done);
     }
 
     if (rdv.peut_etre_annule) {

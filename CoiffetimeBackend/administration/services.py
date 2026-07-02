@@ -5,7 +5,7 @@ Helpers de consolidation des données admin.
 from datetime import timedelta
 from collections import defaultdict
 
-from django.db.models import Avg, Count, Sum
+from django.db.models import Avg, Count, Sum, Q
 from django.db.models.functions import TruncDay, TruncMonth
 from django.utils import timezone
 
@@ -102,7 +102,7 @@ def construire_dashboard_admin():
     )
     rdv_statuts = list(rdv_qs.values('statut').annotate(total=Count('id')))
 
-    paiements_valides = paiements_qs.filter(statut='PAYE')
+    paiements_valides = paiements_qs.filter(statut__in=['PAYE_EN_LIGNE', 'PAYE_SUR_PLACE', 'PAYE'])
     paiements_echoues = paiements_qs.filter(statut='ECHOUE')
     paiements_par_mois = _safe_month_series(
         paiements_valides.filter(created_at__gte=six_mois),

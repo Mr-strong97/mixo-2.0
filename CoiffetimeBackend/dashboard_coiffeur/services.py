@@ -24,7 +24,10 @@ def construire_dashboard_coiffeur(coiffeur):
     start_chart = now - timedelta(days=13)
 
     rdv_qs = RendezVous.objects.select_related('client', 'service', 'paiement').filter(coiffeur=coiffeur)
-    paiement_qs = Paiement.objects.select_related('rendez_vous', 'rendez_vous__client', 'rendez_vous__service').filter(rendez_vous__coiffeur=coiffeur, statut='PAYE')
+    paiement_qs = Paiement.objects.select_related('rendez_vous', 'rendez_vous__client', 'rendez_vous__service').filter(
+        rendez_vous__coiffeur=coiffeur,
+        statut__in=['PAYE_EN_LIGNE', 'PAYE_SUR_PLACE', 'PAYE'],
+    )
     avis_qs = Avis.objects.select_related('client', 'rendez_vous', 'rendez_vous__service').filter(coiffeur=coiffeur)
     service_qs = Service.objects.select_related('categorie').filter(coiffeur=coiffeur)
 
@@ -156,7 +159,10 @@ def construire_stats_globales_coiffeurs():
         coiffeur_rdv = rdv_qs.filter(coiffeur=coiffeur)
         coiffeur_avis = avis_qs.filter(coiffeur=coiffeur)
         coiffeur_services = service_qs.filter(coiffeur=coiffeur)
-        coiffeur_paiements = Paiement.objects.filter(rendez_vous__coiffeur=coiffeur, statut='PAYE')
+        coiffeur_paiements = Paiement.objects.filter(
+            rendez_vous__coiffeur=coiffeur,
+            statut__in=['PAYE_EN_LIGNE', 'PAYE_SUR_PLACE', 'PAYE'],
+        )
         coiffeurs.append({
             'id': str(coiffeur.id),
             'username': coiffeur.username,
@@ -168,4 +174,3 @@ def construire_stats_globales_coiffeurs():
             'note_moyenne': round(float(coiffeur_avis.aggregate(avg=Avg('note'))['avg'] or 0), 2),
         })
     return coiffeurs
-

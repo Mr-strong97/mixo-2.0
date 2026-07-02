@@ -29,12 +29,20 @@ class TypeNotification(models.TextChoices):
     PAIEMENT_RECU         = 'PAIEMENT_RECU',         'Paiement reçu'
     PAIEMENT_ECHOUE       = 'PAIEMENT_ECHOUE',       'Paiement échoué'
     PAIEMENT_ECHEC_ADMIN  = 'PAIEMENT_ECHEC_ADMIN',  'Échec paiement'
+    PAIEMENT_SALAIRE      = 'PAIEMENT_SALAIRE',      'Paiement sur place'
+    FACTURE_GENEREE       = 'FACTURE_GENEREE',       'Facture générée'
+    FACTURE_ADMIN         = 'FACTURE_ADMIN',         'Facture administrateur'
     AVIS_DEMANDE          = 'AVIS_DEMANDE',          'Demande d’avis'
     AVIS_REPONSE_COIFFEUR = 'AVIS_REPONSE_COIFFEUR', 'Réponse du coiffeur'
     NOUVEL_AVIS           = 'NOUVEL_AVIS',           'Nouvel avis'
     NOUVEL_UTILISATEUR    = 'NOUVEL_UTILISATEUR',    'Nouvel utilisateur'
     SIGNALEMENT           = 'SIGNALEMENT',           'Signalement'
     ALERTE_SYSTEME        = 'ALERTE_SYSTEME',        'Alerte système'
+    COMPTE_SUSPENDU       = 'COMPTE_SUSPENDU',       'Compte suspendu'
+    COMPTE_BANNI          = 'COMPTE_BANNI',          'Compte banni'
+    DEMANDE_REACTIVATION  = 'DEMANDE_REACTIVATION',  'Demande de réactivation'
+    REACTIVATION_ACCEPTEE = 'REACTIVATION_ACCEPTEE', 'Réactivation acceptée'
+    REACTIVATION_REFUSEE  = 'REACTIVATION_REFUSEE',  'Réactivation refusée'
 
 
 class Notification(models.Model):

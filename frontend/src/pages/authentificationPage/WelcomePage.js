@@ -10,8 +10,8 @@ export const WelcomePage = () => {
         <div class="col-md-6 d-none d-md-flex align-items-center justify-content-center bg-image-section">
             <div class="glass-overlay">
                 <p class="welcome-tagline">
-                    Une nouvelle façon de réserver<br> 
-                    <span class="highlight-brand">votre salon.</span>
+                Bienvenue sur 
+                    <span class="highlight-brand">MIXOO.</span>
                 </p>
             </div>
         </div>

@@ -1,8 +1,7 @@
 /**
  * SuspendedAccountPage.js
  * ========================
- * Page affichée automatiquement quand un utilisateur suspendu
- * tente de se connecter.
+ * Page affichée quand un utilisateur est suspendu ou banni.
  * URL : /compte-suspendu
  */
 import api from '../../api/axiosConfig.js';
@@ -14,29 +13,28 @@ export const SuspendedAccountPage = () => {
 
     page.innerHTML = `
         <div class="suspended-card">
-
             <div class="suspended-icon">
                 <i data-lucide="pause-circle"></i>
             </div>
 
-            <h1 class="suspended-title">Compte suspendu</h1>
+            <h1 class="suspended-title">Compte en attente de réactivation</h1>
 
-            <p class="suspended-desc">
-                Votre compte a été temporairement suspendu par l'équipe Mixo.
-                Vous avez reçu un email contenant le motif de cette décision.
-            </p>
+            <div class="suspended-status-box" id="status-box">
+                <p class="suspended-desc" id="status-desc">
+                    Chargement du statut de votre compte…
+                </p>
+                <div class="suspended-meta" id="status-meta"></div>
+            </div>
 
-            <!-- Formulaire de demande de réactivation -->
             <div class="suspended-form-wrap" id="form-wrap">
-                <h2 class="suspended-form-title">Demander une réactivation</h2>
+                <h2 class="suspended-form-title">Demander la réactivation de mon compte</h2>
                 <p class="suspended-form-hint">
-                    Expliquez pourquoi vous pensez que cette suspension est injustifiée.
-                    Notre équipe examinera votre demande.
+                    Expliquez votre situation et ce que vous souhaitez que l'équipe examine.
                 </p>
                 <textarea
                     id="reactivation-message"
                     class="suspended-textarea"
-                    placeholder="Votre message à l'équipe Mixo…"
+                    placeholder="Décrivez votre situation…"
                     rows="5"
                     maxlength="1000"
                 ></textarea>
@@ -45,20 +43,18 @@ export const SuspendedAccountPage = () => {
                 </div>
                 <button id="send-request" class="suspended-btn">
                     <i data-lucide="send"></i>
-                    Envoyer la demande
+                    Demander la réactivation de mon compte
                 </button>
             </div>
 
-            <!-- Confirmation -->
             <div class="suspended-success" id="success-wrap" style="display:none;">
                 <i data-lucide="check-circle" style="color:var(--success);width:40px;height:40px;"></i>
                 <p>
                     Votre demande a été envoyée.<br>
-                    <strong>L'équipe Mixo vous répondra sous 24-48h.</strong>
+                    <strong>L'équipe Mixo vous répondra dans les meilleurs délais.</strong>
                 </p>
             </div>
 
-            <!-- Déconnexion -->
             <button class="suspended-logout" id="btn-logout">
                 <i data-lucide="log-out"></i>
                 Se déconnecter
@@ -66,19 +62,53 @@ export const SuspendedAccountPage = () => {
         </div>
     `;
 
-    // Compteur de caractères
-    const textarea  = page.querySelector('#reactivation-message');
+    const textarea = page.querySelector('#reactivation-message');
     const charCount = page.querySelector('#char-count');
+    const statusDesc = page.querySelector('#status-desc');
+    const statusMeta = page.querySelector('#status-meta');
+
+    const formatDate = (value) => value
+        ? new Date(value).toLocaleString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+        : '—';
+
+    const renderStatus = (status) => {
+        const labels = {
+            INACTIF: 'Suspendu',
+            BANNI: 'Banni',
+        };
+        const badgeColors = {
+            INACTIF: '#D97706',
+            BANNI: '#DC2626',
+        };
+        const title = labels[status.statut] || 'Compte bloqué';
+        statusDesc.textContent = `Votre compte est actuellement ${title.toLowerCase()}.`;
+        statusMeta.innerHTML = `
+            <div class="suspended-meta-item"><strong>Statut</strong><span style="color:${badgeColors[status.statut] || '#0A66C2'}">${title}</span></div>
+            <div class="suspended-meta-item"><strong>Motif</strong><span>${escapeHtml(status.motif_sanction || 'Aucun motif enregistré')}</span></div>
+            <div class="suspended-meta-item"><strong>Date</strong><span>${formatDate(status.date_sanction)}</span></div>
+            <div class="suspended-meta-item"><strong>Conditions</strong><span>${escapeHtml(status.conditions_reactivation || 'Aucune condition particulière')}</span></div>
+        `;
+
+        const canRequest = status.statut === 'INACTIF' || status.statut === 'BANNI';
+        page.querySelector('#form-wrap').style.display = canRequest ? 'block' : 'none';
+    };
+
+    charCount.textContent = textarea.value.length;
     textarea.addEventListener('input', () => {
         charCount.textContent = textarea.value.length;
     });
 
-    // Envoi de la demande
     page.querySelector('#send-request').addEventListener('click', async (e) => {
         e.preventDefault();
         const message = textarea.value.trim();
-        if (!message) { showToast("Veuillez écrire un message."); return; }
-        if (message.length < 20) { showToast("Votre message doit contenir au moins 20 caractères."); return; }
+        if (!message) {
+            showToast("Veuillez écrire un message.");
+            return;
+        }
+        if (message.length < 20) {
+            showToast("Votre message doit contenir au moins 20 caractères.");
+            return;
+        }
 
         const btn = page.querySelector('#send-request');
         btn.disabled = true;
@@ -86,25 +116,49 @@ export const SuspendedAccountPage = () => {
 
         try {
             await api.post('auth/reactivation/demander/', { message });
-            page.querySelector('#form-wrap').style.display    = 'none';
+            page.querySelector('#form-wrap').style.display = 'none';
             page.querySelector('#success-wrap').style.display = 'block';
             if (window.lucide) window.lucide.createIcons();
         } catch (err) {
             showToast(err.response?.data?.detail || "Erreur lors de l'envoi.");
             btn.disabled = false;
-            btn.innerHTML = `<i data-lucide="send"></i> Envoyer la demande`;
+            btn.innerHTML = `<i data-lucide="send"></i> Demander la réactivation de mon compte`;
             if (window.lucide) window.lucide.createIcons();
         }
     });
 
-    // Déconnexion
     page.querySelector('#btn-logout').addEventListener('click', () => {
-        ['access_token','refresh_token','user_id','user_role','username']
+        ['access_token', 'refresh_token', 'user_id', 'user_role', 'username']
             .forEach(k => localStorage.removeItem(k));
         if (window.navigate) window.navigate('/login');
         else window.location.href = '/login';
     });
 
+    const cached = localStorage.getItem('mixo_account_status');
+    if (cached) {
+        try {
+            renderStatus(JSON.parse(cached));
+        } catch {
+            // Cache illisible, on attend l'API.
+        }
+    }
+
+    api.get('auth/moi/statut/')
+        .then(({ data }) => {
+            renderStatus(data);
+            localStorage.setItem('mixo_account_status', JSON.stringify(data));
+        })
+        .catch(() => {
+            if (!cached) {
+                statusDesc.textContent = "Impossible de charger le détail du statut pour le moment.";
+                statusMeta.innerHTML = '';
+            }
+        });
+
     setTimeout(() => { if (window.lucide) window.lucide.createIcons(); }, 0);
     return page;
 };
+
+function escapeHtml(str = '') {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}

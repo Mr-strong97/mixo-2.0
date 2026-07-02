@@ -14,8 +14,8 @@ export const RegisterPage = () => {
 
     page.innerHTML = `
         <!-- Colonne gauche -->
-        <div class="auth-left" style="background:url('https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?q=80&w=1000') center/cover no-repeat;">
-            <div class="auth-glass-card">
+        <div class="auth-left" style="background:url('/public/images/mixo2.png') center/cover no-repeat;">
+            <div class="auth-glass-card" style="margin-top:20px;">
                 <h2>Rejoignez<br><span>l'aventure.</span></h2>
             </div>
         </div>

@@ -24,6 +24,22 @@ export const CoiffeurSettingsPage = () => {
     let userData = {};
     const username = localStorage.getItem('username') || 'Coiffeur';
     const initials = username.substring(0, 2).toUpperCase();
+    const getProfileUser = () => userData?.utilisateur || userData || {};
+    const hydrateCompteFields = () => {
+        const profile = getProfileUser();
+        const setValue = (id, value) => {
+            const input = main.querySelector(`#${id}`);
+            if (input && value !== undefined && value !== null && input.value !== String(value)) {
+                input.value = String(value);
+            }
+        };
+
+        setValue('f-username', profile.username || username);
+        setValue('f-firstname', profile.first_name || '');
+        setValue('f-lastname', profile.last_name || '');
+        setValue('f-email', profile.email || '');
+        setValue('f-phone', profile.telephone || profile.phone || '');
+    };
 
     const JOURS = ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
 
@@ -40,12 +56,22 @@ export const CoiffeurSettingsPage = () => {
     page.appendChild(main);
     page.appendChild(Footer());
 
-    ProfilUtilisateur.getUserProfile('coiffeur', ProfilUtilisateur.getCurrentUser().id)
-        .then(d => { userData = d.utilisateur || d; })
+    api.get(`auth/profil/${ProfilUtilisateur.getCurrentUser().id}/`)
+        .then(({ data }) => {
+            userData = data;
+            hydrateCompteFields();
+        })
         .catch(() => {});
 
     // ── 1. MON COMPTE ──────────────────────────────────────
     function renderCompte() {
+        const profile = getProfileUser();
+        const compteUsername = profile.username || username;
+        const compteFirstname = profile.first_name || '';
+        const compteLastname = profile.last_name || '';
+        const compteEmail = profile.email || '';
+        const comptePhone = profile.telephone || profile.phone || '';
+
         const el = document.createElement('div');
         el.className = 'sett-section';
         el.innerHTML = `
@@ -56,24 +82,24 @@ export const CoiffeurSettingsPage = () => {
 
             <div class="sett-avatar-card">
                 <div class="sett-avatar-wrap">
-                    <div class="sett-avatar" style="background:linear-gradient(135deg,#0A66C2,#70B5F9);">${initials}</div>
+                    <div class="sett-avatar" style="background:linear-gradient(135deg,#0A66C2,#70B5F9);">${(compteUsername.substring(0, 2) || initials).toUpperCase()}</div>
                     <button class="sett-avatar-cam" title="Changer la photo professionnelle">
                         <i data-lucide="camera"></i>
                     </button>
                 </div>
                 <div>
-                    <div style="font-weight:600;font-size:0.95rem;color:#1A1D20;">${username}</div>
+                    <div style="font-weight:600;font-size:0.95rem;color:#1A1D20;">${compteUsername}</div>
                     <span class="sett-badge-role" style="background:rgba(22, 92, 163, 0.1);color:#2275B8;border-color:rgba(22, 92, 163, 0.1)">COIFFEUR</span>
                 </div>
             </div>
 
             <div class="sett-card">
                 <div class="sett-fields-grid">
-                    ${field('f-username',  'at-sign', "Nom d'utilisateur", 'text', username)}
-                    ${field('f-firstname', 'user',    'Prénom',            'text', '')}
-                    ${field('f-lastname',  'user',    'Nom',               'text', '')}
-                    ${field('f-email',     'mail',    'Email',             'email', '', true)}
-                    ${field('f-phone',     'phone',   'Téléphone',         'tel',  '')}
+                    ${field('f-username',  'at-sign', "Nom d'utilisateur", 'text', compteUsername)}
+                    ${field('f-firstname', 'user',    'Prénom',            'text', compteFirstname)}
+                    ${field('f-lastname',  'user',    'Nom',               'text', compteLastname)}
+                    ${field('f-email',     'mail',    'Email',             'email', compteEmail, true)}
+                    ${field('f-phone',     'phone',   'Téléphone',         'tel',  comptePhone)}
                 </div>
                 <button class="sett-btn-save" id="save-compte">
                     <i data-lucide="save"></i> Enregistrer les modifications
@@ -87,12 +113,19 @@ export const CoiffeurSettingsPage = () => {
             btn.innerHTML = `<span class="sett-spinner"></span> Enregistrement…`;
             try {
                 const { id } = ProfilUtilisateur.getCurrentUser();
+                const profile = getProfileUser();
+                const nextUsername = el.querySelector('#f-username').value.trim() || profile.username || username;
+                const nextFirstName = el.querySelector('#f-firstname').value.trim() || profile.first_name || '';
+                const nextLastName = el.querySelector('#f-lastname').value.trim() || profile.last_name || '';
                 await ProfilUtilisateur.updateUserFields(id, {
-                    username:   el.querySelector('#f-username').value.trim(),
-                    first_name: el.querySelector('#f-firstname').value.trim(),
-                    last_name:  el.querySelector('#f-lastname').value.trim(),
+                    username:   nextUsername,
+                    first_name: nextFirstName,
+                    last_name:  nextLastName,
                 });
-                localStorage.setItem('username', el.querySelector('#f-username').value.trim().toLowerCase());
+                localStorage.setItem('username', nextUsername.toLowerCase());
+                window.dispatchEvent(new CustomEvent('mixo:profile-updated', {
+                    detail: { role: 'coiffeur', id, username: nextUsername },
+                }));
                 showToast('✅ Profil mis à jour !');
             } catch (e) { showToast(`❌ ${e.message}`); }
             finally { btn.disabled = false; btn.innerHTML = orig; if (window.lucide) window.lucide.createIcons(); }

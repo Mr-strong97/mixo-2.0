@@ -7,6 +7,7 @@ import { Footer }      from '../../components/Footer.js';
 import { requireAuth } from '../../utils/AuthGuard.js';
 import api             from '../../api/axiosConfig.js';
 import { showToast }   from '../../utils/toast.js';
+import { attachLiveRefresh } from '../../utils/liveRefresh.js';
 
 const TYPE_CONFIG = {
     INFO:           { icon: 'info',           color: '#1A56DB', bg: 'rgba(26,86,219,0.08)'  },
@@ -96,6 +97,7 @@ export const NotificationPage = () => {
         const date = new Date(n.created_at).toLocaleString('fr-FR', {
             day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute:'2-digit'
         });
+        const destination = typeof n.lien === 'string' ? n.lien.replace(/\/+$/, '') || '/' : n.lien;
         
         const item = document.createElement('div');
         // Utilisation des propriétés dynamiques du backend (est_lue ou lu)
@@ -121,6 +123,10 @@ export const NotificationPage = () => {
                 </div>
             </div>
             <div class="notif-item-actions">
+                ${n.type === 'AVIS_DEMANDE' && n.lien ? `<button class="notif-btn-avis" type="button">
+                    <i data-lucide="star"></i>
+                    Donner mon avis
+                </button>` : ''}
                 ${!estLu ? `<button class="notif-btn-read" title="Marquer comme lu">
                     <i data-lucide="check"></i>
                 </button>` : ''}
@@ -160,10 +166,17 @@ export const NotificationPage = () => {
             item.style.cursor = 'pointer';
             item.addEventListener('click', () => {
                 if (!estLu) api.patch(`notifications/${n.id}/lire/`).catch(() => {});
-                if (window.navigate) window.navigate(n.lien);
-                else window.location.href = n.lien;
+                if (window.navigate) window.navigate(destination);
+                else window.location.href = destination;
             });
         }
+
+        item.querySelector('.notif-btn-avis')?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (!estLu) api.patch(`notifications/${n.id}/lire/`).catch(() => {});
+            if (window.navigate) window.navigate(destination);
+            else window.location.href = destination;
+        });
 
         return item;
     };
@@ -182,6 +195,6 @@ export const NotificationPage = () => {
     // Filtre
     main.querySelector('#filter-type').addEventListener('change', () => charger());
 
-    charger();
+    attachLiveRefresh(charger, { intervalMs: 10000 });
     return page;
 };

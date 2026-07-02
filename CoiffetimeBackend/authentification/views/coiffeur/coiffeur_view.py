@@ -33,7 +33,7 @@ def listeCoiffeurs(request):
 
 
 @api_view(['GET', 'PUT', 'PATCH'])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def detailCoiffeur(request, id):
     """
     GET  → Tout le monde peut voir un profil coiffeur.
@@ -50,6 +50,11 @@ def detailCoiffeur(request, id):
         return Response(serializer.data)
 
     # Sécurité : seul le propriétaire peut modifier
+    if not request.user.is_authenticated:
+        return Response(
+            {"error": "Authentification requise."},
+            status=status.HTTP_401_UNAUTHORIZED
+        )
     if request.user.id != coiffeur.utilisateur.id:
         return Response(
             {"error": "Modification non autorisée."},

@@ -56,7 +56,7 @@ def admin_stats_paiements(request):
     GET /api/admin/extended/paiements/stats/
     Total des commissions perçues, paiements échoués, répartition par méthode.
     """
-    payes = Paiement.objects.filter(statut='PAYE')
+    payes = Paiement.objects.filter(statut__in=['PAYE_EN_LIGNE', 'PAYE_SUR_PLACE', 'PAYE'])
 
     totaux = payes.aggregate(
         total_paye=Sum('montant_total'),

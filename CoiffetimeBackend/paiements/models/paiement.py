@@ -18,10 +18,14 @@ TAUX_COMMISSION = Decimal('0.15')  # 15% — ajustable selon la politique commer
 class Paiement(models.Model):
 
     STATUT_CHOICES = [
-        ('EN_ATTENTE', _('En attente')),
-        ('PAYE',       _('Payé')),
-        ('ECHOUE',     _('Échoué')),
-        ('REMBOURSE',  _('Remboursé')),
+        ('NON_PAYE',       _('Non payé')),
+        ('PAYE_EN_LIGNE',   _('Payé en ligne')),
+        ('PAYE_SUR_PLACE',  _('Payé sur place')),
+        ('ANNULE',         _('Annulé')),
+        ('EN_ATTENTE',     _('En attente')),
+        ('PAYE',           _('Payé (ancien)')),
+        ('ECHOUE',         _('Échoué')),
+        ('REMBOURSE',      _('Remboursé')),
     ]
 
     METHODE_CHOICES = [
@@ -29,6 +33,7 @@ class Paiement(models.Model):
         ('ORANGE_MONEY',   _('Orange Money')),
         ('MPESA',          _('M-Pesa')),
         ('AFRICELL_MONEY', _('Africell Money')),
+        ('SUR_PLACE',      _('Paiement sur place')),
     ]
 
     id                  = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -41,12 +46,12 @@ class Paiement(models.Model):
     montant_total       = models.DecimalField(
         max_digits=10, decimal_places=2,
         validators=[MinValueValidator(Decimal('0.01'))],
-        verbose_name=_("Montant total (€)"),
+        verbose_name=_("Montant total (FC)"),
     )
-    montant_commission  = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("Commission plateforme (€)"))
-    montant_coiffeur    = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("Part coiffeur (€)"))
-    statut              = models.CharField(max_length=20, choices=STATUT_CHOICES, default='EN_ATTENTE', verbose_name=_("Statut"))
-    methode             = models.CharField(max_length=20, choices=METHODE_CHOICES, verbose_name=_("Méthode"))
+    montant_commission  = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("Commission plateforme (FC)"))
+    montant_coiffeur    = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("Part coiffeur (FC)"))
+    statut              = models.CharField(max_length=20, choices=STATUT_CHOICES, default='NON_PAYE', verbose_name=_("Statut"))
+    methode             = models.CharField(max_length=20, choices=METHODE_CHOICES, blank=True, default='', verbose_name=_("Méthode"))
     transaction_id       = models.CharField(max_length=100, unique=True, verbose_name=_("ID transaction"))
     created_at           = models.DateTimeField(auto_now_add=True)
 
@@ -60,7 +65,11 @@ class Paiement(models.Model):
         ]
 
     def __str__(self):
-        return f"Paiement {self.transaction_id} — {self.montant_total}€ ({self.statut})"
+        return f"Paiement {self.transaction_id} — {self.montant_total}FC ({self.statut})"
+
+    @property
+    def est_valide(self) -> bool:
+        return self.statut in {'PAYE_EN_LIGNE', 'PAYE_SUR_PLACE', 'PAYE'}
 
     @classmethod
     def calculer_montants(cls, montant_total: Decimal) -> dict:

@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
                 ('nom_prestation', models.CharField(max_length=100, verbose_name='Nom de la prestation')),
                 ('description', models.TextField(blank=True, null=True, verbose_name='Description')),
                 ('duree_minutes', models.PositiveIntegerField(help_text='Durée en minutes. Min 5 min, max 8h.', validators=[django.core.validators.MinValueValidator(5), django.core.validators.MaxValueValidator(480)], verbose_name='Durée (minutes)')),
-                ('prix', models.DecimalField(decimal_places=2, max_digits=8, validators=[django.core.validators.MinValueValidator(0.01)], verbose_name='Prix (€)')),
+                ('prix', models.DecimalField(decimal_places=2, max_digits=8, validators=[django.core.validators.MinValueValidator(0.01)], verbose_name='Prix (FC)')),
                 ('image', models.ImageField(blank=True, null=True, upload_to='services/images/%Y/%m/', validators=[django.core.validators.FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'webp'])], verbose_name='Image principale')),
                 ('ville', models.CharField(blank=True, max_length=100, null=True, verbose_name='Ville')),
                 ('statut', models.CharField(choices=[('actif', 'Actif'), ('inactif', 'Inactif'), ('en_attente', 'En attente de validation')], default='actif', max_length=20, verbose_name='Statut')),
