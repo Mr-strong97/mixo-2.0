@@ -6,9 +6,12 @@
 import { Navbar }            from '../../components/navbars/Navbar.js';
 import { Footer }            from '../../components/Footer.js';
 import { SettingsLayout }    from '../../components/SettingsLayout.js';
+import { AvatarPicker }      from '../../components/settings/AvatarPicker.js';
 import { ProfilUtilisateur } from '../../api/axiosConfig.js';
+import { AuthentificationUtilisateurs } from '../../api/axiosConfig.js';
 import { requireAuth }       from '../../utils/AuthGuard.js';
 import { showToast }         from '../../utils/toast.js';
+import { renderAvatarMarkup } from '../../utils/avatar.js';
 import api                   from '../../api/axiosConfig.js';
 
 export const ClientSettingsPage = () => {
@@ -25,6 +28,7 @@ export const ClientSettingsPage = () => {
     let userData = {};
     const username = localStorage.getItem('username') || 'Utilisateur';
     const initials = username.substring(0, 2).toUpperCase();
+    let selectedAvatarChoice = localStorage.getItem('avatar_choice') || '';
     const getProfileUser = () => userData?.utilisateur || userData || {};
     const hydrateCompteFields = () => {
         const profile = getProfileUser();
@@ -74,6 +78,7 @@ export const ClientSettingsPage = () => {
         const accountPhone = profile.telephone || profile.phone || '';
         const accountAddress = profile.adresse || '';
         const accountCity = profile.ville || '';
+        const currentAvatarChoice = profile.avatar_choice || selectedAvatarChoice || '';
 
         const el = document.createElement('div');
         el.className = 'sett-section';
@@ -86,7 +91,7 @@ export const ClientSettingsPage = () => {
             <!-- Avatar -->
             <div class="sett-avatar-card">
                 <div class="sett-avatar-wrap">
-                    <div class="sett-avatar">${(accountUsername.substring(0, 2) || initials).toUpperCase()}</div>
+                    <div class="sett-avatar" id="sett-avatar-preview"></div>
                     <button class="sett-avatar-cam" title="Changer la photo">
                         <i data-lucide="camera"></i>
                     </button>
@@ -95,6 +100,10 @@ export const ClientSettingsPage = () => {
                     <div style="font-weight:600;font-size:0.95rem;color:#1A1D20;">${accountUsername}</div>
                     <span class="sett-badge-role">CLIENT</span>
                 </div>
+            </div>
+
+            <div class="sett-card" style="margin-bottom:18px;">
+                <div id="avatar-picker-mount"></div>
             </div>
 
             <!-- Formulaire -->
@@ -114,6 +123,27 @@ export const ClientSettingsPage = () => {
             </div>
         `;
 
+        const avatarPreview = el.querySelector('#sett-avatar-preview');
+        if (avatarPreview) {
+            avatarPreview.innerHTML = renderAvatarMarkup({
+                username: accountUsername || initials,
+                avatar_choice: currentAvatarChoice,
+            }, { size: 'lg' });
+        }
+
+        const pickerMount = el.querySelector('#avatar-picker-mount');
+        if (pickerMount) {
+            pickerMount.appendChild(AvatarPicker(accountUsername || initials, currentAvatarChoice, (choice) => {
+                selectedAvatarChoice = choice;
+                if (avatarPreview) {
+                    avatarPreview.innerHTML = renderAvatarMarkup({
+                        username: accountUsername || initials,
+                        avatar_choice: choice,
+                    }, { size: 'lg' });
+                }
+            }));
+        }
+
         el.querySelector('#save-compte').addEventListener('click', async () => {
             const btn  = el.querySelector('#save-compte');
             const orig = btn.innerHTML;
@@ -129,10 +159,12 @@ export const ClientSettingsPage = () => {
                     username:   nextUsername,
                     first_name: nextFirstName,
                     last_name:  nextLastName,
+                    avatar_choice: selectedAvatarChoice || '',
                 });
                 localStorage.setItem('username', nextUsername.toLowerCase());
+                localStorage.setItem('avatar_choice', selectedAvatarChoice || '');
                 window.dispatchEvent(new CustomEvent('mixo:profile-updated', {
-                    detail: { role: 'client', id, username: nextUsername },
+                    detail: { role: 'client', id, username: nextUsername, avatar_choice: selectedAvatarChoice || '' },
                 }));
                 showToast('✅ Profil mis à jour !');
             } catch (e) { showToast(`❌ ${e.message}`); }
@@ -207,15 +239,14 @@ export const ClientSettingsPage = () => {
             if (pw !== cfg) { showToast("Les mots de passe ne correspondent pas."); return; }
             try {
                 const email = userData.email || '';
-                await api.post('auth/password/demander-reset/', { email });
-                showToast("📧 Lien de réinitialisation envoyé.");
+                await AuthentificationUtilisateurs.forgotPassword(email);
+                showToast("📧 Lien de réinitialisation Firebase envoyé.");
                 el.querySelector('#pass-zone').style.display = 'none';
             } catch { showToast("Erreur."); }
         });
 
         el.querySelector('#btn-deconnect').addEventListener('click', () => {
-            ['access_token','refresh_token','user_id','user_role','username'].forEach(k => localStorage.removeItem(k));
-            if (window.navigate) window.navigate('/login');
+            AuthentificationUtilisateurs.logout();
         });
 
         return el;

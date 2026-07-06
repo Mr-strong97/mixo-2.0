@@ -19,6 +19,7 @@ urlpatterns = [
     path('api/favoris/', include('favoris.urls')),
     path('api/historique/', include('historique.urls')),
     path('api/dashboard-coiffeur/', include('dashboard_coiffeur.urls')),
+    path('api/chat/', include('chat.urls')),
 
     # Module Rendez-vous (Réservations, Notifications)
     # Note le '#' pour le commentaire ci-dessous

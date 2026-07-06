@@ -98,6 +98,50 @@
     box-shadow: var(--focus-ring);
 }
 
+/* ── 5.b AVATAR DE DÉPART ─────────────────────────────────── */
+.auth-avatar-card {
+    margin: 18px 0 14px;
+    padding: 18px;
+    border: 1px solid rgba(10, 102, 194, 0.12);
+    border-radius: var(--radius-xl);
+    background:
+        radial-gradient(circle at top right, rgba(10, 102, 194, 0.06), transparent 55%),
+        rgba(255, 255, 255, 0.82);
+    box-shadow: 0 18px 36px rgba(15, 23, 42, 0.06);
+}
+
+.auth-avatar-card__head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 14px;
+}
+
+.auth-avatar-card__kicker {
+    margin: 0 0 4px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--blue);
+}
+
+.auth-avatar-card__title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--text-dark);
+}
+
+.auth-avatar-card__hint {
+    margin: 0;
+    max-width: 220px;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+}
+
 /* ── 6. BOÎTE D'INFO COIFFEUR ───────────────────────────────── */
 .info-box {
     display: inline-flex;
@@ -197,6 +241,8 @@
 @media (max-width: 576px) {
     .btn-back-link { max-width: 100%; padding: 12px 16px; }
     .btn-back-link{margin-left: 0;}
+    .auth-avatar-card__head { flex-direction: column; }
+    .auth-avatar-card__hint { max-width: 100%; }
 }
 
 /* ── 10. KEYFRAMES ──────────────────────────────────────────── */

@@ -22,6 +22,7 @@ class ConnexionSerializer(TokenObtainPairSerializer):
         token = super().get_token(user)
         token['username'] = user.username
         token['role']     = user.role
+        token['avatar_choice'] = user.avatar_choice or ''
         return token
 
 
@@ -88,6 +89,7 @@ class ConnexionPersonnaliseeView(TokenObtainPairView):
             response.data['user_id']  = str(utilisateur.id)
             response.data['username'] = utilisateur.username
             response.data['role']     = utilisateur.role
+            response.data['avatar_choice'] = utilisateur.avatar_choice or ''
             return response
 
         except TokenError:

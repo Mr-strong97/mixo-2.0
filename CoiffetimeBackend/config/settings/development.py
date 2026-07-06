@@ -4,6 +4,8 @@ config/settings/development.py
 Surcharges pour l'environnement local.
 DJANGO_SETTINGS_MODULE=config.settings.development
 """
+import os
+import dj_database_url
 from .base import *
 
 # ------------------------------------------------------------------ #
@@ -14,12 +16,8 @@ DEBUG = True
 CORS_ALLOW_ALL_ORIGINS = True
 
 # ------------------------------------------------------------------ #
-# BASE DE DONNÉES : SQLite pour le développement local
-# Quand tu passes en production, tu utiliseras production.py avec PostgreSQL
+# BASE DE DONNÉES : Neon (unique base pour dev et prod)
 # ------------------------------------------------------------------ #
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.parse(os.getenv('DATABASE_URL'))
 }

@@ -9,6 +9,7 @@ import { RendezVousRequestCard } from '../../components/rendezvousComponents/Ren
 import { RendezVousAPI }       from '../../api/RendezVousAPI.js';
 import { requireRole }         from '../../utils/AuthGuard.js';
 import { showToast }           from '../../utils/toast.js';
+import { confirmDialog }       from '../../utils/confirmDialog.js';
 import { attachLiveRefresh }   from '../../utils/liveRefresh.js';
 
 import '../../styles/rendezvousStyles/RendezVous.css';
@@ -76,7 +77,7 @@ export const CoiffeurRendezVousPage = ({ id } = {}) => {
                     onAccepter: (r) => agir(RendezVousAPI.accepter, r, '✅ Rendez-vous accepté.'),
                     onRefuser:  (r) => agir(RendezVousAPI.refuser, r, '⏸ Rendez-vous refusé.'),
                     onTerminer: (r) => agir(RendezVousAPI.terminer, r, '✅ Rendez-vous marqué terminé.'),
-                    onAnnuler:  (r) => { if (window.confirm('Annuler ce rendez-vous ?')) agir(RendezVousAPI.annuler, r, '✅ Rendez-vous annulé.'); },
+                    onAnnuler:  (r) => confirmerAnnulation(r),
                 });
 
                 if (selectedId && String(rdv.id) === selectedId) {
@@ -130,6 +131,18 @@ export const CoiffeurRendezVousPage = ({ id } = {}) => {
         apiFn(rdv.id)
             .then(() => { showToast(successMsg); charger(); })
             .catch(e => showToast(`❌ ${e.response?.data?.error || 'Erreur.'}`));
+    };
+
+    const confirmerAnnulation = async (rdv) => {
+        const ok = await confirmDialog(
+            'Annuler ce rendez-vous ?',
+            'Le client sera informé de l’annulation. Vérifiez bien avant de confirmer cette action.',
+            { confirmText: 'Annuler', cancelText: 'Retour' }
+        );
+
+        if (!ok) return;
+
+        agir(RendezVousAPI.annuler, rdv, 'Rendez-vous annulé avec succès.');
     };
 
     attachLiveRefresh(charger, { intervalMs: 12000 });

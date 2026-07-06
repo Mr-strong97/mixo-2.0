@@ -11,7 +11,7 @@ from ...models.utilisateur import Utilisateur
 class UtilisateurResumSerializer(serializers.ModelSerializer):
     class Meta:
         model  = Utilisateur
-        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'statut']
+        fields = ['id', 'username', 'email', 'avatar_choice', 'first_name', 'last_name', 'statut']
         read_only_fields = fields
 
 

@@ -51,16 +51,13 @@ def admin_security_overview(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated, EstAdmin])
 def admin_revoquer_sessions(request):
-    current_jti = None
-    if request.auth is not None:
-        current_jti = getattr(request.auth, 'payload', {}).get('jti') if hasattr(request.auth, 'payload') else None
     scope = request.data.get('scope', 'others')
     if scope not in ('others', 'all'):
         return Response({'detail': 'Scope invalide.'}, status=status.HTTP_400_BAD_REQUEST)
 
     revoked = revoquer_sessions_utilisateur(
         request.user,
-        current_jti=None if scope == 'all' else current_jti,
+        current_jti=None,
     )
     return Response({
         'message': 'Sessions révoquées.',

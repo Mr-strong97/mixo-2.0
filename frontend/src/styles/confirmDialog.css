@@ -1,0 +1,111 @@
+.mxo-confirm-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 4000;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background:
+        radial-gradient(circle at top, rgba(196, 166, 106, 0.12), transparent 38%),
+        rgba(15, 23, 42, 0.58);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.mxo-confirm-modal {
+    width: min(100%, 440px);
+    border-radius: 22px;
+    border: 1px solid rgba(219, 230, 243, 0.9);
+    background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+    box-shadow: 0 30px 80px rgba(15, 23, 42, 0.24);
+    padding: 22px;
+    transform-origin: center;
+    animation: mxoConfirmIn 0.18s ease-out;
+}
+
+.mxo-confirm-title {
+    margin: 0 0 10px;
+    color: var(--text-dark, #162033);
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+}
+
+.mxo-confirm-message {
+    margin: 0;
+    color: var(--text-muted, #5b6475);
+    font-family: var(--font-main);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.mxo-confirm-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.mxo-confirm-actions button {
+    flex: 1;
+    min-height: 46px;
+    border: 0;
+    border-radius: 14px;
+    font-family: var(--font-main);
+    font-size: 0.92rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.mxo-confirm-actions button:focus-visible {
+    outline: 3px solid rgba(10, 102, 194, 0.25);
+    outline-offset: 2px;
+}
+
+.mxo-confirm-cancel {
+    background: #eef4fb;
+    color: #1a1d20;
+}
+
+.mxo-confirm-cancel:hover {
+    background: #e5edf7;
+    transform: translateY(-1px);
+}
+
+.mxo-confirm-ok {
+    background: linear-gradient(135deg, #0a66c2, #0f7ae5);
+    color: #fff;
+    box-shadow: 0 12px 28px rgba(10, 102, 194, 0.24);
+}
+
+.mxo-confirm-ok:hover {
+    background: linear-gradient(135deg, #0959aa, #0f6fd0);
+    transform: translateY(-1px);
+}
+
+@keyframes mxoConfirmIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media (max-width: 480px) {
+    .mxo-confirm-overlay {
+        padding: 14px;
+    }
+
+    .mxo-confirm-modal {
+        padding: 18px;
+        border-radius: 18px;
+    }
+
+    .mxo-confirm-actions {
+        flex-direction: column;
+    }
+}

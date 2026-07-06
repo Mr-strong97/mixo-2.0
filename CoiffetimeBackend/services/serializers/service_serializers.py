@@ -1,6 +1,7 @@
 """
 service_serializers.py — MIXO · Sérialiseurs du module Services
 """
+import cloudinary.uploader
 from django.core.exceptions import DisallowedHost
 from rest_framework import serializers
 from ..models import Service, ServiceImage, CategorieService
@@ -8,23 +9,53 @@ from ..models import Service, ServiceImage, CategorieService
 IMAGE_MAX_BYTES = 5 * 1024 * 1024
 
 
-class AbsoluteImageField(serializers.ImageField):
+class CloudinaryImageURLField(serializers.Field):
+    """
+    Accepte soit une URL déjà téléversée, soit un fichier brut à envoyer
+    vers Cloudinary, puis stocke l'URL sécurisée renvoyée par Cloudinary.
+    """
+
+    def __init__(self, *args, folder: str, **kwargs):
+        self.folder = folder
+        super().__init__(*args, **kwargs)
+
+    def to_internal_value(self, data):
+        if data in (None, ''):
+            return None
+
+        if isinstance(data, str):
+            return serializers.URLField().to_internal_value(data)
+
+        size = getattr(data, 'size', None)
+        if size is not None and size > IMAGE_MAX_BYTES:
+            raise serializers.ValidationError("L'image ne doit pas dépasser 5 Mo.")
+
+        try:
+            resultat = cloudinary.uploader.upload(
+                data,
+                folder=self.folder,
+                resource_type='image',
+            )
+        except Exception as exc:
+            raise serializers.ValidationError(f"Échec de l'upload Cloudinary : {exc}") from exc
+
+        url = resultat.get('secure_url') or resultat.get('url')
+        if not url:
+            raise serializers.ValidationError("Cloudinary n'a pas renvoyé d'URL d'image.")
+        return url
+
     def to_representation(self, value):
         if not value:
             return None
 
-        url = super().to_representation(value)
-        if not url:
-            return None
-
         request = self.context.get('request')
         if not request:
-            return url
+            return value
 
         try:
-            return request.build_absolute_uri(url)
+            return request.build_absolute_uri(value) if isinstance(value, str) and value.startswith('/') else value
         except DisallowedHost:
-            return url
+            return value
 
 
 class CategorieServiceSerializer(serializers.ModelSerializer):
@@ -35,17 +66,12 @@ class CategorieServiceSerializer(serializers.ModelSerializer):
 
 
 class ServiceImageSerializer(serializers.ModelSerializer):
-    image = AbsoluteImageField()
+    image = CloudinaryImageURLField(folder='mixo/services/galerie')
 
     class Meta:
         model = ServiceImage
         fields = ['id', 'image', 'created_at']
         read_only_fields = ['id', 'created_at']
-
-    def validate_image(self, value):
-        if value.size > IMAGE_MAX_BYTES:
-            raise serializers.ValidationError("L'image ne doit pas dépasser 5 Mo.")
-        return value
 
 
 class ServiceSerializer(serializers.ModelSerializer):
@@ -53,7 +79,7 @@ class ServiceSerializer(serializers.ModelSerializer):
     coiffeur_photo = serializers.SerializerMethodField()
     categorie_nom = serializers.SerializerMethodField()
     categorie_icone = serializers.SerializerMethodField()
-    image = AbsoluteImageField(required=False, allow_null=True)
+    image = CloudinaryImageURLField(folder='mixo/services/images', required=False)
     est_favori = serializers.SerializerMethodField()
     nb_favoris = serializers.SerializerMethodField()
     note_moyenne = serializers.SerializerMethodField()
@@ -168,11 +194,6 @@ class ServiceSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("La durée minimale est de 5 minutes.")
         if value > 480:
             raise serializers.ValidationError("La durée maximale est de 8 heures (480 minutes).")
-        return value
-
-    def validate_image(self, value):
-        if value and value.size > IMAGE_MAX_BYTES:
-            raise serializers.ValidationError("L'image principale ne doit pas dépasser 5 Mo.")
         return value
 
     def validate(self, attrs):

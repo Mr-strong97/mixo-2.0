@@ -17,7 +17,7 @@ class CreerCompteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model  = Utilisateur
-        fields = ['username', 'email', 'password', 'role']
+        fields = ['username', 'email', 'password', 'role', 'avatar_choice']
 
     def validate_password(self, valeur):
         validerMotDePasse(valeur)
@@ -46,6 +46,7 @@ class CreerCompteSerializer(serializers.ModelSerializer):
             email=donnees['email'],
             password=donnees['password'],
             role=role,
+            avatar_choice=donnees.get('avatar_choice', ''),
             statut=statut_initial,
             email_verifie=False,
         )

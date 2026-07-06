@@ -4,6 +4,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/variables.css';
 import './styles/toast.css';
+import './styles/confirmDialog.css';
 
 // ── 1.2. LAYOUTS GENERAUX & COMPOSANTS SQUELETTES ──
 import './styles/Navbar.css';
@@ -17,6 +18,7 @@ import './styles/authentificationStyles/FormField.css';
 import './styles/authentificationStyles/ToggleField.css';
 import './styles/authentificationStyles/ButtonPrimary.css';
 import './styles/authentificationStyles/AvatarUpload.css';
+import './styles/avatarChoice.css';
 
 // ── 1.3.5. HOMEPAGE & MODULES D'ACCUEIL ──
 import './styles/authentificationStyles/HomePage.css';

@@ -3,7 +3,7 @@
  * Design : split screen, image cheveux, formulaire épuré
  */
 import { showToast } from '../../utils/toast.js';
-import api from '../../api/axiosConfig.js';
+import { AuthentificationUtilisateurs } from '../../api/axiosConfig.js';
 
 export const ForgotPasswordPage = () => {
     const page = document.createElement('div');
@@ -88,11 +88,12 @@ export const ForgotPasswordPage = () => {
         btn.innerHTML = `<span class="spinner-sm"></span> Envoi…`;
 
         try {
-            await api.post('auth/password/demander-reset/', { email });
+            await AuthentificationUtilisateurs.forgotPassword(email);
             showSuccess();
         } catch (error) {
             showToast(
-                error?.response?.data?.detail
+                error?.message
+                    || error?.response?.data?.detail
                     || "Impossible d'envoyer le lien de réinitialisation pour le moment."
             );
         } finally {

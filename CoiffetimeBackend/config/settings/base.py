@@ -9,6 +9,8 @@ from datetime import timedelta
 from pathlib import Path
 # pyrefly: ignore [missing-import]
 from dotenv import load_dotenv
+import cloudinary
+from django.core.exceptions import ImproperlyConfigured
 
 # Remonte deux niveaux : config/settings/base.py → projet/
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -53,6 +55,7 @@ INSTALLED_APPS = [
     'planning',
     'avis',
     'notifications',
+    'chat',
     'favoris',
     'historique',
     'dashboard_coiffeur',
@@ -60,6 +63,13 @@ INSTALLED_APPS = [
     'administration',
     'abonnements',
 ]
+
+try:
+    import channels  # noqa: F401
+except ImportError:
+    channels = None
+else:
+    INSTALLED_APPS.append('channels')
 
 # ------------------------------------------------------------------ #
 # MIDDLEWARE
@@ -88,6 +98,7 @@ CORS_ALLOWED_ORIGINS = [
 # ------------------------------------------------------------------ #
 ROOT_URLCONF = 'config.urls'
 WSGI_APPLICATION = 'config.wsgi.application'
+ASGI_APPLICATION = 'config.asgi.application'
 AUTH_USER_MODEL = 'authentification.Utilisateur'
 
 TEMPLATES = [
@@ -111,7 +122,7 @@ TEMPLATES = [
 # ------------------------------------------------------------------ #
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'authentification.authentication.FirebaseAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
@@ -149,3 +160,27 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# CLOUDINARY CONFIG
+cloudinary_cloud_name = os.getenv('CLOUDINARY_CLOUD_NAME', '').strip().lower()
+cloudinary_api_key = os.getenv('CLOUDINARY_API_KEY', '').strip()
+cloudinary_api_secret = os.getenv('CLOUDINARY_API_SECRET', '').strip()
+
+if not cloudinary_cloud_name:
+    raise ImproperlyConfigured(
+        "CLOUDINARY_CLOUD_NAME est manquant dans le fichier .env du backend."
+    )
+
+cloudinary.config(
+    cloud_name=cloudinary_cloud_name,
+    api_key=cloudinary_api_key,
+    api_secret=cloudinary_api_secret,
+    secure=True,
+)
+
+if channels is not None:
+    CHANNEL_LAYERS = {
+        'default': {
+            'BACKEND': 'channels.layers.InMemoryChannelLayer',
+        }
+    }

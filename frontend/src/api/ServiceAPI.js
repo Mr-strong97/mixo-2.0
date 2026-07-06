@@ -11,10 +11,11 @@
 // ============================================================
 
 import axiosInstance from './axiosConfig.js';
+import { getFirebaseIdToken } from '../firebase-config.js';
 
 // ── Helpers ──────────────────────────────────────────────────
-function _authHeader() {
-    const token = localStorage.getItem('access_token');
+async function _authHeader() {
+    const token = await getFirebaseIdToken();
     return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
@@ -215,11 +216,12 @@ export const ServiceAPI = {
     // ── Fallback fetch natif ───────────────────────────────────
 
     async fetchJSON(url, options = {}) {
+        const authHeader = await _authHeader();
         const res = await fetch(url, {
             ...options,
             headers: {
                 'Content-Type': 'application/json',
-                ..._authHeader(),
+                ...authHeader,
                 ...(options.headers || {}),
             },
         });
@@ -234,7 +236,7 @@ export const ServiceAPI = {
     },
 
     async fetchFormData(url, formData, method = 'POST') {
-        const res = await fetch(url, { method, headers: _authHeader(), body: formData });
+        const res = await fetch(url, { method, headers: await _authHeader(), body: formData });
         if (!res.ok) {
             const err = await res.json().catch(() => ({}));
             throw Object.assign(

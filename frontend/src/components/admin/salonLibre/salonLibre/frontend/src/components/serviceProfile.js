@@ -1,5 +1,6 @@
 import { AuthentificationUtilisateurs } from '../api/axiosConfig.js';
 import { showToast } from '../utils/toast.js';
+import { confirmDialog } from '../../../../../../../utils/confirmDialog.js';
 
 export const ServiceProfile = () => {
     // 1. Récupération des données sécurisées
@@ -97,12 +98,16 @@ export const ServiceProfile = () => {
     `;
 
     // 2. Logique de déconnexion
-    container.querySelector('#logout-trigger').addEventListener('click', () => {
-        showToast.confirm("Voulez-vous vraiment vous déconnecter ?", {
-            onConfirm: () => {
-                AuthentificationUtilisateurs.logout();
-            }
-        });
+    container.querySelector('#logout-trigger').addEventListener('click', async () => {
+        const ok = await confirmDialog(
+            'Déconnexion',
+            'Voulez-vous vraiment vous déconnecter de votre compte ?',
+            { confirmText: 'Se déconnecter', cancelText: 'Annuler' }
+        );
+
+        if (ok) {
+            AuthentificationUtilisateurs.logout();
+        }
     });
 
     // Réinitialisation des icônes Lucide si présentes globalement

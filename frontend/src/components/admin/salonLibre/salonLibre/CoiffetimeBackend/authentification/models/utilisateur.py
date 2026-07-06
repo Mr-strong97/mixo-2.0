@@ -64,6 +64,9 @@ class Utilisateur(AbstractUser):
     # Email obligatoire et unique (utilisé pour la connexion)
     email = models.EmailField(unique=True)
 
+    # Avatar de départ choisi lors de l'inscription / paramètres
+    avatar_choice = models.CharField(max_length=30, blank=True, default='')
+
 
     # --- Rôle et statut typés ---
     role = models.CharField(

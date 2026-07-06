@@ -5,6 +5,7 @@ Surcharges pour l'environnement de production.
 DJANGO_SETTINGS_MODULE=config.settings.production
 """
 import os
+import dj_database_url
 from .base import *
 
 # ------------------------------------------------------------------ #
@@ -15,18 +16,11 @@ DEBUG = False
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
 # ------------------------------------------------------------------ #
-# BASE DE DONNÉES : PostgreSQL en production
-# Remplis ces valeurs dans ton fichier .env
+# BASE DE DONNÉES : PostgreSQL (Neon) en production
+# Lit directement DATABASE_URL depuis le .env
 # ------------------------------------------------------------------ #
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME':     os.getenv('DB_NAME', '_db'),
-        'USER':     os.getenv('DB_USER', 'postgres'),
-        'PASSWORD': os.getenv('DB_PASSWORD', ''),
-        'HOST':     os.getenv('DB_HOST', 'localhost'),
-        'PORT':     os.getenv('DB_PORT', '5432'),
-    }
+    'default': dj_database_url.parse(os.getenv('DATABASE_URL'))
 }
 
 # ------------------------------------------------------------------ #

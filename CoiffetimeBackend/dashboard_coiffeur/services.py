@@ -13,6 +13,13 @@ from services.models import Service
 from authentification.models.utilisateur import Utilisateur
 
 
+def _service_image_value(service):
+    image = getattr(service, 'image', None)
+    if not image:
+        return None
+    return image.url if hasattr(image, 'url') else image
+
+
 def _date_range(start, end):
     return [start + timedelta(days=i) for i in range((end - start).days + 1)]
 
@@ -78,7 +85,7 @@ def construire_dashboard_coiffeur(coiffeur):
             'total_reservations': getattr(service, 'total_reservations', 0),
             'note_moyenne': round(float(getattr(service, 'note_moyenne', 0) or 0), 2),
             'revenu_total': getattr(service, 'revenu_total', None),
-            'image': service.image.url if service.image else None,
+            'image': _service_image_value(service),
         }
         for service in service_qs.annotate(
             total_reservations=Count('rendez_vous'),
@@ -93,7 +100,7 @@ def construire_dashboard_coiffeur(coiffeur):
             'total_reservations': getattr(service, 'total_reservations', 0),
             'note_moyenne': round(float(getattr(service, 'note_moyenne', 0) or 0), 2),
             'revenu_total': getattr(service, 'revenu_total', None),
-            'image': service.image.url if service.image else None,
+            'image': _service_image_value(service),
         }
         for service in service_qs.annotate(
             revenu_total=Sum('rendez_vous__paiements__montant_total'),

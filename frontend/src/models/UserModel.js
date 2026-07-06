@@ -17,6 +17,7 @@ const BASE_FIELDS = {
     email:     '',
     firstName: '',
     lastName:  '',
+    avatarChoice: '',
     statut:    '',
     role:      '',
     sexe:      '',
@@ -46,6 +47,7 @@ export const createClientModel = (apiData = {}) => {
         email:     user.email       ?? '',
         firstName: user.first_name  ?? '',
         lastName:  user.last_name   ?? '',
+        avatarChoice: user.avatar_choice ?? '',
         statut:    user.statut      ?? '',
         // Champs spécifiques au client
         sexe:      apiData.sexe      ?? '',
@@ -74,6 +76,7 @@ export const createCoiffeurModel = (apiData = {}) => {
         email:       user.email      ?? '',
         firstName:   user.first_name ?? '',
         lastName:    user.last_name  ?? '',
+        avatarChoice: user.avatar_choice ?? '',
         statut:      user.statut     ?? '',
         // Champs spécifiques au coiffeur
         specialite:  apiData.specialite  ?? '',
@@ -99,6 +102,7 @@ export const modelToUserPayload = (model) => ({
     username:   model.username,
     first_name: model.firstName,
     last_name:  model.lastName,
+    avatar_choice: model.avatarChoice || '',
 });
 
 /**

@@ -77,15 +77,17 @@ class Utilisateur(AbstractUser):
         default=StatutChoix.EN_ATTENTE
     )
 
-    # --- Sécurité ---
+    # --- Sécurité / Firebase ---
     email_verifie        = models.BooleanField(default=False)
     deux_facteurs_actif  = models.BooleanField(default=False)
     tentatives_connexion = models.PositiveIntegerField(default=0)
     verrouille_jusqua    = models.DateTimeField(null=True, blank=True)
+    firebase_uid = models.CharField(max_length=128, unique=True, null=True, blank=True)
 
     # --- Profil partagé ---
     telephone = models.CharField(max_length=20, blank=True, default='')
     photo = models.ImageField(upload_to='avatars/%Y/%m/', blank=True, null=True)
+    avatar_choice = models.CharField(max_length=50, blank=True, default='')
 
     # --- Sanctions / réactivation ---
     motif_sanction = models.TextField(blank=True, default='')

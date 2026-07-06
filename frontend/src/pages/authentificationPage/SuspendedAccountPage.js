@@ -4,7 +4,7 @@
  * Page affichée quand un utilisateur est suspendu ou banni.
  * URL : /compte-suspendu
  */
-import api from '../../api/axiosConfig.js';
+import api, { AuthentificationUtilisateurs } from '../../api/axiosConfig.js';
 import { showToast } from '../../utils/toast.js';
 
 export const SuspendedAccountPage = () => {
@@ -128,10 +128,7 @@ export const SuspendedAccountPage = () => {
     });
 
     page.querySelector('#btn-logout').addEventListener('click', () => {
-        ['access_token', 'refresh_token', 'user_id', 'user_role', 'username']
-            .forEach(k => localStorage.removeItem(k));
-        if (window.navigate) window.navigate('/login');
-        else window.location.href = '/login';
+        AuthentificationUtilisateurs.logout();
     });
 
     const cached = localStorage.getItem('mixo_account_status');

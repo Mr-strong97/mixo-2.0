@@ -60,12 +60,11 @@ class Service(models.Model):
         validators=[MinValueValidator(0.01)],
         verbose_name=_("Prix (FC)"),
     )
-    image = models.ImageField(
-        upload_to='services/images/%Y/%m/',
+    image = models.URLField(
+        _("Image principale"),
+        max_length=500,
         blank=True,
         null=True,
-        validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'webp'])],
-        verbose_name=_("Image principale"),
     )
     ville = models.CharField(max_length=100, blank=True, null=True, verbose_name=_("Ville"))
     statut = models.CharField(max_length=20, choices=STATUT_CHOICES, default='actif', verbose_name=_("Statut"))
@@ -94,9 +93,11 @@ class Service(models.Model):
 class ServiceImage(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='galerie')
-    image = models.ImageField(
-        upload_to='services/galerie/%Y/%m/',
-        validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'webp'])],
+    image = models.URLField(
+        _("Image principale"),
+        max_length=500,
+        blank=True,
+        null=True,
     )
     created_at = models.DateTimeField(auto_now_add=True)
 

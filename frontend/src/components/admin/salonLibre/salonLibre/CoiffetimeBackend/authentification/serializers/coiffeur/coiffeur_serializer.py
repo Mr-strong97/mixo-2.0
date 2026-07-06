@@ -12,7 +12,7 @@ class UtilisateurResumSerializer(serializers.ModelSerializer):
     """Résumé de l'utilisateur imbriqué dans le profil coiffeur."""
     class Meta:
         model  = Utilisateur
-        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'statut']
+        fields = ['id', 'username', 'email', 'avatar_choice', 'first_name', 'last_name', 'statut']
         read_only_fields = fields
 
 

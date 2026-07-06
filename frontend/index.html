@@ -15,6 +15,12 @@
     <script type="module" src="/src/main.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/lucide@0.475.0/dist/umd/lucide.min.js"></script>
+    <script>
+      // Callback par défaut pour éviter une erreur si l'API reCAPTCHA charge
+      // avant que la page d'inscription n'enregistre son vrai handler.
+      window.onRecaptchaApiLoad = window.onRecaptchaApiLoad || function () {};
+    </script>
+    <script src="https://www.google.com/recaptcha/api.js?render=explicit&onload=onRecaptchaApiLoad" async defer></script>
     
     <script>
       // Cette fonction active les icônes globales au chargement initial

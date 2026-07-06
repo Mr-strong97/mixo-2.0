@@ -1,0 +1,109 @@
+.mxo-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 50%;
+    flex-shrink: 0;
+    color: #fff;
+    font-family: var(--font-ui);
+    font-weight: 800;
+    user-select: none;
+}
+
+.mxo-avatar--sm { width: 32px; height: 32px; font-size: 0.72rem; }
+.mxo-avatar--md { width: 48px; height: 48px; font-size: 0.9rem; }
+.mxo-avatar--lg { width: 72px; height: 72px; font-size: 1.15rem; }
+.mxo-avatar--xl { width: 96px; height: 96px; font-size: 1.55rem; }
+
+.mxo-avatar--photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mxo-avatar--choice img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.mxo-avatar-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.avatar-picker {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+}
+
+.avatar-picker__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.avatar-picker__title {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.avatar-picker__subtitle {
+    margin: 3px 0 0;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
+.avatar-picker__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(84px, 1fr));
+    gap: 10px;
+}
+
+.avatar-choice-btn {
+    border: 1px solid rgba(10, 102, 194, 0.12);
+    border-radius: 18px;
+    background: #fff;
+    padding: 12px 10px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.avatar-choice-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 28px rgba(10, 102, 194, 0.08);
+}
+
+.avatar-choice-btn.is-selected {
+    border-color: rgba(10, 102, 194, 0.38);
+    box-shadow: 0 14px 28px rgba(10, 102, 194, 0.12);
+}
+
+.avatar-choice-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.2;
+}
+
+.avatar-choice-btn .mxo-avatar {
+    box-shadow: 0 10px 20px rgba(15, 23, 42, 0.08);
+}
+
+@media (max-width: 576px) {
+    .avatar-picker__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}

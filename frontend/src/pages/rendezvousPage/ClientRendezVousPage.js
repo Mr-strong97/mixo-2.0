@@ -9,6 +9,7 @@ import { RendezVousCard } from '../../components/rendezvousComponents/RendezVous
 import { RendezVousAPI } from '../../api/RendezVousAPI.js';
 import { requireRole } from '../../utils/AuthGuard.js';
 import { showToast } from '../../utils/toast.js';
+import { confirmDialog } from '../../utils/confirmDialog.js';
 import { attachLiveRefresh } from '../../utils/liveRefresh.js';
 
 import '../../styles/rendezvousStyles/RendezVous.css';
@@ -267,14 +268,21 @@ export const ClientRendezVousPage = ({ id } = {}) => {
         }
     };
 
-    const confirmerAnnulation = (rdv) => {
-        if (!window.confirm('Annuler ce rendez-vous ?')) return;
+    const confirmerAnnulation = async (rdv) => {
+        const ok = await confirmDialog(
+            'Annuler ce rendez-vous ?',
+            'Cette action est définitive. Le créneau sera libéré et la réservation pourra être perdue selon la politique du salon.',
+            { confirmText: 'Annuler', cancelText: 'Conserver' }
+        );
+
+        if (!ok) return;
+
         RendezVousAPI.annuler(rdv.id)
             .then(() => {
-                showToast('✅ Rendez-vous annulé.');
+                showToast('Rendez-vous annulé avec succès.', 'success');
                 load();
             })
-            .catch((e) => showToast(`❌ ${e.response?.data?.error || 'Erreur.'}`));
+            .catch((e) => showToast(e.response?.data?.error || 'Impossible d’annuler le rendez-vous.', 'error'));
     };
 
     renderShell();

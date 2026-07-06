@@ -15,6 +15,7 @@ const TYPE_CONFIG = {
     AVERTISSEMENT:  { icon: 'alert-triangle', color: '#F59E0B', bg: 'rgba(245,158,11,0.08)'  },
     DANGER:         { icon: 'x-circle',       color: '#EF4444', bg: 'rgba(239,68,68,0.08)'   },
     SYSTEME:        { icon: 'settings',       color: '#6B7280', bg: 'rgba(107,114,128,0.08)' },
+    CHAT_MESSAGE:   { icon: 'messages-square', color: '#0A66C2', bg: 'rgba(10,102,194,0.08)' },
 };
 
 export const NotificationPage = () => {
@@ -43,6 +44,7 @@ export const NotificationPage = () => {
                     <option value="AVERTISSEMENT">Avertissement</option>
                     <option value="DANGER">Danger</option>
                     <option value="SYSTEME">Système</option>
+                    <option value="CHAT_MESSAGE">Message chat</option>
                 </select>
                 <button class="notif-btn-all-read" id="btn-all-read">
                     <i data-lucide="check-check"></i>

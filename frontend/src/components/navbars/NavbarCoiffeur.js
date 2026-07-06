@@ -7,6 +7,7 @@ import { NavbarLayout } from './NavbarLayout.js';
 export const NavbarCoiffeur = () => NavbarLayout([
     { id: 'dashboard', icon: 'layout-dashboard', label: 'Tableau de bord', route: '/coiffeur/dashboard' },
     { id: 'rdv', icon: 'calendar', label: 'Mes rendez-vous', route: '/rendez-vous' },
+    { id: 'discussion', icon: 'messages-square', label: 'Discussion', route: '/discussion' },
     { id: 'services', icon: 'scissors', label: 'Mes services', route: '/coiffeur/services' },
     { id: 'factures', icon: 'receipt-text', label: 'Factures', route: '/factures' },
     { id: 'notifications', icon: 'bell', label: 'Notifications', route: '/notifications' },

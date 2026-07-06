@@ -35,12 +35,12 @@ export const LoginPage = () => {
                     <span id="msg-locked"></span>
                 </div>
 
-                <!-- Username -->
+                <!-- Email -->
                 <div class="auth-field">
                     <div class="auth-field-icon-wrap">
-                        <i data-lucide="user" class="auth-field-icon"></i>
-                        <input id="inp-username" type="text" class="auth-input"
-                               placeholder="Nom d'utilisateur" autocomplete="username"/>
+                        <i data-lucide="mail" class="auth-field-icon"></i>
+                        <input id="inp-email" type="email" class="auth-input"
+                               placeholder="Adresse email" autocomplete="email"/>
                     </div>
                 </div>
 
@@ -98,10 +98,10 @@ export const LoginPage = () => {
     // ── Connexion ──────────────────────────────────────────
     const doLogin = async () => {
         hideBanners();
-        const username = page.querySelector('#inp-username').value.trim();
+        const email = page.querySelector('#inp-email').value.trim();
         const password = passInp.value;
 
-        if (!username || !password) { showToast("Veuillez remplir tous les champs."); return; }
+        if (!email || !password) { showToast("Veuillez remplir tous les champs."); return; }
 
         const btn  = page.querySelector('#btn-login');
         const orig = btn.innerHTML;
@@ -109,7 +109,7 @@ export const LoginPage = () => {
         btn.innerHTML = `<span class="spinner-sm"></span> Vérification…`;
 
         try {
-            await AuthentificationUtilisateurs.login({ username, password });
+            await AuthentificationUtilisateurs.login({ email, password });
             showToast(`Bienvenue, ${localStorage.getItem('username')} !`);
             setTimeout(() => { if (window.navigate) window.navigate('/home'); else window.location.href = '/home'; }, 900);
         } catch (err) {
@@ -130,7 +130,7 @@ export const LoginPage = () => {
 
     page.querySelector('#btn-login').addEventListener('click', doLogin);
     page.querySelector('#inp-password').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
-    page.querySelector('#inp-username').addEventListener('keydown', e => { if (e.key === 'Enter') page.querySelector('#inp-password').focus(); });
+    page.querySelector('#inp-email').addEventListener('keydown', e => { if (e.key === 'Enter') page.querySelector('#inp-password').focus(); });
 
     page.querySelector('#lnk-forgot').addEventListener('click', e => { e.preventDefault(); if (window.navigate) window.navigate('/forgot-password'); });
     page.querySelector('#btn-back').addEventListener('click', () => { if (window.navigate) window.navigate('/'); else window.location.href = '/'; });

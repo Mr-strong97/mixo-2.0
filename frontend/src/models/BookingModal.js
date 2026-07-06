@@ -265,11 +265,12 @@ export class BookingModal {
     btn.innerHTML = '<span class="bm-spinner"></span> Réservation…';
 
     try {
+      const token = await getFirebaseIdToken();
       const resp = await fetch(`${API_BASE_URL}rendez-vous/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('access_token')}`
+          ...(token ? { Authorization: `Bearer ${token}` } : {})
         },
         body: JSON.stringify({
           service_id: this.service.id,
@@ -343,3 +344,4 @@ function _generateSlots(date, service) {
   }
   return slots;
 }
+import { getFirebaseIdToken } from '../firebase-config.js';

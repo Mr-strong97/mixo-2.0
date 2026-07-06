@@ -27,6 +27,7 @@ def creerNouveauCompte(request):
                 "message": "Compte créé avec succès.",
                 "user_id": str(utilisateur.id),
                 "role":    utilisateur.role,
+                "avatar_choice": utilisateur.avatar_choice or '',
             },
             status=status.HTTP_201_CREATED
         )

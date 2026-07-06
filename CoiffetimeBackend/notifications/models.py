@@ -35,6 +35,7 @@ class TypeNotification(models.TextChoices):
     AVIS_DEMANDE          = 'AVIS_DEMANDE',          'Demande d’avis'
     AVIS_REPONSE_COIFFEUR = 'AVIS_REPONSE_COIFFEUR', 'Réponse du coiffeur'
     NOUVEL_AVIS           = 'NOUVEL_AVIS',           'Nouvel avis'
+    CHAT_MESSAGE          = 'CHAT_MESSAGE',          'Nouveau message chat'
     NOUVEL_UTILISATEUR    = 'NOUVEL_UTILISATEUR',    'Nouvel utilisateur'
     SIGNALEMENT           = 'SIGNALEMENT',           'Signalement'
     ALERTE_SYSTEME        = 'ALERTE_SYSTEME',        'Alerte système'

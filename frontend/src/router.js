@@ -23,6 +23,7 @@ import { AdminSettingsPage }       from './pages/authentificationPage/AdminSetti
 
 // ── 2.4. NOTIFICATIONS ──
 import { NotificationPage }      from './pages/notificationPage/NotificationPage.js';
+import { DiscussionPage }        from './pages/discussionPage/DiscussionPage.js';
 
 // ── 2.5. ADMINISTRATION ──
 import { AdminProfilePage }      from './pages/authentificationPage/AdminProfilePage.js';
@@ -124,6 +125,8 @@ const routes = [
 
     // Notifications
     { path: /^\/notifications$/,   component: NotificationPage },
+    { path: /^\/discussion$/,      component: DiscussionPage },
+    { path: /^\/discussion\/([a-fA-F0-9-]{36})$/, component: (params) => DiscussionPage(params), paramKeys: ['rendez_vous_id'] },
     { path: /^\/factures$/,        component: FacturesPage },
     { path: /^\/factures\/([a-fA-F0-9-]{36})$/, component: (params) => FacturesPage(params), paramKeys: ['id'] },
 

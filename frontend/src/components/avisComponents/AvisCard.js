@@ -1,3 +1,5 @@
+import { confirmDialog } from '../../utils/confirmDialog.js';
+
 /**
  * AvisCard.js — MIXO
  * Carte d'un avis — Espace Coiffeur (Avis Clients).
@@ -69,8 +71,14 @@ export const AvisCard = (avis, handlers = {}) => {
         }
     });
 
-    card.querySelector('[data-action="signaler"]')?.addEventListener('click', () => {
-        if (window.confirm('Signaler cet avis comme abusif ?')) {
+    card.querySelector('[data-action="signaler"]')?.addEventListener('click', async () => {
+        const ok = await confirmDialog(
+            'Signaler cet avis ?',
+            'Cette action enverra l’avis à la modération. Elle est réservée aux cas réellement abusifs.',
+            { confirmText: 'Signaler', cancelText: 'Annuler' }
+        );
+
+        if (ok) {
             handlers.onSignaler?.(avis.id);
         }
     });

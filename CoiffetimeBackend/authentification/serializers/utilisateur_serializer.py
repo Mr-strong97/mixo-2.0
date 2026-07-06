@@ -19,6 +19,7 @@ class UtilisateurSerializer(serializers.ModelSerializer):
             'last_name',
             'telephone',
             'photo',
+            'avatar_choice',
             'role',
             'statut',
             'email_verifie',

@@ -6,9 +6,12 @@
 import { Navbar }            from '../../components/navbars/Navbar.js';
 import { Footer }            from '../../components/Footer.js';
 import { SettingsLayout }    from '../../components/SettingsLayout.js';
+import { AvatarPicker }      from '../../components/settings/AvatarPicker.js';
 import { ProfilUtilisateur } from '../../api/axiosConfig.js';
+import { AuthentificationUtilisateurs } from '../../api/axiosConfig.js';
 import { requireAuth }       from '../../utils/AuthGuard.js';
 import { showToast }         from '../../utils/toast.js';
+import { renderAvatarMarkup } from '../../utils/avatar.js';
 import api                   from '../../api/axiosConfig.js';
 
 export const CoiffeurSettingsPage = () => {
@@ -24,6 +27,7 @@ export const CoiffeurSettingsPage = () => {
     let userData = {};
     const username = localStorage.getItem('username') || 'Coiffeur';
     const initials = username.substring(0, 2).toUpperCase();
+    let selectedAvatarChoice = localStorage.getItem('avatar_choice') || '';
     const getProfileUser = () => userData?.utilisateur || userData || {};
     const hydrateCompteFields = () => {
         const profile = getProfileUser();
@@ -71,6 +75,7 @@ export const CoiffeurSettingsPage = () => {
         const compteLastname = profile.last_name || '';
         const compteEmail = profile.email || '';
         const comptePhone = profile.telephone || profile.phone || '';
+        const currentAvatarChoice = profile.avatar_choice || selectedAvatarChoice || '';
 
         const el = document.createElement('div');
         el.className = 'sett-section';
@@ -82,7 +87,7 @@ export const CoiffeurSettingsPage = () => {
 
             <div class="sett-avatar-card">
                 <div class="sett-avatar-wrap">
-                    <div class="sett-avatar" style="background:linear-gradient(135deg,#0A66C2,#70B5F9);">${(compteUsername.substring(0, 2) || initials).toUpperCase()}</div>
+                    <div class="sett-avatar" id="sett-avatar-preview"></div>
                     <button class="sett-avatar-cam" title="Changer la photo professionnelle">
                         <i data-lucide="camera"></i>
                     </button>
@@ -91,6 +96,10 @@ export const CoiffeurSettingsPage = () => {
                     <div style="font-weight:600;font-size:0.95rem;color:#1A1D20;">${compteUsername}</div>
                     <span class="sett-badge-role" style="background:rgba(22, 92, 163, 0.1);color:#2275B8;border-color:rgba(22, 92, 163, 0.1)">COIFFEUR</span>
                 </div>
+            </div>
+
+            <div class="sett-card" style="margin-bottom:18px;">
+                <div id="avatar-picker-mount"></div>
             </div>
 
             <div class="sett-card">
@@ -106,6 +115,28 @@ export const CoiffeurSettingsPage = () => {
                 </button>
             </div>
         `;
+
+        const avatarPreview = el.querySelector('#sett-avatar-preview');
+        if (avatarPreview) {
+            avatarPreview.innerHTML = renderAvatarMarkup({
+                username: compteUsername || initials,
+                avatar_choice: currentAvatarChoice,
+            }, { size: 'lg' });
+        }
+
+        const pickerMount = el.querySelector('#avatar-picker-mount');
+        if (pickerMount) {
+            pickerMount.appendChild(AvatarPicker(compteUsername || initials, currentAvatarChoice, (choice) => {
+                selectedAvatarChoice = choice;
+                if (avatarPreview) {
+                    avatarPreview.innerHTML = renderAvatarMarkup({
+                        username: compteUsername || initials,
+                        avatar_choice: choice,
+                    }, { size: 'lg' });
+                }
+            }));
+        }
+
         el.querySelector('#save-compte').addEventListener('click', async () => {
             const btn = el.querySelector('#save-compte');
             const orig = btn.innerHTML;
@@ -121,10 +152,12 @@ export const CoiffeurSettingsPage = () => {
                     username:   nextUsername,
                     first_name: nextFirstName,
                     last_name:  nextLastName,
+                    avatar_choice: selectedAvatarChoice || '',
                 });
                 localStorage.setItem('username', nextUsername.toLowerCase());
+                localStorage.setItem('avatar_choice', selectedAvatarChoice || '');
                 window.dispatchEvent(new CustomEvent('mixo:profile-updated', {
-                    detail: { role: 'coiffeur', id, username: nextUsername },
+                    detail: { role: 'coiffeur', id, username: nextUsername, avatar_choice: selectedAvatarChoice || '' },
                 }));
                 showToast('✅ Profil mis à jour !');
             } catch (e) { showToast(`❌ ${e.message}`); }
@@ -282,12 +315,13 @@ export const CoiffeurSettingsPage = () => {
             const cf = el.querySelector('#f-confirm').value;
             if (!pw || pw.length < 8) { showToast("Min. 8 caractères."); return; }
             if (pw !== cf) { showToast("Les mots de passe ne correspondent pas."); return; }
-            showToast("📧 Lien de réinitialisation envoyé.");
+            AuthentificationUtilisateurs.forgotPassword(userData.email || '')
+                .then(() => showToast("📧 Lien de réinitialisation Firebase envoyé."))
+                .catch(() => showToast("Erreur."));
             el.querySelector('#pass-zone').style.display = 'none';
         });
         el.querySelector('#btn-deconnect').addEventListener('click', () => {
-            ['access_token','refresh_token','user_id','user_role','username'].forEach(k => localStorage.removeItem(k));
-            if (window.navigate) window.navigate('/login');
+            AuthentificationUtilisateurs.logout();
         });
         return el;
     }

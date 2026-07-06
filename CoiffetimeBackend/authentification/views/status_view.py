@@ -9,6 +9,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from avis.models import Avis
+from chat.models import Conversation, NotificationChat
 from paiements.models import Facture
 from rendez_vous.models import RendezVous
 from services.models import Service
@@ -26,6 +27,7 @@ def _compteurs_utilisateur(user, non_lues):
         "rdv": 0,
         "avis": 0,
         "factures": 0,
+        "discussion": 0,
     }
 
     if user.role == "CLIENT":
@@ -41,6 +43,10 @@ def _compteurs_utilisateur(user, non_lues):
         compteurs["factures"] = Facture.objects.filter(
             client=user,
             statut="GENEREE",
+        ).count()
+        compteurs["discussion"] = NotificationChat.objects.filter(
+            recipient=user,
+            statut='NON_LU',
         ).count()
         compteurs["services"] = Service.objects.filter(
             actif=True,
@@ -62,6 +68,10 @@ def _compteurs_utilisateur(user, non_lues):
             coiffeur=user,
             statut="GENEREE",
         ).count()
+        compteurs["discussion"] = NotificationChat.objects.filter(
+            recipient=user,
+            statut='NON_LU',
+        ).count()
         compteurs["services"] = Service.objects.filter(coiffeur=user).exclude(
             statut="actif",
             actif=True,
@@ -76,6 +86,9 @@ def _compteurs_utilisateur(user, non_lues):
         compteurs["services"] = Service.objects.exclude(
             statut="actif",
             actif=True,
+        ).count()
+        compteurs["discussion"] = Conversation.objects.filter(
+            last_message_at__gte=now - timedelta(days=7),
         ).count()
 
     return compteurs
@@ -97,6 +110,7 @@ def monStatut(request):
         "id":            str(user.id),
         "username":      user.username,
         "role":          user.role,
+        "avatar_choice": user.avatar_choice,
         "statut":        user.statut,
         "motif_sanction": user.motif_sanction,
         "date_sanction": user.date_sanction.isoformat() if user.date_sanction else None,

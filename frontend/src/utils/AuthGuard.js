@@ -4,10 +4,10 @@
  * compte les notifs depuis l'app notifications dédiée).
  */
 import api from '../api/axiosConfig.js';
+import { auth } from '../firebase-config.js';
 
 export const requireAuth = () => {
-    const token = localStorage.getItem('access_token');
-    if (!token) {
+    if (!auth.currentUser && !localStorage.getItem('user_id')) {
         if (window.navigate) window.navigate('/login');
         else window.location.href = '/login';
         return false;
@@ -27,7 +27,7 @@ export const requireRole = (role) => {
 };
 
 export const requireGuest = () => {
-    if (localStorage.getItem('access_token')) {
+    if (auth.currentUser || localStorage.getItem('user_id')) {
         if (window.navigate) window.navigate('/home');
         else window.location.href = '/home';
         return false;
@@ -40,7 +40,7 @@ export const requireGuest = () => {
  * Appelé dans Navbar → exécuté sur chaque page.
  */
 export const checkUserStatus = async () => {
-    if (!localStorage.getItem('access_token')) return;
+    if (!auth.currentUser && !localStorage.getItem('user_id')) return;
 
     try {
         const res = await api.get('auth/moi/statut/');
@@ -84,6 +84,7 @@ export const updateSectionBadges = (counts = {}) => {
             rdv: counts.rdv ?? 0,
             avis: counts.avis ?? 0,
             factures: counts.factures ?? 0,
+            discussion: counts.discussion ?? 0,
         },
     }));
 };

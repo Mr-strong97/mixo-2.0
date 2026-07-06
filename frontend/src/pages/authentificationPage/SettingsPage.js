@@ -81,6 +81,7 @@ export const SettingsPage = () => {
 
             const form = SettingsForm(model, (updatedModel) => {
                 localStorage.setItem('username', updatedModel.username.toLowerCase().trim());
+                localStorage.setItem('avatar_choice', updatedModel.avatarChoice || '');
             });
             content.appendChild(form);
 

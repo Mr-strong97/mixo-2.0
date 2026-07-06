@@ -1,9 +1,8 @@
 """
 authentification/urls.py — MIXO
-Les notifications sont maintenant dans l'app dédiée : /api/notifications/
+Le flux d'authentification principal est géré par Firebase.
 """
 from django.urls import path
-from rest_framework_simplejwt.views import TokenRefreshView
 
 from .views.creer_compte_view      import creerNouveauCompte
 from .views.connexion_view         import ConnexionPersonnaliseeView
@@ -24,8 +23,9 @@ from .views.reactivation_view      import demanderReactivation
 urlpatterns = [
     # Authentification
     path('inscription/',          creerNouveauCompte,                   name='creer-compte'),
-    path('connexion/',            ConnexionPersonnaliseeView.as_view(),  name='connexion'),
-    path('connexion/rafraichir/', TokenRefreshView.as_view(),           name='rafraichir-token'),
+    path('connexion/',            ConnexionPersonnaliseeView,           name='connexion'),
+    path('firebase/inscription/',  creerNouveauCompte,                   name='firebase-creer-compte'),
+    path('firebase/connexion/',    ConnexionPersonnaliseeView,           name='firebase-connexion'),
 
     # Statut temps réel (utilisé par AuthGuard.js)
     path('moi/statut/',           monStatut,                            name='mon-statut'),

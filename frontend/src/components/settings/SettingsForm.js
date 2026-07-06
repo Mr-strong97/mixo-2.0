@@ -13,7 +13,7 @@
 
 import { FormField, getFieldValue }      from './FormField.js';
 import { ToggleField, getSpecialiteValue } from './ToggleField.js';
-import { AvatarUpload }                   from './AvatarUpload.js';
+import { AvatarPicker }                   from './AvatarPicker.js';
 import { modelToUserPayload, modelToApiPayload } from '../../models/UserModel.js';
 import { ProfilUtilisateur }              from '../../api/axiosConfig.js';
 import { showToast }                      from '../../utils/toast.js';
@@ -27,7 +27,9 @@ export const SettingsForm = (model, onUpdate = null) => {
     // ---------------------------------------------------------------- //
     // 1. COMPOSANTS ATOMIQUES
     // ---------------------------------------------------------------- //
-    const avatar = AvatarUpload(model.username, model.role);
+    const avatar = AvatarPicker(model.username, model.avatarChoice || '', (choice) => {
+        model.avatarChoice = choice;
+    });
 
     // Colonne gauche
     const emailField = FormField({
@@ -215,12 +217,14 @@ export const SettingsForm = (model, onUpdate = null) => {
             if (updatedModel.username !== model.username) {
                 localStorage.setItem('username', updatedModel.username.toLowerCase().trim());
             }
+            localStorage.setItem('avatar_choice', updatedModel.avatarChoice || '');
 
             window.dispatchEvent(new CustomEvent('mixo:profile-updated', {
                 detail: {
                     role: model.role,
                     id: model.id,
                     username: updatedModel.username,
+                    avatar_choice: updatedModel.avatarChoice || '',
                 },
             }));
 

@@ -65,6 +65,13 @@ def _verifier_proprietaire(request, service):
         raise PermissionDenied("Vous n'êtes pas le propriétaire de ce service.")
 
 
+def _service_image_value(service):
+    image = getattr(service, 'image', None)
+    if not image:
+        return None
+    return image.url if hasattr(image, 'url') else image
+
+
 def _annoter_stats_services(qs, request=None):
     try:
         qs = qs.annotate(
@@ -226,7 +233,7 @@ def stats_services(request):
             top_prestations.append({
                 'id': str(s.id),
                 'nom_prestation': s.nom_prestation,
-                'image': request.build_absolute_uri(s.image.url) if s.image else None,
+                'image': _service_image_value(s),
                 'nb_reservations': getattr(s, 'nb_reservations', 0),
             })
     except Exception:
@@ -234,7 +241,7 @@ def stats_services(request):
             top_prestations.append({
                 'id': str(s.id),
                 'nom_prestation': s.nom_prestation,
-                'image': request.build_absolute_uri(s.image.url) if s.image else None,
+                'image': _service_image_value(s),
                 'nb_reservations': 0,
             })
 
@@ -317,12 +324,24 @@ def galerie_service(request, pk):
     if service.galerie.count() >= 8:
         return Response({"error": "Limite de 8 images par service atteinte."}, status=status.HTTP_400_BAD_REQUEST)
 
-    serializer = ServiceImageSerializer(data=request.data)
-    if serializer.is_valid():
+    fichiers = request.FILES.getlist('image')
+    if not fichiers and 'image' in request.data:
+        fichiers = [request.data.get('image')]
+
+    if not fichiers:
+        return Response({"error": "Aucune image fournie."}, status=status.HTTP_400_BAD_REQUEST)
+
+    images_creees = []
+    for fichier in fichiers:
+        serializer = ServiceImageSerializer(data={'image': fichier})
+        serializer.is_valid(raise_exception=True)
         image = serializer.save(service=service)
+        images_creees.append(ServiceImageSerializer(image).data)
         _journal(request, 'ADD_IMAGE_GALERIE', f'Service:{service.id}/Image:{image.id}')
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    if len(images_creees) == 1:
+        return Response(images_creees[0], status=status.HTTP_201_CREATED)
+    return Response(images_creees, status=status.HTTP_201_CREATED)
 
 
 @api_view(['DELETE'])

@@ -54,7 +54,7 @@ export const RendezVousRequestCard = (rdv, handlers = {}) => {
         addBtn('Refuser',  'x',     'rvc-btn-danger',  () => handlers.onRefuser?.(rdv));
     }
 
-    if (rdv.statut === 'ACCEPTE' && rdv.est_passe) {
+    if (rdv.statut === 'ACCEPTE') {
         addBtn('Marquer terminé', 'check-check', 'rvc-btn-primary', () => handlers.onTerminer?.(rdv));
     }
 
