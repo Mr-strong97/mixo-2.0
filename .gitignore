@@ -1,0 +1,19 @@
+# Environnements et secrets
+**/.env
+**/.env.*
+**/.env.save
+**/*.env
+**/*.env.*
+
+# Secrets Firebase / admin
+**/config/secrets/*.json
+**/config/secrets/*.key
+**/config/secrets/*.pem
+**/firebase-adminsdk*.json
+**/create_admin_firebase.py
+
+# Sorties de build / caches courants
+**/dist/
+**/build/
+**/__pycache__/
+**/*.pyc
