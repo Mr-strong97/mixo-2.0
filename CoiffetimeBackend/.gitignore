@@ -1,1 +1,4 @@
 .env
+config/secrets/*.json
+!config/secrets/.gitkeep
+create_admin_firebase.py
