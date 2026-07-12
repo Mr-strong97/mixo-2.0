@@ -69,3 +69,69 @@ if (app) {
 } else {
     console.error("Erreur : L'élément #app est introuvable dans le HTML.");
 }
+
+// Enregistrement du service worker pour rendre l'app installable et
+// garder un minimum de cache hors ligne sans modifier le comportement métier.
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch((error) => {
+            console.warn('[PWA] Service worker non enregistré :', error);
+        });
+    });
+}
+
+const isStandalone = () => (
+    window.matchMedia?.('(display-mode: standalone)').matches
+    || window.navigator.standalone === true
+);
+
+window.__mixoPwa = window.__mixoPwa || {
+    deferredPrompt: null,
+    standalone: isStandalone(),
+    isIOS: () => {
+        const ua = navigator.userAgent || '';
+        return /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    },
+    canInstall: () => Boolean(window.__mixoPwa.deferredPrompt) && !isStandalone(),
+    async promptInstall() {
+        const promptEvent = window.__mixoPwa.deferredPrompt;
+        if (!promptEvent) return { outcome: 'unavailable' };
+        promptEvent.prompt();
+        try {
+            const choice = await promptEvent.userChoice;
+            window.__mixoPwa.deferredPrompt = null;
+            window.dispatchEvent(new CustomEvent('mixo:pwa-install-state', {
+                detail: { canInstall: false, installed: choice?.outcome === 'accepted', ios: window.__mixoPwa.isIOS() },
+            }));
+            return choice;
+        } catch (error) {
+            window.__mixoPwa.deferredPrompt = null;
+            throw error;
+        }
+    },
+};
+
+window.addEventListener('beforeinstallprompt', (event) => {
+    event.preventDefault();
+    window.__mixoPwa.deferredPrompt = event;
+    window.dispatchEvent(new CustomEvent('mixo:pwa-install-state', {
+        detail: { canInstall: true, installed: false, ios: window.__mixoPwa.isIOS() },
+    }));
+});
+
+window.addEventListener('appinstalled', () => {
+    window.__mixoPwa.deferredPrompt = null;
+    window.dispatchEvent(new CustomEvent('mixo:pwa-install-state', {
+        detail: { canInstall: false, installed: true, ios: window.__mixoPwa.isIOS() },
+    }));
+});
+
+window.addEventListener('load', () => {
+    window.dispatchEvent(new CustomEvent('mixo:pwa-install-state', {
+        detail: {
+            canInstall: Boolean(window.__mixoPwa.deferredPrompt),
+            installed: isStandalone(),
+            ios: window.__mixoPwa.isIOS(),
+        },
+    }));
+});

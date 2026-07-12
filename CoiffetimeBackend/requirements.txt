@@ -26,6 +26,7 @@ google-resumable-media==2.10.0
 googleapis-common-protos==1.75.0
 grpcio==1.81.1
 grpcio-status==1.81.1
+gunicorn==26.0.0
 h11==0.16.0
 h2==4.3.0
 hpack==4.2.0
@@ -37,6 +38,7 @@ inflection==0.5.1
 jsonschema==4.26.0
 jsonschema-specifications==2025.9.1
 msgpack==1.2.1
+packaging==26.2
 pillow==12.2.0
 proto-plus==1.28.0
 protobuf==7.35.1
@@ -55,3 +57,4 @@ sqlparse==0.5.5
 typing_extensions==4.15.0
 uritemplate==4.2.0
 urllib3==2.7.0
+whitenoise==6.12.0

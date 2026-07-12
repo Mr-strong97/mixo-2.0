@@ -1,4 +1,13 @@
-.env
+.env*
+!.env.example
+venv/
+__pycache__/
+*.pyc
+db.sqlite3
+staticfiles/
+media/
+.vscode/
+.DS_Store
 config/secrets/*.json
 !config/secrets/.gitkeep
 create_admin_firebase.py

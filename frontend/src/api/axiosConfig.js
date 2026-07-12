@@ -29,6 +29,12 @@ api.interceptors.request.use(async (config) => {
         return config;
     }
 
+    if (typeof FormData !== 'undefined' && config.data instanceof FormData) {
+        config.headers = config.headers || {};
+        delete config.headers['Content-Type'];
+        delete config.headers['content-type'];
+    }
+
     const token = await getFirebaseIdToken();
     if (token) {
         config.headers = config.headers || {};

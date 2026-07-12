@@ -117,10 +117,7 @@ export const ServiceAPI = {
      * @param {Object|FormData} data
      */
     createService(data) {
-        const isFormData = data instanceof FormData;
-        return _data(axiosInstance.post('services/', data, {
-            headers: isFormData ? { 'Content-Type': 'multipart/form-data' } : {},
-        }));
+        return _data(axiosInstance.post('services/', data));
     },
 
     /** Alias */
@@ -135,11 +132,8 @@ export const ServiceAPI = {
      * @param {boolean}         partial  true → PATCH (défaut)
      */
     updateService(id, data, partial = true) {
-        const isFormData = data instanceof FormData;
         const method = partial ? 'patch' : 'put';
-        return _data(axiosInstance[method](`services/${id}/`, data, {
-            headers: isFormData ? { 'Content-Type': 'multipart/form-data' } : {},
-        }));
+        return _data(axiosInstance[method](`services/${id}/`, data));
     },
 
     /** Alias */
@@ -193,9 +187,7 @@ export const ServiceAPI = {
             Array.from(files).forEach(file => f.append('image', file));
             return f;
         })();
-        return _data(axiosInstance.post(`services/${serviceId}/galerie/`, fd, {
-            headers: { 'Content-Type': 'multipart/form-data' },
-        }));
+        return _data(axiosInstance.post(`services/${serviceId}/galerie/`, fd));
     },
 
     /** Alias */

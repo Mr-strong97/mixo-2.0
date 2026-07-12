@@ -1,0 +1,58 @@
+# Git / editor
+.git
+.gitignore
+.vscode
+.idea
+.DS_Store
+
+# Node
+**/node_modules
+**/dist
+**/.vite
+**/coverage
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Python
+**/venv
+**/.venv
+**/__pycache__
+**/*.pyc
+**/*.pyo
+**/*.pyd
+**/.pytest_cache
+**/.mypy_cache
+**/.ruff_cache
+**/staticfiles
+**/media
+**/db.sqlite3
+
+# Secrets / env files
+.env
+.env.backend
+.env.frontend
+**/.env
+**/.env.*
+!**/.env.example
+**/config/secrets/*.json
+!**/config/secrets/.gitkeep
+
+# Local archives / OS
+**/*.zip
+**/*.tar
+**/*.tar.gz
+**/*.tgz
+**/*.rar
+**/*.7z
+
+# Avoid packaging nested copies of the project
+frontend/src/components/admin/salonLibre
+frontend/src/components/admin/salonLibre/**
+frontend/src/components/admin/salonLibre/salonLibre
+frontend/src/components/admin/salonLibre/salonLibre/**
+CoiffetimeBackend/src/components/admin/salonLibre
+CoiffetimeBackend/src/components/admin/salonLibre/**
+CoiffetimeBackend/src/components/admin/salonLibre/salonLibre
+CoiffetimeBackend/src/components/admin/salonLibre/salonLibre/**

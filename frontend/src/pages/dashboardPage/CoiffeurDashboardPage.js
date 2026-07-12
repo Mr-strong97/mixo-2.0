@@ -85,7 +85,7 @@ export const CoiffeurDashboardPage = () => {
                                     <span>${escapeHtml(rdv.service_nom)}</span>
                                 </div>
                                 <div>${formatDate(rdv.date_heure_debut)}</div>
-                                <div><span class="cdp-status cdp-status-${rdv.statut.toLowerCase()}">${escapeHtml(rdv.statut)}</span></div>
+                                <div><span class="cdp-status cdp-status-${normalizeStatut(rdv.statut)}">${escapeHtml(rdv.statut || '—')}</span></div>
                             </div>
                         `).join('') : '<p class="cdp-empty-inline">Aucun rendez-vous récent.</p>'}
                     </div>
@@ -192,11 +192,12 @@ export const CoiffeurDashboardPage = () => {
             const data = await CoiffeurDashboardAPI.getMonDashboard();
             render(data);
         } catch (error) {
+            const message = getDashboardErrorMessage(error);
             main.innerHTML = `
                 <div class="cdp-empty">
                     <i data-lucide="alert-triangle"></i>
                     <h2>Impossible de charger le dashboard</h2>
-                    <p>${error.response?.data?.detail || 'Réessayez plus tard.'}</p>
+                    <p>${escapeHtml(message)}</p>
                 </div>`;
             if (window.lucide) window.lucide.createIcons();
         }
@@ -239,6 +240,24 @@ function formatPrix(prix) {
     const n = parseFloat(prix);
     if (Number.isNaN(n)) return '0';
     return Number.isInteger(n) ? String(n) : n.toFixed(2);
+}
+
+function getDashboardErrorMessage(error) {
+    const apiDetail = error?.response?.data?.detail;
+    if (apiDetail) return apiDetail;
+    if (error?.code === 'ECONNABORTED') {
+        return 'Le chargement du dashboard a pris trop de temps. Réessayez dans un instant.';
+    }
+    if (error?.code === 'ERR_CANCELED') {
+        return 'Le chargement du dashboard a été interrompu. Réessayez.';
+    }
+    return 'Réessayez plus tard.';
+}
+
+function normalizeStatut(statut) {
+    return String(statut || 'inconnu')
+        .toLowerCase()
+        .replace(/[^a-z0-9_-]+/g, '-');
 }
 
 function escapeHtml(str = '') {
