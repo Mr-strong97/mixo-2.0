@@ -1,9 +1,21 @@
-FROM node:22-alpine AS build
+FROM node:22-slim AS build
 
 WORKDIR /app
 
+# Force Node/NPM to prefer IPv4 when both families are available.
+ENV NODE_OPTIONS=--dns-result-order=ipv4first
+
 COPY frontend/package*.json ./
-RUN npm ci
+
+# Force IPv4 en priorité : le réseau Docker bridge par défaut ne route pas
+# l'IPv6, mais registry.npmjs.org renvoie des adresses IPv6 en priorité,
+# ce qui provoque des timeouts de connexion (ETIMEDOUT).
+RUN echo "precedence ::ffff:0:0/96 100" >> /etc/gai.conf
+
+RUN npm config set fetch-retries 5 \
+ && npm config set fetch-retry-mintimeout 20000 \
+ && npm config set fetch-retry-maxtimeout 120000 \
+ && npm ci
 
 ARG VITE_API_URL=/api/
 ARG VITE_FIREBASE_API_KEY=
