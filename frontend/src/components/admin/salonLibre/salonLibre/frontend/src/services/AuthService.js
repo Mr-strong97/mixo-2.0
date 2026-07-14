@@ -1,8 +1,28 @@
 import axios from 'axios';
 
+const normalizeApiBaseUrl = (value) => {
+    const trimmed = String(value || '').trim();
+    if (!trimmed) return '';
+    return trimmed.endsWith('/') ? trimmed : `${trimmed}/`;
+};
+
+const resolveApiBaseUrl = () => {
+    const envUrl = normalizeApiBaseUrl(import.meta.env.VITE_API_URL);
+    if (envUrl) return envUrl;
+
+    if (typeof window !== 'undefined') {
+        const { hostname } = window.location;
+        if (hostname === 'localhost' || hostname === '127.0.0.1') {
+            return 'http://127.0.0.1:8000/api/';
+        }
+    }
+
+    return '/api/';
+};
+
 // 1. Configuration de l'instance
 const api = axios.create({
-    baseURL: 'http://127.0.0.1:8000/api', 
+    baseURL: resolveApiBaseUrl(),
     headers: {
         'Content-Type': 'application/json',
     }

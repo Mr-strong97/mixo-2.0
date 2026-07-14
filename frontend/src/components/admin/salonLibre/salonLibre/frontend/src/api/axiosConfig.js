@@ -8,7 +8,27 @@
  */
 import axios from 'axios';
 
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000/api/';
+const normalizeApiBaseUrl = (value) => {
+    const trimmed = String(value || '').trim();
+    if (!trimmed) return '';
+    return trimmed.endsWith('/') ? trimmed : `${trimmed}/`;
+};
+
+const resolveApiBaseUrl = () => {
+    const envUrl = normalizeApiBaseUrl(import.meta.env.VITE_API_URL);
+    if (envUrl) return envUrl;
+
+    if (typeof window !== 'undefined') {
+        const { hostname } = window.location;
+        if (hostname === 'localhost' || hostname === '127.0.0.1') {
+            return 'http://127.0.0.1:8000/api/';
+        }
+    }
+
+    return '/api/';
+};
+
+const BASE_URL = resolveApiBaseUrl();
 
 export const api = axios.create({
     baseURL: BASE_URL,
