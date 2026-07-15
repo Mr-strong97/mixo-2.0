@@ -1,90 +1,19 @@
-import axios from 'axios';
+/**
+ * AuthService.js — MIXO
+ * Relais vers le client centralisé (axiosConfig.js).
+ * Toute la logique d'authentification réelle vit dans axiosConfig.js (Firebase).
+ * Ce fichier ne doit contenir AUCUNE instance axios ni AUCUN fallback d'URL.
+ */
+import { AuthentificationUtilisateurs, ProfilUtilisateur, api } from '../../api/axiosConfig.js';
 
-const normalizeApiBaseUrl = (value) => {
-    const trimmed = String(value || '').trim();
-    if (!trimmed) return '';
-    return trimmed.endsWith('/') ? trimmed : `${trimmed}/`;
-};
-
-const resolveApiBaseUrl = () => {
-    const envUrl = normalizeApiBaseUrl(import.meta.env.VITE_API_URL);
-    if (envUrl) return envUrl;
-
-    if (typeof window !== 'undefined') {
-        const { hostname } = window.location;
-        if (hostname === 'localhost' || hostname === '127.0.0.1') {
-            return 'http://127.0.0.1:8000/api/';
-        }
-    }
-
-    return '/api/';
-};
-
-// 1. Configuration de l'instance
-const api = axios.create({
-    baseURL: resolveApiBaseUrl(),
-    headers: {
-        'Content-Type': 'application/json',
-    }
-});
-
-// Intercepteur pour ajouter le token à chaque requête (indispensable pour le profil)
-api.interceptors.request.use((config) => {
-    const token = localStorage.getItem('access_token');
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-});
-
-export const AuthentificationUtilisateurs = {
-    // INSCRIPTION
-    async register(userData) {
-        try {
-            const response = await api.post('/auth/inscription/', userData);
-            return response.data;
-        } catch (error) {
-            throw error.response?.data || "Erreur d'inscription";
-        }
-    },
-
-    // CONNEXION
-    async login(credentials) {
-        try {
-            const response = await api.post('/auth/connexion/', credentials);
-            
-            // Stockage automatique des infos reçues (Règle 1: DRY)
-            if (response.data.access) {
-                localStorage.setItem('access_token', response.data.access);
-                localStorage.setItem('user_id', response.data.user_id);
-                localStorage.setItem('user_role', response.data.role);
-                localStorage.setItem('username', response.data.username);
-            }
-            
-            return response.data;
-        } catch (error) {
-            throw error.response?.data || "Erreur de connexion";
-        }
-    },
-
-    // RÉCUPÉRATION DU PROFIL (L'erreur était ici !)
-    async getUserProfile(role, id) {
-        try {
-            // On s'assure que le pluriel est correct pour l'URL Django
-            const endpoint = `/auth/${role}s/${id}/`; 
-            const response = await api.get(endpoint);
-            return response.data;
-        } catch (error) {
-            console.error(`Erreur profil ${role}:`, error);
-            throw error.response?.data || "Impossible de charger le profil";
-        }
-    },
-
-    // DÉCONNEXION
-    logout() {
-        localStorage.clear();
-        window.navigate('/login');
-    }
+export const AuthService = {
+    register: AuthentificationUtilisateurs.register,
+    login: AuthentificationUtilisateurs.login,
+    logout: AuthentificationUtilisateurs.logout,
+    forgotPassword: AuthentificationUtilisateurs.forgotPassword,
+    isAuthenticated: AuthentificationUtilisateurs.isAuthenticated,
+    currentUser: AuthentificationUtilisateurs.currentUser,
+    getUserProfile: ProfilUtilisateur.getUserProfile,
 };
 
 export default api;
