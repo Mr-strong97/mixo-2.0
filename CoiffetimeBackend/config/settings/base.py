@@ -1,21 +1,37 @@
 """
 config/settings/base.py
-========================
+=======================
 Paramètres communs à tous les environnements.
-Ne jamais changer DEBUG ou DATABASES ici.
 """
 import os
 from datetime import timedelta
 from pathlib import Path
+
 # pyrefly: ignore [missing-import]
 from dotenv import load_dotenv
 import cloudinary
 from django.core.exceptions import ImproperlyConfigured
 
-# Remonte deux niveaux : config/settings/base.py → projet/
+# Remonte deux niveaux : config/settings/base.py → CoiffetimeBackend/
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+PROJECT_ROOT = BASE_DIR.parent
 
-load_dotenv(BASE_DIR / '.env')
+
+def _split_env(name, default=''):
+    raw_value = os.getenv(name, default)
+    return [item.strip() for item in str(raw_value).split(',') if item.strip()]
+
+
+def _env_url(name, default=''):
+    return os.getenv(name, default).strip().rstrip('/')
+
+
+for env_file, override in (
+    (PROJECT_ROOT / '.env.backend', False),
+    (BASE_DIR / '.env', True),
+):
+    if env_file.exists():
+        load_dotenv(env_file, override=override)
 
 # ------------------------------------------------------------------ #
 # SÉCURITÉ
@@ -25,7 +41,8 @@ SECRET_KEY = os.getenv(
     'django-insecure-changeme-at-least-50-chars-long-for-jwt-ok'
 )
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = _split_env('ALLOWED_HOSTS', 'localhost,127.0.0.1')
+FRONTEND_URL = _env_url('FRONTEND_URL', 'http://localhost:5173')
 
 # ------------------------------------------------------------------ #
 # APPLICATIONS
@@ -90,8 +107,16 @@ MIDDLEWARE = [
 # CORS (Frontend Vite port 5173)
 # ------------------------------------------------------------------ #
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
+    origin for origin in _split_env(
+        'CORS_ALLOWED_ORIGINS',
+        f"{FRONTEND_URL},http://localhost:5173,http://127.0.0.1:5173",
+    )
+]
+CSRF_TRUSTED_ORIGINS = [
+    origin for origin in _split_env(
+        'CSRF_TRUSTED_ORIGINS',
+        FRONTEND_URL,
+    )
 ]
 
 # ------------------------------------------------------------------ #
@@ -152,6 +177,8 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
+
+X_FRAME_OPTIONS = 'DENY'
 
 # ------------------------------------------------------------------ #
 # INTERNATIONALISATION

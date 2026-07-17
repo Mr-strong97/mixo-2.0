@@ -14,10 +14,20 @@ from .base import *
 DEBUG = True
 
 CORS_ALLOW_ALL_ORIGINS = True
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # ------------------------------------------------------------------ #
-# BASE DE DONNÉES : Neon (unique base pour dev et prod)
+# BASE DE DONNÉES : SQLite en local si DATABASE_URL n'est pas fourni
 # ------------------------------------------------------------------ #
-DATABASES = {
-    'default': dj_database_url.parse(os.getenv('DATABASE_URL'))
-}
+database_url = os.getenv('DATABASE_URL', '').strip()
+if database_url:
+    DATABASES = {
+        'default': dj_database_url.parse(database_url)
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
