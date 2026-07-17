@@ -14,7 +14,7 @@ Frontend Vite du projet MIXO.
 Le frontend lit ses variables depuis:
 
 - `frontend/.env`
-- `.env.frontend` à la racine si tu l’utilises dans Docker ou dans un pipeline
+- `.env.frontend` à la racine si tu l’utilises dans un pipeline ou un déploiement manuel
 
 Variables utiles:
 

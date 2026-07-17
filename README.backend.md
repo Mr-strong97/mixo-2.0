@@ -44,8 +44,8 @@ Si `DATABASE_URL` est absent en local, le mode développement retombe sur SQLite
 
 - `manage.py` reste orienté développement pour le travail local.
 - `wsgi.py` et `asgi.py` démarrent en mode production par défaut.
-- Le conteneur Docker exécute `migrate`, `collectstatic`, puis `gunicorn`.
-- Nginx doit proxyfier `/api/` et `/admin/` vers le service backend.
+- Lance `migrate`, `collectstatic`, puis `gunicorn` sur ton serveur.
+- Nginx, si tu l’utilises, doit proxyfier `/api/` et `/admin/` vers le service backend.
 
 ## Fichiers sensibles
 
@@ -54,4 +54,3 @@ Ne jamais versionner:
 - les fichiers `.env`
 - les clés Firebase Admin
 - les dossiers `media/`, `staticfiles/`, `node_modules/`, `dist/`
-
