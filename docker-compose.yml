@@ -1,19 +1,4 @@
 services:
-  postgres:
-    image: postgres:16-alpine
-    restart: unless-stopped
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:-mixo}
-      POSTGRES_USER: ${POSTGRES_USER:-mixo}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Définissez POSTGRES_PASSWORD dans Dokploy}
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
-
   backend:
     build:
       context: .
@@ -25,15 +10,12 @@ services:
       FRONTEND_URL: ${FRONTEND_URL:?Définissez FRONTEND_URL dans Dokploy}
       CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-${FRONTEND_URL}}
       CSRF_TRUSTED_ORIGINS: ${CSRF_TRUSTED_ORIGINS:-${FRONTEND_URL}}
-      DATABASE_URL: postgresql://${POSTGRES_USER:-mixo}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-mixo}
+      DATABASE_URL: ${DATABASE_URL:?Définissez DATABASE_URL (URL de connexion Neon) dans Dokploy}
       CLOUDINARY_CLOUD_NAME: ${CLOUDINARY_CLOUD_NAME:?Définissez CLOUDINARY_CLOUD_NAME dans Dokploy}
       CLOUDINARY_API_KEY: ${CLOUDINARY_API_KEY:?Définissez CLOUDINARY_API_KEY dans Dokploy}
       CLOUDINARY_API_SECRET: ${CLOUDINARY_API_SECRET:?Définissez CLOUDINARY_API_SECRET dans Dokploy}
       FIREBASE_ADMIN_CREDENTIALS_PATH: /run/secrets/firebase-adminsdk.json
       FIREBASE_ADMIN_CREDENTIALS_JSON: ${FIREBASE_ADMIN_CREDENTIALS_JSON:?Définissez FIREBASE_ADMIN_CREDENTIALS_JSON dans Dokploy}
-    depends_on:
-      postgres:
-        condition: service_healthy
     volumes:
       - django_static:/app/staticfiles
       - django_media:/app/media
@@ -59,6 +41,5 @@ services:
       - django_media:/var/www/media:ro
 
 volumes:
-  postgres_data:
   django_static:
   django_media:
