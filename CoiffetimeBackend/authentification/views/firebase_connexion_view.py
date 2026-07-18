@@ -26,6 +26,7 @@ def connexionFirebase(request):
     serializer = FirebaseSessionSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     decoded = serializer.firebase_claims
+
     if not decoded.get('email_verified') and not settings.DEBUG:
         return Response(
             {

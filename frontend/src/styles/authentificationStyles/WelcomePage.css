@@ -19,7 +19,7 @@
 
 /* ── 2. SECTION GAUCHE (Visuelle) ───────────────────────────── */
 .bg-image-section {
-    background: url("../../../public/images/mixo3.png") center/cover no-repeat;
+    background: url("/images/mixo3.png") center/cover no-repeat;
     position: relative;
     height: 100%;
     /* Slide depuis la gauche */

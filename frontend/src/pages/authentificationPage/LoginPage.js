@@ -14,7 +14,7 @@ export const LoginPage = () => {
 
     page.innerHTML = `
         <!-- Colonne gauche : image -->
-        <div class="auth-left" style="background:url('/public/images/mixo6.png') center/cover no-repeat;">
+        <div class="auth-left" style="background:url('/images/mixo6.png') center/cover no-repeat;">
             <div class="auth-glass-card" style="margin-top:300px;">
                 <h2>Ravi de vous<br><span>revoir</span></h2>
             </div>

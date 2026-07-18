@@ -30,7 +30,7 @@ export const ResetPasswordPage = () => {
 
     page.innerHTML = `
         <!-- Colonne gauche -->
-        <div class="auth-left" style="background:url('/public/images/mixo4.png') center/cover no-repeat;">
+        <div class="auth-left" style="background:url('/images/mixo4.png') center/cover no-repeat;">
             <div class="auth-glass-card" style="background:rgba(0,0,0,0.45);border-color:rgba(255,255,255,0.1);margin-top:20px;">
                 <h2 style="color:#fff;">Nouveau<br><span style="color:#0A66C2;">Mot de passe</span></h2>
             </div>

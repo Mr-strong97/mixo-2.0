@@ -15,7 +15,9 @@ from django.conf import settings
 def _resolve_cred_path() -> Path | None:
     configured = os.getenv("FIREBASE_ADMIN_CREDENTIALS_PATH")
     if configured:
-        return Path(configured)
+        configured_path = Path(configured)
+        if configured_path.exists():
+            return configured_path
 
     default = Path(settings.BASE_DIR) / "config" / "secrets" / "firebase-adminsdk.json"
     return default if default.exists() else None
