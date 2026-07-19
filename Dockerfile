@@ -43,6 +43,11 @@ RUN apt-get update \
 COPY CoiffetimeBackend/requirements.txt ./
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
+# Fix known bug in djangorestframework-simplejwt migration 0003:
+# https://github.com/jazzband/djangorestframework-simplejwt/issues/131
+RUN sed -i "s/token\.jti_hex = token\.jti\.hex$/token.jti_hex = token.jti.hex if hasattr(token.jti, 'hex') else token.jti/" \
+    "$(python -c "import rest_framework_simplejwt, os; print(os.path.join(os.path.dirname(rest_framework_simplejwt.__file__), 'token_blacklist', 'migrations', '0003_auto_20171017_2007.py'))")"
+
 COPY CoiffetimeBackend/ ./
 COPY deploy/backend-entrypoint.sh /usr/local/bin/backend-entrypoint
 
