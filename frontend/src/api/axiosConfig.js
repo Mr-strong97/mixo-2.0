@@ -114,9 +114,18 @@ const firebaseErrorMessage = (error) => {
 
 const extractApiErrorMessage = (error, fallback = 'Une erreur est survenue.') => {
     const data = error?.response?.data;
+    const status = Number(error?.response?.status || error?.status || 0);
+
+    if (status >= 500) {
+        return "Le serveur est temporairement indisponible. Réessayez dans quelques instants.";
+    }
+
     if (!data) return firebaseErrorMessage(error) || fallback;
 
-    if (typeof data === 'string') return data;
+    if (typeof data === 'string') {
+        if (data.trimStart().startsWith('<')) return fallback;
+        return data;
+    }
     if (data.detail) return data.detail;
     if (Array.isArray(data.non_field_errors) && data.non_field_errors.length) {
         return data.non_field_errors[0];
@@ -218,6 +227,23 @@ export const AuthentificationUtilisateurs = {
             }
 
             throw new Error(extractApiErrorMessage(error));
+        }
+    },
+
+    async resendVerificationEmail(credentials) {
+        const email = (credentials?.email || '').trim();
+        const password = credentials?.password || '';
+        if (!email || !password) throw new Error('Email et mot de passe requis.');
+
+        try {
+            const { user } = await signInWithEmailAndPassword(auth, email, password);
+            if (user.emailVerified) return false;
+            await sendEmailVerification(user);
+            return true;
+        } catch (error) {
+            throw new Error(extractApiErrorMessage(error, 'Impossible de renvoyer l’email de vérification.'));
+        } finally {
+            try { await signOut(auth); } catch {}
         }
     },
 

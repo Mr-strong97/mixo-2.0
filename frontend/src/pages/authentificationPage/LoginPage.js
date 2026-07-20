@@ -34,6 +34,11 @@ export const LoginPage = () => {
                     <i data-lucide="lock"></i>
                     <span id="msg-locked"></span>
                 </div>
+                <div id="banner-email" class="auth-banner auth-banner-warning" style="display:none;">
+                    <i data-lucide="mail-check"></i>
+                    <span id="msg-email"></span>
+                    <button id="btn-resend-verification" type="button" style="margin-left:auto;">Renvoyer</button>
+                </div>
 
                 <!-- Email -->
                 <div class="auth-field">
@@ -93,7 +98,8 @@ export const LoginPage = () => {
     // ── Bandeaux ───────────────────────────────────────────
     const bannerPending = page.querySelector('#banner-pending');
     const bannerLocked  = page.querySelector('#banner-locked');
-    const hideBanners   = () => { bannerPending.style.display = 'none'; bannerLocked.style.display = 'none'; };
+    const bannerEmail   = page.querySelector('#banner-email');
+    const hideBanners   = () => { bannerPending.style.display = 'none'; bannerLocked.style.display = 'none'; bannerEmail.style.display = 'none'; };
 
     // ── Connexion ──────────────────────────────────────────
     const doLogin = async () => {
@@ -121,12 +127,31 @@ export const LoginPage = () => {
             } else if (msg.toLowerCase().includes('verrouillé')) {
                 page.querySelector('#msg-locked').textContent = msg;
                 bannerLocked.style.display = 'flex';
+            } else if (msg.toLowerCase().includes('vérifi') && msg.toLowerCase().includes('email')) {
+                page.querySelector('#msg-email').textContent = msg;
+                bannerEmail.style.display = 'flex';
             } else {
                 showToast(msg);
             }
             if (window.lucide) window.lucide.createIcons();
         }
     };
+
+    page.querySelector('#btn-resend-verification').addEventListener('click', async () => {
+        const resendBtn = page.querySelector('#btn-resend-verification');
+        resendBtn.disabled = true;
+        try {
+            await AuthentificationUtilisateurs.resendVerificationEmail({
+                email: page.querySelector('#inp-email').value,
+                password: passInp.value,
+            });
+            showToast('Email de vérification renvoyé. Vérifiez aussi vos spams.');
+        } catch (err) {
+            showToast(err.message || 'Impossible de renvoyer l’email.');
+        } finally {
+            resendBtn.disabled = false;
+        }
+    });
 
     page.querySelector('#btn-login').addEventListener('click', doLogin);
     page.querySelector('#inp-password').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
