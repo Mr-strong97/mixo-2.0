@@ -39,6 +39,7 @@ services:
     volumes:
       - django_static:/var/www/static:ro
       - django_media:/var/www/media:ro
+       - ../files/firebase-adminsdk.json:/run/secrets/firebase-adminsdk.json:ro
 
 volumes:
   django_static:
