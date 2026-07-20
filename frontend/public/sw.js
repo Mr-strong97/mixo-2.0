@@ -1,4 +1,4 @@
-const VERSION = 'mixo-pwa-v1';
+const VERSION = 'mixo-pwa-v2';
 const STATIC_CACHE = `${VERSION}-static`;
 const RUNTIME_CACHE = `${VERSION}-runtime`;
 
@@ -62,6 +62,7 @@ async function networkFirst(request) {
   try {
     const response = await fetch(request);
     if (response.ok) {
+      await cache.put(request, response.clone());
       return response;
     }
     throw new Error(`Bad response for ${request.url}`);

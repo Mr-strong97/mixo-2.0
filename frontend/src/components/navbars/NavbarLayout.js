@@ -133,13 +133,16 @@ export const NavbarLayout = (links = [], activeRoute = '') => {
         burgerBtn.classList.remove('active');
         nav.classList.remove('nl-open');
         document.body.classList.remove('no-scroll');
+        document.body.classList.remove('nav-menu-open');
     };
 
     burgerBtn.addEventListener('click', e => {
         e.stopPropagation();
         burgerBtn.classList.toggle('active');
         nav.classList.toggle('nl-open');
-        document.body.classList.toggle('no-scroll');
+        const isOpen = nav.classList.contains('nl-open');
+        document.body.classList.toggle('no-scroll', isOpen);
+        document.body.classList.toggle('nav-menu-open', isOpen);
     });
 
     if (document.__mixoNavbarOutsideClickHandler) {

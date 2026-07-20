@@ -235,11 +235,15 @@
         box-shadow: 4px 0 24px rgba(0,0,0,0.1);
     }
     /* Voile derrière la nav */
-    body.no-scroll::after {
+    /* Le voile ne doit exister que lorsque le menu est réellement ouvert.
+       `no-scroll` peut rester présent pendant un changement de route et
+       flouter alors toute la page d'accueil. */
+    body.nav-menu-open::after {
         content: '';
         position: fixed; inset: 0;
         background: rgba(26,29,32,0.18);
         backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
         z-index: 999;
         pointer-events: none;
     }
