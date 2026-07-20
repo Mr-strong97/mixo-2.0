@@ -1,23 +1,20 @@
 #!/bin/sh
 set -eu
 
-if [ -n "${FIREBASE_ADMIN_CREDENTIALS_JSON:-}" ]; then
-    printf '%s' "$FIREBASE_ADMIN_CREDENTIALS_JSON" > /run/secrets/firebase-adminsdk.json
-    chmod 600 /run/secrets/firebase-adminsdk.json
+CRED_FILE="${FIREBASE_ADMIN_CREDENTIALS_PATH:-/run/secrets/firebase-adminsdk.json}"
 
-    echo "=== Verification du fichier Firebase Admin ==="
-    echo "Taille du fichier : $(wc -c < /run/secrets/firebase-adminsdk.json) caracteres"
-    echo "Premiers caracteres : $(head -c 30 /run/secrets/firebase-adminsdk.json)"
-    echo "Derniers caracteres : $(tail -c 30 /run/secrets/firebase-adminsdk.json)"
-    if python -c "import json,sys; json.load(open('/run/secrets/firebase-adminsdk.json'))" 2>/tmp/firebase_json_error.txt; then
+if [ -f "$CRED_FILE" ]; then
+    echo "=== Verification du fichier Firebase Admin ($CRED_FILE) ==="
+    echo "Taille du fichier : $(wc -c < "$CRED_FILE") caracteres"
+    if python -c "import json,sys; json.load(open('$CRED_FILE'))" 2>/tmp/firebase_json_error.txt; then
         echo "=== OK : le JSON Firebase Admin est valide ==="
     else
         echo "=== ERREUR : le JSON Firebase Admin est INVALIDE ==="
         cat /tmp/firebase_json_error.txt
-        echo "=== Corrigez la variable FIREBASE_ADMIN_CREDENTIALS_JSON dans Dokploy et redeployez ==="
+        echo "=== Corrigez le fichier monte via Dokploy (Advanced > Mounts) et redeployez ==="
     fi
 else
-    echo "=== ATTENTION : FIREBASE_ADMIN_CREDENTIALS_JSON est vide ou absente ==="
+    echo "=== ATTENTION : fichier Firebase Admin introuvable a $CRED_FILE ==="
 fi
 
 python manage.py migrate --noinput
