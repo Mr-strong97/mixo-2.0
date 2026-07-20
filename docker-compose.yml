@@ -15,7 +15,7 @@ services:
       CLOUDINARY_API_KEY: ${CLOUDINARY_API_KEY:?Définissez CLOUDINARY_API_KEY dans Dokploy}
       CLOUDINARY_API_SECRET: ${CLOUDINARY_API_SECRET:?Définissez CLOUDINARY_API_SECRET dans Dokploy}
       FIREBASE_ADMIN_CREDENTIALS_PATH: /run/secrets/firebase-adminsdk.json
-      FIREBASE_ADMIN_CREDENTIALS_JSON: ${FIREBASE_ADMIN_CREDENTIALS_JSON:?Définissez FIREBASE_ADMIN_CREDENTIALS_JSON dans Dokploy}
+    
     volumes:
       - django_static:/app/staticfiles
       - django_media:/app/media
