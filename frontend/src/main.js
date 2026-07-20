@@ -64,6 +64,17 @@ import { initRouter } from './router';
 // --- 3. INITIALISATION ---
 const app = document.querySelector('#app');
 
+// Prompt PWA conservé pour le bouton « Installer l'application ».
+window.__mixoInstallPrompt = null;
+window.addEventListener('beforeinstallprompt', (event) => {
+    event.preventDefault();
+    window.__mixoInstallPrompt = event;
+    window.dispatchEvent(new CustomEvent('mixo:pwa-install-available'));
+});
+window.addEventListener('appinstalled', () => {
+    window.__mixoInstallPrompt = null;
+});
+
 if (app) {
     initRouter(app);
 } else {

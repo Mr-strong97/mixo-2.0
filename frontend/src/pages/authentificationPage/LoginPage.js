@@ -37,7 +37,7 @@ export const LoginPage = () => {
                 <div id="banner-email" class="auth-banner auth-banner-warning" style="display:none;">
                     <i data-lucide="mail-check"></i>
                     <span id="msg-email"></span>
-                    <button id="btn-resend-verification" type="button" style="margin-left:auto;">Renvoyer</button>
+                    <button id="btn-resend-verification" class="auth-btn-resend" type="button">Renvoyer</button>
                 </div>
 
                 <!-- Email -->
@@ -74,6 +74,11 @@ export const LoginPage = () => {
                 <button class="auth-btn-secondary" id="btn-back">
                     <i data-lucide="arrow-left"></i>
                     Retour à l'accueil
+                </button>
+
+                <button class="auth-btn-install" id="btn-install-app" type="button">
+                    <i data-lucide="download"></i>
+                    Installer l'application
                 </button>
 
                 <!-- Copyright -->
@@ -159,6 +164,28 @@ export const LoginPage = () => {
 
     page.querySelector('#lnk-forgot').addEventListener('click', e => { e.preventDefault(); if (window.navigate) window.navigate('/forgot-password'); });
     page.querySelector('#btn-back').addEventListener('click', () => { if (window.navigate) window.navigate('/'); else window.location.href = '/'; });
+
+    // Installation Android/Chrome via le prompt natif, avec aide pour iOS.
+    const installBtn = page.querySelector('#btn-install-app');
+    installBtn.addEventListener('click', async () => {
+        const installPrompt = window.__mixoInstallPrompt;
+        if (installPrompt) {
+            installBtn.disabled = true;
+            installPrompt.prompt();
+            const choice = await installPrompt.userChoice;
+            if (choice.outcome === 'accepted') showToast("Mixo a été ajouté à votre téléphone.");
+            window.__mixoInstallPrompt = null;
+            installBtn.disabled = false;
+            return;
+        }
+        showToast("Sur iPhone : appuyez sur Partager, puis « Sur l'écran d'accueil ».");
+    });
+
+    const updateInstallButton = () => {
+        installBtn.classList.toggle('is-ready', Boolean(window.__mixoInstallPrompt));
+    };
+    window.addEventListener('mixo:pwa-install-available', updateInstallButton, { once: true });
+    updateInstallButton();
 
     setTimeout(() => { if (window.lucide) window.lucide.createIcons(); }, 0);
     return page;
