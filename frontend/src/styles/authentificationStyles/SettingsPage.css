@@ -187,6 +187,21 @@
     gap: 20px;
 }
 
+@media (max-width: 768px) {
+    .settings-main { padding: 24px 14px 64px; }
+    .settings-header { margin-bottom: 24px; }
+    .settings-title { letter-spacing: 1px; font-size: 1.35rem; }
+    .settings-title::after { display: none; }
+    .settings-subtitle { margin-left: 0; letter-spacing: .8px; }
+    .settings-layout { grid-template-columns: 1fr; gap: 16px; }
+    .settings-profile-card { padding: 22px 18px; flex-direction: row; text-align: left; gap: 16px; }
+    .settings-avatar-wrapper { width: 76px; height: 76px; margin: 0; flex-shrink: 0; }
+    .settings-content-stack { gap: 14px; }
+    .settings-card { padding: 20px 16px; border-radius: 18px; }
+    .settings-form-grid { grid-template-columns: 1fr; gap: 14px; }
+    .form-group-full { grid-column: auto; }
+}
+
 /* Champ pleine largeur */
 .form-group-full { grid-column: span 2; }
 
