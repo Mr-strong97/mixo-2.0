@@ -1,29 +1,59 @@
 /* LaisserAvisPage.css — MIXO */
 .lap-main {
-    max-width: 900px;
+    max-width: 1024px;
     margin: 0 auto;
-    padding: 36px 20px 48px;
+    padding: 32px 28px 72px;
+    min-height: calc(100vh - 120px);
+    box-sizing: border-box;
+    background: #fbfaf9;
 }
 
 .lap-card {
-    padding: 28px;
-    border-radius: var(--radius-2xl);
-    border: 1px solid var(--border);
-    background: linear-gradient(180deg, #fff, #fbfdff);
-    box-shadow: var(--shadow-sm);
+    padding: 66px 64px;
+    border-radius: 12px;
+    border: 1px solid #e2e2e2;
+    background: #fff;
+    box-shadow: 0 12px 24px rgba(24, 32, 45, .08);
+}
+
+.lap-header h1 {
+    margin: 8px 0 22px;
+    color: #242323;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    line-height: 1.12;
+    letter-spacing: -.045em;
+}
+.lap-header > p:last-child {
+    max-width: 700px;
+    margin: 0;
+    color: #666;
+    font-size: 1.08rem;
+    line-height: 1.55;
+}
+.lap-kicker {
+    margin: 0;
+    color: #606060;
+    font-size: .74rem;
+    font-weight: 500;
+    letter-spacing: .14em;
+    text-transform: uppercase;
 }
 
 .lap-summary {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
-    margin: 24px 0;
+    gap: 24px;
+    margin: 66px 0 62px;
 }
 
 .lap-summary div {
-    padding: 14px 16px;
-    border-radius: 16px;
-    background: var(--blue-dim);
+    min-height: 98px;
+    box-sizing: border-box;
+    padding: 26px 24px;
+    border: 1px solid #d8e5ff;
+    border-radius: 8px;
+    background: #f2f6ff;
 }
 
 .lap-summary span {
@@ -31,67 +61,96 @@
     font-size: .74rem;
     text-transform: uppercase;
     letter-spacing: .12em;
-    color: var(--text-muted);
-    margin-bottom: 4px;
+    color: #5b5e66;
+    margin-bottom: 8px;
 }
 
-.lap-summary strong { color: var(--blue-dark); }
+.lap-summary strong {
+    color: #0755ca;
+    font-size: 1.15rem;
+}
 
 .lap-rating, .lap-comment {
-    margin-top: 18px;
+    margin-top: 0;
 }
+
+.lap-comment { margin-top: 60px; }
 
 .lap-rating label, .lap-comment label {
     display: block;
-    margin-bottom: 10px;
-    font-size: .8rem;
+    margin-bottom: 12px;
+    font-size: .74rem;
     text-transform: uppercase;
     letter-spacing: .14em;
-    color: var(--text-muted);
-    font-weight: 800;
+    color: #5b5e66;
+    font-weight: 500;
 }
 
 .lap-stars {
     display: flex;
-    gap: 8px;
+    gap: 10px;
     flex-wrap: wrap;
 }
 
 .lap-star {
-    width: 46px;
-    height: 46px;
+    width: 32px;
+    height: 38px;
     border: 0;
-    border-radius: 50%;
-    background: #eef3f8;
-    color: #c7d2e0;
+    border-radius: 0;
+    background: transparent;
+    color: #7a8192;
     display: grid;
     place-items: center;
+    cursor: pointer;
+    padding: 0;
 }
 
 .lap-star-active {
-    background: rgba(245,158,11,.15);
-    color: #f59e0b;
+    color: #0755ca;
 }
 
-.lap-star svg { width: 18px; height: 18px; }
+.lap-star svg { width: 30px; height: 30px; stroke-width: 2.4; }
 
 .lap-comment textarea {
     width: 100%;
-    padding: 14px 16px;
-    border-radius: 18px;
-    border: 1px solid var(--border);
-    background: var(--bg-surface);
+    box-sizing: border-box;
+    padding: 24px;
+    border-radius: 12px;
+    border: 0;
+    background: #f5f3f2;
+    color: #242323;
+    font: inherit;
+    font-size: 1rem;
     outline: 0;
     resize: vertical;
-    min-height: 120px;
+    min-height: 160px;
 }
+.lap-comment textarea:focus { box-shadow: inset 0 0 0 2px #c9dcff; }
 
 .lap-actions {
     display: flex;
-    justify-content: end;
-    gap: 10px;
-    margin-top: 22px;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 60px;
+    margin-top: 92px;
 }
+.lap-actions .btn {
+    min-height: 44px;
+    border-radius: 8px;
+    padding: 0 26px;
+    font-weight: 700;
+}
+.lap-actions #lap-skip {
+    border: 0;
+    background: transparent;
+    color: #666;
+}
+.lap-actions #lap-submit {
+    min-width: 215px;
+    background: #0755ca;
+    border-color: #0755ca;
+}
+.lap-actions #lap-submit:hover { background: #043f9b; border-color: #043f9b; }
 
 .lap-empty {
     padding: 32px;
@@ -124,7 +183,12 @@
 }
 
 @media (max-width: 700px) {
-    .lap-main { padding-inline: 14px; }
+    .lap-main { padding: 18px 14px 48px; }
+    .lap-card { padding: 32px 22px; }
+    .lap-header h1 { font-size: 2rem; }
+    .lap-header > p:last-child { font-size: .95rem; }
+    .lap-summary { gap: 12px; margin: 40px 0; }
     .lap-summary { grid-template-columns: 1fr; }
-    .lap-actions { flex-direction: column; }
+    .lap-actions { flex-direction: column-reverse; gap: 10px; margin-top: 48px; align-items: stretch; }
+    .lap-actions #lap-submit { width: 100%; }
 }
