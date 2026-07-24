@@ -127,6 +127,112 @@
     color: #64748B;
 }
 
+/* ── ESPACE COIFFEUR : présentation des demandes ──────────── */
+.rvp-coiffeur-page {
+    background: #fbfaf9;
+    color: #242323;
+}
+.rvp-coiffeur-page .rvp-main {
+    max-width: 960px;
+    padding-top: 42px;
+}
+.rvp-coiffeur-header h1 {
+    font-size: 2rem;
+    letter-spacing: -.03em;
+}
+.rvp-coiffeur-header p { font-size: .96rem; margin-bottom: 46px; }
+.rvp-coiffeur-page .rvp-filters {
+    gap: 12px;
+    padding-bottom: 8px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #c9d0df;
+}
+.rvp-coiffeur-page .rvp-filter-btn {
+    padding: 0 24px;
+    min-height: 44px;
+    border: 0;
+    background: #ebe9e9;
+    color: #4b5264;
+    font-size: .82rem;
+}
+.rvp-coiffeur-page .rvp-filter-btn:hover { color: #0755ca; background: #e2e8f5; }
+.rvp-coiffeur-page .rvp-filter-active {
+    background: #0755ca;
+    color: #fff;
+    box-shadow: 0 5px 12px rgba(7, 85, 202, .18);
+}
+.rvp-coiffeur-page .rvc-card {
+    min-height: 92px;
+    box-sizing: border-box;
+    padding: 20px 24px;
+    border: 1px solid #c6cee0;
+    border-radius: 12px;
+    box-shadow: 0 2px 3px rgba(29, 40, 63, .03);
+    display: grid;
+    grid-template-columns: minmax(240px, 1fr) auto;
+    grid-template-rows: auto auto;
+    column-gap: 20px;
+    row-gap: 8px;
+}
+.rvp-coiffeur-page .rvc-top { display: contents; }
+.rvp-coiffeur-page .rvc-top > div:first-child { grid-column: 1; grid-row: 1; }
+.rvp-coiffeur-page .rvc-top > div:last-child { grid-column: 1; grid-row: 2; align-self: center; }
+.rvp-coiffeur-page .rvc-title { font-size: 1.08rem; margin-bottom: 3px; }
+.rvp-coiffeur-page .rvc-coiffeur { font-size: .86rem; color: #505568; }
+.rvp-coiffeur-page .rvc-meta {
+    grid-column: 1;
+    grid-row: 3;
+    margin-top: 2px;
+    font-size: .82rem;
+    color: #505568;
+}
+.rvp-coiffeur-page .rvc-actions {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    align-self: center;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+}
+.rvp-coiffeur-page .rvc-btn {
+    height: 46px;
+    padding: 0 20px;
+    border-radius: 8px;
+    font-size: .82rem;
+}
+.rvp-coiffeur-page .rvc-btn-primary { background: #0755ca; }
+.rvp-coiffeur-page .rvc-btn-primary:hover { background: #043f9b; }
+.rvp-coiffeur-page .rvc-btn-danger {
+    background: #fff;
+    border-color: #ef4444;
+    color: #d71920;
+}
+.rvp-coiffeur-page .rvc-btn-outline {
+    border-color: #c6cee0;
+    color: #505568;
+}
+.rvp-coiffeur-page .rvp-focus-card {
+    margin-bottom: 48px !important;
+    padding: 46px 48px !important;
+    border: 1px solid #c6cee0 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 2px 3px rgba(29, 40, 63, .03);
+}
+.rvp-coiffeur-page .rvp-focus-card h2 { color: #0755ca; font-size: 2.45rem; letter-spacing: -.04em; }
+.rvp-coiffeur-page .rvp-focus-card .rvp-summary-card {
+    border-color: #c6cee0;
+    border-radius: 8px;
+    background: #fbfaf9;
+    min-height: 92px;
+}
+.rvp-coiffeur-page .rvp-focus-card .rvp-summary-card:last-child strong { color: #0755ca; }
+
+@media (max-width: 760px) {
+    .rvp-coiffeur-page .rvc-card { display: flex; }
+    .rvp-coiffeur-page .rvc-actions { flex-wrap: wrap; justify-content: stretch; }
+    .rvp-coiffeur-page .rvc-btn { flex: 1; }
+    .rvp-coiffeur-page .rvp-focus-card { padding: 26px 20px !important; }
+}
+
 /* ── Filtres ──────────────────────────────────────────────── */
 .rvp-filters { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
 .rvp-filter-btn {

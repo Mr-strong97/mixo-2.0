@@ -25,7 +25,7 @@ export const CoiffeurRendezVousPage = ({ id } = {}) => {
     if (!requireRole('coiffeur')) return document.createElement('div');
 
     const page = document.createElement('div');
-    page.className = 'rvp-page';
+    page.className = 'rvp-page rvp-coiffeur-page';
     page.appendChild(Navbar());
 
     const main = document.createElement('main');
@@ -39,7 +39,7 @@ export const CoiffeurRendezVousPage = ({ id } = {}) => {
 
     const render = () => {
         main.innerHTML = `
-            <div class="rvp-header">
+            <div class="rvp-header rvp-coiffeur-header">
                 <h1>Mes rendez-vous</h1>
                 <p>Gérez les demandes de réservation de vos clients.</p>
             </div>
