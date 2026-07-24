@@ -5,11 +5,8 @@
     padding: 32px 20px 48px;
 }
 
+/* ---------- Hero (texte seul, les stats vivent dans leur propre section) ---------- */
 .his-hero {
-    display: flex;
-    align-items: end;
-    justify-content: space-between;
-    gap: 20px;
     margin-bottom: 20px;
     padding: 28px;
     border-radius: var(--radius-2xl);
@@ -18,23 +15,72 @@
     box-shadow: var(--shadow-sm);
 }
 
+.his-hero h1 {
+    margin: 0 0 8px;
+    font-size: clamp(1.7rem, 2.6vw, 2.35rem);
+    line-height: 1.08;
+    color: var(--text-dark);
+}
+
+.his-hero p {
+    margin: 0;
+    color: var(--text-muted);
+    max-width: 64ch;
+}
+
+/* ---------- Stats ---------- */
 .his-stats {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 10px;
-    min-width: min(360px, 100%);
+    gap: 16px;
+    margin-bottom: 20px;
 }
 
 .his-stat {
-    padding: 14px 16px;
-    border-radius: var(--radius-xl);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 18px 20px;
+    border-radius: var(--radius-2xl);
     background: var(--blue-dim);
     border: 1px solid var(--blue-border);
 }
 
-.his-stat span { display: block; font-size: .76rem; text-transform: uppercase; letter-spacing: .12em; color: var(--text-muted); }
-.his-stat strong { font-size: 1.4rem; color: var(--blue-dark); }
+.his-stat-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
 
+.his-stat-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    background: #fff;
+    color: var(--blue-dark);
+    box-shadow: var(--shadow-xs);
+    flex-shrink: 0;
+}
+
+.his-stat-icon svg { width: 20px; height: 20px; }
+
+.his-stat-top strong {
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: var(--blue-dark);
+    line-height: 1;
+}
+
+.his-stat-label {
+    font-weight: 800;
+    font-size: .95rem;
+    color: var(--blue-dark);
+}
+
+/* ---------- Filtres ---------- */
 .his-filters {
     display: grid;
     grid-template-columns: 1.4fr .8fr .8fr .8fr;
@@ -65,20 +111,43 @@
     border: 1px solid var(--border);
     border-radius: var(--radius-xl);
     background: var(--bg-surface);
+    transition: border-color .15s ease, box-shadow .15s ease;
 }
 
-.his-input-wrap input, .his-filter input, .his-filter select {
+.his-input-wrap:focus-within {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px var(--blue-dim);
+}
+
+.his-input-wrap svg {
+    width: 16px;
+    height: 16px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+/* L'input hérite du style du conteneur : pas de double bordure */
+.his-input-wrap input {
     width: 100%;
+    height: 100%;
     border: 0;
     outline: 0;
     background: transparent;
+    padding: 0;
+    color: var(--text-dark);
+}
+
+.his-filter select {
+    width: 100%;
     height: 52px;
     border-radius: var(--radius-xl);
     padding: 0 14px;
     border: 1px solid var(--border);
     background: var(--bg-surface);
+    color: var(--text-dark);
 }
 
+/* ---------- Liste ---------- */
 .his-list {
     display: grid;
     gap: 14px;
@@ -106,26 +175,180 @@
 }
 
 .his-card-icon svg { width: 22px; height: 22px; }
-.his-card-top { display: flex; justify-content: space-between; gap: 16px; }
-.his-card-top h2 { margin: 0; font-size: 1rem; }
-.his-card-top p, .his-comment, .his-reply { margin: 4px 0 0; color: var(--text-muted); }
-.his-card-date { white-space: nowrap; color: var(--text-tertiary); font-size: .86rem; }
-.his-card-meta { margin-top: 10px; color: var(--text-dark); font-weight: 700; }
-.his-comment, .his-reply { padding: 12px 14px; border-radius: 14px; background: #f8fbff; }
-.his-card-actions { margin-top: 14px; }
 
+.his-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.his-card-title-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    min-width: 0;
+}
+
+.his-card-top h2 { margin: 0; font-size: 1rem; }
+
+.his-badge {
+    flex-shrink: 0;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: .68rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    background: rgba(15,23,42,.06);
+    color: var(--text-muted);
+}
+
+.his-card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 16px;
+    margin-top: 10px;
+    color: var(--text-muted);
+    font-size: .88rem;
+}
+
+.his-card-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.his-card-meta svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
+.his-comment, .his-reply { margin: 10px 0 0; padding: 12px 14px; border-radius: 14px; background: #f8fbff; color: var(--text-muted); }
+
+/* ---------- Couleurs par type (fond neutre) ---------- */
 .his-rdv .his-card-icon { background: rgba(10,102,194,.12); }
 .his-paiement .his-card-icon { background: rgba(34,197,94,.12); color: #15803d; }
 .his-avis .his-card-icon { background: rgba(245,158,11,.12); color: #b45309; }
 
+/* ---------- Couleurs par statut (rendez-vous) : lecture rapide de l'état ---------- */
+.his-card.is-cancelled .his-card-icon,
+.his-card.is-refused .his-card-icon {
+    background: #fee2e2;
+    color: #dc2626;
+}
+.his-card.is-cancelled .his-badge,
+.his-card.is-refused .his-badge {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.his-card.is-done .his-card-icon,
+.his-card.is-paid .his-card-icon {
+    background: #dcfce7;
+    color: #15803d;
+}
+.his-card.is-done .his-badge,
+.his-card.is-paid .his-badge {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.his-card.is-pending .his-card-icon {
+    background: #fef3c7;
+    color: #b45309;
+}
+.his-card.is-pending .his-badge {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.his-card.is-accepted .his-card-icon {
+    background: rgba(10,102,194,.14);
+    color: var(--blue-dark);
+}
+.his-card.is-accepted .his-badge {
+    background: rgba(10,102,194,.14);
+    color: var(--blue-dark);
+}
+
+/* ---------- États vide / erreur ---------- */
+.his-empty {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+    padding: 48px 20px;
+    border: 1px dashed var(--border-md, rgba(15,23,42,.18));
+    border-radius: var(--radius-2xl);
+    background: rgba(255,255,255,.7);
+    color: var(--text-muted);
+}
+
+.his-icon-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--blue-dim);
+    color: var(--blue);
+    margin-bottom: 6px;
+}
+
+.his-icon-circle svg { width: 28px; height: 28px; }
+
+.his-empty--error .his-icon-circle {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.his-empty h2 { margin: 0; color: var(--text-dark); font-size: 1.15rem; }
+.his-empty p { margin: 0; max-width: 44ch; }
+.his-empty .btn { display: inline-flex; align-items: center; gap: 8px; margin-top: 6px; }
+.his-empty .btn svg { width: 16px; height: 16px; }
+
+/* ---------- Fin de liste ---------- */
+.his-end {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 32px 20px 8px;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.his-end-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: rgba(15,23,42,.05);
+    color: var(--text-muted);
+}
+
+.his-end-icon svg { width: 22px; height: 22px; }
+.his-end p { margin: 0; font-size: .9rem; }
+
+/* ---------- Responsive ---------- */
 @media (max-width: 980px) {
-    .his-hero, .cdp-hero { flex-direction: column; align-items: start; }
     .his-filters { grid-template-columns: 1fr 1fr; }
-    .his-stats { min-width: 100%; }
 }
 
 @media (max-width: 640px) {
     .his-main { padding-inline: 14px; }
+    .his-stats { grid-template-columns: 1fr; }
     .his-filters { grid-template-columns: 1fr; }
     .his-card { grid-template-columns: 1fr; }
     .his-card-icon { width: 52px; height: 52px; }
@@ -134,14 +357,15 @@
 
 @media (max-width: 768px) {
     .his-main { padding: 18px 14px 56px; }
-    .his-hero { padding: 22px 18px; border-radius: 20px; align-items: stretch; }
+    .his-hero { padding: 22px 18px; border-radius: 20px; }
     .his-hero h1 { font-size: clamp(1.65rem, 7vw, 2.25rem); line-height: 1.08; }
-    .his-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
-    .his-stat { padding: 12px 9px; border-radius: 14px; }
-    .his-stat span { font-size: .6rem; letter-spacing: .06em; }
-    .his-stat strong { font-size: 1.25rem; }
+    .his-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .his-stat { padding: 12px; border-radius: 14px; gap: 10px; }
+    .his-stat-icon { width: 34px; height: 34px; border-radius: 11px; }
+    .his-stat-icon svg { width: 16px; height: 16px; }
+    .his-stat-top strong { font-size: 1.15rem; }
+    .his-stat-label { font-size: .72rem; }
     .his-filters { gap: 10px; padding: 14px; border: 1px solid var(--border); border-radius: 18px; background: #fff; }
     .his-card { padding: 16px; border-radius: 18px; gap: 12px; }
     .his-card-top { gap: 6px; }
-    .his-card-date { white-space: normal; }
 }

@@ -40,10 +40,11 @@ export const HistoriquePage = () => {
             <div>
                 <p class="his-kicker">Historique client</p>
                 <h1>Tout ce que vous avez fait sur la plateforme</h1>
-                <p>Rendez-vous, paiements et avis publiés, regroupés dans une vue claire et filtrable.</p>
+                <p>Suivez l'historique complet de vos interactions, réservations et transactions en un seul endroit.</p>
             </div>
-            <div class="his-stats" id="his-stats"></div>
         </section>
+
+        <section class="his-stats" id="his-stats"></section>
 
         <section class="his-filters">
             <div class="his-filter">
@@ -52,7 +53,7 @@ export const HistoriquePage = () => {
             </div>
             <div class="his-filter">
                 <label>Date</label>
-                <input id="his-date" type="date">
+                <div class="his-input-wrap"><i data-lucide="calendar"></i><input id="his-date" type="date"></div>
             </div>
             <div class="his-filter">
                 <label>Type</label>
@@ -83,9 +84,27 @@ export const HistoriquePage = () => {
     const renderStats = (stats = {}) => {
         const el = main.querySelector('#his-stats');
         el.innerHTML = `
-            <div class="his-stat"><span>Rendez-vous</span><strong>${stats.rdv ?? 0}</strong></div>
-            <div class="his-stat"><span>Paiements</span><strong>${stats.paiements ?? 0}</strong></div>
-            <div class="his-stat"><span>Avis</span><strong>${stats.avis ?? 0}</strong></div>
+            <div class="his-stat">
+                <div class="his-stat-top">
+                    <span class="his-stat-icon"><i data-lucide="calendar-days"></i></span>
+                    <strong>${stats.rdv ?? 0}</strong>
+                </div>
+                <span class="his-stat-label">Rendez-vous</span>
+            </div>
+            <div class="his-stat">
+                <div class="his-stat-top">
+                    <span class="his-stat-icon"><i data-lucide="wallet"></i></span>
+                    <strong>${stats.paiements ?? 0}</strong>
+                </div>
+                <span class="his-stat-label">Paiements</span>
+            </div>
+            <div class="his-stat">
+                <div class="his-stat-top">
+                    <span class="his-stat-icon"><i data-lucide="star"></i></span>
+                    <strong>${stats.avis ?? 0}</strong>
+                </div>
+                <span class="his-stat-label">Avis</span>
+            </div>
         `;
     };
 
@@ -94,7 +113,7 @@ export const HistoriquePage = () => {
         if (!items.length) {
             el.innerHTML = `
                 <div class="his-empty">
-                    <i data-lucide="inbox"></i>
+                    <span class="his-icon-circle"><i data-lucide="inbox"></i></span>
                     <h2>Aucune activité trouvée</h2>
                     <p>Affinez vos filtres ou revenez plus tard.</p>
                 </div>`;
@@ -105,12 +124,14 @@ export const HistoriquePage = () => {
         el.innerHTML = '';
         items.forEach(item => {
             const card = document.createElement('article');
-            card.className = `his-card his-${item.type.toLowerCase()}`;
-            const meta = item.type === 'PAIEMENT'
-                ? `Montant payé : ${formatPrix(item.montant)} FC`
+            const statusInfo = item.type === 'RDV' ? statutMeta(item.statut) : null;
+            card.className = `his-card his-${item.type.toLowerCase()}${statusInfo ? ` is-${statusInfo.key}` : ''}`;
+
+            const extraChip = item.type === 'PAIEMENT'
+                ? `<span><i data-lucide="wallet"></i> ${formatPrix(item.montant)} FC</span>`
                 : item.type === 'AVIS'
-                    ? `Note : ${item.note}/5`
-                    : `Statut : ${labelStatut(item.statut)}`;
+                    ? `<span><i data-lucide="star"></i> ${escapeHtml(String(item.note))}/5</span>`
+                    : '';
 
             card.innerHTML = `
                 <div class="his-card-icon">
@@ -118,18 +139,19 @@ export const HistoriquePage = () => {
                 </div>
                 <div class="his-card-body">
                     <div class="his-card-top">
-                        <div>
+                        <div class="his-card-title-row">
                             <h2>${escapeHtml(item.titre)}</h2>
-                            <p>${escapeHtml(item.sous_titre || item.service || '')}</p>
+                            ${statusInfo ? `<span class="his-badge">${escapeHtml(statusInfo.label)}</span>` : ''}
                         </div>
-                        <span class="his-card-date">${formatDate(item.date)}</span>
-                    </div>
-                    <div class="his-card-meta">${escapeHtml(meta)}</div>
-                    ${item.commentaire ? `<p class="his-comment">"${escapeHtml(item.commentaire)}"</p>` : ''}
-                    ${item.reponse ? `<p class="his-reply"><strong>Réponse :</strong> ${escapeHtml(item.reponse)}</p>` : ''}
-                    <div class="his-card-actions">
                         ${item.lien ? `<button class="btn btn-outline-primary btn-sm" type="button" data-link="${escapeHtml(item.lien)}">Voir</button>` : ''}
                     </div>
+                    <div class="his-card-meta">
+                        ${item.sous_titre || item.service ? `<span><i data-lucide="user-round"></i> ${escapeHtml(item.sous_titre || item.service)}</span>` : ''}
+                        <span><i data-lucide="clock"></i> ${formatDate(item.date)}</span>
+                        ${extraChip}
+                    </div>
+                    ${item.commentaire ? `<p class="his-comment">"${escapeHtml(item.commentaire)}"</p>` : ''}
+                    ${item.reponse ? `<p class="his-reply"><strong>Réponse :</strong> ${escapeHtml(item.reponse)}</p>` : ''}
                 </div>
             `;
 
@@ -141,6 +163,14 @@ export const HistoriquePage = () => {
 
             el.appendChild(card);
         });
+
+        el.insertAdjacentHTML('beforeend', `
+            <div class="his-end">
+                <span class="his-end-icon"><i data-lucide="inbox"></i></span>
+                <p>Fin de l'historique</p>
+            </div>
+        `);
+
         if (window.lucide) window.lucide.createIcons();
     };
 
@@ -152,11 +182,16 @@ export const HistoriquePage = () => {
             renderList(data.resultats || []);
         } catch (error) {
             main.querySelector('#his-list').innerHTML = `
-                <div class="his-empty">
-                    <i data-lucide="alert-triangle"></i>
+                <div class="his-empty his-empty--error">
+                    <span class="his-icon-circle"><i data-lucide="alert-triangle"></i></span>
                     <h2>Impossible de charger l’historique</h2>
                     <p>${error.response?.data?.detail || 'Réessayez plus tard.'}</p>
+                    <button class="btn btn-primary" id="his-retry" type="button">
+                        <i data-lucide="refresh-cw"></i>
+                        Réessayer
+                    </button>
                 </div>`;
+            main.querySelector('#his-retry')?.addEventListener('click', charger);
             if (window.lucide) window.lucide.createIcons();
         }
     };
@@ -186,6 +221,19 @@ function labelStatut(statut = '') {
     return statut ? statut.replaceAll('_', ' ').toLowerCase() : '—';
 }
 
+const STATUT_META = {
+    EN_ATTENTE: { key: 'pending', label: 'En attente' },
+    ACCEPTE: { key: 'accepted', label: 'Accepté' },
+    TERMINE: { key: 'done', label: 'Terminé' },
+    ANNULE: { key: 'cancelled', label: 'Annulé' },
+    REFUSE: { key: 'refused', label: 'Refusé' },
+    PAYE: { key: 'paid', label: 'Payé' },
+};
+
+function statutMeta(statut) {
+    return STATUT_META[statut] || { key: 'default', label: labelStatut(statut) };
+}
+
 function formatDate(value) {
     if (!value) return '—';
     return new Date(value).toLocaleDateString('fr-FR', {
@@ -209,4 +257,3 @@ function escapeHtml(str = '') {
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;');
 }
-
