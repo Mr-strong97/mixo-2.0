@@ -72,10 +72,13 @@ export const FavorisPage = () => {
         if (!data.length) {
             list.innerHTML = `
                 <div class="fav-empty">
-                    <i data-lucide="heart-off"></i>
+                    <span class="fav-empty-icon"><i data-lucide="heart-off"></i></span>
                     <h2>Aucun favori pour l’instant</h2>
                     <p>Ajoutez des services depuis le catalogue pour les retrouver ici.</p>
-                    <button class="btn btn-primary" id="fav-go-services" type="button">Explorer les services</button>
+                    <button class="btn btn-primary" id="fav-go-services" type="button">
+                        <i data-lucide="compass"></i>
+                        Explorer les services
+                    </button>
                 </div>`;
             list.querySelector('#fav-go-services')?.addEventListener('click', () => window.navigate?.('/services'));
             if (window.lucide) window.lucide.createIcons();
@@ -96,7 +99,7 @@ export const FavorisPage = () => {
                     }
                     <span class="fav-card-category">${escapeHtml(service.categorie_nom || 'Service')}</span>
                     <button class="fav-remove" type="button" title="Retirer des favoris">
-                        <i data-lucide="heart-off"></i>
+                        <i data-lucide="heart"></i>
                     </button>
                 </div>
                 <div class="fav-card-body">
@@ -112,7 +115,10 @@ export const FavorisPage = () => {
                     <p class="fav-card-desc">${escapeHtml(service.description || 'Aucune description disponible.')}</p>
                     <div class="fav-card-actions">
                         <button class="btn btn-outline-primary btn-sm" data-action="detail" type="button">Voir le détail</button>
-                        <button class="btn btn-primary btn-sm" data-action="book" type="button">Prendre rendez-vous</button>
+                        <button class="btn btn-primary btn-sm" data-action="book" type="button">
+                            Prendre rendez-vous
+                            <i data-lucide="arrow-right"></i>
+                        </button>
                     </div>
                 </div>
             `;
@@ -145,11 +151,16 @@ export const FavorisPage = () => {
             render();
         } catch (error) {
             main.querySelector('#fav-list').innerHTML = `
-                <div class="fav-empty">
-                    <i data-lucide="alert-triangle"></i>
+                <div class="fav-empty fav-empty--error">
+                    <span class="fav-empty-icon"><i data-lucide="alert-triangle"></i></span>
                     <h2>Impossible de charger vos favoris</h2>
                     <p>${error.response?.data?.detail || 'Réessayez dans un instant.'}</p>
+                    <button class="btn btn-primary" id="fav-retry" type="button">
+                        <i data-lucide="refresh-cw"></i>
+                        Réessayer
+                    </button>
                 </div>`;
+            main.querySelector('#fav-retry')?.addEventListener('click', charger);
             if (window.lucide) window.lucide.createIcons();
         }
     };
@@ -181,4 +192,3 @@ function escapeHtml(str = '') {
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;');
 }
-
