@@ -71,7 +71,7 @@ export const DiscussionPage = (params = {}) => {
                         <h2>Conversations</h2>
                         <span id="chat-summary-count">Chargement…</span>
                     </div>
-                    <button type="button" class="btn btn-sm btn-outline-primary" id="chat-refresh">
+                    <button type="button" class="btn btn-sm btn-outline-primary chat-icon-btn" id="chat-refresh" aria-label="Actualiser les conversations">
                         <i data-lucide="refresh-cw"></i>
                     </button>
                 </div>
@@ -84,9 +84,14 @@ export const DiscussionPage = (params = {}) => {
 
             <section class="chat-panel">
                 <div id="chat-panel-empty" class="chat-empty">
-                    <i data-lucide="message-circle-more"></i>
+                    <span class="chat-icon-circle"><i data-lucide="message-circle-more"></i></span>
                     <h2>Sélectionnez une conversation</h2>
                     <p>Ouvrez une discussion existante ou démarrez une conversation depuis un rendez-vous confirmé.</p>
+                    <div class="chat-empty-divider" aria-hidden="true">
+                        <span></span>
+                        <i data-lucide="shield"></i>
+                        <span></span>
+                    </div>
                 </div>
 
                 <div id="chat-panel-active" class="chat-active" style="display:none;">
@@ -120,9 +125,9 @@ export const DiscussionPage = (params = {}) => {
                         <textarea id="chat-input" class="chat-input" rows="2" placeholder="Écrire un message..."></textarea>
                         <div class="chat-composer-actions">
                             <span class="chat-helper">Entrée pour envoyer, Maj+Entrée pour une nouvelle ligne.</span>
-                            <button type="submit" class="btn btn-primary chat-send-btn" id="chat-send-btn">
+                            <button type="submit" class="btn btn-primary chat-send-btn" id="chat-send-btn" aria-label="Envoyer le message">
                                 <i data-lucide="send"></i>
-                                Envoyer
+                                <span class="chat-send-label">Envoyer</span>
                             </button>
                         </div>
                     </form>
@@ -229,7 +234,7 @@ export const DiscussionPage = (params = {}) => {
         if (!state.conversations.length) {
             els.conversationList.innerHTML = `
                 <div class="chat-empty-list">
-                    <i data-lucide="inbox"></i>
+                    <span class="chat-icon-circle chat-icon-circle--sm"><i data-lucide="inbox"></i></span>
                     <p>Aucune conversation pour le moment.</p>
                 </div>`;
             return;
@@ -303,7 +308,7 @@ export const DiscussionPage = (params = {}) => {
         if (!state.messages.length) {
             els.messages.innerHTML = `
                 <div class="chat-message-empty">
-                    <i data-lucide="sparkles"></i>
+                    <span class="chat-icon-circle chat-icon-circle--sm"><i data-lucide="sparkles"></i></span>
                     <p>La discussion est prête. Envoyez le premier message.</p>
                 </div>`;
             return;
