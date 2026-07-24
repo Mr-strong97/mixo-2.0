@@ -642,3 +642,25 @@
         min-width: 128px;
     }
 }
+
+@media (max-width: 768px) {
+    .chat-main { padding: 18px 14px 28px; }
+    .chat-hero { gap: 14px; margin-bottom: 14px; }
+    .chat-hero h1 { font-size: clamp(1.55rem, 7vw, 2rem); line-height: 1.1; }
+    .chat-hero-card { min-width: 0; width: 100%; padding: 12px 14px; border-radius: 16px; }
+    .chat-shell { gap: 12px; }
+    .chat-sidebar, .chat-panel { border-radius: 18px; box-shadow: 0 10px 26px rgba(15,23,42,.06); }
+    .chat-sidebar-head, .chat-panel-head { padding: 14px; }
+    .chat-panel-head { min-height: 70px; }
+    .chat-panel-actions .btn { font-size: .76rem; }
+    .chat-info-strip { gap: 8px; padding-top: 10px; padding-bottom: 10px; }
+    .chat-info-strip div { padding: 10px 12px; border-radius: 13px; }
+    .chat-messages { padding-top: 14px; padding-bottom: 14px; }
+    .chat-message-bubble { padding: 12px 13px; border-radius: 18px 18px 18px 7px; }
+    .chat-message-bubble p { font-size: .9rem; }
+    .chat-composer { padding: 10px 12px 12px; }
+    .chat-input { min-height: 54px; max-height: 120px; }
+    .chat-composer-actions { margin-top: 8px; }
+    .chat-helper { display: none; }
+    .chat-send-btn { min-width: 112px; min-height: 42px; }
+}

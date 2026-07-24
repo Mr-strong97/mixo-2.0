@@ -132,3 +132,16 @@
     .his-card-top { flex-direction: column; }
 }
 
+@media (max-width: 768px) {
+    .his-main { padding: 18px 14px 56px; }
+    .his-hero { padding: 22px 18px; border-radius: 20px; align-items: stretch; }
+    .his-hero h1 { font-size: clamp(1.65rem, 7vw, 2.25rem); line-height: 1.08; }
+    .his-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
+    .his-stat { padding: 12px 9px; border-radius: 14px; }
+    .his-stat span { font-size: .6rem; letter-spacing: .06em; }
+    .his-stat strong { font-size: 1.25rem; }
+    .his-filters { gap: 10px; padding: 14px; border: 1px solid var(--border); border-radius: 18px; background: #fff; }
+    .his-card { padding: 16px; border-radius: 18px; gap: 12px; }
+    .his-card-top { gap: 6px; }
+    .his-card-date { white-space: normal; }
+}

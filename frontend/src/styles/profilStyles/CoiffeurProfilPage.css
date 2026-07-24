@@ -684,3 +684,12 @@
         grid-template-columns: repeat(7, minmax(112px, 1fr));
     }
 }
+
+@media (max-width: 768px) {
+    .cpp-main { width: 100%; box-sizing: border-box; overflow: hidden; }
+    .cpp-hero-meta { align-items: flex-start; }
+    .cpp-pill { max-width: 100%; white-space: normal; }
+    .cpp-about-meta { grid-template-columns: 1fr; }
+    .cpp-schedule-wrap, .cpp-schedule-grid { max-width: 100%; overflow-x: auto; }
+    .cpp-schedule-grid { padding-bottom: 6px; }
+}
