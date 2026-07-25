@@ -637,9 +637,9 @@
 }
 
 @media (max-width: 640px) {
-    .cpp-main {
-        padding: 20px 14px 72px;
-    }
+    .cpp-page, .cpp-main, .cpp-shell, .cpp-layout, .cpp-content, .cpp-sidebar,
+    .cpp-section, .cpp-hero, .cpp-service-grid { max-width: 100%; box-sizing: border-box; }
+    .cpp-main { width: 100%; margin: 0; padding: 14px 10px 72px; overflow-x: hidden; }
 
     .cpp-hero {
         padding: 18px;
@@ -673,6 +673,7 @@
     .cpp-section {
         padding: 18px;
         border-radius: 20px;
+        min-width: 0;
     }
 
     .cpp-section-header {
@@ -683,13 +684,17 @@
     .cpp-schedule-grid {
         grid-template-columns: repeat(7, minmax(112px, 1fr));
     }
+    .cpp-service-grid { grid-template-columns: 1fr; gap: 14px; }
+    .cpp-service-grid .svc-card { min-width: 0; width: 100%; }
+    .cpp-service-grid .svc-card-media { aspect-ratio: 1.45 / 1; }
+    .cpp-hero-actions .cpp-btn, .cpp-side-actions .cpp-btn { min-width: 0; }
 }
 
 @media (max-width: 768px) {
-    .cpp-main { width: 100%; box-sizing: border-box; overflow: hidden; }
+    .cpp-main { width: 100%; margin: 0; box-sizing: border-box; overflow: hidden; }
     .cpp-hero-meta { align-items: flex-start; }
     .cpp-pill { max-width: 100%; white-space: normal; }
     .cpp-about-meta { grid-template-columns: 1fr; }
-    .cpp-schedule-wrap, .cpp-schedule-grid { max-width: 100%; overflow-x: auto; }
+    .cpp-schedule-wrap, .cpp-schedule-grid { width: 100%; max-width: 100%; overflow-x: auto; }
     .cpp-schedule-grid { padding-bottom: 6px; }
 }
