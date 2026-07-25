@@ -66,6 +66,11 @@ export const DiscussionPage = (params = {}) => {
 
         <section class="chat-shell">
             <aside class="chat-sidebar">
+                <div class="chat-mobile-secure">
+                    <i data-lucide="shield-check"></i>
+                    <div><strong>Conversations sécurisées</strong><span>Vos échanges avec les stylistes sont chiffrés de bout en bout.</span></div>
+                </div>
+                <label class="chat-mobile-search"><i data-lucide="search"></i><input type="search" placeholder="Rechercher un styliste ou un salon…" aria-label="Rechercher une conversation"></label>
                 <div class="chat-sidebar-head">
                     <div>
                         <h2>Conversations</h2>
