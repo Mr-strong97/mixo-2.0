@@ -10,6 +10,8 @@
     --nl-ease:  cubic-bezier(0.16,1,0.3,1);
 }
 
+.nl-mobile-header { display: none; }
+
 /* ── SIDEBAR ─────────────────────────────────────────────── */
 .nl-sidebar {
     position: fixed;
@@ -221,6 +223,17 @@
         padding-left: 0 !important;
     }
     .nl-burger { display: flex; }
+    .nl-mobile-header {
+        position: fixed; top: 0; left: 0; right: 0; height: 64px;
+        z-index: 1005; display: flex; align-items: center; justify-content: space-between;
+        padding: 0 18px; background: #fff; border-bottom: 1px solid #eef0f4;
+        box-sizing: border-box;
+    }
+    .nl-mobile-logo { border: 0; background: transparent; color: #0A66C2; font: 900 1.35rem Montserrat, sans-serif; padding: 0; cursor: pointer; }
+    .nl-mobile-actions { display: flex; align-items: center; gap: 14px; }
+    .nl-mobile-action { position: relative; width: 34px; height: 34px; border: 0; background: transparent; color: #1f2937; display: grid; place-items: center; cursor: pointer; }
+    .nl-mobile-action svg { width: 20px; height: 20px; }
+    .nl-mobile-badge { position: absolute; top: 3px; right: 1px; width: 7px; height: 7px; border-radius: 50%; background: #ef4444; display: none; }
     .nl-sidebar {
         transform: translateX(-100%);
         animation: none;
@@ -254,6 +267,28 @@
     .nl-logo-text { font-size: 1.05rem; letter-spacing: 2.5px; }
     .nl-item { padding: 9px 11px; }
     .nl-profile-name { font-size: 0.76rem; }
+}
+
+@media (max-width: 992px) {
+    body, #app-root { padding-bottom: 72px !important; }
+    .nl-sidebar {
+        top: auto; bottom: 0; left: 0; right: 0; width: 100%; height: 68px;
+        transform: none; border: 0; border-top: 1px solid #e8ecf0; box-shadow: 0 -4px 18px rgba(15,23,42,.08);
+        border-radius: 0; background: rgba(255,255,255,.98); backdrop-filter: blur(14px);
+    }
+    .nl-sidebar.nl-open { transform: translateY(-68px); height: 100dvh; top: 0; bottom: auto; width: min(82vw, 320px); border-right: 1px solid #e8ecf0; border-top: 0; }
+    .nl-sidebar.nl-open .nl-logo, .nl-sidebar.nl-open .nl-profile { display: flex; }
+    .nl-logo, .nl-profile { display: none; }
+    .nl-nav-scroll { padding: 5px 8px; overflow: hidden; }
+    .nl-links { height: 100%; flex-direction: row; justify-content: space-around; gap: 2px; }
+    .nl-item { flex: 1 1 0; min-width: 0; padding: 5px 2px; border-radius: 12px; flex-direction: column; gap: 2px; justify-content: center; font-size: .62rem; }
+    .nl-item:hover { transform: none; box-shadow: none; }
+    .nl-item.nl-active { box-shadow: none; }
+    .nl-item.nl-active::before { display: none; }
+    .nl-icon { width: 20px; height: 20px; }
+    .nl-label { flex: 0 0 auto; max-width: 100%; }
+    .nl-badge { position: absolute; top: 2px; right: 18%; min-width: 14px; padding: 1px 4px; font-size: .52rem; }
+    .nl-burger { top: 14px; left: 8px; width: 34px; height: 34px; border: 0; box-shadow: none; background: transparent; }
 }
 
 /* ── KEYFRAMES ───────────────────────────────────────────── */

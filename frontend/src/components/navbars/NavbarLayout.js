@@ -31,6 +31,14 @@ export const NavbarLayout = (links = [], activeRoute = '') => {
 
     const nav = document.createElement('nav');
     nav.className = 'nl-sidebar';
+    const mobileHeader = document.createElement('header');
+    mobileHeader.className = 'nl-mobile-header';
+    mobileHeader.innerHTML = `
+        <button class="nl-mobile-logo" type="button" aria-label="Accueil">Mixo</button>
+        <div class="nl-mobile-actions">
+            <button class="nl-mobile-action" data-mobile-route="/notifications" aria-label="Notifications"><i data-lucide="bell"></i></button>
+            <button class="nl-mobile-action" data-mobile-route="/discussion" aria-label="Messages"><i data-lucide="messages-square"></i><span class="nl-mobile-badge"></span></button>
+        </div>`;
     const closeOnOutsideClick = (e) => {
         if (nav.classList.contains('nl-open') && !nav.contains(e.target) && e.target !== burgerBtn) {
             closeMenu();
@@ -80,6 +88,9 @@ export const NavbarLayout = (links = [], activeRoute = '') => {
 
     // ── Navigation ──────────────────────────────────────────
     const go = path => { if (window.navigate) window.navigate(path); else window.location.href = path; };
+
+    mobileHeader.querySelector('.nl-mobile-logo').addEventListener('click', () => go(role === 'coiffeur' ? '/coiffeur/dashboard' : '/home'));
+    mobileHeader.querySelectorAll('[data-mobile-route]').forEach(btn => btn.addEventListener('click', () => go(btn.dataset.mobileRoute)));
 
     nav.querySelector('#nl-logo').addEventListener('click', () => go(role === 'coiffeur' ? '/coiffeur/dashboard' : '/home'));
 
@@ -187,6 +198,7 @@ export const NavbarLayout = (links = [], activeRoute = '') => {
     setTimeout(() => { if (window.lucide) window.lucide.createIcons(); }, 50);
 
     fragment.appendChild(burgerBtn);
+    fragment.appendChild(mobileHeader);
     fragment.appendChild(nav);
     return fragment;
 };
