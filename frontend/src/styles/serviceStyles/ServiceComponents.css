@@ -249,13 +249,17 @@
     .svc-card-title { min-width: 0; overflow-wrap: anywhere; }
     .svc-card-price { flex-shrink: 0; font-size: 0.95rem; }
     .svc-card-meta { flex-wrap: wrap; gap: 8px 14px; }
-    .svc-card-actions { flex-direction: column; gap: 8px; margin-top: 2px; }
+    .svc-card-actions { flex-direction: row; gap: 12px; margin-top: 8px; }
     .svc-card-actions .svc-btn {
-        flex: none;
-        width: 100%;
-        min-height: 38px;
-        height: 38px;
+        flex: 1;
+        width: auto;
+        min-height: 47px;
+        height: 47px;
     }
+    .svc-card-media { aspect-ratio: 1.4 / 1; }
+    .svc-card-body { padding: 16px; gap: 10px; }
+    .svc-card-title { font-size: 1.05rem; }
+    .svc-card-price { font-size: 1.05rem; }
 }
 
 

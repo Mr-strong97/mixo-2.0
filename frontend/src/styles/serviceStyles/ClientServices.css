@@ -106,32 +106,16 @@
     .csp-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 768px) {
-    /* Vue mobile client simplifiée : seul le titre reste visible. */
-    .csp-main {
-        min-height: calc(100vh - 64px);
-        padding: 42px 18px 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .csp-header {
-        width: 100%;
-        margin: 0;
-        text-align: center;
-    }
-    .csp-title {
-        max-width: 340px;
-        margin: 0 auto;
-        color: #0A66C2;
-        font-size: clamp(1.45rem, 7vw, 2rem);
-        line-height: 1.12;
-    }
-    .csp-subtitle,
-    .csp-toolbar,
-    .csp-categories,
-    .csp-filters-panel,
-    .csp-grid,
-    .csp-pagination { display: none !important; }
+    .csp-main { padding: 28px 16px 56px; }
+    .csp-title { font-size: 2rem; line-height: 1.1; }
+    .csp-subtitle { font-size: .9rem; line-height: 1.45; }
+    .csp-toolbar { flex-direction: column; gap: 16px; }
+    .csp-search { height: 66px; border: 0; border-radius: 12px; background: #f4f1f1; font-size: .95rem; }
+    .csp-search-ico { left: 18px; }
+    .csp-filters-btn { justify-content: center; height: 47px; border-color: #6b7280; border-radius: 12px; }
+    .csp-categories { overflow: hidden; }
+    .csp-grid { grid-template-columns: 1fr; gap: 24px; }
+    .csp-pagination { display: none; }
 }
 @media (max-width: 560px) {
     .csp-grid { grid-template-columns: 1fr; }
