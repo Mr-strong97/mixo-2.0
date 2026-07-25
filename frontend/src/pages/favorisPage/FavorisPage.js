@@ -22,8 +22,8 @@ export const FavorisPage = () => {
     main.innerHTML = `
         <section class="fav-hero">
             <div>
-                <p class="fav-kicker">Mes sélections</p>
-                <h1>Les services que j’aime garder sous la main</h1>
+                <p class="fav-kicker">Espace client</p>
+                <h1>Mes Favoris</h1>
                 <p>Retrouvez rapidement vos prestations préférées, comparez les tarifs et réservez en un clic.</p>
             </div>
             <div class="fav-hero-pill">
@@ -31,6 +31,11 @@ export const FavorisPage = () => {
                 <span id="fav-count">0 favoris</span>
             </div>
         </section>
+
+        <nav class="fav-tabs" aria-label="Favoris">
+            <button class="fav-tab is-active" type="button">Services</button>
+            <button class="fav-tab" type="button">Coiffeurs</button>
+        </nav>
 
         <section class="fav-toolbar">
             <div class="fav-search">

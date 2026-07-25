@@ -5,6 +5,8 @@
     padding: 32px 20px 48px;
 }
 
+.fav-tabs { display: none; }
+
 /* ---------- Hero ---------- */
 .fav-hero {
     display: flex;
@@ -381,15 +383,32 @@
 }
 
 @media (max-width: 768px) {
-    .fav-main { padding: 18px 14px 56px; }
-    .fav-hero { padding: 22px 18px; border-radius: 20px; flex-direction: column; align-items: stretch; gap: 14px; }
-    .fav-hero h1 { font-size: clamp(1.65rem, 7vw, 2.2rem); }
-    .fav-hero-pill { min-width: 0; width: 100%; box-sizing: border-box; }
-    .fav-toolbar { grid-template-columns: 1fr; }
-    .fav-refresh { justify-content: center; }
+    .fav-main { padding: 34px 16px 56px; }
+    .fav-hero { padding: 0; margin-bottom: 22px; border: 0; box-shadow: none; background: transparent; display: block; }
+    .fav-hero h1 { font-size: 2rem; }
+    .fav-hero p, .fav-kicker, .fav-hero-pill, .fav-toolbar { display: none; }
+    .fav-tabs { display: flex; gap: 24px; margin-bottom: 26px; border-bottom: 1px solid #dddde2; }
+    .fav-tab { flex: 0 0 116px; height: 48px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: #4b5563; font: 700 .95rem Poppins, sans-serif; cursor: pointer; }
+    .fav-tab.is-active { color: #0057d9; border-bottom-color: #0057d9; }
     .fav-grid { grid-template-columns: 1fr; gap: 14px; }
-    .fav-card { border-radius: 18px; }
-    .fav-card-body { padding: 16px; }
+    .fav-empty { padding: 54px 20px 48px; border: 1px solid #edf0f4; border-radius: 14px; background: #fff; box-shadow: 0 2px 8px rgba(15,23,42,.04); }
+    .fav-empty-icon { width: 96px; height: 96px; margin-bottom: 28px; }
+    .fav-empty-icon svg { width: 42px; height: 42px; }
+    .fav-empty h2 { font-size: 1.25rem; }
+    .fav-empty p { font-size: .98rem; line-height: 1.55; }
+    .fav-empty .btn { width: 100%; min-height: 54px; justify-content: center; border-radius: 12px; }
+    .fav-card { display: grid; grid-template-columns: 96px minmax(0,1fr); border-radius: 12px; min-height: 120px; }
+    .fav-card-media { aspect-ratio: 1; height: 96px; margin: 12px 0 12px 12px; border-radius: 10px; }
+    .fav-card-category, .fav-remove { display: none; }
+    .fav-card-body { padding: 12px 12px 12px 16px; min-width: 0; }
+    .fav-card-head h2 { font-size: .92rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .fav-card-price { font-size: .95rem; }
+    .fav-card-meta { display: block; margin: 3px 0 8px; font-size: .76rem; }
+    .fav-card-meta span { display: none; }
+    .fav-card-meta span:nth-child(2) { display: inline-flex; }
+    .fav-card-desc, .fav-card-actions .btn-outline-primary { display: none; }
+    .fav-card-actions { justify-content: space-between; align-items: center; }
+    .fav-card-actions .btn-primary { flex: 0 0 auto; padding: 7px 16px; border-radius: 8px; font-size: .72rem; }
 }
 
 @media (max-width: 640px) {
