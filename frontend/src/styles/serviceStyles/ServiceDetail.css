@@ -76,9 +76,12 @@
 }
 @media (max-width: 640px) {
     .sdp-main { padding: 0 0 88px; }
+    .sdp-page { background: #fbf9f8; }
     .sdp-layout { display: flex; flex-direction: column; gap: 18px; }
     .sdp-content { gap: 0; width: 100%; }
     .sdp-content #sdp-gallery { width: 100%; }
+    .sdp-content .sgs-main { aspect-ratio: 1.35 / 1; border-radius: 0; }
+    .sdp-content .sgs-thumbs { display: none; }
     .sdp-info { padding: 22px 16px 18px; background: #fff; gap: 12px; }
     .sdp-title-row { align-items: center; flex-wrap: nowrap; }
     .sdp-title { font-size: 1.12rem; line-height: 1.25; }
@@ -103,8 +106,7 @@
     .sdp-sidebar { padding: 0 16px; gap: 16px; }
     .sdp-sidebar > * { width: 100%; }
     .sdp-page > footer { display: none; }
-    .sdp-page::after {
-        content: 'Prendre rendez-vous  →';
+    #sdp-reserver {
         position: fixed;
         left: 16px;
         right: 16px;
@@ -119,7 +121,6 @@
         color: #fff;
         font-weight: 700;
         box-shadow: 0 8px 24px rgba(20,99,243,.25);
-        pointer-events: none;
     }
 }
 
