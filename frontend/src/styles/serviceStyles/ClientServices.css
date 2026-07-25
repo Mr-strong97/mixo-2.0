@@ -106,12 +106,32 @@
     .csp-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 768px) {
-    .csp-main { padding: 20px 16px 60px; }
-    .csp-title { font-size: 1.5rem; }
-    .csp-toolbar { flex-direction: column; }
-    .csp-filters-btn { justify-content: center; }
-    .csp-filters-panel { flex-direction: column; align-items: stretch; }
-    .csp-filter-group { min-width: 0; }
+    /* Vue mobile client simplifiée : seul le titre reste visible. */
+    .csp-main {
+        min-height: calc(100vh - 64px);
+        padding: 42px 18px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .csp-header {
+        width: 100%;
+        margin: 0;
+        text-align: center;
+    }
+    .csp-title {
+        max-width: 340px;
+        margin: 0 auto;
+        color: #0A66C2;
+        font-size: clamp(1.45rem, 7vw, 2rem);
+        line-height: 1.12;
+    }
+    .csp-subtitle,
+    .csp-toolbar,
+    .csp-categories,
+    .csp-filters-panel,
+    .csp-grid,
+    .csp-pagination { display: none !important; }
 }
 @media (max-width: 560px) {
     .csp-grid { grid-template-columns: 1fr; }
