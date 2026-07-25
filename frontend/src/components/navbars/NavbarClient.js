@@ -24,11 +24,9 @@ export const NavbarClient = () => {
         { id: 'home',          icon: 'home',          label: 'Accueil',        route: '/home' },
         { id: 'services',      icon: 'grid',           label: 'Services',       route: '/services' },
         { id: 'rdv',           icon: 'calendar-range', label: 'Mes rendez-vous', route: '/rendez-vous' },
-        { id: 'discussion',    icon: 'messages-square', label: 'Discussion',      route: '/discussion' },
         { id: 'favoris',       icon: 'heart',          label: 'Favoris',        route: '/favoris' },
         { id: 'historique',    icon: 'clock',          label: 'Historique',     route: '/historique' },
         { id: 'factures',      icon: 'receipt-text',   label: 'Factures',       route: '/factures' },
-        { id: 'notifications', icon: 'bell',           label: 'Notifications',  route: '/notifications' },
         { id: 'parametres',    icon: 'settings',      label: 'Paramètres',     route: '/parametres/client' },
     ]);
 
