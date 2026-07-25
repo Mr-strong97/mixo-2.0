@@ -201,11 +201,31 @@
 
 @media (max-width: 1100px) {
     .cdp-stats-grid, .cdp-revenue-grid, .cdp-columns, .cdp-charts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .cdp-hero { align-items: stretch; }
 }
 
 @media (max-width: 760px) {
-    .cdp-main { padding-inline: 14px; }
-    .cdp-stats-grid, .cdp-revenue-grid, .cdp-columns, .cdp-charts { grid-template-columns: 1fr; }
-    .cdp-table-row, .cdp-top-item, .cdp-chart-row { grid-template-columns: 1fr; }
+    .cdp-page { overflow-x: hidden; background: #fbf9f8; }
+    .cdp-main { width: 100%; box-sizing: border-box; padding: 24px 16px 60px; }
+    .cdp-hero { flex-direction: column; align-items: stretch; padding: 24px 20px; gap: 18px; border-radius: 16px; }
+    .cdp-hero h1 { font-size: 1.75rem; line-height: 1.12; }
+    .cdp-hero-revenue { min-width: 0; padding: 16px; border-radius: 14px; }
+    .cdp-hero-revenue strong { font-size: 1.7rem; }
+    .cdp-stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .cdp-stat { min-height: 104px; padding: 14px; border-radius: 14px; }
+    .cdp-stat-icon { width: 36px; height: 36px; margin-bottom: 10px; border-radius: 11px; }
+    .cdp-stat span { font-size: .68rem; }
+    .cdp-stat strong { font-size: 1.4rem; }
+    .cdp-revenue-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
+    .cdp-revenue-card { padding: 14px; border-radius: 14px; }
+    .cdp-revenue-card span { font-size: .65rem; }
+    .cdp-revenue-card strong { font-size: 1.1rem; }
+    .cdp-columns, .cdp-charts { grid-template-columns: 1fr; gap: 12px; }
+    .cdp-panel { padding: 14px; border-radius: 14px; min-width: 0; }
+    .cdp-panel-head h2 { font-size: .95rem; }
+    .cdp-table-row, .cdp-top-item { grid-template-columns: minmax(0,1fr) auto; gap: 8px; padding: 11px; }
+    .cdp-table-row > div:nth-child(2) { grid-column: 1; }
+    .cdp-table-row > div:nth-child(3) { grid-column: 2; grid-row: 1 / span 2; }
+    .cdp-chart-row { grid-template-columns: 78px minmax(0,1fr) 28px; gap: 7px; }
+    .cdp-chart-label { font-size: .68rem; }
 }
-
