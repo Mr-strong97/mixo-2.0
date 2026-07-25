@@ -358,12 +358,15 @@
 
 /* Mobile-first refinements */
 @media (max-width: 768px) {
-    .rvp-main, .rsv-main { padding: 18px 14px 64px; }
-    .rvp-hero-copy { padding: 22px 20px; border-radius: 20px; }
+    .rvp-main, .rsv-main { padding: 80px 16px 64px; }
+    .rvp-page { background: #fbf9f8; }
+    .rvp-hero { gap: 24px; margin-bottom: 22px; }
+    .rvp-hero-copy { padding: 28px 24px; border-radius: 12px; background: linear-gradient(135deg, #0f62ff, #2f74ed); }
     .rvp-hero-copy h1 { font-size: clamp(1.7rem, 8vw, 2.25rem); }
-    .rvp-summary { gap: 8px; }
-    .rvp-summary-card { padding: 13px 12px; border-radius: 14px; }
-    .rvp-summary-card strong { font-size: 1.15rem; }
+    .rvp-summary { grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; overflow: hidden; }
+    .rvp-summary-card { padding: 16px 12px; border-radius: 12px; min-width: 0; }
+    .rvp-summary-card span { font-size: .65rem; letter-spacing: .08em; }
+    .rvp-summary-card strong { font-size: 1.45rem; color: #0755ca; }
     .rvp-toolbar { gap: 12px; margin-bottom: 18px; }
     .rvp-toolbar-filters { width: 100%; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 3px; scrollbar-width: none; }
     .rvp-toolbar-filters::-webkit-scrollbar { display: none; }
