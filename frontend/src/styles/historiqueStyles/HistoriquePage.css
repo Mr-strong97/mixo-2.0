@@ -356,34 +356,29 @@
 }
 
 @media (max-width: 768px) {
-    /* Vue mobile client simplifiée : seul le titre reste visible. */
-    .his-main {
-        min-height: calc(100vh - 64px);
-        padding: 42px 18px 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .his-hero {
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        border: 0;
-        box-shadow: none;
-        background: transparent;
-        text-align: center;
-    }
-    .his-hero .his-kicker,
-    .his-hero p,
-    .his-stats,
-    .his-filters,
-    .his-list,
-    .his-pagination { display: none !important; }
-    .his-hero h1 {
-        max-width: 340px;
-        margin: 0 auto;
-        color: var(--blue) !important;
-        font-size: clamp(1.45rem, 7vw, 2rem);
-        line-height: 1.12;
-    }
+    .his-main { padding: 34px 24px 56px; }
+    .his-hero { padding: 0; margin-bottom: 22px; border: 0; box-shadow: none; background: transparent; }
+    .his-kicker { display: none; }
+    .his-hero h1 { font-size: 2rem; color: var(--text-dark) !important; }
+    .his-hero p { margin-top: 8px; font-size: 1rem; color: #666; }
+    .his-stats { grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin-bottom: 24px; }
+    .his-stat { min-height: 90px; padding: 16px 12px; border-radius: 12px; background: #f7f5f5; border: 1px solid #ece9e9; gap: 8px; }
+    .his-stat-top { justify-content: center; }
+    .his-stat-icon { display: none; }
+    .his-stat-top strong { color: #0057d9; font-size: 1.5rem; }
+    .his-stat-label { text-align: center; color: #555; font-size: .72rem; font-weight: 500; line-height: 1.2; }
+    .his-filters { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+    .his-filter { display: none; }
+    .his-filter:first-child { display: flex; }
+    .his-filter label { display: none; }
+    .his-input-wrap { height: 46px; border: 0; background: #f4f1f1; border-radius: 12px; }
+    .his-list { gap: 12px; }
+    .his-card { grid-template-columns: 58px minmax(0,1fr); gap: 14px; padding: 16px; border-radius: 12px; }
+    .his-card-icon { width: 48px; height: 48px; border-radius: 8px; }
+    .his-card-top { flex-direction: row; gap: 8px; }
+    .his-card-top h2 { font-size: .98rem; }
+    .his-card-meta { margin-top: 6px; font-size: .78rem; }
+    .his-card-meta span:first-child { display: none; }
+    .his-comment { font-size: .82rem; line-height: 1.4; padding: 0; background: transparent; }
+    .his-end { display: none; }
 }
