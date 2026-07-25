@@ -241,6 +241,23 @@
 
 .svc-card-actions { display: flex; gap: 10px; margin-top: 4px; }
 
+/* Sur les petits écrans, chaque action doit rester facilement cliquable.
+   Les boutons empilés évitent qu'ils deviennent trop étroits dans une carte. */
+@media (max-width: 560px) {
+    .svc-card-body { padding: 12px; gap: 9px; }
+    .svc-card-title-row { align-items: center; }
+    .svc-card-title { min-width: 0; overflow-wrap: anywhere; }
+    .svc-card-price { flex-shrink: 0; font-size: 0.95rem; }
+    .svc-card-meta { flex-wrap: wrap; gap: 8px 14px; }
+    .svc-card-actions { flex-direction: column; gap: 8px; margin-top: 2px; }
+    .svc-card-actions .svc-btn {
+        flex: none;
+        width: 100%;
+        min-height: 38px;
+        height: 38px;
+    }
+}
+
 
 /* ═══════════════════════════════════════════════════════════════
    CATEGORY FILTER BAR (cfb-*)
