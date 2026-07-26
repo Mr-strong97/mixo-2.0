@@ -7,7 +7,7 @@
  * @param {String} title     Titre de la page
  * @param {String} color     Couleur accent (défaut #0A66C2)
  */
-export const SettingsLayout = (sections = [], title = 'Paramètres', color = '#0A66C2') => {
+export const SettingsLayout = (sections = [], title = 'Paramètres', color = '#0A66C2', secondaryLinks = []) => {
     const wrapper = document.createElement('div');
     wrapper.className = 'stl-wrapper';
 
@@ -21,6 +21,7 @@ export const SettingsLayout = (sections = [], title = 'Paramètres', color = '#0
                     <span>${title}</span>
                 </div>
                 <nav class="stl-nav" id="stl-nav"></nav>
+                ${secondaryLinks.length ? `<div class="stl-secondary-title">Accès rapides</div><nav class="stl-nav stl-secondary-nav" id="stl-secondary-nav"></nav>` : ''}
             </aside>
 
             <!-- Contenu dynamique -->
@@ -33,6 +34,7 @@ export const SettingsLayout = (sections = [], title = 'Paramètres', color = '#0
     `;
 
     const nav     = wrapper.querySelector('#stl-nav');
+    const secondaryNav = wrapper.querySelector('#stl-secondary-nav');
     const content = wrapper.querySelector('#stl-content');
     let activeId  = sections[0]?.id;
 
@@ -47,6 +49,13 @@ export const SettingsLayout = (sections = [], title = 'Paramètres', color = '#0
         `;
         btn.addEventListener('click', () => activate(s.id));
         nav.appendChild(btn);
+    });
+    secondaryLinks.forEach((link) => {
+        const btn = document.createElement('button');
+        btn.className = 'stl-nav-btn stl-secondary-btn';
+        btn.innerHTML = `<i data-lucide="${link.icon}" class="stl-nav-ico"></i><span>${link.label}</span>`;
+        btn.addEventListener('click', () => window.navigate?.(link.route));
+        secondaryNav?.appendChild(btn);
     });
 
     // ── Activation d'une section ────────────────────────────

@@ -1,6 +1,6 @@
 /**
  * NavbarClient.js — MIXO
- * Liens : Accueil · Services · Espace Client · Favoris · Historique · Notifications
+ * Navigation principale mobile : Accueil · Rendez-vous · Factures · Paramètres
  */
 import { NavbarLayout } from './NavbarLayout.js';
 import { FavorisAPI } from '../../api/FavorisAPI.js';
@@ -22,10 +22,7 @@ const applyBadge = (count) => {
 export const NavbarClient = () => {
     const nav = NavbarLayout([
         { id: 'home',          icon: 'home',          label: 'Accueil',        route: '/home' },
-        { id: 'services',      icon: 'grid',           label: 'Services',       route: '/services' },
         { id: 'rdv',           icon: 'calendar-range', label: 'Mes rendez-vous', route: '/rendez-vous' },
-        { id: 'favoris',       icon: 'heart',          label: 'Favoris',        route: '/favoris' },
-        { id: 'historique',    icon: 'clock',          label: 'Historique',     route: '/historique' },
         { id: 'factures',      icon: 'receipt-text',   label: 'Factures',       route: '/factures' },
         { id: 'parametres',    icon: 'settings',      label: 'Paramètres',     route: '/parametres/client' },
     ]);

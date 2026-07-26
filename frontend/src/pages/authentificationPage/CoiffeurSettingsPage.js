@@ -56,7 +56,11 @@ export const CoiffeurSettingsPage = () => {
         { id: 'preferences',   icon: 'sliders',          label: 'Préférences',          render: renderPrefs },
     ];
 
-    main.appendChild(SettingsLayout(sections, 'Paramètres Coiffeur'));
+    main.appendChild(SettingsLayout(sections, 'Paramètres Coiffeur', '#0A66C2', [
+        { icon: 'scissors', label: 'Mes services', route: '/coiffeur/services' },
+        { icon: 'image', label: 'Portfolio', route: '/coiffeur/portfolio' },
+        { icon: 'star', label: 'Avis clients', route: '/coiffeur/avis' },
+    ]));
     page.appendChild(main);
     page.appendChild(Footer());
 

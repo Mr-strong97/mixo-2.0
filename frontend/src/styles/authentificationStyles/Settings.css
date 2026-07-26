@@ -261,3 +261,5 @@
 /* ── KEYFRAMES ───────────────────────────────────────────────── */
 @keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
 @keyframes spin   { to { transform:rotate(360deg); } }
+.stl-secondary-title { margin: 18px 14px 6px; color: #94A3B8; font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+.stl-secondary-btn { color: #64748B; }

@@ -56,7 +56,11 @@ export const ClientSettingsPage = () => {
         { id: 'preferences',   icon: 'sliders',     label: 'Préférences',   render: renderPrefs },
     ];
 
-    main.appendChild(SettingsLayout(sections, 'Paramètres Client'));
+    main.appendChild(SettingsLayout(sections, 'Paramètres Client', '#0A66C2', [
+        { icon: 'heart', label: 'Favoris', route: '/favoris' },
+        { icon: 'clock-3', label: 'Historique', route: '/historique' },
+        { icon: 'messages-square', label: 'Discussion', route: '/discussion' },
+    ]));
     page.appendChild(main);
     page.appendChild(Footer());
 

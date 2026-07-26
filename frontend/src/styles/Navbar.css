@@ -229,6 +229,19 @@
         padding: 0 18px; background: #fff; border-bottom: 1px solid #eef0f4;
         box-sizing: border-box;
     }
+    /* Le header est fixe : réserver son espace pour que le contenu ne passe
+       jamais dessous sur les pages qui affichent la navbar. */
+    .nl-mobile-header ~ main,
+    .nl-mobile-header ~ .main-content,
+    .nl-mobile-header ~ .sett-main,
+    .nl-mobile-header ~ .adm-main,
+    .nl-mobile-header ~ .audit-main,
+    .nl-mobile-header ~ .stats-pg-main,
+    .nl-mobile-header ~ .adm-sett-main,
+    .nl-mobile-header ~ .adm-prof-main,
+    .nl-mobile-header ~ .notif-main {
+        padding-top: 80px !important;
+    }
     .nl-mobile-logo { border: 0; background: transparent; color: #0A66C2; font: 900 1.35rem Montserrat, sans-serif; padding: 0; cursor: pointer; }
     .nl-mobile-actions { display: flex; align-items: center; gap: 14px; }
     .nl-mobile-action { position: relative; width: 34px; height: 34px; border: 0; background: transparent; color: #1f2937; display: grid; place-items: center; cursor: pointer; }

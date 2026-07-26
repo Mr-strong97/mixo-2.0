@@ -24,10 +24,6 @@ export const NavbarLayout = (links = [], activeRoute = '') => {
     let badgeState = {};
 
     const fragment  = document.createDocumentFragment();
-    const burgerBtn = document.createElement('button');
-    burgerBtn.className = 'nl-burger';
-    burgerBtn.id        = 'nl-burger';
-    burgerBtn.innerHTML = `<span></span><span></span><span></span>`;
 
     const nav = document.createElement('nav');
     nav.className = 'nl-sidebar';
@@ -40,7 +36,7 @@ export const NavbarLayout = (links = [], activeRoute = '') => {
             <button class="nl-mobile-action" data-mobile-route="/discussion" aria-label="Messages"><i data-lucide="messages-square"></i><span class="nl-mobile-badge"></span></button>
         </div>`;
     const closeOnOutsideClick = (e) => {
-        if (nav.classList.contains('nl-open') && !nav.contains(e.target) && e.target !== burgerBtn) {
+        if (nav.classList.contains('nl-open') && !nav.contains(e.target)) {
             closeMenu();
         }
     };
@@ -139,22 +135,11 @@ export const NavbarLayout = (links = [], activeRoute = '') => {
         });
     };
 
-    // ── Burger ──────────────────────────────────────────────
     const closeMenu = () => {
-        burgerBtn.classList.remove('active');
         nav.classList.remove('nl-open');
         document.body.classList.remove('no-scroll');
         document.body.classList.remove('nav-menu-open');
     };
-
-    burgerBtn.addEventListener('click', e => {
-        e.stopPropagation();
-        burgerBtn.classList.toggle('active');
-        nav.classList.toggle('nl-open');
-        const isOpen = nav.classList.contains('nl-open');
-        document.body.classList.toggle('no-scroll', isOpen);
-        document.body.classList.toggle('nav-menu-open', isOpen);
-    });
 
     if (document.__mixoNavbarOutsideClickHandler) {
         document.removeEventListener('click', document.__mixoNavbarOutsideClickHandler);
@@ -197,7 +182,6 @@ export const NavbarLayout = (links = [], activeRoute = '') => {
 
     setTimeout(() => { if (window.lucide) window.lucide.createIcons(); }, 50);
 
-    fragment.appendChild(burgerBtn);
     fragment.appendChild(mobileHeader);
     fragment.appendChild(nav);
     return fragment;
