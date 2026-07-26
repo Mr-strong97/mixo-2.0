@@ -23,13 +23,8 @@ const resolveApiBaseUrl = () => {
     const envUrl = normalizeApiBaseUrl(import.meta.env.VITE_API_URL);
     if (envUrl) return envUrl;
 
-    if (typeof window !== 'undefined') {
-        const { hostname } = window.location;
-        if (hostname === 'localhost' || hostname === '127.0.0.1') {
-            return 'http://127.0.0.1:8000/api/';
-        }
-    }
-
+    // En déploiement, le frontend et l'API partagent le même domaine.
+    // Une URL relative évite toute dépendance à localhost ou à un port local.
     return '/api/';
 };
 
