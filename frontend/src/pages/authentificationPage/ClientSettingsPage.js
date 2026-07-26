@@ -60,6 +60,7 @@ export const ClientSettingsPage = () => {
         { icon: 'heart', label: 'Favoris', route: '/favoris' },
         { icon: 'clock-3', label: 'Historique', route: '/historique' },
         { icon: 'messages-square', label: 'Discussion', route: '/discussion' },
+        { icon: 'palette', label: 'Catalogue d’avatars', route: '/avatars' },
     ]));
     page.appendChild(main);
     page.appendChild(Footer());

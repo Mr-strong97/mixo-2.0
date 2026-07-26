@@ -3,65 +3,66 @@
 // ============================================================
 
 // ── 2.1. BIENVENUE & TUNNEL D'AUTHENTIFICATION ──
-import { WelcomePage }          from './pages/authentificationPage/WelcomePage.js';
-import { LoginPage }             from './pages/authentificationPage/LoginPage.js';
-import { RegisterPage }          from './pages/authentificationPage/RegisterPage.js';
-import { HomePage }              from './pages/authentificationPage/HomePage.js';
-import { HomeAdminPage }         from './pages/authentificationPage/HomeAdminPage.js';
+import { WelcomePage }          from './frontend/src/pages/authentificationPage/WelcomePage.js';
+import { LoginPage }             from './frontend/src/pages/authentificationPage/LoginPage.js';
+import { RegisterPage }          from './frontend/src/pages/authentificationPage/RegisterPage.js';
+import { HomePage }              from './frontend/src/pages/authentificationPage/HomePage.js';
+import { HomeAdminPage }         from './frontend/src/pages/authentificationPage/HomeAdminPage.js';
 
 // ── 2.2. GESTION DE COMPTE, SÉCURITÉ & VÉRIFICATION ──
-import { VerifyEmailPage }       from './pages/authentificationPage/VerifyEmailPage.js';
-import { ForgotPasswordPage }    from './pages/authentificationPage/ForgotPasswordPage.js';
-import { ResetPasswordPage }     from './pages/authentificationPage/ResetPasswordPage.js';
-import { SuspendedAccountPage }  from './pages/authentificationPage/SuspendedAccountPage.js';
+import { VerifyEmailPage }       from './frontend/src/pages/authentificationPage/VerifyEmailPage.js';
+import { ForgotPasswordPage }    from './frontend/src/pages/authentificationPage/ForgotPasswordPage.js';
+import { ResetPasswordPage }     from './frontend/src/pages/authentificationPage/ResetPasswordPage.js';
+import { SuspendedAccountPage }  from './frontend/src/pages/authentificationPage/SuspendedAccountPage.js';
 
 // ── 2.3. ESPACES PROFIL ──
-import { SettingsPage }            from './pages/authentificationPage/SettingsPage.js';
-import { ClientSettingsPage }      from './pages/authentificationPage/ClientSettingsPage.js';
-import { CoiffeurSettingsPage }    from './pages/authentificationPage/CoiffeurSettingsPage.js';
-import { AdminSettingsPage }       from './pages/authentificationPage/AdminSettingsPage.js';
+import { SettingsPage }            from './frontend/src/pages/authentificationPage/SettingsPage.js';
+import { ClientSettingsPage }      from './frontend/src/pages/authentificationPage/ClientSettingsPage.js';
+import { CoiffeurSettingsPage }    from './frontend/src/pages/authentificationPage/CoiffeurSettingsPage.js';
+import { AdminSettingsPage }       from './frontend/src/pages/authentificationPage/AdminSettingsPage.js';
 
 // ── 2.4. NOTIFICATIONS ──
-import { NotificationPage }      from './pages/notificationPage/NotificationPage.js';
-import { DiscussionPage }        from './pages/discussionPage/DiscussionPage.js';
+import { NotificationPage }      from './frontend/src/pages/notificationPage/NotificationPage.js';
+import { DiscussionPage }        from './frontend/src/pages/discussionPage/DiscussionPage.js';
 
 // ── 2.5. ADMINISTRATION ──
-import { AdminProfilePage }      from './pages/authentificationPage/AdminProfilePage.js';
-import { AdminStatsPage }        from './pages/authentificationPage/AdminStatsPage.js';
-import { AuditLogPage }          from './pages/authentificationPage/AuditLogPage.js';
-import { AdminDashboardPage }    from './pages/adminDashboard/AdminDashboardPage.js';
-import { AdminUsersPage }        from './pages/adminPage/AdminPage.js';
+import { AdminProfilePage }      from './frontend/src/pages/authentificationPage/AdminProfilePage.js';
+import { AdminStatsPage }        from './frontend/src/pages/authentificationPage/AdminStatsPage.js';
+import { AuditLogPage }          from './frontend/src/pages/authentificationPage/AuditLogPage.js';
+import { AdminDashboardPage }    from './frontend/src/pages/adminDashboard/AdminDashboardPage.js';
+import { AdminUsersPage }        from './frontend/src/pages/adminPage/AdminPage.js';
 
 
 // ── 2.6. MODULE SERVICES ──
 //   Espace Client
-import { ClientServicesPage }        from './pages/servicePage/ClientservicesPage.js';
-import { ServiceDetailPage }         from './pages/servicePage/ServiceDetailPage.js';
-import { ReservationPage }          from './pages/rendezvousPage/ReservationPage.js';
+import { ClientServicesPage }        from './frontend/src/pages/servicePage/ClientservicesPage.js';
+import { ServiceDetailPage }         from './frontend/src/pages/servicePage/ServiceDetailPage.js';
+import { ReservationPage }          from './frontend/src/pages/rendezvousPage/ReservationPage.js';
 //   Espace Coiffeur
-import { CoiffeurServicesPage }      from './pages/servicePage/CoiffeurServicesPage.js';
-import { CoiffeurServiceDetailPage } from './pages/servicePage/CoiffeurServiceDetailPage.js';
-import { CoiffeurServiceEditPage }   from './pages/servicePage/CoiffeurServiceEditPage.js';
-import { ServiceWizardPage }         from './pages/servicePage/ServiceWizardPage.js';
-import { ClientRendezVousPage }      from './pages/rendezvousPage/ClientRendezVousPage.js';
-import { CoiffeurRendezVousPage }     from './pages/rendezvousPage/CoiffeurRendezVousPage.js';
-import { PaiementPage }              from './pages/paiementPage/PaiementPage.js';
-import { FacturesPage }              from './pages/facturePage/FacturesPage.js';
-import { CoiffeurAvisPage }          from './pages/avisPage/CoiffeurAvisPage.js';
-import { LaisserAvisPage }           from './pages/avisPage/LaisserAvisPage.js';
-import { AvisDetailPage }            from './pages/avisPage/AvisDetailPage.js';
-import { FavorisPage }               from './pages/favorisPage/FavorisPage.js';
-import { HistoriquePage }            from './pages/historiquePage/HistoriquePage.js';
-import { CoiffeurDashboardPage }     from './pages/dashboardPage/CoiffeurDashboardPage.js';
+import { CoiffeurServicesPage }      from './frontend/src/pages/servicePage/CoiffeurServicesPage.js';
+import { CoiffeurServiceDetailPage } from './frontend/src/pages/servicePage/CoiffeurServiceDetailPage.js';
+import { CoiffeurServiceEditPage }   from './frontend/src/pages/servicePage/CoiffeurServiceEditPage.js';
+import { ServiceWizardPage }         from './frontend/src/pages/servicePage/ServiceWizardPage.js';
+import { ClientRendezVousPage }      from './frontend/src/pages/rendezvousPage/ClientRendezVousPage.js';
+import { CoiffeurRendezVousPage }     from './frontend/src/pages/rendezvousPage/CoiffeurRendezVousPage.js';
+import { PaiementPage }              from './frontend/src/pages/paiementPage/PaiementPage.js';
+import { FacturesPage }              from './frontend/src/pages/facturePage/FacturesPage.js';
+import { CoiffeurAvisPage }          from './frontend/src/pages/avisPage/CoiffeurAvisPage.js';
+import { LaisserAvisPage }           from './frontend/src/pages/avisPage/LaisserAvisPage.js';
+import { AvisDetailPage }            from './frontend/src/pages/avisPage/AvisDetailPage.js';
+import { FavorisPage }               from './frontend/src/pages/favorisPage/FavorisPage.js';
+import { HistoriquePage }            from './frontend/src/pages/historiquePage/HistoriquePage.js';
+import { CoiffeurDashboardPage }     from './frontend/src/pages/dashboardPage/CoiffeurDashboardPage.js';
 
 
 // services du coiffeur dans le systeme
-import { CoiffeurAbonnementPage } from './pages/abonnementPage/CoiffeurAbonnementPage.js';
-import { CoiffeurHorairesPage }   from './pages/horairePage/CoiffeurHorairesPage.js';
-import { CoiffeurPortfolioPage }  from './pages/portfolioPage/CoiffeurPortfolioPage.js';
-import { AdminServicesDashboardPage } from './pages/adminPage/AdminServicesDashboardPage.js';
-import { CoiffeurProfilPage } from './pages/profilPage/CoiffeurProfilPage.js';
-import { AdminRendezVousPage } from './pages/adminRendezVous/AdminRendezVousPage.js';
+import { CoiffeurAbonnementPage } from './frontend/src/pages/abonnementPage/CoiffeurAbonnementPage.js';
+import { CoiffeurHorairesPage }   from './frontend/src/pages/horairePage/CoiffeurHorairesPage.js';
+import { CoiffeurPortfolioPage }  from './frontend/src/pages/portfolioPage/CoiffeurPortfolioPage.js';
+import { AdminServicesDashboardPage } from './frontend/src/pages/adminPage/AdminServicesDashboardPage.js';
+import { CoiffeurProfilPage } from './frontend/src/pages/profilPage/CoiffeurProfilPage.js';
+import { AdminRendezVousPage } from './frontend/src/pages/adminRendezVous/AdminRendezVousPage.js';
+import { AvatarCataloguePage } from './frontend/src/components/Avatarcataloguepage.js';
 
 
 const createInfoPage = (title, description) => (extra = {}) => {
@@ -105,6 +106,10 @@ const routes = [
 
     // Compte & paramètres
     { path: /^\/settings$/,             component: SettingsPage },
+    { path: /^\/avatars$/,              component: () => AvatarCataloguePage({
+        username: localStorage.getItem('username') || 'Utilisateur',
+        avatar_choice: localStorage.getItem('avatar_choice') || 'initials',
+    }) },
     { path: /^\/parametres\/client$/,   component: ClientSettingsPage },
     { path: /^\/parametres\/coiffeur$/, component: CoiffeurSettingsPage },
 

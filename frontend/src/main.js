@@ -59,7 +59,8 @@ import'./styles/adminStyles/AdminUsers.css';
 
 
 // --- 2. IMPORT DU ROUTEUR ---
-import { initRouter } from './router';
+// Le routeur est conservé à la racine du projet pour partager les entrées SPA.
+import { initRouter } from '../../router.js';
 
 // --- 3. INITIALISATION ---
 const app = document.querySelector('#app');

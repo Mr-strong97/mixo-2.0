@@ -60,6 +60,7 @@ export const CoiffeurSettingsPage = () => {
         { icon: 'scissors', label: 'Mes services', route: '/coiffeur/services' },
         { icon: 'image', label: 'Portfolio', route: '/coiffeur/portfolio' },
         { icon: 'star', label: 'Avis clients', route: '/coiffeur/avis' },
+        { icon: 'palette', label: 'Catalogue d’avatars', route: '/avatars' },
     ]));
     page.appendChild(main);
     page.appendChild(Footer());
