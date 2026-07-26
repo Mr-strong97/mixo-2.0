@@ -263,3 +263,5 @@
 @keyframes spin   { to { transform:rotate(360deg); } }
 .stl-secondary-title { margin: 18px 14px 6px; color: #94A3B8; font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
 .stl-secondary-btn { color: #64748B; }
+.stl-danger-btn { color:#DC2626; }
+.stl-danger-btn:hover { background:#FEF2F2; color:#B91C1C; }

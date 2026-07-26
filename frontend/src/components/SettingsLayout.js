@@ -52,9 +52,12 @@ export const SettingsLayout = (sections = [], title = 'Paramètres', color = '#0
     });
     secondaryLinks.forEach((link) => {
         const btn = document.createElement('button');
-        btn.className = 'stl-nav-btn stl-secondary-btn';
+        btn.className = `stl-nav-btn stl-secondary-btn ${link.danger ? 'stl-danger-btn' : ''}`;
         btn.innerHTML = `<i data-lucide="${link.icon}" class="stl-nav-ico"></i><span>${link.label}</span>`;
-        btn.addEventListener('click', () => window.navigate?.(link.route));
+        btn.addEventListener('click', () => {
+            if (typeof link.action === 'function') return link.action();
+            window.navigate?.(link.route);
+        });
         secondaryNav?.appendChild(btn);
     });
 
