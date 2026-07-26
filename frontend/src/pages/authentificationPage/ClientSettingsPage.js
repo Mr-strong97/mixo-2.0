@@ -57,11 +57,11 @@ export const ClientSettingsPage = () => {
     ];
 
     main.appendChild(SettingsLayout(sections, 'Paramètres Client', '#0A66C2', [
+        { icon: 'log-out', label: 'Déconnexion', danger: true, action: () => AuthentificationUtilisateurs.logout() },
         { icon: 'heart', label: 'Favoris', route: '/favoris' },
         { icon: 'clock-3', label: 'Historique', route: '/historique' },
         { icon: 'messages-square', label: 'Discussion', route: '/discussion' },
         { icon: 'palette', label: 'Catalogue d’avatars', route: '/avatars' },
-        { icon: 'log-out', label: 'Déconnexion', danger: true, action: () => AuthentificationUtilisateurs.logout() },
     ]));
     page.appendChild(main);
     page.appendChild(Footer());

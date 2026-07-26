@@ -57,11 +57,11 @@ export const CoiffeurSettingsPage = () => {
     ];
 
     main.appendChild(SettingsLayout(sections, 'Paramètres Coiffeur', '#0A66C2', [
+        { icon: 'log-out', label: 'Déconnexion', danger: true, action: () => AuthentificationUtilisateurs.logout() },
         { icon: 'scissors', label: 'Mes services', route: '/coiffeur/services' },
         { icon: 'image', label: 'Portfolio', route: '/coiffeur/portfolio' },
         { icon: 'star', label: 'Avis clients', route: '/coiffeur/avis' },
         { icon: 'palette', label: 'Catalogue d’avatars', route: '/avatars' },
-        { icon: 'log-out', label: 'Déconnexion', danger: true, action: () => AuthentificationUtilisateurs.logout() },
     ]));
     page.appendChild(main);
     page.appendChild(Footer());
