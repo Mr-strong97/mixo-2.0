@@ -2,7 +2,9 @@
 
 // ── 1.1. FRAMEWORKS & DESIGN SYSTEM GLOBALS ──
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fontsource-variable/public-sans';
 import './styles/variables.css';
+import './styles/AppShell.css';
 import './styles/toast.css';
 import './styles/confirmDialog.css';
 
@@ -61,6 +63,9 @@ import'./styles/adminStyles/AdminUsers.css';
 // --- 2. IMPORT DU ROUTEUR ---
 // Le routeur est conservé à la racine du projet pour partager les entrées SPA.
 import { initRouter } from '../../router.js';
+// Chargé après les styles des pages importées par le routeur : cette couche
+// harmonise les anciens écrans sans toucher à leur logique métier.
+import './styles/MixoRefresh.css';
 
 // --- 3. INITIALISATION ---
 const app = document.querySelector('#app');
@@ -81,6 +86,16 @@ if (app) {
 } else {
     console.error("Erreur : L'élément #app est introuvable dans le HTML.");
 }
+
+// L'écran de démarrage reste visible juste assez longtemps pour éviter le
+// flash blanc au premier rendu, puis laisse la place à la route courante.
+requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+        document.body.classList.add('mixo-app-ready');
+        const boot = document.querySelector('#mixo-boot');
+        window.setTimeout(() => { if (boot) boot.hidden = true; }, 360);
+    });
+});
 
 // Enregistrement du service worker pour rendre l'app installable et
 // garder un minimum de cache hors ligne sans modifier le comportement métier.

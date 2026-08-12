@@ -57,7 +57,6 @@ export const PlatformOverview = () => {
     section.innerHTML = `
         <div class="mixo-container">
             <div class="mixo-section-head" data-animate="fade-up">
-                <span class="mixo-eyebrow"><i data-lucide="layout-grid"></i><span>Qu'est-ce que Mixo ?</span></span>
                 <h2 class="mixo-section-title">Une plateforme, deux univers connectés.</h2>
                 <p class="mixo-section-subtitle">
                     Mixo met en relation les clients en quête d'un coiffeur de confiance et les

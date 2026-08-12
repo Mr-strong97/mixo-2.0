@@ -30,7 +30,6 @@ export const AdminSettingsPage = () => {
     main.innerHTML = `
         <section class="adm-sett-hero">
             <div>
-                <p class="adm-sett-kicker">Configuration</p>
                 <h1>Paramètres administrateur</h1>
                 <p>Profil, sécurité, notifications et préférences du tableau de bord.</p>
             </div>
@@ -124,7 +123,6 @@ export const AdminSettingsPage = () => {
             <section class="adm-sett-card">
                 <div class="adm-sett-card-head">
                     <div>
-                        <p class="adm-card-kicker">Mon profil</p>
                         <h2>Informations personnelles</h2>
                     </div>
                     <span class="adm-pill">Compte admin</span>
@@ -205,7 +203,6 @@ export const AdminSettingsPage = () => {
             <section class="adm-sett-card">
                 <div class="adm-sett-card-head">
                     <div>
-                        <p class="adm-card-kicker">Sécurité</p>
                         <h2>Sessions et accès</h2>
                     </div>
                     <button class="adm-btn adm-btn-ghost" id="adm-revoke-others" type="button"><i data-lucide="shield-off"></i> Déconnecter les autres appareils</button>
@@ -312,7 +309,6 @@ export const AdminSettingsPage = () => {
             <section class="adm-sett-card">
                 <div class="adm-sett-card-head">
                     <div>
-                        <p class="adm-card-kicker">Notifications</p>
                         <h2>Alertes système</h2>
                     </div>
                 </div>
@@ -338,7 +334,6 @@ export const AdminSettingsPage = () => {
             <section class="adm-sett-card">
                 <div class="adm-sett-card-head">
                     <div>
-                        <p class="adm-card-kicker">Préférences</p>
                         <h2>Affichage et ergonomie</h2>
                     </div>
                 </div>

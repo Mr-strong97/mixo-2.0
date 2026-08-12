@@ -40,20 +40,30 @@ export const CoiffeurDashboardPage = () => {
         const revenus = data.revenus || {};
         const recentRdv = data.rendezvous_recents || [];
         const recentAvis = data.avis_recents || [];
+        const priorityRdv = getPriorityRendezVous(recentRdv);
+        const username = localStorage.getItem('username') || 'Coiffeur';
 
         main.innerHTML = `
             <section class="cdp-hero">
-                <div>
-                    <p class="cdp-kicker">Dashboard professionnel</p>
-                    <h1>Vue globale de votre activité</h1>
-                    <p>Suivi des rendez-vous, revenus, avis et services les plus performants.</p>
+                <div class="cdp-hero-copy">
+                    <h1>Bonjour ${escapeHtml(username)}, organisez votre journée.</h1>
+                    <p>Votre prochain rendez-vous et les actions essentielles sont regroupés en premier.</p>
                 </div>
                 <div class="cdp-hero-revenue">
                     <span>Revenus totaux</span>
-                    <strong>${formatPrix(revenus.total)} FC</strong>
+                    <strong>${formatPrix(revenus.total)} <small>FC</small></strong>
                 </div>
             </section>
 
+            ${priorityCard(priorityRdv)}
+
+            <div class="cdp-section-heading">
+                <h2>Repères d’activité</h2>
+                <div class="cdp-heading-actions">
+                    <button type="button" data-cdp-route="/coiffeur/rendez-vous"><i data-lucide="calendar-days"></i> Rendez-vous</button>
+                    <button type="button" data-cdp-route="/coiffeur/services/new"><i data-lucide="plus"></i> Nouveau service</button>
+                </div>
+            </div>
             <section class="cdp-stats-grid" id="cdp-stats-grid">
                 ${statCard('Rendez-vous', indicateurs.total_rendezvous, 'calendar-range')}
                 ${statCard("Aujourd'hui", indicateurs.rendezvous_aujourdhui, 'calendar-check')}
@@ -85,7 +95,7 @@ export const CoiffeurDashboardPage = () => {
                                     <span>${escapeHtml(rdv.service_nom)}</span>
                                 </div>
                                 <div>${formatDate(rdv.date_heure_debut)}</div>
-                                <div><span class="cdp-status cdp-status-${normalizeStatut(rdv.statut)}">${escapeHtml(rdv.statut || '—')}</span></div>
+                                <div><span class="cdp-status cdp-status-${normalizeStatut(rdv.statut)}">${escapeHtml(formatStatutLabel(rdv.statut))}</span></div>
                             </div>
                         `).join('') : '<p class="cdp-empty-inline">Aucun rendez-vous récent.</p>'}
                     </div>
@@ -168,6 +178,10 @@ export const CoiffeurDashboardPage = () => {
             </section>
         `;
 
+        main.querySelectorAll('[data-cdp-route]').forEach((button) => {
+            button.addEventListener('click', () => window.navigate?.(button.dataset.cdpRoute));
+        });
+
         main.querySelectorAll('[data-reply]').forEach(btn => {
             btn.addEventListener('click', async () => {
                 const avisId = btn.getAttribute('data-reply');
@@ -217,6 +231,52 @@ function statCard(label, value, icon) {
     `;
 }
 
+function priorityCard(rdv) {
+    if (!rdv) {
+        return `
+            <article class="cdp-priority cdp-priority-empty">
+                <div class="cdp-priority-icon"><i data-lucide="calendar-check"></i></div>
+                <div class="cdp-priority-copy">
+                    <h2>Votre agenda est à jour</h2>
+                    <p>Aucun rendez-vous récent ne demande votre attention. Vous pouvez vérifier vos disponibilités.</p>
+                </div>
+                <button type="button" class="cdp-priority-button" data-cdp-route="/coiffeur/horaires">
+                    Voir mes horaires <i data-lucide="arrow-right"></i>
+                </button>
+            </article>`;
+    }
+
+    const statut = rdv.statut || 'À consulter';
+    const price = rdv.service_prix_snapshot ?? rdv.prix ?? null;
+    return `
+        <article class="cdp-priority">
+            <div class="cdp-priority-icon"><i data-lucide="calendar-clock"></i></div>
+            <div class="cdp-priority-copy">
+                <div class="cdp-priority-topline">
+                    <span class="cdp-status cdp-status-${normalizeStatut(statut)}">${escapeHtml(formatStatutLabel(statut))}</span>
+                </div>
+                <h2>Prochain rendez-vous avec ${escapeHtml(rdv.client_username || 'le client')}</h2>
+                <p>${escapeHtml(rdv.service_nom || rdv.service_nom_snapshot || 'Service de coiffure')}</p>
+                <div class="cdp-priority-meta">
+                    <span><i data-lucide="calendar-days"></i>${formatDate(rdv.date_heure_debut)}</span>
+                    ${price !== null ? `<span><i data-lucide="wallet-cards"></i>${formatPrix(price)} FC</span>` : ''}
+                </div>
+            </div>
+            <button type="button" class="cdp-priority-button" data-cdp-route="/coiffeur/rendez-vous">
+                Gérer ce rendez-vous <i data-lucide="arrow-right"></i>
+            </button>
+        </article>`;
+}
+
+function getPriorityRendezVous(items = []) {
+    return [...items]
+        .filter(Boolean)
+        .sort((a, b) => new Date(a.date_heure_debut || 0) - new Date(b.date_heure_debut || 0))
+        .find((item) => ['EN_ATTENTE', 'ACCEPTE'].includes(String(item.statut || '').toUpperCase()))
+        || items[0]
+        || null;
+}
+
 function metricCard(label, value) {
     return `
         <div class="cdp-revenue-card">
@@ -239,7 +299,20 @@ function formatDate(value) {
 function formatPrix(prix) {
     const n = parseFloat(prix);
     if (Number.isNaN(n)) return '0';
-    return Number.isInteger(n) ? String(n) : n.toFixed(2);
+    return n.toLocaleString('fr-FR', { maximumFractionDigits: 2 });
+}
+
+function formatStatutLabel(statut) {
+    const labels = {
+        EN_ATTENTE: 'En attente',
+        ACCEPTE: 'Accepté',
+        CONFIRME: 'Confirmé',
+        REFUSE: 'Refusé',
+        ANNULE: 'Annulé',
+        TERMINE: 'Terminé',
+    };
+    const key = String(statut || '').toUpperCase();
+    return labels[key] || statut || 'À consulter';
 }
 
 function getDashboardErrorMessage(error) {

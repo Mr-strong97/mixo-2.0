@@ -302,23 +302,6 @@
     text-align: left;
 }
 
-.mixo-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--blue);
-    background: var(--blue-dim);
-    padding: 6px 16px;
-    border-radius: var(--radius-pill);
-    margin-bottom: 18px;
-}
-
-.mixo-eyebrow svg { width: 13px; height: 13px; }
-
 .mixo-section-title {
     font-family: var(--font-display);
     font-size: 2.4rem;
@@ -347,7 +330,6 @@
     .mixo-section-head,
     .mixo-section-head--left { margin-bottom: 40px; }
     .mixo-section-title { font-size: 1.7rem; }
-    .mixo-eyebrow { font-size: 0.7rem; padding: 5px 14px; }
 }
 
 /* ================================================================

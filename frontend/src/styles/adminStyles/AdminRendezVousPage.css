@@ -21,7 +21,6 @@
     margin-bottom: 18px;
 }
 
-.arv-kicker,
 .adm-card-kicker {
     text-transform: uppercase;
     letter-spacing: 0.18em;
@@ -85,7 +84,8 @@
     align-items: center;
 }
 
-.arv-search i {
+.arv-search i,
+.arv-search > svg {
     position: absolute;
     left: 14px;
     width: 18px;

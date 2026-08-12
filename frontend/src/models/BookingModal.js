@@ -135,7 +135,7 @@ export class BookingModal {
     this._goToStep(1);
 
     // Infos service
-    const prix = parseFloat(service.prix).toLocaleString('fr-FR', {style:'currency',currency:'EUR'});
+    const prix = `${parseFloat(service.prix || 0).toLocaleString('fr-FR')} FC`;
     document.getElementById('bmServiceInfo').innerHTML = `
       <div class="bm-service-badge">
         <strong>${service.nom_prestation}</strong>
@@ -255,7 +255,7 @@ export class BookingModal {
     document.getElementById('rcDate').textContent = formatted;
     document.getElementById('rcHeure').textContent = this.selectedTime;
     document.getElementById('rcDuree').textContent = _formatDuration(s.duree_minutes);
-    document.getElementById('rcPrix').textContent = parseFloat(s.prix).toLocaleString('fr-FR', {style:'currency',currency:'EUR'});
+    document.getElementById('rcPrix').textContent = `${parseFloat(s.prix || 0).toLocaleString('fr-FR')} FC`;
     if (window.lucide) window.lucide.createIcons();
   }
 

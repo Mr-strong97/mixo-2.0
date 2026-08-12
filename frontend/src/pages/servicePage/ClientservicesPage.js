@@ -41,7 +41,7 @@ export const ClientServicesPage = () => {
         <div class="csp-toolbar">
             <div class="csp-search-wrap">
                 <i data-lucide="search" class="csp-search-ico"></i>
-                <input type="text" id="csp-search" class="csp-search" placeholder="Rechercher une prestation, un coiffeur…"/>
+                <input type="text" id="csp-search" class="csp-search" placeholder="Service ou coiffeur…"/>
             </div>
             <button class="csp-filters-btn" id="csp-filters-btn" type="button">
                 <i data-lucide="sliders-horizontal"></i> Filtres

@@ -169,13 +169,13 @@ function buildTable(title, users, field) {
             <thead><tr><th>#</th><th>Utilisateur</th><th>Rôle</th><th>${field==='last_login'?'Connexion':'Inscrit'}</th></tr></thead>
             <tbody>${users.map((u,i)=>`
                 <tr>
-                    <td class="tb-rank">${i+1}</td>
-                    <td class="tb-user">
+                    <td class="tb-rank" data-label="Rang">${i+1}</td>
+                    <td class="tb-user" data-label="Utilisateur">
                         <span class="tb-av">${(u.username||'U').substring(0,2).toUpperCase()}</span>
                         <span>@${u.username}</span>
                     </td>
-                    <td><span class="tb-role tb-role-${(u.role||'').toLowerCase()}">${u.role}</span></td>
-                    <td class="tb-date">${u[field]?new Date(u[field]).toLocaleDateString('fr-FR'):'Jamais'}</td>
+                    <td data-label="Rôle"><span class="tb-role tb-role-${(u.role||'').toLowerCase()}">${u.role}</span></td>
+                    <td class="tb-date" data-label="Date">${u[field]?new Date(u[field]).toLocaleDateString('fr-FR'):'Jamais'}</td>
                 </tr>`).join('')}
             </tbody>
         </table>`;

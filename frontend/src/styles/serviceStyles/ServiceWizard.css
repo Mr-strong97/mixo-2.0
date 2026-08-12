@@ -223,7 +223,7 @@ select.swz-input { cursor: pointer; }
     .swz-field, .swz-field-grow { min-width: 0; }
     .swz-toggle-row { flex-direction: column; align-items: flex-start; }
     .swz-toggle { align-self: flex-end; }
-    .swz-footer { flex-direction: column-reverse; align-items: stretch; }
+    .swz-footer { position: static; flex-direction: column-reverse; align-items: stretch; padding: 10px 0 0; background: transparent; }
     .swz-footer-right { width: 100%; flex-direction: column-reverse; margin-left: 0; }
     .swz-btn-primary, .swz-btn-secondary, .swz-btn-draft { width: 100%; justify-content: center; }
     .swz-chips { gap: 6px; }

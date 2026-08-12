@@ -113,10 +113,10 @@ export const NotificationPage = () => {
             </div>
             <div class="notif-item-body">
                 <div class="notif-item-header">
-                    <span class="notif-item-titre">${n.titre}</span>
+                    <span class="notif-item-titre">${escapeHtml(n.titre || 'Notification')}</span>
                     ${!estLu ? '<span class="notif-unread-dot"></span>' : ''}
                 </div>
-                <p class="notif-item-msg">${n.message}</p>
+                <p class="notif-item-msg">${escapeHtml(n.message || '')}</p>
                 <div class="notif-item-footer">
                     <span class="notif-item-date">
                         <i data-lucide="calendar" style="width:12px; height:12px; display:inline-block; vertical-align:middle; margin-right:4px; opacity:0.6;"></i>
@@ -129,10 +129,10 @@ export const NotificationPage = () => {
                     <i data-lucide="star"></i>
                     Donner mon avis
                 </button>` : ''}
-                ${!estLu ? `<button class="notif-btn-read" title="Marquer comme lu">
+                ${!estLu ? `<button class="notif-btn-read" title="Marquer comme lu" aria-label="Marquer cette notification comme lue">
                     <i data-lucide="check"></i>
                 </button>` : ''}
-                <button class="notif-btn-del" title="Supprimer">
+                <button class="notif-btn-del" title="Supprimer" aria-label="Supprimer cette notification">
                     <i data-lucide="trash-2"></i>
                 </button>
             </div>
@@ -200,3 +200,11 @@ export const NotificationPage = () => {
     attachLiveRefresh(charger, { intervalMs: 10000 });
     return page;
 };
+
+function escapeHtml(value = '') {
+    return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+}

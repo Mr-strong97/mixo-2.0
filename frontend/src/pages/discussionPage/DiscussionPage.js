@@ -54,7 +54,6 @@ export const DiscussionPage = (params = {}) => {
     main.innerHTML = `
         <section class="chat-hero">
             <div>
-                <p class="chat-kicker">Discussion</p>
                 <h1>Échange sécurisé entre client et coiffeur</h1>
                 <p>Les messages sont liés à un rendez-vous ou à une réservation valide, avec conservation limitée à 7 jours.</p>
             </div>
@@ -68,7 +67,7 @@ export const DiscussionPage = (params = {}) => {
             <aside class="chat-sidebar">
                 <div class="chat-mobile-secure">
                     <i data-lucide="shield-check"></i>
-                    <div><strong>Conversations sécurisées</strong><span>Vos échanges avec les stylistes sont chiffrés de bout en bout.</span></div>
+                    <div><strong>Conversations sécurisées</strong><span>Vos échanges restent liés à vos rendez-vous et protégés par votre compte.</span></div>
                 </div>
                 <label class="chat-mobile-search"><i data-lucide="search"></i><input type="search" placeholder="Rechercher un styliste ou un salon…" aria-label="Rechercher une conversation"></label>
                 <div class="chat-sidebar-head">

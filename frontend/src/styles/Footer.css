@@ -4,10 +4,9 @@
 
 /* ── BARRE PRINCIPALE ────────────────────────────────────── */
 .nf-footer {
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
+    position: relative;
     z-index: 500;
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--font-main);
     pointer-events: none;
 }
 
@@ -20,7 +19,7 @@
     padding: 10px 24px;
     background: #fff;
     border-top: 1px solid #E8ECF0;
-    box-shadow: 0 -2px 12px rgba(0,0,0,0.04);
+    box-shadow: none;
     pointer-events: auto;
     animation: footerRise 0.55s var(--ease-expo) both;
 }
@@ -37,7 +36,7 @@
 /* Décalage pour la sidebar */
 @media (min-width: 993px) {
     .nf-bar { padding-left: 24px; }
-    .nf-bar-inner { padding-left: calc(var(--nl-width, 210px) + 24px); }
+    .mixo-shell-active .nf-bar-inner { padding-left: 24px; }
 }
 
 .nf-brand {
@@ -96,6 +95,13 @@
     .nf-links { flex-wrap: wrap; justify-content: center; }
     .nf-brand { font-size: 0.82rem; letter-spacing: 2px; }
     .nf-link { font-size: 0.72rem; }
+}
+
+/* La navigation au pouce remplace la barre légale sur les écrans connectés.
+   Les modales restent montées dans le DOM et les liens restent disponibles
+   depuis les paramètres. */
+@media (max-width: 1023px) {
+    .mixo-shell-active .nf-bar { display: none; }
 }
 
 @supports (padding: max(0px)) {

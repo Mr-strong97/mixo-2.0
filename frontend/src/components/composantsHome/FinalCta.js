@@ -11,7 +11,6 @@ export const FinalCta = () => {
     section.innerHTML = `
         <div class="mixo-cta__glow" aria-hidden="true"></div>
         <div class="mixo-container mixo-cta__inner" data-animate="zoom-in">
-            <span class="mixo-eyebrow"><i data-lucide="rocket"></i><span>Prêt à commencer ?</span></span>
             <h2 class="mixo-cta__title">Rejoignez Mixo dès aujourd'hui.</h2>
             <p class="mixo-cta__subtitle">
                 Que vous cherchiez votre prochain coiffeur ou que vous souhaitiez

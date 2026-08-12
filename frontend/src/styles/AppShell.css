@@ -1,0 +1,151 @@
+/* Shared application states, loaders and route transitions. */
+
+#app {
+    min-height: 100vh;
+}
+
+.mixo-boot {
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    background: var(--mixo-paper);
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 320ms var(--ease-expo), visibility 320ms var(--ease-expo);
+}
+
+.mixo-boot[hidden],
+.mixo-app-ready .mixo-boot {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.mixo-boot__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    color: var(--mixo-ink-900);
+    text-align: center;
+}
+
+.mixo-boot__mark {
+    display: grid;
+    width: 76px;
+    height: 76px;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--mixo-cobalt-800);
+    color: var(--mixo-surface);
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    animation: mixo-logo-pulse 1.6s ease-in-out infinite;
+}
+
+.mixo-boot__content strong {
+    display: block;
+    font-size: 1.15rem;
+    letter-spacing: -0.02em;
+}
+
+.mixo-boot__content span {
+    color: var(--mixo-ink-600);
+    font-size: 0.875rem;
+}
+
+.mixo-route-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 5100;
+    width: 100%;
+    height: 3px;
+    pointer-events: none;
+    opacity: 0;
+    transform-origin: left center;
+    background: var(--mixo-cobalt-600);
+}
+
+.mixo-route-loading .mixo-route-progress {
+    opacity: 1;
+    animation: mixo-progress 700ms var(--ease-expo) both;
+}
+
+.mixo-route-enter {
+    animation: mixo-enter 360ms var(--ease-expo) both;
+}
+
+.mixo-page-loader,
+.mxo-spinner,
+.adm-spinner,
+.spinner {
+    width: 28px;
+    height: 28px;
+    border: 3px solid var(--mixo-cobalt-100);
+    border-top-color: var(--mixo-cobalt-700);
+    border-radius: 50%;
+    animation: mixo-spin 750ms linear infinite;
+}
+
+.mixo-loading-state {
+    display: grid;
+    min-height: 280px;
+    place-items: center;
+    padding: 32px;
+    color: var(--mixo-ink-600);
+}
+
+.mixo-skeleton {
+    min-height: 14px;
+    border-radius: 6px;
+    background: linear-gradient(90deg, #E9EEF3 25%, #F7F9FB 42%, #E9EEF3 62%);
+    background-size: 220% 100%;
+    animation: mixo-shimmer 1.35s linear infinite;
+}
+
+.mixo-empty-state,
+.mixo-error-state {
+    display: flex;
+    min-height: 220px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 32px 20px;
+    border: 1px dashed var(--mixo-rule-strong);
+    border-radius: var(--radius-lg);
+    background: var(--mixo-surface);
+    color: var(--mixo-ink-600);
+    text-align: center;
+}
+
+.mixo-empty-state h2,
+.mixo-error-state h2 {
+    margin: 0;
+    color: var(--mixo-ink-900);
+    font-size: 1.05rem;
+}
+
+.mixo-empty-state p,
+.mixo-error-state p {
+    max-width: 52ch;
+    margin: 0;
+}
+
+.mixo-error-state {
+    border-color: rgba(198, 56, 56, 0.32);
+    background: var(--mixo-danger-bg);
+}
+
+@media (max-width: 767px) {
+    .mixo-shell-active #app > [class$='page'],
+    .mixo-shell-active #app > [class$='-pg'],
+    .mixo-shell-active #app > div {
+        min-height: 100dvh;
+    }
+}

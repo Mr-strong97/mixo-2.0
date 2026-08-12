@@ -66,7 +66,7 @@ export const CoiffeurServiceEditPage = ({ id } = {}) => {
 
         main.innerHTML = `
             <div class="cse-header">
-                <button class="cse-back" id="cse-back" type="button" title="Retour">
+                <button class="cse-back" id="cse-back" type="button" title="Retour" aria-label="Retour à mes services">
                     <i data-lucide="arrow-left"></i>
                 </button>
                 <h1>Modifier le service <i data-lucide="pencil" class="cse-header-pencil"></i></h1>
@@ -229,7 +229,7 @@ export const CoiffeurServiceEditPage = ({ id } = {}) => {
 
         if (nom.length < 3) { showToast('Le nom du service doit contenir au moins 3 caractères.'); return false; }
         if (!prix || prix <= 0) { showToast('Veuillez indiquer un prix valide.'); return false; }
-        if (prix > 9999) { showToast('Le prix ne peut pas dépasser 9999FC.'); return false; }
+        if (prix > 9999) { showToast('Le prix ne peut pas dépasser 9 999 FC.'); return false; }
         return true;
     };
 

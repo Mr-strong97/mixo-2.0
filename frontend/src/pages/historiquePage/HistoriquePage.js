@@ -38,7 +38,6 @@ export const HistoriquePage = () => {
     main.innerHTML = `
         <section class="his-hero">
             <div>
-                <p class="his-kicker">Historique client</p>
                 <h1>Tout ce que vous avez fait sur la plateforme</h1>
                 <p>Suivez l'historique complet de vos interactions, réservations et transactions en un seul endroit.</p>
             </div>

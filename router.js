@@ -190,7 +190,24 @@ const routes = [
 
 // ─────────────────────────────────────────────────────────────
 export const initRouter = (appElement) => {
+    let transitionTimer = null;
+
+    const startTransition = () => {
+        window.clearTimeout(transitionTimer);
+        document.body.classList.add('mixo-route-loading');
+    };
+
+    const finishTransition = () => {
+        transitionTimer = window.setTimeout(() => {
+            document.body.classList.remove('mixo-route-loading');
+        }, 260);
+    };
+
     const render = () => {
+        if (typeof window.__mixoNavbarCleanup === 'function') {
+            try { window.__mixoNavbarCleanup(); } catch (error) { console.warn('[Router] navbar cleanup failed', error); }
+            window.__mixoNavbarCleanup = null;
+        }
         if (typeof window.__mixoPageCleanup === 'function') {
             try { window.__mixoPageCleanup(); } catch (error) { console.warn('[Router] cleanup failed', error); }
             window.__mixoPageCleanup = null;
@@ -200,6 +217,8 @@ export const initRouter = (appElement) => {
         const route = routes.find(r => r.path.test(path));
         const Ctor  = route ? route.component : WelcomePage;
 
+        document.body.classList.remove('mixo-shell-active', 'no-scroll');
+        delete document.body.dataset.mixoRole;
         appElement.innerHTML = '';
 
         try {
@@ -211,17 +230,35 @@ export const initRouter = (appElement) => {
                     return acc;
                 }, {});
             }
-            appElement.appendChild(Ctor(params));
+            const page = Ctor(params);
+            if (page?.classList) page.classList.add('mixo-route-enter');
+            appElement.appendChild(page);
             if (typeof lucide !== 'undefined') lucide.createIcons();
+            finishTransition();
         } catch (error) {
             console.error('[Router] Erreur de rendu :', error);
+            const fallback = document.createElement('main');
+            fallback.className = 'mixo-error-state mixo-route-enter';
+            fallback.innerHTML = `
+                <h2>Cette page n’a pas pu s’afficher</h2>
+                <p>Actualisez la page. Si le problème continue, revenez à l’accueil.</p>
+                <button type="button" class="btn btn-primary" id="mixo-render-retry">Réessayer</button>`;
+            fallback.querySelector('#mixo-render-retry').addEventListener('click', () => render());
+            appElement.appendChild(fallback);
+            finishTransition();
         }
     };
 
     window.navigate = (path) => {
+        startTransition();
         window.history.pushState({}, '', path);
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
         render();
     };
-    window.onpopstate = () => render();
+    window.onpopstate = () => {
+        startTransition();
+        render();
+    };
+    startTransition();
     render();
 };

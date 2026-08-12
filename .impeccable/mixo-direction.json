@@ -1,0 +1,30 @@
+{
+  "title": "Direction visuelle de Mixo",
+  "question": "Validez la nouvelle grammaire visuelle de Mixo avant la reconstruction du shell et des écrans.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Fiche de prestation",
+      "kicker": "DIRECTION PROPOSÉE",
+      "lineage": "fiches client, carnets de rendez-vous et signalétique de salon",
+      "thesis": "Chaque écran montre l’état du service, la prochaine action et le contexte utile comme une fiche de travail parfaitement tenue.",
+      "palette": ["#0B4F9C", "#1776D2", "#18212F", "#F4F7FA", "#FFFFFF"],
+      "materials": ["papier mat net", "onglets de statut cobalt", "séparateurs fins", "photographies franches"],
+      "viewport": "Une barre Mixo compacte, un titre orienté tâche, une action principale visible et une navigation de rôle stable au pouce qui devient rail latéral sur ordinateur.",
+      "risk": "Peut paraître trop administratif si les profils et services ne conservent pas assez de place pour les photos et la personnalité des coiffeurs.",
+      "sketch": ".impeccable/sketches/mixo-fiche-prestation.png"
+    }
+  ],
+  "reroll": true,
+  "canon": true,
+  "canonCard": {
+    "label": "Standard marketplace professionnel",
+    "thesis": "Une application de réservation familière avec barre supérieure, cartes blanches et navigation inférieure classique.",
+    "palette": ["#0A66C2", "#FFFFFF", "#F3F6F8", "#1F2937"],
+    "materials": ["cartes neutres", "icônes linéaires", "grille SaaS conventionnelle"],
+    "viewport": "Un en-tête de marque, un résumé de page, une grille de cartes et cinq destinations fixes.",
+    "risk": "Très facile à comprendre, mais moins distinctif et moins ancré dans le fonctionnement réel d’un salon.",
+    "sketch": ".impeccable/sketches/mixo-canon.png"
+  },
+  "steer": true
+}

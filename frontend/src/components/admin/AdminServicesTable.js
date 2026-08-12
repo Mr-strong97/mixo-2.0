@@ -30,12 +30,12 @@ export const AdminServicesTable = (services = [], handlers = {}) => {
     services.forEach(s => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td class="ast-name">${escapeHtml(s.nom_prestation)}</td>
-            <td>${escapeHtml(s.coiffeur_username)}</td>
-            <td>${escapeHtml(s.categorie_nom || '—')}</td>
-            <td>${formatPrix(s.prix)} €</td>
-            <td><span class="ast-badge" style="background:${STATUT_COLORS[s.statut]}15;color:${STATUT_COLORS[s.statut]};">${s.statut}</span></td>
-            <td class="ast-actions">
+            <td class="ast-name" data-label="Service">${escapeHtml(s.nom_prestation)}</td>
+            <td data-label="Coiffeur">${escapeHtml(s.coiffeur_username)}</td>
+            <td data-label="Catégorie">${escapeHtml(s.categorie_nom || '—')}</td>
+            <td data-label="Prix">${formatPrix(s.prix)} FC</td>
+            <td data-label="Statut"><span class="ast-badge" style="background:${STATUT_COLORS[s.statut] || '#667085'}15;color:${STATUT_COLORS[s.statut] || '#667085'};">${escapeHtml(s.statut || '—')}</span></td>
+            <td class="ast-actions" data-label="Actions">
                 <button class="ast-icon-btn" data-action="view" title="Voir"><i data-lucide="eye"></i></button>
                 <button class="ast-icon-btn" data-action="suspend" title="Suspendre"><i data-lucide="pause-circle"></i></button>
                 <button class="ast-icon-btn ast-icon-danger" data-action="delete" title="Supprimer"><i data-lucide="trash-2"></i></button>

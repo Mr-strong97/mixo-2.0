@@ -30,7 +30,7 @@ export const AdminUsersPage = () => {
                     <i data-lucide="users"></i>
                 </div>
                 <div>
-                    <h1>Gestion des Utilisateurs</h1>
+                    <h1>Gestion des utilisateurs</h1>
                     <p>Supervisez, validez et modérez les comptes de la plateforme.</p>
                 </div>
             </div>

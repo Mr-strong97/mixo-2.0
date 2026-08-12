@@ -37,7 +37,7 @@ export const FacturesPage = ({ id } = {}) => {
                             <i data-lucide="receipt-text" style="color:#1A56DB; fill:rgba(26,86,219,0.1);"></i>
                             Factures
                         </h1>
-                        <p class="notif-subtitle">${factures.length} facture(s) disponible(s)</p>
+                        <p class="notif-subtitle">${factures.length} ${factures.length > 1 ? 'factures disponibles' : 'facture disponible'}</p>
                     </div>
                     ${factureSelectionnee ? `
                         <button class="notif-btn-all-read" id="facture-back" type="button">
@@ -90,17 +90,16 @@ export const FacturesPage = ({ id } = {}) => {
             <div class="facture-focus-card">
                 <div class="facture-focus-head">
                     <div>
-                        <p class="facture-focus-kicker">Facture sélectionnée</p>
                         <h2>${escapeHtml(f.numero_facture || 'Facture')}</h2>
                         <p>${date}</p>
                     </div>
-                    <span class="facture-badge">${escapeHtml(f.statut || '—')}</span>
+                    <span class="facture-badge">${escapeHtml(formatStatut(f.statut))}</span>
                 </div>
                 <div class="facture-meta">
                     <div><span>Client</span><strong>${escapeHtml(f.client_username || '—')}</strong></div>
                     <div><span>Coiffeur</span><strong>${escapeHtml(f.coiffeur_username || '—')}</strong></div>
                     <div><span>Service</span><strong>${escapeHtml(f.service_nom || f.service || '—')}</strong></div>
-                    <div><span>Montant</span><strong>${escapeHtml(String(f.montant || '—'))} ${escapeHtml(f.devise || 'CDF')}</strong></div>
+                    <div><span>Montant</span><strong>${formatMontant(f.montant)} ${escapeHtml(f.devise || 'CDF')}</strong></div>
                     <div><span>Paiement</span><strong>${escapeHtml(f.mode_paiement || '—')}</strong></div>
                 </div>
                 ${f.preuve_paiement ? `<div class="facture-proof">Preuve: ${escapeHtml(f.preuve_paiement)}</div>` : ''}
@@ -118,16 +117,16 @@ export const FacturesPage = ({ id } = {}) => {
         card.innerHTML = `
             <div class="facture-head">
                 <div>
-                    <strong>${f.numero_facture}</strong>
+                    <strong>${escapeHtml(f.numero_facture || 'Facture')}</strong>
                     <span>${date}</span>
                 </div>
-                <span class="facture-badge">${f.statut}</span>
+                <span class="facture-badge">${escapeHtml(formatStatut(f.statut))}</span>
             </div>
             <div class="facture-meta">
                 <div><span>Client</span><strong>${escapeHtml(f.client_username || '—')}</strong></div>
                 <div><span>Coiffeur</span><strong>${escapeHtml(f.coiffeur_username || '—')}</strong></div>
                 <div><span>Service</span><strong>${escapeHtml(f.service_nom || f.service || '—')}</strong></div>
-                <div><span>Montant</span><strong>${f.montant} ${f.devise || 'CDF'}</strong></div>
+                <div><span>Montant</span><strong>${formatMontant(f.montant)} ${escapeHtml(f.devise || 'CDF')}</strong></div>
                 <div><span>Paiement</span><strong>${escapeHtml(f.mode_paiement || '—')}</strong></div>
             </div>
             ${f.preuve_paiement ? `<div class="facture-proof">Preuve: ${escapeHtml(f.preuve_paiement)}</div>` : ''}
@@ -137,6 +136,24 @@ export const FacturesPage = ({ id } = {}) => {
 
     function escapeHtml(str = '') {
         return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function formatMontant(value) {
+        const amount = Number(value);
+        if (!Number.isFinite(amount)) return '—';
+        return amount.toLocaleString('fr-FR', { maximumFractionDigits: 2 });
+    }
+
+    function formatStatut(value) {
+        const labels = {
+            PAYE: 'Payée',
+            PAYEE: 'Payée',
+            EN_ATTENTE: 'En attente',
+            ECHOUE: 'Échouée',
+            REMBOURSE: 'Remboursée',
+        };
+        const key = String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase();
+        return labels[key] || value || '—';
     }
 
     charger();

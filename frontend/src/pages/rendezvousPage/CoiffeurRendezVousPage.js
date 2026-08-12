@@ -114,8 +114,7 @@ export const CoiffeurRendezVousPage = ({ id } = {}) => {
         });
         host.innerHTML = `
             <section class="rvp-focus-card" style="margin:0 0 20px;padding:20px;border:1px solid #DBE6F3;border-radius:20px;background:#fff;">
-                <p class="rvp-kicker">Rendez-vous sélectionné</p>
-                <h2 style="margin:6px 0 8px;">${escapeHtml(rdv.service_nom_snapshot)}</h2>
+                <h2 style="margin:0 0 8px;">${escapeHtml(rdv.service_nom_snapshot)}</h2>
                 <p style="margin:0 0 14px;color:#475569;">Client : ${escapeHtml(rdv.client_username || '—')}</p>
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;">
                     <div class="rvp-summary-card"><span>Date</span><strong>${date}</strong></div>

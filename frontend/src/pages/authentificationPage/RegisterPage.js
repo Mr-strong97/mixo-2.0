@@ -88,7 +88,6 @@ export const RegisterPage = () => {
                 <section class="auth-avatar-card">
                     <div class="auth-avatar-card__head">
                         <div>
-                            <p class="auth-avatar-card__kicker">Avatar de départ</p>
                             <h2 class="auth-avatar-card__title">Choisissez votre style</h2>
                         </div>
                         <p class="auth-avatar-card__hint">Vous pourrez le modifier plus tard dans vos paramètres.</p>

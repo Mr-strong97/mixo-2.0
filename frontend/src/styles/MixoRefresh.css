@@ -1,0 +1,280 @@
+/* ============================================================
+   MIXO — couche de migration visuelle commune
+   Harmonise les pages historiques pendant la refonte progressive.
+   ============================================================ */
+
+.mixo-shell-active :is(
+    .csp-page, .csv-page, .cvd-page, .sdp-page, .cse-page, .swz-page,
+    .rvp-page, .rsv-page, .pap-page, .notif-page, .chat-page, .his-page,
+    .fav-page, .pfp-page, .hrp-page, .avp-page, .lap-page, .cpp-page,
+    .abp-page, .arv-page, .adb-page, .adm-users-page, .audit-page,
+    .stats-pg, .sett-pg, .adm-sett-page, .adm-prof-page
+) {
+    background: var(--mixo-paper);
+    color: var(--mixo-ink-900);
+    font-family: var(--font-main);
+}
+
+.mixo-shell-active :is(
+    .csp-main, .csv-main, .cvd-main, .sdp-main, .cse-main, .swz-main,
+    .rvp-main, .rsv-main, .pap-main, .notif-main, .chat-main, .his-main,
+    .fav-main, .pfp-main, .hrp-main, .avp-main, .lap-main, .cpp-main,
+    .abp-main, .arv-main, .adb-main, .adm-users-main, .audit-main,
+    .stats-pg-main, .sett-main, .adm-sett-main
+) {
+    width: min(100%, var(--mixo-content-max));
+    margin-inline: auto;
+    font-family: var(--font-main);
+}
+
+.mixo-shell-active :is(h1, h2, h3, button, input, select, textarea) {
+    font-family: var(--font-main);
+}
+
+.mixo-shell-active :is(h1, h2, h3) {
+    overflow-wrap: anywhere;
+    text-wrap: balance;
+}
+
+.mixo-shell-active button:not(:disabled) {
+    transition: color var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.mixo-shell-active button:not(:disabled):active {
+    transform: scale(0.985);
+}
+
+.mixo-shell-active :is(input, select, textarea) {
+    min-width: 0;
+    accent-color: var(--mixo-cobalt-800);
+}
+
+.mixo-shell-active :is(input, select, textarea):focus {
+    border-color: var(--mixo-cobalt-700);
+}
+
+.mixo-shell-active :is(.mxo-spinner, .adm-spinner, .sett-spinner) {
+    border-color: var(--mixo-cobalt-100);
+    border-top-color: var(--mixo-cobalt-800);
+    animation-name: mixo-spin;
+}
+
+/* Les anciens fonds décoratifs créaient des ruptures visuelles entre pages. */
+.mixo-shell-active :is(.csp-page, .csv-page, .cvd-page, .arv-page, .adm-dash-page) {
+    background-image: none;
+}
+
+/* États et surfaces partagés */
+.mixo-shell-active :is(
+    .csp-empty, .csv-empty, .rvp-empty-state, .notif-empty, .fav-empty,
+    .his-empty, .adm-empty, .audit-empty, .cdp-empty
+) {
+    border-color: var(--mixo-rule);
+    color: var(--mixo-ink-500);
+}
+
+.mixo-shell-active :is(
+    .svc-card, .rvc-card, .ssc-card, .tps-card, .sett-card,
+    .audit-kpi-card, .arv-stat-card, .ast-wrap, .csv-table-wrap
+) {
+    border-color: var(--mixo-rule);
+    box-shadow: var(--mixo-shadow-xs);
+}
+
+/* Filtres : lignes claires, cibles tactiles cohérentes. */
+.mixo-shell-active :is(
+    .csp-search, .csp-filters-btn, .csp-filter-group input,
+    .csv-search, .csv-select, .arv-search input, .arv-date, .arv-select,
+    .audit-filter-select, .audit-filter-input, .rvp-search-box
+) {
+    min-height: 46px;
+    border-color: var(--mixo-rule-strong);
+    border-radius: var(--radius-md);
+    background: var(--mixo-surface);
+}
+
+/* Cartes de services : photographie contenue et actions toujours visibles. */
+.svc-card { border-radius: var(--radius-lg); }
+.svc-card-img { object-position: center; }
+.svc-card-price { color: var(--mixo-cobalt-900); }
+.svc-card-actions .svc-btn { min-height: 44px; }
+
+@media (min-width: 781px) {
+    .mixo-shell-active .cse-footer-sticky { left: var(--mixo-rail-width); }
+}
+
+/* ============================================================
+   TABLES MOBILES — conversion en fiches verticales
+   ============================================================ */
+
+@media (max-width: 780px) {
+    .mixo-shell-active :is(
+        .csp-main, .csv-main, .cvd-main, .sdp-main, .cse-main, .swz-main,
+        .rvp-main, .rsv-main, .pap-main, .notif-main, .chat-main, .his-main,
+        .fav-main, .pfp-main, .hrp-main, .avp-main, .lap-main, .cpp-main,
+        .abp-main, .arv-main, .adb-main, .adm-users-main, .audit-main,
+        .stats-pg-main, .sett-main, .adm-sett-main
+    ) {
+        padding-top: 24px;
+        padding-right: max(14px, env(safe-area-inset-right, 0px));
+        padding-bottom: 32px;
+        padding-left: max(14px, env(safe-area-inset-left, 0px));
+    }
+
+    .mixo-shell-active :is(.csp-title, .csv-header-title h1, .arv-hero h1, .audit-page-title) {
+        font-size: clamp(1.7rem, 8vw, 2.2rem);
+        line-height: 1.08;
+        letter-spacing: -0.035em;
+    }
+
+    .arv-hero-actions,
+    .audit-page-btns {
+        display: grid;
+        width: 100%;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .arv-hero-actions > *,
+    .audit-page-btns > * { min-width: 0; justify-content: center; }
+
+    .arv-toolbar {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 9px;
+    }
+    .arv-search { grid-column: 1 / -1; }
+    .arv-toolbar > button { grid-column: 1 / -1; min-height: 46px; }
+    .arv-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .arv-stat-card { min-height: 86px; padding: 12px; }
+    .arv-stat-card i { width: 36px; height: 36px; }
+    .arv-stat-card strong { font-size: 1.25rem; }
+
+    .arv-card { padding: 0; border: 0; background: transparent; box-shadow: none; }
+    .arv-card-head { padding: 0 2px; }
+    .arv-table-wrap,
+    .ast-wrap,
+    .csv-table-wrap,
+    .adm-user-section .adm-tbl-wrap,
+    .audit-table-card { overflow: visible; border: 0; background: transparent; box-shadow: none; }
+
+    :is(.arv-table, .ast-table, .csv-table, .adm-user-section .adm-tbl, .audit-table-card .adm-tbl, .sc-table, .audit-table) {
+        display: block;
+        min-width: 0;
+        width: 100%;
+    }
+
+    :is(.arv-table, .ast-table, .csv-table, .adm-user-section .adm-tbl, .audit-table-card .adm-tbl, .sc-table, .audit-table) thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        white-space: nowrap;
+    }
+
+    :is(.arv-table, .ast-table, .csv-table, .adm-user-section .adm-tbl, .audit-table-card .adm-tbl, .sc-table, .audit-table) tbody {
+        display: grid;
+        gap: 10px;
+    }
+
+    :is(.arv-table, .ast-table, .csv-table, .adm-user-section .adm-tbl, .audit-table-card .adm-tbl, .sc-table, .audit-table) tbody tr {
+        display: block;
+        overflow: hidden;
+        border: 1px solid var(--mixo-rule);
+        border-left: 4px solid var(--mixo-cobalt-700);
+        border-radius: var(--radius-md);
+        background: var(--mixo-surface);
+        box-shadow: var(--mixo-shadow-xs);
+    }
+
+    :is(.arv-table, .ast-table, .csv-table, .adm-user-section .adm-tbl, .audit-table-card .adm-tbl, .sc-table, .audit-table) tbody td {
+        display: grid;
+        min-height: 44px;
+        grid-template-columns: minmax(86px, 34%) minmax(0, 1fr);
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border: 0;
+        border-bottom: 1px solid var(--mixo-rule);
+        font-size: .8rem;
+        text-align: left;
+    }
+
+    :is(.arv-table, .ast-table, .csv-table, .adm-user-section .adm-tbl, .audit-table-card .adm-tbl, .sc-table, .audit-table) tbody td:last-child {
+        border-bottom: 0;
+    }
+
+    :is(.arv-table, .ast-table, .csv-table, .adm-user-section .adm-tbl, .audit-table-card .adm-tbl, .sc-table, .audit-table) tbody td::before {
+        content: attr(data-label);
+        color: var(--mixo-ink-500);
+        font-size: .64rem;
+        font-weight: 750;
+        letter-spacing: .06em;
+        text-transform: uppercase;
+    }
+
+    .csv-table tbody td.str-service,
+    .adm-user-section .adm-tbl tbody td.adm-tbl-user,
+    .audit-table-card .adm-tbl tbody td.adm-tbl-user,
+    .sc-table tbody td.tb-user {
+        grid-template-columns: minmax(86px, 34%) auto minmax(0, 1fr);
+    }
+
+    .str-service { min-width: 0; }
+    .str-desc { max-width: 100%; }
+    :is(.str-actions, .ast-actions, .arv-actions, .adm-tbl-actions) {
+        display: grid;
+        grid-template-columns: minmax(86px, 34%) minmax(0, 1fr);
+    }
+    :is(.str-actions, .ast-actions, .arv-actions, .adm-tbl-actions)::before { grid-row: 1; }
+    :is(.str-actions, .ast-actions, .arv-actions, .adm-tbl-actions) > button:first-of-type { margin-left: 0; }
+    :is(.str-actions, .ast-actions, .arv-actions, .adm-tbl-actions) > button { grid-row: 1; min-width: 40px; min-height: 40px; }
+
+    .csv-table tbody tr:has(td[colspan]),
+    .csv-table tbody tr:has(td[colspan]) td {
+        display: block;
+        border-left: 0;
+    }
+    .csv-table tbody tr:has(td[colspan]) td::before { content: none; }
+
+    .adm-tbl-footer { align-items: stretch; flex-direction: column; gap: 10px; }
+    .adm-pagination { overflow-x: auto; padding-bottom: 2px; }
+
+    /* Les quatre repères restent compacts sur mobile au lieu de quatre
+       grandes cartes empilées. */
+    .ssc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .ssc-card { min-height: 92px; padding: 13px; }
+    .ssc-icon { width: 36px; height: 36px; }
+    .ssc-label { letter-spacing: .06em; font-size: .58rem; }
+    .ssc-value { font-size: 1.35rem; }
+
+    .csv-toolbar { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+    .csv-search-wrap { min-width: 0; grid-column: 1 / -1; }
+    .csv-select { width: 100%; min-width: 0; }
+
+    .audit-filter-card { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding: 14px; }
+    .audit-filter-group { min-width: 0; }
+    .audit-filter-select,
+    .audit-filter-input { width: 100%; min-width: 0; }
+    .audit-btn-apply { min-height: 46px; grid-column: 1 / -1; }
+    .audit-kpi-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .audit-kpi-card { min-height: 88px; padding: 12px; }
+    .audit-kpi-ico { width: 38px; height: 38px; }
+}
+
+@media (max-width: 390px) {
+    .arv-toolbar,
+    .audit-filter-card,
+    .csv-toolbar { grid-template-columns: 1fr; }
+    .arv-search,
+    .arv-toolbar > button,
+    .audit-btn-apply,
+    .csv-search-wrap { grid-column: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mixo-shell-active *,
+    .mixo-shell-active *::before,
+    .mixo-shell-active *::after { scroll-behavior: auto; }
+}

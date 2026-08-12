@@ -28,14 +28,14 @@ export const ServiceCard = (service, onFavoriteToggle = null) => {
                 : `<div class="svc-card-placeholder"><i data-lucide="image"></i></div>`
             }
             <span class="svc-card-badge">${escapeHtml(badge)}</span>
-            <button class="svc-card-fav ${service.est_favori ? 'svc-card-fav-active' : ''}" type="button" title="Ajouter aux favoris">
+            <button class="svc-card-fav ${service.est_favori ? 'svc-card-fav-active' : ''}" type="button" title="${service.est_favori ? 'Retirer des favoris' : 'Ajouter aux favoris'}" aria-label="${service.est_favori ? 'Retirer des favoris' : 'Ajouter aux favoris'}">
                 <i data-lucide="heart"></i>
             </button>
         </div>
         <div class="svc-card-body">
             <div class="svc-card-title-row">
                 <h3 class="svc-card-title">${escapeHtml(service.nom_prestation)}</h3>
-                <span class="svc-card-price">${formatPrix(service.prix)}FC</span>
+                <span class="svc-card-price">${formatPrix(service.prix)} FC</span>
             </div>
             <div class="svc-card-rating">
                 <i data-lucide="star" class="svc-star"></i>
@@ -70,6 +70,7 @@ export const ServiceCard = (service, onFavoriteToggle = null) => {
         favBtn.disabled = true;
         favBtn.classList.toggle('svc-card-fav-active', nextState);
         favBtn.title = nextState ? 'Retirer des favoris' : 'Ajouter aux favoris';
+        favBtn.setAttribute('aria-label', favBtn.title);
         try {
             if (onFavoriteToggle) {
                 const result = await onFavoriteToggle(service.id, nextState, service);
@@ -77,6 +78,7 @@ export const ServiceCard = (service, onFavoriteToggle = null) => {
                     isFav = result.est_favori;
                     favBtn.classList.toggle('svc-card-fav-active', isFav);
                     favBtn.title = isFav ? 'Retirer des favoris' : 'Ajouter aux favoris';
+                    favBtn.setAttribute('aria-label', favBtn.title);
                 } else {
                     isFav = nextState;
                 }
@@ -87,6 +89,7 @@ export const ServiceCard = (service, onFavoriteToggle = null) => {
             isFav = !nextState;
             favBtn.classList.toggle('svc-card-fav-active', isFav);
             favBtn.title = isFav ? 'Retirer des favoris' : 'Ajouter aux favoris';
+            favBtn.setAttribute('aria-label', favBtn.title);
             console.error('[ServiceCard] Favori impossible :', error);
         } finally {
             favBtn.disabled = false;
@@ -112,7 +115,7 @@ export const ServiceCard = (service, onFavoriteToggle = null) => {
 function formatPrix(prix) {
     const n = parseFloat(prix);
     if (Number.isNaN(n)) return '0';
-    return Number.isInteger(n) ? String(n) : n.toFixed(2);
+    return n.toLocaleString('fr-FR', { maximumFractionDigits: 2 });
 }
 
 function escapeHtml(str = '') {

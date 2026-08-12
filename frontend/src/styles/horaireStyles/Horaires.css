@@ -93,7 +93,7 @@
     position: fixed; inset: 0; background: rgba(15,23,42,0.5);
     display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 20px;
 }
-.dsr-modal { background: #fff; border-radius: 18px; width: 100%; max-width: 420px; overflow: hidden; }
+.dsr-modal { width: 100%; max-width: 420px; max-height: calc(100dvh - 32px); overflow-y: auto; border-radius: 18px; background: #fff; }
 .dsr-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; border-bottom: 1px solid #F0F4F9; }
 .dsr-header h3 { font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 700; color: #1A1D20; margin: 0; }
 .dsr-close { width: 30px; height: 30px; border: none; background: #F0F4F9; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #62676B; }
@@ -123,33 +123,31 @@
 }
 @media (max-width: 640px) {
     .hrp-page { background: #fbf9f8; overflow-x: hidden; }
-    .hrp-main { width: 100%; box-sizing: border-box; padding: 34px 0 100px; }
-    .hrp-header { padding: 0 16px; }
+    .hrp-main { width: 100%; box-sizing: border-box; padding: 30px 16px 44px; }
+    .hrp-header { padding: 0; }
     .hrp-header h1 { font-size: 2rem; line-height: 1.1; max-width: 280px; }
     .hrp-header p { font-size: .98rem; line-height: 1.5; margin-bottom: 32px; }
     .hrp-section { margin-bottom: 42px; }
-    .hrp-section-title { padding: 0 16px; font-size: 1.1rem; color: #0755ca; }
+    .hrp-section-title { padding: 0; font-size: 1.1rem; color: #0755ca; }
     .hrp-section-header { display: block; }
     .hrp-section-header .hrp-section-title { margin-bottom: 16px; }
     .hrp-section-header .hrp-btn-add { display: none; }
-    #hrp-grid { overflow-x: auto; padding: 0; scrollbar-width: none; }
-    #hrp-grid::-webkit-scrollbar { display: none; }
-    .wsg-grid { display: flex; width: max-content; gap: 16px; padding: 0; }
-    .wsg-col { width: 168px; min-height: 154px; padding: 16px; border-radius: 12px; }
+    #hrp-grid { overflow: visible; }
+    .wsg-grid { display: grid; width: 100%; grid-template-columns: 1fr; gap: 10px; }
+    .wsg-col { width: auto; min-height: 0; padding: 14px; border-radius: 12px; }
     .wsg-col-header { font-size: .85rem; margin-bottom: 14px; }
     .wsg-add-btn { background: transparent; width: 22px; height: 22px; font-size: 1.2rem; }
     .wsg-slot { padding: 10px 12px; }
     .wsg-slot-time { font-size: .78rem; white-space: nowrap; }
     .wsg-icon-btn { width: 20px; height: 20px; }
-    .hrp-section:last-child { padding: 0 16px; }
+    .hrp-section:last-child { padding: 0; }
     .hrp-section:last-child .hrp-section-title { padding: 0; }
-    .hrp-empty { min-height: 180px; margin: 0; padding: 70px 18px 24px; border: 1px dashed #9ca3af; border-radius: 16px; background: #f3f0f0; font-size: .9rem; }
-    .hrp-section:last-child .hrp-btn-add { display: flex; margin: -86px auto 20px; position: relative; min-height: 44px; padding-inline: 22px; }
+    .hrp-empty { min-height: 140px; margin: 0; padding: 52px 18px 24px; border: 1px dashed var(--mixo-rule-strong); border-radius: 16px; background: var(--mixo-surface); font-size: .9rem; }
+    .hrp-section:last-child .hrp-btn-add { display: flex; width: 100%; min-height: 46px; margin: 0 0 14px; justify-content: center; padding-inline: 22px; }
     .hrp-section:last-child .hrp-btn-add svg { width: 18px; height: 18px; }
 }
 
 @media (max-width: 400px) {
     .hrp-main { padding-top: 28px; }
     .hrp-header h1 { font-size: 1.85rem; }
-    .wsg-col { width: 168px; }
 }

@@ -21,9 +21,8 @@ export const AdminDashboardPage = () => {
     main.innerHTML = `
         <section class="adm-dash-hero">
             <div class="adm-dash-hero-copy">
-                <p class="adm-dash-kicker">Centre de contrôle</p>
-                <h1>Tableau de bord administrateur</h1>
-                <p>Supervision globale de la plateforme, des comptes, des rendez-vous, des paiements et du journal système.</p>
+                <h1>Les priorités de Mixo, au même endroit.</h1>
+                <p>Contrôlez les comptes, rendez-vous et paiements sans perdre le fil de l’activité.</p>
             </div>
             <div class="adm-dash-hero-actions">
                 <button class="adm-btn adm-btn-primary" id="adm-dash-refresh" type="button"><i data-lucide="refresh-cw"></i> Actualiser</button>
@@ -31,6 +30,11 @@ export const AdminDashboardPage = () => {
             </div>
         </section>
 
+        <section class="adm-priority-board" id="adm-priority-board">
+            <div class="adm-dash-skel"></div>
+        </section>
+
+        <div class="adm-dash-section-title"><h2>Vue d’ensemble</h2></div>
         <section class="adm-dash-kpis" id="adm-dash-kpis">
             <div class="adm-dash-skel"></div>
         </section>
@@ -39,8 +43,7 @@ export const AdminDashboardPage = () => {
             <article class="adm-card adm-card-wide" id="adm-dash-activity">
                 <div class="adm-card-head">
                     <div>
-                        <p class="adm-card-kicker">Activité récente</p>
-                        <h2>Événements de la plateforme</h2>
+                        <h2>Activité récente</h2>
                     </div>
                     <span class="adm-pill">Temps réel</span>
                 </div>
@@ -52,7 +55,6 @@ export const AdminDashboardPage = () => {
             <article class="adm-card" id="adm-dash-users-chart">
                 <div class="adm-card-head">
                     <div>
-                        <p class="adm-card-kicker">Utilisateurs</p>
                         <h2>Inscriptions</h2>
                     </div>
                 </div>
@@ -61,8 +63,7 @@ export const AdminDashboardPage = () => {
             <article class="adm-card" id="adm-dash-roles-chart">
                 <div class="adm-card-head">
                     <div>
-                        <p class="adm-card-kicker">Utilisateurs</p>
-                        <h2>Répartition</h2>
+                        <h2>Répartition des utilisateurs</h2>
                     </div>
                 </div>
             </article>
@@ -70,8 +71,7 @@ export const AdminDashboardPage = () => {
             <article class="adm-card" id="adm-dash-services-chart">
                 <div class="adm-card-head">
                     <div>
-                        <p class="adm-card-kicker">Services</p>
-                        <h2>Populaires</h2>
+                        <h2>Services populaires</h2>
                     </div>
                 </div>
             </article>
@@ -79,8 +79,7 @@ export const AdminDashboardPage = () => {
             <article class="adm-card" id="adm-dash-rdv-chart">
                 <div class="adm-card-head">
                     <div>
-                        <p class="adm-card-kicker">Rendez-vous</p>
-                        <h2>Répartition statuts</h2>
+                        <h2>Statuts des rendez-vous</h2>
                     </div>
                 </div>
             </article>
@@ -88,8 +87,7 @@ export const AdminDashboardPage = () => {
             <article class="adm-card" id="adm-dash-pay-chart">
                 <div class="adm-card-head">
                     <div>
-                        <p class="adm-card-kicker">Paiements</p>
-                        <h2>Revenus</h2>
+                        <h2>Revenus des paiements</h2>
                     </div>
                 </div>
             </article>
@@ -107,7 +105,6 @@ export const AdminDashboardPage = () => {
             <article class="adm-card">
                 <div class="adm-card-head">
                     <div>
-                        <p class="adm-card-kicker">Utilisateurs récents</p>
                         <h2>Nouveaux comptes</h2>
                     </div>
                 </div>
@@ -116,8 +113,7 @@ export const AdminDashboardPage = () => {
             <article class="adm-card">
                 <div class="adm-card-head">
                     <div>
-                        <p class="adm-card-kicker">Rendez-vous récents</p>
-                        <h2>Activité réservation</h2>
+                        <h2>Activité des réservations</h2>
                     </div>
                 </div>
                 <div class="adm-mini-table" id="adm-rdv-table"></div>
@@ -125,8 +121,7 @@ export const AdminDashboardPage = () => {
             <article class="adm-card">
                 <div class="adm-card-head">
                     <div>
-                        <p class="adm-card-kicker">Paiements récents</p>
-                        <h2>Transactions</h2>
+                        <h2>Transactions récentes</h2>
                     </div>
                 </div>
                 <div class="adm-mini-table" id="adm-pay-table"></div>
@@ -143,6 +138,7 @@ export const AdminDashboardPage = () => {
         state.data = data;
 
         const totals = data.totaux || {};
+        main.querySelector('#adm-priority-board').innerHTML = buildPriorityBoard(data);
         const kpis = [
             { label: 'Utilisateurs', value: totals.utilisateurs ?? 0, icon: 'users' },
             { label: 'Clients', value: totals.clients ?? 0, icon: 'user' },
@@ -249,6 +245,39 @@ function shortcut(route, icon, label) {
             <i data-lucide="${icon}"></i>
             <span>${label}</span>
         </button>`;
+}
+
+function buildPriorityBoard(data = {}) {
+    const statuts = data.graphiques?.rendez_vous?.par_statut || [];
+    const pending = Number(statuts.find((item) => String(item.label).toUpperCase() === 'EN_ATTENTE')?.valeur || 0);
+    const failedPayments = Number(data.graphiques?.paiements?.echoue || 0);
+    const latestActivity = data.recent_activity?.[0];
+    const latestLabel = latestActivity
+        ? `${escapeHtml(latestActivity.label || 'Activité récente')} · ${formatDate(latestActivity.created_at)}`
+        : 'Aucune nouvelle activité à signaler';
+
+    return `
+        <div class="adm-priority-main">
+            <div class="adm-priority-icon"><i data-lucide="shield-check"></i></div>
+            <div class="adm-priority-copy">
+                <h2>${pending > 0 ? `${formatNumber(pending)} rendez-vous en attente` : 'La supervision est à jour'}</h2>
+                <span>${pending > 0 ? 'Ouvrez la liste pour contrôler les demandes et leur statut.' : latestLabel}</span>
+            </div>
+            <button type="button" onclick="window.navigate?.('/admin/rendez-vous')">
+                ${pending > 0 ? 'Contrôler maintenant' : 'Voir les rendez-vous'} <i data-lucide="arrow-right"></i>
+            </button>
+        </div>
+        <div class="adm-priority-rows">
+            <button type="button" onclick="window.navigate?.('/admin/users')">
+                <i data-lucide="user-check"></i><span><strong>Comptes utilisateurs</strong><small>Valider, suspendre ou réactiver</small></span><i data-lucide="chevron-right"></i>
+            </button>
+            <button type="button" onclick="window.navigate?.('/admin/journal')">
+                <i data-lucide="activity"></i><span><strong>Journal système</strong><small>${latestLabel}</small></span><i data-lucide="chevron-right"></i>
+            </button>
+            <button type="button" onclick="window.navigate?.('/admin/dashboard')">
+                <i data-lucide="credit-card"></i><span><strong>Paiements à vérifier</strong><small>${failedPayments} paiement${failedPayments === 1 ? '' : 's'} en échec</small></span><i data-lucide="chevron-right"></i>
+            </button>
+        </div>`;
 }
 
 function cardBody(inner) {

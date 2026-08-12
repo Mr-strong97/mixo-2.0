@@ -127,12 +127,12 @@ export const AdminAuditLog = () => {
                             
                             return `
                                 <tr class="audit-row">
-                                    <td class="audit-user">@${row.username}</td>
-                                    <td><span class="audit-role audit-role-${(row.user_role||'').toLowerCase()}">${row.user_role}</span></td>
-                                    <td><span class="audit-action-badge" style="background:${info.color}18;color:${info.color};border-color:${info.color}30">${info.label}</span></td>
-                                    <td><span class="audit-status ${succes ? 'audit-ok' : 'audit-fail'}">${succes ? '✓' : '✗'}</span></td>
-                                    <td class="audit-ip">${row.ip_adresse || '—'}</td>
-                                    <td class="audit-date">${date}</td>
+                                    <td class="audit-user" data-label="Utilisateur">@${row.username}</td>
+                                    <td data-label="Rôle"><span class="audit-role audit-role-${(row.user_role||'').toLowerCase()}">${row.user_role}</span></td>
+                                    <td data-label="Action"><span class="audit-action-badge" style="background:${info.color}18;color:${info.color};border-color:${info.color}30">${info.label}</span></td>
+                                    <td data-label="Statut"><span class="audit-status ${succes ? 'audit-ok' : 'audit-fail'}">${succes ? '✓' : '✗'}</span></td>
+                                    <td class="audit-ip" data-label="Adresse IP">${row.ip_adresse || '—'}</td>
+                                    <td class="audit-date" data-label="Date et heure">${date}</td>
                                 </tr>
                             `;
                         }).join('')}

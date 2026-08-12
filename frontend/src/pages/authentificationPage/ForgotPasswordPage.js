@@ -66,7 +66,7 @@ export const ForgotPasswordPage = () => {
                     </div>
                 </div>
 
-                <p class="auth-footer-text">© 2026 Mixo Professional Services. All rights reserved.</p>
+                <p class="auth-footer-text">© 2026 Mixo — Tous droits réservés.</p>
             </div>
         </div>
     `;

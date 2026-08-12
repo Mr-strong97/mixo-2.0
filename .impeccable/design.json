@@ -1,0 +1,296 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-12T22:41:31+01:00",
+  "title": "Design System: Mixo",
+  "extensions": {
+    "colorMeta": {
+      "cobalt-deep": {
+        "role": "primary",
+        "displayName": "Cobalt profond",
+        "canonical": "#082F62",
+        "tonalRamp": ["#061F42", "#082F62", "#0B3F7F", "#0B4F9C", "#0E61BA", "#1776D2", "#DCEBFA", "#EDF5FD"]
+      },
+      "cobalt-strong": {
+        "role": "primary",
+        "displayName": "Cobalt fort",
+        "canonical": "#0B3F7F",
+        "tonalRamp": ["#061F42", "#082F62", "#0B3F7F", "#0B4F9C", "#0E61BA", "#1776D2", "#DCEBFA", "#EDF5FD"]
+      },
+      "cobalt-action": {
+        "role": "primary",
+        "displayName": "Cobalt d’atelier",
+        "canonical": "#0B4F9C",
+        "tonalRamp": ["#061F42", "#082F62", "#0B3F7F", "#0B4F9C", "#0E61BA", "#1776D2", "#DCEBFA", "#EDF5FD"]
+      },
+      "cobalt-hover": {
+        "role": "primary",
+        "displayName": "Cobalt de survol",
+        "canonical": "#0E61BA",
+        "tonalRamp": ["#061F42", "#082F62", "#0B3F7F", "#0B4F9C", "#0E61BA", "#1776D2", "#DCEBFA", "#EDF5FD"]
+      },
+      "cobalt-interactive": {
+        "role": "primary",
+        "displayName": "Cobalt interactif",
+        "canonical": "#1776D2",
+        "tonalRamp": ["#061F42", "#082F62", "#0B3F7F", "#0B4F9C", "#0E61BA", "#1776D2", "#DCEBFA", "#EDF5FD"]
+      },
+      "cobalt-soft": {
+        "role": "primary",
+        "displayName": "Cobalt adouci",
+        "canonical": "#DCEBFA",
+        "tonalRamp": ["#061F42", "#082F62", "#0B3F7F", "#0B4F9C", "#0E61BA", "#1776D2", "#DCEBFA", "#EDF5FD"]
+      },
+      "cobalt-wash": {
+        "role": "primary",
+        "displayName": "Lavis cobalt",
+        "canonical": "#EDF5FD",
+        "tonalRamp": ["#061F42", "#082F62", "#0B3F7F", "#0B4F9C", "#0E61BA", "#1776D2", "#DCEBFA", "#EDF5FD"]
+      },
+      "ink-black": {
+        "role": "neutral",
+        "displayName": "Encre noire",
+        "canonical": "#101722",
+        "tonalRamp": ["#101722", "#18212F", "#344054", "#475467", "#667085", "#8A94A3", "#D9E1E8", "#FFFFFF"]
+      },
+      "ink-primary": {
+        "role": "neutral",
+        "displayName": "Encre principale",
+        "canonical": "#18212F",
+        "tonalRamp": ["#101722", "#18212F", "#344054", "#475467", "#667085", "#8A94A3", "#D9E1E8", "#FFFFFF"]
+      },
+      "ink-strong": {
+        "role": "neutral",
+        "displayName": "Encre forte",
+        "canonical": "#344054",
+        "tonalRamp": ["#101722", "#18212F", "#344054", "#475467", "#667085", "#8A94A3", "#D9E1E8", "#FFFFFF"]
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Encre atténuée",
+        "canonical": "#475467",
+        "tonalRamp": ["#101722", "#18212F", "#344054", "#475467", "#667085", "#8A94A3", "#D9E1E8", "#FFFFFF"]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Encre douce",
+        "canonical": "#667085",
+        "tonalRamp": ["#101722", "#18212F", "#344054", "#475467", "#667085", "#8A94A3", "#D9E1E8", "#FFFFFF"]
+      },
+      "ink-faint": {
+        "role": "neutral",
+        "displayName": "Encre discrète",
+        "canonical": "#8A94A3",
+        "tonalRamp": ["#101722", "#18212F", "#344054", "#475467", "#667085", "#8A94A3", "#D9E1E8", "#FFFFFF"]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Papier Mixo",
+        "canonical": "#F4F7FA",
+        "tonalRamp": ["#101722", "#18212F", "#344054", "#667085", "#8A94A3", "#D9E1E8", "#F4F7FA", "#FFFFFF"]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface mate",
+        "canonical": "#FFFFFF",
+        "tonalRamp": ["#101722", "#18212F", "#344054", "#667085", "#8A94A3", "#D9E1E8", "#F4F7FA", "#FFFFFF"]
+      },
+      "surface-muted": {
+        "role": "neutral",
+        "displayName": "Surface secondaire",
+        "canonical": "#EEF3F7",
+        "tonalRamp": ["#101722", "#18212F", "#344054", "#667085", "#8A94A3", "#D9E1E8", "#EEF3F7", "#FFFFFF"]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Règle fine",
+        "canonical": "#D9E1E8",
+        "tonalRamp": ["#101722", "#18212F", "#344054", "#667085", "#8A94A3", "#C7D1DB", "#D9E1E8", "#FFFFFF"]
+      },
+      "rule-strong": {
+        "role": "neutral",
+        "displayName": "Règle forte",
+        "canonical": "#C7D1DB",
+        "tonalRamp": ["#101722", "#18212F", "#344054", "#667085", "#8A94A3", "#C7D1DB", "#D9E1E8", "#FFFFFF"]
+      },
+      "success": {
+        "role": "tertiary",
+        "displayName": "Vert confirmé",
+        "canonical": "#127A45",
+        "tonalRamp": ["#093D25", "#0D5933", "#127A45", "#2F9460", "#67B58A", "#A4D2B7", "#E8F5EE", "#F6FBF8"]
+      },
+      "success-soft": {
+        "role": "tertiary",
+        "displayName": "Vert de confirmation",
+        "canonical": "#E8F5EE",
+        "tonalRamp": ["#093D25", "#0D5933", "#127A45", "#2F9460", "#67B58A", "#A4D2B7", "#E8F5EE", "#F6FBF8"]
+      },
+      "warning": {
+        "role": "tertiary",
+        "displayName": "Ambre d’attente",
+        "canonical": "#946200",
+        "tonalRamp": ["#402900", "#6B4600", "#946200", "#B47C13", "#D8A544", "#F0CE82", "#FFF5DA", "#FFFBF0"]
+      },
+      "warning-soft": {
+        "role": "tertiary",
+        "displayName": "Papier d’attente",
+        "canonical": "#FFF5DA",
+        "tonalRamp": ["#402900", "#6B4600", "#946200", "#B47C13", "#D8A544", "#F0CE82", "#FFF5DA", "#FFFBF0"]
+      },
+      "danger": {
+        "role": "tertiary",
+        "displayName": "Rouge critique",
+        "canonical": "#C63838",
+        "tonalRamp": ["#5C1616", "#861F1F", "#B32D2D", "#C63838", "#DA6666", "#ECA3A3", "#FCEBEC", "#FFF7F7"]
+      },
+      "danger-soft": {
+        "role": "tertiary",
+        "displayName": "Papier critique",
+        "canonical": "#FCEBEC",
+        "tonalRamp": ["#5C1616", "#861F1F", "#B32D2D", "#C63838", "#DA6666", "#ECA3A3", "#FCEBEC", "#FFF7F7"]
+      },
+      "info": {
+        "role": "tertiary",
+        "displayName": "Bleu informatif",
+        "canonical": "#175CD3",
+        "tonalRamp": ["#0D2C6E", "#113E99", "#175CD3", "#3978DF", "#71A0EA", "#A9C5F4", "#EAF2FF", "#F7FAFF"]
+      },
+      "info-soft": {
+        "role": "tertiary",
+        "displayName": "Papier informatif",
+        "canonical": "#EAF2FF",
+        "tonalRamp": ["#0D2C6E", "#113E99", "#175CD3", "#3978DF", "#71A0EA", "#A9C5F4", "#EAF2FF", "#F7FAFF"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Tâche principale", "purpose": "Salutations, tableaux de bord et titres qui orientent immédiatement l’action." },
+      "headline": { "displayName": "Fiche prioritaire", "purpose": "Titre de la prochaine tâche, d’un dialogue ou d’un détail important." },
+      "title": { "displayName": "Titre de travail", "purpose": "Sections, cartes et éléments de liste." },
+      "body": { "displayName": "Lecture courante", "purpose": "Descriptions, aide et contexte métier." },
+      "label": { "displayName": "Repère compact", "purpose": "Statuts, métriques et métadonnées brèves." }
+    },
+    "shadows": [
+      { "name": "contact", "value": "0 1px 2px rgba(16, 24, 40, 0.05)", "purpose": "Cartes et champs au repos." },
+      { "name": "fiche", "value": "0 6px 18px rgba(16, 36, 64, 0.07)", "purpose": "Fiche prioritaire et surface active." },
+      { "name": "feuille", "value": "0 14px 34px rgba(16, 36, 64, 0.10)", "purpose": "Dialogues, feuilles de compte et couches temporaires." },
+      { "name": "action-cobalt", "value": "0 10px 24px rgba(11, 79, 156, 0.18)", "purpose": "Accent ponctuel sous une action primaire surélevée." }
+    ],
+    "motion": [
+      { "name": "ease-expo", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Entrées de page, feuilles et mouvements principaux." },
+      { "name": "ease-spring", "value": "cubic-bezier(0.34, 1.56, 0.64, 1)", "purpose": "Retours tactiles ponctuels sans porter d’information." },
+      { "name": "ease-smooth", "value": "cubic-bezier(0.25, 0.46, 0.45, 0.94)", "purpose": "Déplacements continus et discrets." },
+      { "name": "transition-standard", "value": "220ms cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Changements d’état de composants." },
+      { "name": "transition-fast", "value": "150ms ease", "purpose": "Survol, pression, couleur et bordure." }
+    ],
+    "breakpoints": [
+      { "name": "compact-phone", "value": "390px" },
+      { "name": "mobile-table-cards", "value": "780px" },
+      { "name": "desktop-rail", "value": "1024px" },
+      { "name": "content-max", "value": "1240px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Action dominante d’une fiche ou d’un dialogue, formulée avec un verbe direct.",
+      "html": "<button class=\"ds-btn-primary\" type=\"button\">Explorer les services <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></button>",
+      "css": ".ds-btn-primary{display:inline-flex;min-height:48px;align-items:center;justify-content:center;gap:10px;padding:12px 18px;border:1px solid var(--mixo-cobalt-800);border-radius:var(--radius-md);background:var(--mixo-cobalt-800);color:#fff;font-family:var(--font-main);font-size:1rem;font-weight:720;cursor:pointer;box-shadow:var(--mixo-shadow-xs);transition:background var(--transition-fast),transform var(--transition-fast),box-shadow var(--transition-fast)}.ds-btn-primary svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.ds-btn-primary:hover{background:var(--mixo-cobalt-950);box-shadow:var(--shadow-blue);transform:translateY(-1px)}.ds-btn-primary:active{transform:scale(.985)}.ds-btn-primary:focus-visible{outline:3px solid rgba(23,118,210,.32);outline-offset:2px}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Action secondaire lisible qui ne concurrence pas la décision principale.",
+      "html": "<button class=\"ds-btn-secondary\" type=\"button\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M16 3v4M8 3v4M3 10h18\"/></svg> Rendez-vous</button>",
+      "css": ".ds-btn-secondary{display:inline-flex;min-height:48px;align-items:center;justify-content:center;gap:9px;padding:12px 18px;border:1px solid var(--mixo-rule-strong);border-radius:var(--radius-md);background:var(--mixo-surface);color:var(--mixo-ink-900);font-family:var(--font-main);font-size:.95rem;font-weight:700;cursor:pointer;transition:color var(--transition-fast),border-color var(--transition-fast),background var(--transition-fast),transform var(--transition-fast)}.ds-btn-secondary svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.ds-btn-secondary:hover{border-color:var(--mixo-cobalt-700);background:var(--mixo-cobalt-50);color:var(--mixo-cobalt-800)}.ds-btn-secondary:active{transform:scale(.985)}.ds-btn-secondary:focus-visible{outline:3px solid rgba(23,118,210,.32);outline-offset:2px}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "Champ de recherche ou de formulaire à grande cible tactile et focus explicite.",
+      "html": "<label class=\"ds-field\"><span>Rechercher</span><span class=\"ds-field-control\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"m20 20-3.6-3.6\"/></svg><input type=\"search\" placeholder=\"Service, coiffeur ou ville…\"></span></label>",
+      "css": ".ds-field{display:grid;gap:7px;color:var(--mixo-ink-700);font-family:var(--font-main);font-size:.78rem;font-weight:700}.ds-field-control{display:flex;min-height:46px;align-items:center;gap:10px;padding:0 14px;border:1px solid var(--mixo-rule-strong);border-radius:var(--radius-md);background:var(--mixo-surface);transition:border-color var(--transition-fast),box-shadow var(--transition-fast)}.ds-field-control:focus-within{border-color:var(--mixo-cobalt-700);box-shadow:0 0 0 4px rgba(23,118,210,.16)}.ds-field svg{width:18px;height:18px;fill:none;stroke:var(--mixo-ink-400);stroke-width:2;stroke-linecap:round}.ds-field input{min-width:0;flex:1;border:0;outline:0;background:transparent;color:var(--mixo-ink-900);font:inherit;font-size:.95rem;font-weight:400}.ds-field input::placeholder{color:var(--mixo-ink-400)}"
+    },
+    {
+      "name": "Status Chip",
+      "kind": "chip",
+      "refersTo": "status-chip",
+      "description": "État métier compact dont le texte et la couleur portent ensemble le sens.",
+      "html": "<span class=\"ds-status\"><span aria-hidden=\"true\"></span> En attente</span>",
+      "css": ".ds-status{display:inline-flex;min-height:28px;align-items:center;justify-content:center;gap:7px;padding:0 10px;border-radius:var(--radius-pill);background:var(--mixo-warning-bg);color:var(--mixo-warning);font-family:var(--font-main);font-size:.72rem;font-weight:750}.ds-status>span{width:7px;height:7px;border-radius:50%;background:currentColor}.ds-status:focus-visible{outline:3px solid rgba(23,118,210,.32);outline-offset:2px}"
+    },
+    {
+      "name": "Matte Card",
+      "kind": "card",
+      "refersTo": "matte-card",
+      "description": "Surface de travail neutre pour une métrique, un résumé ou un groupe d’informations.",
+      "html": "<article class=\"ds-card\"><span class=\"ds-card-icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\"><path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75\"/></svg></span><h3>Clients</h3><strong>126</strong></article>",
+      "css": ".ds-card{display:grid;min-width:180px;gap:10px;padding:20px;border:1px solid var(--mixo-rule);border-radius:var(--radius-lg);background:var(--mixo-surface);color:var(--mixo-ink-900);font-family:var(--font-main);box-shadow:var(--mixo-shadow-xs)}.ds-card-icon{display:grid;width:42px;height:42px;place-items:center;border-radius:var(--radius-sm);background:var(--mixo-cobalt-50);color:var(--mixo-cobalt-800)}.ds-card-icon svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.ds-card h3{margin:4px 0 0;color:var(--mixo-ink-500);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}.ds-card strong{font-size:1.75rem;line-height:1}"
+    },
+    {
+      "name": "Priority Work Sheet",
+      "kind": "custom",
+      "description": "Composant signature qui met la prochaine tâche et son action au premier plan.",
+      "html": "<article class=\"ds-work-sheet\"><span class=\"ds-work-icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\"/><path d=\"M16 2v4M8 2v4M3 10h18M9 16l2 2 4-4\"/></svg></span><div><h3>Prochain rendez-vous avec Amina</h3><p>Coupe + barbe · 13 août, 14:30 · 3 500 FC</p></div><button type=\"button\">Gérer ce rendez-vous</button></article>",
+      "css": ".ds-work-sheet{position:relative;display:grid;grid-template-columns:54px minmax(0,1fr) auto;gap:16px;align-items:center;padding:24px;border:1px solid var(--mixo-rule-strong);border-left:6px solid var(--mixo-cobalt-800);border-radius:var(--radius-lg);background:var(--mixo-surface);color:var(--mixo-ink-900);font-family:var(--font-main);box-shadow:var(--mixo-shadow-sm)}.ds-work-icon{display:grid;width:54px;height:54px;place-items:center;border:1px solid var(--mixo-rule);border-radius:var(--radius-md);background:var(--mixo-cobalt-50);color:var(--mixo-cobalt-800)}.ds-work-icon svg{width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.ds-work-sheet h3{margin:0 0 5px;font-size:1.2rem;letter-spacing:-.02em}.ds-work-sheet p{margin:0;color:var(--mixo-ink-600);font-size:.88rem}.ds-work-sheet button{min-height:46px;padding:0 16px;border:1px solid var(--mixo-cobalt-800);border-radius:var(--radius-md);background:var(--mixo-cobalt-800);color:#fff;font:inherit;font-weight:720;cursor:pointer;transition:background var(--transition-fast),transform var(--transition-fast)}.ds-work-sheet button:hover{background:var(--mixo-cobalt-950);transform:translateY(-1px)}.ds-work-sheet button:focus-visible{outline:3px solid rgba(23,118,210,.32);outline-offset:2px}@media(max-width:620px){.ds-work-sheet{grid-template-columns:48px minmax(0,1fr);padding:18px 14px}.ds-work-sheet button{grid-column:1/-1;width:100%}}"
+    },
+    {
+      "name": "Desktop Rail Item",
+      "kind": "nav",
+      "description": "Destination de rôle dans le rail persistant, avec état actif calme et lisible.",
+      "html": "<nav class=\"ds-rail\" aria-label=\"Navigation exemple\"><button class=\"ds-rail-item ds-rail-active\" type=\"button\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"3\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\"/></svg><span>Tableau de bord</span></button><button class=\"ds-rail-item\" type=\"button\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\"/><path d=\"M16 2v4M8 2v4M3 10h18\"/></svg><span>Rendez-vous</span></button></nav>",
+      "css": ".ds-rail{display:grid;width:248px;gap:4px;padding:12px;border-right:1px solid var(--mixo-rule);background:var(--mixo-surface);font-family:var(--font-main)}.ds-rail-item{display:flex;min-height:46px;align-items:center;gap:12px;padding:10px 12px;border:0;border-radius:var(--radius-md);background:transparent;color:var(--mixo-ink-600);font:inherit;font-size:.88rem;font-weight:600;text-align:left;cursor:pointer;transition:color var(--transition-fast),background var(--transition-fast)}.ds-rail-item svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.ds-rail-item:hover{background:var(--mixo-cobalt-50);color:var(--mixo-cobalt-800)}.ds-rail-active{box-shadow:inset 1px 0 0 var(--mixo-cobalt-800);background:var(--mixo-cobalt-50);color:var(--mixo-cobalt-800);font-weight:700}.ds-rail-item:focus-visible{outline:3px solid rgba(23,118,210,.32);outline-offset:2px}"
+    },
+    {
+      "name": "Mobile Bottom Navigation",
+      "kind": "nav",
+      "description": "Navigation mobile à cinq destinations étiquetées et utilisables au pouce.",
+      "html": "<nav class=\"ds-mobile-nav\" aria-label=\"Navigation principale\"><button class=\"ds-mobile-item ds-mobile-active\" type=\"button\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M3 11 12 3l9 8v10h-6v-6H9v6H3z\"/></svg><span>Accueil</span></button><button class=\"ds-mobile-item\" type=\"button\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"6\" cy=\"7\" r=\"3\"/><circle cx=\"6\" cy=\"17\" r=\"3\"/><path d=\"m8.6 8.5 12 7M8.6 15.5l12-7\"/></svg><span>Services</span></button><button class=\"ds-mobile-item\" type=\"button\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\"/><path d=\"M16 2v4M8 2v4M3 10h18\"/></svg><span>Rendez-vous</span></button><button class=\"ds-mobile-item\" type=\"button\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M6 2h12v20l-3-2-3 2-3-2-3 2zM9 7h6M9 11h6\"/></svg><span>Factures</span></button><button class=\"ds-mobile-item\" type=\"button\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6l-.08.08h-4l-.08-.08a1.7 1.7 0 0 0-1-.6 1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1l-.08-.08v-4L4 9.84a1.7 1.7 0 0 0 .6-1 1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6l.08-.08h4l.08.08a1.7 1.7 0 0 0 1 .6 1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.4 9c.07.37.28.72.6 1l.08.08v4L20 14a1.7 1.7 0 0 0-.6 1z\"/></svg><span>Paramètres</span></button></nav>",
+      "css": ".ds-mobile-nav{display:grid;min-height:72px;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid var(--mixo-rule);background:var(--mixo-surface);box-shadow:0 -8px 24px rgba(16,36,64,.06);font-family:var(--font-main)}.ds-mobile-item{position:relative;display:flex;min-width:0;min-height:72px;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:7px 2px 5px;border:0;background:transparent;color:var(--mixo-ink-500);font:inherit;font-size:.61rem;font-weight:620;cursor:pointer}.ds-mobile-item:before{content:'';position:absolute;inset:0 18% auto;height:3px;background:transparent}.ds-mobile-item svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.ds-mobile-item span{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ds-mobile-item:hover{background:var(--mixo-cobalt-50);color:var(--mixo-cobalt-800)}.ds-mobile-active{color:var(--mixo-cobalt-800);font-weight:750}.ds-mobile-active:before{background:var(--mixo-cobalt-700)}.ds-mobile-item:focus-visible{outline:3px solid rgba(23,118,210,.32);outline-offset:-3px}"
+    },
+    {
+      "name": "Confirmation Dialog",
+      "kind": "custom",
+      "description": "Dialogue de confirmation pour une action importante comme archiver ou supprimer.",
+      "html": "<section class=\"ds-dialog\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"ds-dialog-title\"><span class=\"ds-dialog-icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\"><path d=\"M21 8v13H3V8M1 3h22v5H1zM10 12h4\"/></svg></span><h2 id=\"ds-dialog-title\">Archiver cette annonce ?</h2><p>Elle ne sera plus visible ni achetable par les autres utilisateurs.</p><div><button class=\"ds-dialog-cancel\" type=\"button\">Annuler</button><button class=\"ds-dialog-confirm\" type=\"button\">Confirmer</button></div></section>",
+      "css": ".ds-dialog{width:min(100%,420px);padding:24px;border:1px solid var(--mixo-rule);border-radius:var(--radius-3xl);background:var(--mixo-surface);color:var(--mixo-ink-900);font-family:var(--font-main);box-shadow:var(--mixo-shadow-md)}.ds-dialog-icon{display:grid;width:46px;height:46px;margin-bottom:16px;place-items:center;border-radius:var(--radius-md);background:var(--mixo-cobalt-50);color:var(--mixo-cobalt-800)}.ds-dialog-icon svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.ds-dialog h2{margin:0;font-size:1.35rem;letter-spacing:-.025em}.ds-dialog p{margin:8px 0 22px;color:var(--mixo-ink-600)}.ds-dialog>div{display:grid;grid-template-columns:1fr 1fr;gap:10px}.ds-dialog button{min-height:46px;border-radius:var(--radius-md);font:inherit;font-weight:700;cursor:pointer;transition:background var(--transition-fast),transform var(--transition-fast)}.ds-dialog-cancel{border:1px solid var(--mixo-rule-strong);background:#fff;color:var(--mixo-ink-900)}.ds-dialog-confirm{border:1px solid var(--mixo-cobalt-800);background:var(--mixo-cobalt-800);color:#fff}.ds-dialog button:hover{transform:translateY(-1px)}.ds-dialog-confirm:hover{background:var(--mixo-cobalt-950)}.ds-dialog button:focus-visible{outline:3px solid rgba(23,118,210,.32);outline-offset:2px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "La fiche de prestation",
+    "overview": "Mixo ressemble à une fiche de travail de salon parfaitement tenue : un fond papier calme, une encre très lisible, des règles fines et un index cobalt qui attire l’œil vers la tâche à accomplir. L’interface est professionnelle sans devenir froide ; les photos réelles et les informations métier gardent la relation humaine au centre. La densité reste contenue sur mobile et s’enrichit sur ordinateur. Chaque rôle retrouve la même grammaire — contexte clair, état explicite, action principale évidente — tandis que la navigation change uniquement pour refléter les responsabilités du client, du coiffeur ou de l’administrateur.",
+    "keyCharacteristics": [
+      "Papier gris très clair, surfaces blanches mates et séparateurs fins.",
+      "Cobalt réservé à l’orientation, à l’état actif et aux actions importantes.",
+      "Titres courts, francs et fortement contrastés en Public Sans Variable.",
+      "Une fiche prioritaire à index cobalt pour la prochaine tâche métier.",
+      "Navigation au pouce sur mobile et rail persistant sur ordinateur.",
+      "Mouvement bref, fonctionnel et désactivable avec prefers-reduced-motion."
+    ],
+    "rules": [
+      { "name": "The Cobalt Index Rule", "body": "Le cobalt guide ; il ne colore jamais tout l’écran. La bande latérale ou supérieure appartient à la fiche prioritaire et à quelques cartes d’action, pas à chaque conteneur.", "section": "colors" },
+      { "name": "The Semantic Truth Rule", "body": "Une couleur d’état doit toujours accompagner un libellé lisible ; la couleur seule ne porte jamais le sens.", "section": "colors" },
+      { "name": "The Workhorse Type Rule", "body": "Public Sans Variable porte toute l’interface ; les poids les plus forts sont réservés à la décision et aux données à scanner.", "section": "typography" },
+      { "name": "The Thumb-First Rule", "body": "Une action mobile essentielle doit être atteignable sans viser un petit pictogramme ni ouvrir plusieurs menus.", "section": "layout" },
+      { "name": "The Structure-Before-Shadow Rule", "body": "Employer d’abord une règle fine et un changement de ton ; ajouter une ombre uniquement lorsqu’une surface doit réellement passer devant une autre.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do concevoir et vérifier chaque parcours critique à 320 et 360 px avant de l’enrichir sur ordinateur.",
+      "Do placer une seule action primaire évidente dans chaque fiche ou dialogue.",
+      "Do afficher les prix en FC ou CDF et formater les milliers avec des espaces.",
+      "Do conserver les photos réelles des profils et services, recadrées proprement sans déformation.",
+      "Do fournir chargement, vide, succès et erreur sans inventer de données.",
+      "Do garder la déconnexion accessible dans la feuille de compte et les paramètres sur mobile."
+    ],
+    "donts": [
+      "Don't forcer un tableau de bureau hors du viewport mobile ; convertir les lignes en fiches lisibles.",
+      "Don't utiliser l’euro ou EUR dans un parcours Mixo destiné aux francs congolais.",
+      "Don't multiplier les actions pleines en cobalt dans le même groupe.",
+      "Don't réduire une commande interactive sous 44 px ou dépendre d’une icône sans libellé accessible.",
+      "Don't employer une couleur sémantique comme décoration ou comme seul indicateur d’état.",
+      "Don't remplacer les appels API, routes ou données réelles par du contenu de démonstration dans l’application."
+    ]
+  }
+}

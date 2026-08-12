@@ -57,7 +57,6 @@ export const TransformationShowcase = () => {
                 <div class="mixo-transform__glow" aria-hidden="true"></div>
 
                 <div class="mixo-transform__heading">
-                    <span class="mixo-eyebrow"><i data-lucide="sparkles"></i><span>L'expérience Mixo</span></span>
                     <h2>D'une recherche&hellip; à un sourire.</h2>
                 </div>
 

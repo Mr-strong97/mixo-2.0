@@ -1,0 +1,6 @@
+{
+  "id": "timeline",
+  "direction": "Fiche de prestation",
+  "prompt": "Composition mobile Mixo timeline-first : agenda vertical avec heures et tickets de rendez-vous, statuts et actions contextuelles, dock d’actions puis navigation inférieure stable, palette cobalt et papier mat.",
+  "approved": false
+}

@@ -49,7 +49,6 @@ export const ClientRendezVousPage = ({ id } = {}) => {
         main.innerHTML = `
             <section class="rvp-hero">
                 <div class="rvp-hero-copy">
-                    <p class="rvp-kicker">Espace client</p>
                     <h1>Mes rendez-vous</h1>
                     <p>Consultez, filtrez et suivez tous vos rendez-vous en un seul endroit.</p>
                 </div>
@@ -190,8 +189,7 @@ export const ClientRendezVousPage = ({ id } = {}) => {
             <section class="rvp-focus-card" style="margin-bottom:24px;padding:24px;border:1px solid #DBE6F3;border-radius:24px;background:#fff;box-shadow:0 18px 40px rgba(15,23,42,0.06);">
                 <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;">
                     <div>
-                        <p class="rvp-kicker">Rendez-vous sélectionné</p>
-                        <h2 style="margin:6px 0 8px;font-size:1.4rem;">${escapeHtml(rdv.service_nom_snapshot)}</h2>
+                        <h2 style="margin:0 0 8px;font-size:1.4rem;">${escapeHtml(rdv.service_nom_snapshot)}</h2>
                         <p style="margin:0;color:#475569;">Avec ${escapeHtml(rdv.coiffeur_username || '—')}</p>
                     </div>
                     <span class="rvc-completed-label" style="margin-top:0;">${escapeHtml(rdv.statut_label || rdv.statut || '—')}</span>

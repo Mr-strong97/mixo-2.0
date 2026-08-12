@@ -147,7 +147,6 @@ export const CoiffeurProfilPage = ({ username = '', id = '' } = {}) => {
                         <div class="cpp-hero-main">
                             <div class="cpp-avatar">${escapeHtml(initials)}</div>
                             <div class="cpp-identity">
-                                <span class="cpp-kicker">Votre barber</span>
                                 <h1 class="cpp-title">${escapeHtml(displayName)}</h1>
                                 <div class="cpp-hero-meta">
                                     <span class="cpp-rating">
@@ -195,7 +194,6 @@ export const CoiffeurProfilPage = ({ username = '', id = '' } = {}) => {
                         <section class="cpp-section" id="cpp-services-section">
                             <div class="cpp-section-header">
                                 <div>
-                                    <span class="cpp-section-kicker">Prestations</span>
                                     <h2 class="cpp-section-title">Services réservables</h2>
                                 </div>
                                 <span class="cpp-section-count">${state.services.length} prestation${state.services.length > 1 ? 's' : ''}</span>
@@ -211,7 +209,6 @@ export const CoiffeurProfilPage = ({ username = '', id = '' } = {}) => {
                         <section class="cpp-section" id="cpp-avis-section">
                             <div class="cpp-section-header">
                                 <div>
-                                    <span class="cpp-section-kicker">Réputation</span>
                                     <h2 class="cpp-section-title">Avis clients</h2>
                                 </div>
                                 <span class="cpp-section-count">${totalAvis} retour${totalAvis > 1 ? 's' : ''}</span>
@@ -230,7 +227,6 @@ export const CoiffeurProfilPage = ({ username = '', id = '' } = {}) => {
                         <section class="cpp-section">
                             <div class="cpp-section-header">
                                 <div>
-                                    <span class="cpp-section-kicker">Planning</span>
                                     <h2 class="cpp-section-title">Horaires hebdomadaires</h2>
                                 </div>
                                 <span class="cpp-section-count">${state.horaires.length} créneau${state.horaires.length > 1 ? 'x' : ''}</span>
@@ -243,7 +239,6 @@ export const CoiffeurProfilPage = ({ username = '', id = '' } = {}) => {
                         <section class="cpp-section">
                             <div class="cpp-section-header">
                                 <div>
-                                    <span class="cpp-section-kicker">Exceptions</span>
                                     <h2 class="cpp-section-title">Disponibilités à venir</h2>
                                 </div>
                                 <span class="cpp-section-count">${state.exceptions.length} événement${state.exceptions.length > 1 ? 's' : ''}</span>

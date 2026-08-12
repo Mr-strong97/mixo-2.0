@@ -1,321 +1,173 @@
-/* ================================================================
-   Navbar.css — MIXO Sidebar verticale fixe
-   Espaces inutiles corrigés, alignements uniformisés
-   ================================================================ */
+/* ============================================================
+   MIXO authenticated shell — desktop rail + mobile thumb nav
+   ============================================================ */
 
 :root {
-    --nl-width: 220px;
-    --nl-blue:  #0A66C2;
-    --nl-bg:    #FFFFFF;
-    --nl-ease:  cubic-bezier(0.16,1,0.3,1);
+    --nl-width: var(--mixo-rail-width, 248px);
+    --nl-blue: var(--mixo-cobalt-800, #0B4F9C);
+    --nl-bg: var(--mixo-surface, #FFFFFF);
+    --nl-ease: var(--ease-expo, cubic-bezier(0.16, 1, 0.3, 1));
 }
 
-.nl-mobile-header { display: none; }
+.no-scroll { overflow: hidden !important; }
+.nl-mobile-header,
+.nl-bottom-nav,
+.nl-account-overlay { display: none; }
 
-/* ── SIDEBAR ─────────────────────────────────────────────── */
 .nl-sidebar {
     position: fixed;
-    top: 0; left: 0;
-    width: var(--nl-width);
-    height: 100vh;
-    z-index: 1000;
-    background: var(--nl-bg);
-    border-right: 1px solid #E8ECF0;
-    box-shadow: 2px 0 12px rgba(0,0,0,0.04);
+    inset: 0 auto 0 0;
+    z-index: 1100;
     display: flex;
+    width: var(--nl-width);
+    min-height: 100dvh;
     flex-direction: column;
     overflow: hidden;
-    animation: nlSlideIn 0.55s var(--nl-ease) both;
-    transition: transform 0.35s var(--nl-ease);
-    will-change: transform, opacity;
-    box-sizing: border-box;
+    border-right: 1px solid var(--mixo-rule);
+    background: var(--nl-bg);
+    animation: nl-rail-enter 420ms var(--nl-ease) both;
 }
 
-/* ── LOGO ────────────────────────────────────────────────── */
-.nl-logo {
-    padding: 20px 18px 16px; /* réduit l'espace haut */
-    border-bottom: 1px solid #E8ECF0;
-    cursor: pointer;
-    flex-shrink: 0;
-    transition: opacity 0.2s;
-}
-.nl-logo:hover { opacity: 0.85; }
-.nl-logo-text {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.3rem;
-    font-weight: 900;
-    letter-spacing: 4px;
-    color: var(--nl-blue);
-    display: block;
-    text-align: right;
+.nl-desktop-brand,
+.nl-mobile-brand { display: flex; align-items: center; border: 0; background: transparent; color: var(--mixo-ink-900); cursor: pointer; text-align: left; }
+.nl-desktop-brand { width: 100%; min-height: 78px; gap: 12px; padding: 14px 18px; border-bottom: 1px solid var(--mixo-rule); }
+.nl-brand-mark { display: grid; width: 42px; height: 42px; flex: 0 0 42px; place-items: center; border-radius: 50%; background: var(--mixo-cobalt-800); color: #fff; font-size: 1.15rem; font-weight: 800; letter-spacing: -0.04em; }
+.nl-brand-copy { display: flex; min-width: 0; flex-direction: column; line-height: 1.1; }
+.nl-brand-copy strong { color: var(--mixo-cobalt-800); font-size: 1.25rem; font-weight: 800; letter-spacing: -0.035em; }
+.nl-brand-copy small { margin-top: 4px; color: var(--mixo-ink-500); font-size: 0.7rem; font-weight: 650; }
+
+.nl-desktop-nav { display: flex; flex-direction: column; gap: 4px; padding: 18px 12px 12px; }
+.nl-item,
+.nl-secondary-item { position: relative; display: flex; width: 100%; min-height: 46px; align-items: center; gap: 12px; border: 0; border-radius: var(--radius-md); background: transparent; color: var(--mixo-ink-600); cursor: pointer; text-align: left; transition: color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast); }
+.nl-item { padding: 10px 12px; font-size: 0.88rem; font-weight: 600; }
+.nl-item:hover,
+.nl-secondary-item:hover { background: var(--mixo-cobalt-50); color: var(--mixo-cobalt-800); }
+.nl-item:active,
+.nl-secondary-item:active { transform: scale(0.985); }
+.nl-item.nl-active { background: var(--mixo-cobalt-50); color: var(--mixo-cobalt-800); box-shadow: inset 1px 0 0 var(--mixo-cobalt-800); }
+.nl-item.nl-active .nl-icon { stroke-width: 2.4; }
+.nl-icon { width: 21px; height: 21px; flex: 0 0 21px; }
+.nl-label { min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.nl-badge { display: inline-flex; min-width: 18px; height: 18px; align-items: center; justify-content: center; border-radius: var(--radius-pill); background: var(--mixo-danger); color: #fff; font-size: 0.62rem; font-weight: 750; line-height: 1; padding: 0 5px; }
+.nl-badge[hidden] { display: none !important; }
+
+.nl-desktop-secondary { min-height: 0; flex: 1; overflow-y: auto; padding: 12px; border-top: 1px solid var(--mixo-rule); }
+.nl-desktop-secondary > p { margin: 0 10px 8px; color: var(--mixo-ink-400); font-size: 0.66rem; font-weight: 750; letter-spacing: 0.08em; text-transform: uppercase; }
+.nl-secondary-item { min-height: 40px; padding: 8px 10px; font-size: 0.79rem; font-weight: 580; }
+.nl-secondary-item svg { width: 18px; height: 18px; flex: 0 0 18px; }
+.nl-secondary-item span:not(.nl-badge) { min-width: 0; flex: 1; }
+
+.nl-profile { display: flex; flex-direction: column; gap: 12px; padding: 14px 16px 18px; border-top: 1px solid var(--mixo-rule); background: var(--mixo-surface); }
+.nl-profile-info { display: flex; min-width: 0; align-items: center; gap: 10px; }
+.nl-avatar-target { display: inline-flex; flex: 0 0 auto; border-radius: 50%; }
+.nl-avatar-target .mxo-avatar { width: 38px; height: 38px; }
+.nl-profile-text { display: flex; min-width: 0; flex-direction: column; }
+.nl-profile-text strong { overflow: hidden; color: var(--mixo-ink-900); font-size: 0.82rem; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+.nl-profile-text small { color: var(--mixo-ink-500); font-size: 0.68rem; }
+
+.nl-logout,
+.nl-sheet-logout { display: flex; min-height: 44px; align-items: center; justify-content: center; gap: 9px; border: 1px solid rgba(198, 56, 56, 0.28); border-radius: var(--radius-md); background: var(--mixo-danger-bg); color: var(--mixo-danger); cursor: pointer; font-size: 0.82rem; font-weight: 700; transition: background var(--transition-fast), transform var(--transition-fast); }
+.nl-logout:hover,
+.nl-sheet-logout:hover { background: #F8DCDD; }
+.nl-logout:active,
+.nl-sheet-logout:active { transform: scale(0.985); }
+.nl-logout svg,
+.nl-sheet-logout svg { width: 18px; height: 18px; }
+
+@media (min-width: 1024px) {
+    .mixo-shell-active #app > div { padding-left: var(--nl-width); }
+    .mixo-shell-active #app main,
+    .mixo-shell-active #app .main-content,
+    .mixo-shell-active #app .adm-main,
+    .mixo-shell-active #app .audit-main,
+    .mixo-shell-active #app .stats-pg-main,
+    .mixo-shell-active #app .sett-main,
+    .mixo-shell-active #app .notif-main { margin-left: 0 !important; }
 }
 
-/* ── LIENS ───────────────────────────────────────────────── */
-.nl-nav-scroll {
-    flex: 1;
-    min-height: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: 10px 10px; /* espacement réduit */
-}
-.nl-nav-scroll::-webkit-scrollbar { width: 3px; }
-.nl-nav-scroll::-webkit-scrollbar-thumb { background: rgba(10,102,194,0.1); border-radius: 3px; }
+@media (max-width: 1023px) {
+    .nl-sidebar { display: none; }
+    .mixo-shell-active #app > div { min-height: 100dvh; padding-top: var(--mixo-appbar-height); padding-bottom: calc(var(--mixo-mobile-nav-height) + env(safe-area-inset-bottom, 0px)); }
+    .mixo-shell-active #app main,
+    .mixo-shell-active #app .main-content,
+    .mixo-shell-active #app .adm-main,
+    .mixo-shell-active #app .audit-main,
+    .mixo-shell-active #app .stats-pg-main,
+    .mixo-shell-active #app .sett-main,
+    .mixo-shell-active #app .notif-main { margin-left: 0 !important; padding-left: max(16px, env(safe-area-inset-left, 0px)) !important; padding-right: max(16px, env(safe-area-inset-right, 0px)) !important; }
 
-.nl-links {
-    list-style: none;
-    margin: 0; padding: 0;
-    display: flex; flex-direction: column;
-    gap: 2px; /* gap minimal entre items */
-}
+    .nl-mobile-header { position: fixed; inset: 0 0 auto; z-index: 1200; display: flex; height: var(--mixo-appbar-height); align-items: center; justify-content: space-between; padding: 0 max(14px, env(safe-area-inset-right, 0px)) 0 max(14px, env(safe-area-inset-left, 0px)); border-bottom: 1px solid var(--mixo-rule); background: rgba(255, 255, 255, 0.97); }
+    .nl-mobile-brand { min-width: 0; gap: 9px; padding: 0; }
+    .nl-mobile-brand .nl-brand-mark { width: 36px; height: 36px; flex-basis: 36px; font-size: 1rem; }
+    .nl-mobile-brand .nl-brand-copy strong { font-size: 1.08rem; }
+    .nl-mobile-brand .nl-brand-copy small { font-size: 0.61rem; margin-top: 2px; }
+    .nl-mobile-actions { display: flex; align-items: center; gap: 2px; }
 
-.nl-item {
-    display: flex;
-    align-items: center;
-    gap: 11px;
-    padding: 10px 13px; /* padding uniforme compact */
-    border-radius: 9px;
-    cursor: pointer;
-    color: #62676B;
-    font-family: 'Poppins', sans-serif;
-    font-size: 0.84rem;
-    font-weight: 500;
-    position: relative;
-    transition: background 0.22s, color 0.22s, transform 0.22s var(--nl-ease), box-shadow 0.22s var(--nl-ease);
-    user-select: none;
-}
-.nl-item:hover {
-    background: #EBF4FF;
-    color: var(--nl-blue);
-    transform: translateX(4px) translateZ(0);
-    box-shadow: inset 0 0 0 1px rgba(10, 102, 194, 0.08);
-}
-.nl-item.nl-active {
-    background: #EBF4FF;
-    color: var(--nl-blue);
-    font-weight: 600;
-    box-shadow: 0 10px 24px rgba(10, 102, 194, 0.10);
-}
-.nl-item.nl-active::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 20%; bottom: 20%;
-    width: 3px;
-    background: var(--nl-blue);
-    border-radius: 0 3px 3px 0;
-}
+    .nl-utility-btn,
+    .nl-profile-trigger,
+    .nl-sheet-close { position: relative; display: grid; width: 44px; height: 44px; place-items: center; border: 0; border-radius: 50%; background: transparent; color: var(--mixo-ink-900); cursor: pointer; transition: background var(--transition-fast), transform var(--transition-fast); }
+    .nl-utility-btn:hover,
+    .nl-profile-trigger:hover,
+    .nl-sheet-close:hover { background: var(--mixo-surface-muted); }
+    .nl-utility-btn:active,
+    .nl-profile-trigger:active,
+    .nl-sheet-close:active { transform: scale(0.94); }
+    .nl-utility-btn svg { width: 21px; height: 21px; }
+    .nl-profile-trigger .mxo-avatar { width: 30px; height: 30px; }
+    .nl-utility-btn .nl-badge { position: absolute; top: 5px; right: 3px; border: 2px solid #fff; }
 
-.nl-icon  { width: 17px; height: 17px; flex-shrink: 0; }
-.nl-label { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .nl-bottom-nav { position: fixed; inset: auto 0 0; z-index: 1190; display: grid; min-height: calc(var(--mixo-mobile-nav-height) + env(safe-area-inset-bottom, 0px)); grid-template-columns: repeat(5, minmax(0, 1fr)); align-items: start; padding: 0 max(4px, env(safe-area-inset-right, 0px)) env(safe-area-inset-bottom, 0px) max(4px, env(safe-area-inset-left, 0px)); border-top: 1px solid var(--mixo-rule); background: #fff; box-shadow: 0 -8px 24px rgba(16, 36, 64, 0.06); }
+    .nl-bottom-item { position: relative; display: flex; min-width: 0; min-height: var(--mixo-mobile-nav-height); flex-direction: column; align-items: center; justify-content: center; gap: 4px; border: 0; background: transparent; color: var(--mixo-ink-500); cursor: pointer; font-size: clamp(0.57rem, 2.25vw, 0.68rem); font-weight: 620; line-height: 1.1; padding: 7px 2px 5px; transition: color var(--transition-fast), background var(--transition-fast); }
+    .nl-bottom-item::before { content: ''; position: absolute; inset: 0 18% auto; height: 3px; border-radius: 0 0 3px 3px; background: transparent; }
+    .nl-bottom-item > span:last-child { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .nl-bottom-item:hover { background: var(--mixo-cobalt-50); color: var(--mixo-cobalt-800); }
+    .nl-bottom-item.nl-active { color: var(--mixo-cobalt-800); font-weight: 750; }
+    .nl-bottom-item.nl-active::before { background: var(--mixo-cobalt-700); }
+    .nl-bottom-icon { position: relative; display: grid; width: 25px; height: 25px; place-items: center; }
+    .nl-bottom-icon svg { width: 23px; height: 23px; }
+    .nl-bottom-icon .nl-badge { position: absolute; top: -6px; right: -12px; border: 2px solid #fff; }
 
-/* Badge non-lus */
-.nl-badge {
-    background: #EF4444;
-    color: #fff;
-    font-size: 0.58rem;
-    font-weight: 700;
-    padding: 2px 6px;
-    border-radius: 100px;
-    min-width: 18px;
-    text-align: center;
-    line-height: 1.4;
+    .nl-account-overlay { position: fixed; inset: 0; z-index: 1400; display: block; opacity: 0; transition: opacity 240ms var(--nl-ease); }
+    .nl-account-overlay[hidden] { display: none; }
+    .nl-account-overlay.is-open { opacity: 1; }
+    .nl-account-backdrop { position: absolute; inset: 0; width: 100%; border: 0; background: rgba(16, 23, 34, 0.46); cursor: default; }
+    .nl-account-sheet { position: absolute; inset: auto 0 0; max-height: min(82dvh, 680px); overflow-y: auto; padding: 8px 18px calc(18px + env(safe-area-inset-bottom, 0px)); border-radius: 18px 18px 0 0; background: var(--mixo-surface); box-shadow: 0 -20px 48px rgba(16, 23, 34, 0.18); transform: translateY(104%); transition: transform 300ms var(--nl-ease); }
+    .nl-account-overlay.is-open .nl-account-sheet { transform: translateY(0); }
+    .nl-sheet-handle { width: 42px; height: 4px; margin: 0 auto 12px; border-radius: 4px; background: var(--mixo-rule-strong); }
+    .nl-account-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 16px; border-bottom: 1px solid var(--mixo-rule); }
+    .nl-account-person { display: flex; min-width: 0; align-items: center; gap: 12px; }
+    .nl-account-person .mxo-avatar { width: 48px; height: 48px; }
+    .nl-account-person > div { min-width: 0; }
+    .nl-account-person strong { display: block; overflow: hidden; color: var(--mixo-ink-900); font-size: 1rem; text-overflow: ellipsis; white-space: nowrap; }
+    .nl-account-person span:not(.nl-avatar-target) { display: block; color: var(--mixo-ink-500); font-size: 0.75rem; }
+    .nl-sheet-close svg { width: 21px; height: 21px; }
+    .nl-account-links { display: flex; flex-direction: column; padding: 10px 0; }
+    .nl-account-links button { position: relative; display: grid; min-height: 50px; grid-template-columns: 24px 1fr 20px; align-items: center; gap: 12px; border: 0; border-bottom: 1px solid var(--mixo-rule); background: transparent; color: var(--mixo-ink-700); cursor: pointer; padding: 4px 2px; text-align: left; }
+    .nl-account-links button:hover { color: var(--mixo-cobalt-800); }
+    .nl-account-links button svg { width: 19px; height: 19px; }
+    .nl-account-links button svg:last-child { color: var(--mixo-ink-400); }
+    .nl-account-links button span:not(.nl-badge) { font-size: 0.88rem; font-weight: 620; }
+    .nl-account-links .nl-badge { position: absolute; right: 44px; }
+    .nl-sheet-logout { width: 100%; margin-top: 6px; }
 }
 
-/* ── PROFIL BAS ──────────────────────────────────────────── */
-.nl-profile {
-    flex-shrink: 0;
-    margin-top: auto;
-    padding: 12px 14px 16px; /* espacement compact bas */
-    border-top: 1px solid #E8ECF0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-.nl-profile-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-.nl-avatar {
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    background: linear-gradient(135deg,#0A66C2,#3B82F6);
-    color: #fff;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 0.78rem;
-    flex-shrink: 0;
-}
-.nl-profile-name { display: block; font-size: 0.8rem; font-weight: 600; color: #1A1D20; }
-.nl-profile-role { display: block; font-size: 0.62rem; color: #94A3B8; letter-spacing: 0.5px; }
-
-.nl-logout {
-    display: flex; align-items: center; gap: 9px;
-    width: 100%; padding: 9px 12px;
-    background: #FEF2F2; border: 1px solid #FECACA;
-    border-radius: 9px; color: #DC2626;
-    font-family: 'Poppins', sans-serif;
-    font-size: 0.78rem; font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.2s;
-}
-.nl-logout:hover { background: #FEE2E2; transform: translateX(2px); }
-.nl-logout svg   { width: 15px; height: 15px; }
-
-/* ── BURGER ──────────────────────────────────────────────── */
-.nl-burger {
-    display: none;
-    position: fixed;
-    top: 12px; left: 12px;
-    z-index: 1010;
-    width: 40px; height: 40px;
-    background: #fff;
-    border: 1px solid #E8ECF0;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 5px; cursor: pointer;
-    transition: border-color 0.2s;
-}
-.nl-burger span {
-    display: block;
-    width: 18px; height: 2px;
-    background: #1A1D20; border-radius: 2px;
-    transition: transform 0.3s var(--nl-ease), opacity 0.2s;
-}
-.nl-burger:hover { border-color: var(--nl-blue); }
-.nl-burger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: var(--nl-blue); }
-.nl-burger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-.nl-burger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--nl-blue); }
-
-/* ── RESPONSIVE ──────────────────────────────────────────── */
-@media (min-width: 993px) {
-    .nl-burger { display: none !important; }
-    #app-root, main, .main-content, .adm-main,
-    .audit-main, .stats-pg-main, .adm-sett-main,
-    .adm-prof-main, .notif-main, .sett-main {
-        padding-left: var(--nl-width) !important;
-        transition: padding 0.3s var(--nl-ease);
-    }
+@media (max-width: 390px) {
+    .nl-mobile-brand .nl-brand-copy small { display: none; }
+    .nl-mobile-actions { gap: 0; }
+    .nl-utility-btn,
+    .nl-profile-trigger { width: 40px; }
+    .nl-bottom-item { font-size: 0.56rem; }
+    .nl-bottom-icon svg { width: 21px; height: 21px; }
 }
 
-@media (min-width: 993px) and (max-width: 1200px) {
-    :root { --nl-width: 200px; }
-    .nl-logo {
-        padding: 18px 16px 14px;
-    }
-    .nl-logo-text {
-        font-size: 1.15rem;
-        letter-spacing: 3px;
-    }
-    .nl-item {
-        padding: 9px 11px;
-        font-size: 0.8rem;
-    }
-    .nl-profile {
-        padding: 10px 12px 14px;
-    }
-}
-
-@media (max-width: 992px) {
-    body, #app-root, main, .main-content,
-    .adm-main, .audit-main, .stats-pg-main,
-    .adm-sett-main, .adm-prof-main, .notif-main, .sett-main {
-        padding-left: 0 !important;
-    }
-    .nl-burger { display: flex; }
-    .nl-mobile-header {
-        position: fixed; top: 0; left: 0; right: 0; height: 64px;
-        z-index: 1005; display: flex; align-items: center; justify-content: space-between;
-        padding: 0 18px; background: #fff; border-bottom: 1px solid #eef0f4;
-        box-sizing: border-box;
-    }
-    /* Le header est fixe : réserver son espace pour que le contenu ne passe
-       jamais dessous sur les pages qui affichent la navbar. */
-    .nl-mobile-header ~ main,
-    .nl-mobile-header ~ .main-content,
-    .nl-mobile-header ~ .sett-main,
-    .nl-mobile-header ~ .adm-main,
-    .nl-mobile-header ~ .audit-main,
-    .nl-mobile-header ~ .stats-pg-main,
-    .nl-mobile-header ~ .adm-sett-main,
-    .nl-mobile-header ~ .adm-prof-main,
-    .nl-mobile-header ~ .notif-main {
-        padding-top: 80px !important;
-    }
-    .nl-mobile-logo { border: 0; background: transparent; color: #0A66C2; font: 900 1.35rem Montserrat, sans-serif; padding: 0; cursor: pointer; }
-    .nl-mobile-actions { display: flex; align-items: center; gap: 14px; }
-    .nl-mobile-action { position: relative; width: 34px; height: 34px; border: 0; background: transparent; color: #1f2937; display: grid; place-items: center; cursor: pointer; }
-    .nl-mobile-action svg { width: 20px; height: 20px; }
-    .nl-mobile-badge { position: absolute; top: 3px; right: 1px; width: 7px; height: 7px; border-radius: 50%; background: #ef4444; display: none; }
-    .nl-sidebar {
-        transform: translateX(-100%);
-        animation: none;
-        box-shadow: none;
-        transition: transform 0.35s var(--nl-ease), box-shadow 0.35s;
-        backdrop-filter: blur(20px);
-        will-change: transform;
-        height: 100dvh;
-    }
-    .nl-sidebar.nl-open {
-        transform: translateX(0);
-        box-shadow: 4px 0 24px rgba(0,0,0,0.1);
-    }
-    /* Voile derrière la nav */
-    /* Le voile ne doit exister que lorsque le menu est réellement ouvert.
-       `no-scroll` peut rester présent pendant un changement de route et
-       flouter alors toute la page d'accueil. */
-    body.nav-menu-open::after {
-        content: '';
-        position: fixed; inset: 0;
-        background: rgba(26,29,32,0.18);
-        backdrop-filter: blur(3px);
-        -webkit-backdrop-filter: blur(3px);
-        z-index: 999;
-        pointer-events: none;
-    }
-}
-
-@media (max-width: 480px) {
-    .nl-sidebar { width: 82vw; }
-    .nl-logo-text { font-size: 1.05rem; letter-spacing: 2.5px; }
-    .nl-item { padding: 9px 11px; }
-    .nl-profile-name { font-size: 0.76rem; }
-}
-
-@media (max-width: 992px) {
-    body, #app-root { padding-bottom: 72px !important; }
-    .nl-sidebar {
-        top: auto; bottom: 0; left: 0; right: 0; width: 100%; height: 68px;
-        transform: none; border: 0; border-top: 1px solid #e8ecf0; box-shadow: 0 -4px 18px rgba(15,23,42,.08);
-        border-radius: 0; background: rgba(255,255,255,.98); backdrop-filter: blur(14px);
-    }
-    .nl-sidebar.nl-open { transform: translateY(-68px); height: 100dvh; top: 0; bottom: auto; width: min(82vw, 320px); border-right: 1px solid #e8ecf0; border-top: 0; }
-    .nl-sidebar.nl-open .nl-logo, .nl-sidebar.nl-open .nl-profile { display: flex; }
-    .nl-logo, .nl-profile { display: none; }
-    .nl-nav-scroll { padding: 5px 8px; overflow: hidden; }
-    .nl-links { height: 100%; flex-direction: row; justify-content: space-around; gap: 2px; }
-    .nl-item { flex: 1 1 0; min-width: 0; padding: 5px 2px; border-radius: 12px; flex-direction: column; gap: 2px; justify-content: center; font-size: .62rem; }
-    .nl-item:hover { transform: none; box-shadow: none; }
-    .nl-item.nl-active { box-shadow: none; }
-    .nl-item.nl-active::before { display: none; }
-    .nl-icon { width: 20px; height: 20px; }
-    .nl-label { flex: 0 0 auto; max-width: 100%; }
-    .nl-badge { position: absolute; top: 2px; right: 18%; min-width: 14px; padding: 1px 4px; font-size: .52rem; }
-    .nl-burger { top: 14px; left: 8px; width: 34px; height: 34px; border: 0; box-shadow: none; background: transparent; }
-}
-
-/* ── KEYFRAMES ───────────────────────────────────────────── */
-@keyframes nlSlideIn {
-    from { transform: translateX(-100%); opacity: 0; }
-    to   { transform: translateX(0);     opacity: 1; }
+@keyframes nl-rail-enter {
+    from { opacity: 0; transform: translateX(-12px); }
+    to { opacity: 1; transform: translateX(0); }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .nl-sidebar,
-    .nl-item,
-    .nl-logout,
-    .nl-burger span {
-        animation: none !important;
-        transition: none !important;
-    }
+    .nl-account-overlay,
+    .nl-account-sheet { animation: none !important; transition: none !important; }
 }

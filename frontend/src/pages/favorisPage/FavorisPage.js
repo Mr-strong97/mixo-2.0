@@ -22,7 +22,6 @@ export const FavorisPage = () => {
     main.innerHTML = `
         <section class="fav-hero">
             <div>
-                <p class="fav-kicker">Espace client</p>
                 <h1>Mes Favoris</h1>
                 <p>Retrouvez rapidement vos prestations préférées, comparez les tarifs et réservez en un clic.</p>
             </div>
@@ -110,7 +109,7 @@ export const FavorisPage = () => {
                 <div class="fav-card-body">
                     <div class="fav-card-head">
                         <h2>${escapeHtml(service.nom_prestation || 'Service')}</h2>
-                        <span class="fav-card-price">${formatPrix(service.prix)}FC</span>
+                        <span class="fav-card-price">${formatPrix(service.prix)} FC</span>
                     </div>
                     <div class="fav-card-meta">
                         <span><i data-lucide="user-round"></i> ${escapeHtml(service.coiffeur_username || '—')}</span>
@@ -188,7 +187,7 @@ export const FavorisPage = () => {
 function formatPrix(prix) {
     const n = parseFloat(prix);
     if (Number.isNaN(n)) return '0';
-    return Number.isInteger(n) ? String(n) : n.toFixed(2);
+    return n.toLocaleString('fr-FR', { maximumFractionDigits: 2 });
 }
 
 function escapeHtml(str = '') {

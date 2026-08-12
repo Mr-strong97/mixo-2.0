@@ -23,15 +23,6 @@
     box-shadow: var(--shadow-sm);
 }
 
-.fav-kicker, .his-kicker, .cdp-kicker, .lap-kicker {
-    text-transform: uppercase;
-    letter-spacing: .18em;
-    font-size: .72rem;
-    font-weight: 800;
-    color: var(--blue);
-    margin: 0 0 10px;
-}
-
 .fav-hero h1, .his-hero h1, .cdp-hero h1, .lap-header h1 {
     margin: 0;
     font-size: clamp(1.6rem, 2.8vw, 2.5rem);
@@ -386,7 +377,7 @@
     .fav-main { padding: 34px 16px 56px; }
     .fav-hero { padding: 0; margin-bottom: 22px; border: 0; box-shadow: none; background: transparent; display: block; }
     .fav-hero h1 { font-size: 2rem; }
-    .fav-hero p, .fav-kicker, .fav-hero-pill, .fav-toolbar { display: none; }
+    .fav-hero p, .fav-hero-pill, .fav-toolbar { display: none; }
     .fav-tabs { display: flex; gap: 24px; margin-bottom: 26px; border-bottom: 1px solid #dddde2; }
     .fav-tab { flex: 0 0 116px; height: 48px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: #4b5563; font: 700 .95rem Poppins, sans-serif; cursor: pointer; }
     .fav-tab.is-active { color: #0057d9; border-bottom-color: #0057d9; }

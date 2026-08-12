@@ -61,7 +61,6 @@ export const AvisDetailPage = ({ id } = {}) => {
             main.innerHTML = `
                 <section class="lap-card">
                     <div class="lap-header">
-                        <p class="lap-kicker">Avis</p>
                         <h1>${role === 'coiffeur' ? 'Avis reçu' : 'Votre avis'}</h1>
                         <p>Voici le détail complet de l'avis lié à ce rendez-vous.</p>
                     </div>

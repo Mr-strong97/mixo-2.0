@@ -1,28 +1,21 @@
 /**
  * NavbarClient.js — MIXO
- * Navigation principale mobile : Accueil · Rendez-vous · Factures · Paramètres
+ * Navigation principale mobile : Accueil · Services · Rendez-vous · Factures · Paramètres
  */
 import { NavbarLayout } from './NavbarLayout.js';
 import { FavorisAPI } from '../../api/FavorisAPI.js';
 
 const applyBadge = (count) => {
-    const badge = document.querySelector('#nl-favoris .nl-badge') || (() => {
-        const el = document.querySelector('#nl-favoris');
-        if (!el) return null;
-        const span = document.createElement('span');
-        span.className = 'nl-badge';
-        el.appendChild(span);
-        return span;
-    })();
-    if (!badge) return;
-    badge.textContent = count > 9 ? '9+' : String(count);
-    badge.style.display = count > 0 ? 'inline-flex' : 'none';
+    window.dispatchEvent(new CustomEvent('mixo:badges-updated', {
+        detail: { favoris: Number(count || 0) },
+    }));
 };
 
 export const NavbarClient = () => {
     const nav = NavbarLayout([
         { id: 'home',          icon: 'home',          label: 'Accueil',        route: '/home' },
-        { id: 'rdv',           icon: 'calendar-range', label: 'Mes rendez-vous', route: '/rendez-vous' },
+        { id: 'services',      icon: 'scissors',      label: 'Services',       route: '/services' },
+        { id: 'rdv',           icon: 'calendar-range', label: 'Mes rendez-vous', mobileLabel: 'Rendez-vous', route: '/rendez-vous' },
         { id: 'factures',      icon: 'receipt-text',   label: 'Factures',       route: '/factures' },
         { id: 'parametres',    icon: 'settings',      label: 'Paramètres',     route: '/parametres/client' },
     ]);

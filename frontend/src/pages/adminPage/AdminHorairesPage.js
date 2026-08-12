@@ -46,10 +46,10 @@ export const renderAdminHorairesSection = async (container) => {
                     <tbody>
                         ${horaires.map(h => `
                             <tr>
-                                <td>${escapeHtml(h.coiffeur_username || '—')}</td>
-                                <td>${escapeHtml(h.jour_semaine_label)}</td>
-                                <td>${h.heure_debut.slice(0,5)} – ${h.heure_fin.slice(0,5)}</td>
-                                <td><span class="ast-badge" style="background:${h.actif ? '#DCFCE7' : '#F0F4F9'};color:${h.actif ? '#16A34A' : '#94A3B8'};">${h.actif ? 'Actif' : 'Inactif'}</span></td>
+                                <td data-label="Coiffeur">${escapeHtml(h.coiffeur_username || '—')}</td>
+                                <td data-label="Jour">${escapeHtml(h.jour_semaine_label)}</td>
+                                <td data-label="Horaire">${h.heure_debut.slice(0,5)} – ${h.heure_fin.slice(0,5)}</td>
+                                <td data-label="Statut"><span class="ast-badge" style="background:${h.actif ? '#DCFCE7' : '#F0F4F9'};color:${h.actif ? '#16A34A' : '#94A3B8'};">${h.actif ? 'Actif' : 'Inactif'}</span></td>
                             </tr>
                         `).join('')}
                     </tbody>

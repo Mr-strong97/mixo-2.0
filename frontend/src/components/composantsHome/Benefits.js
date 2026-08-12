@@ -67,7 +67,6 @@ export const Benefits = () => {
     section.innerHTML = `
         <div class="mixo-container">
             <div class="mixo-section-head" data-animate="fade-up">
-                <span class="mixo-eyebrow"><i data-lucide="gift"></i><span>Pourquoi choisir Mixo ?</span></span>
                 <h2 class="mixo-section-title">Des avantages pensés pour chacun.</h2>
                 <p class="mixo-section-subtitle">
                     Mixo simplifie la vie des clients comme celle des professionnels —

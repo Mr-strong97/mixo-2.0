@@ -15,7 +15,7 @@ export const PlanCard = (plan, isCurrent = false, onSouscrire = null) => {
         ${plan.mise_en_avant_priorite >= 2 ? '<span class="pln-badge">Recommandé</span>' : ''}
         <h3 class="pln-name">${escapeHtml(plan.nom)}</h3>
         <div class="pln-price">
-            <span class="pln-amount">${formatPrix(plan.prix_mensuel)}FC</span>
+            <span class="pln-amount">${formatPrix(plan.prix_mensuel)} FC</span>
             <span class="pln-period">/mois</span>
         </div>
         <ul class="pln-avantages">
@@ -36,7 +36,8 @@ export const PlanCard = (plan, isCurrent = false, onSouscrire = null) => {
 
 function formatPrix(prix) {
     const n = parseFloat(prix);
-    return Number.isInteger(n) ? String(n) : n.toFixed(2);
+    if (Number.isNaN(n)) return '0';
+    return n.toLocaleString('fr-FR', { maximumFractionDigits: 2 });
 }
 
 function escapeHtml(str = '') {

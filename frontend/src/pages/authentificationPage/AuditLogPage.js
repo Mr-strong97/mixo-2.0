@@ -192,27 +192,27 @@ export const AuditLogPage = () => {
 
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td class="adm-tbl-user">
+                <td class="adm-tbl-user" data-label="Utilisateur">
                     <div class="adm-tbl-avatar" style="width:36px;height:36px;font-size:0.72rem;">${ini}</div>
                     <div>
                         <div class="adm-tbl-name">@${log.username || '—'}</div>
                         <div class="adm-tbl-email" style="font-size:0.68rem;">${log.email || ''}</div>
                     </div>
                 </td>
-                <td><span class="adm-badge adm-badge-role-${(log.user_role||'').toLowerCase()}">${log.user_role || '—'}</span></td>
-                <td style="font-size:0.84rem;color:#1A1D20;">${info.label}</td>
-                <td>
+                <td data-label="Rôle"><span class="adm-badge adm-badge-role-${(log.user_role||'').toLowerCase()}">${log.user_role || '—'}</span></td>
+                <td data-label="Action" style="font-size:0.84rem;color:#1A1D20;">${info.label}</td>
+                <td data-label="Statut">
                     ${log.succes
                         ? `<span style="width:28px;height:28px;border-radius:50%;background:rgba(22,163,74,0.1);display:inline-flex;align-items:center;justify-content:center;"><i data-lucide="check-circle" style="color:#16A34A;width:16px;height:16px;"></i></span>`
                         : `<span style="width:28px;height:28px;border-radius:50%;background:rgba(220,38,38,0.1);display:inline-flex;align-items:center;justify-content:center;"><i data-lucide="alert-circle" style="color:#DC2626;width:16px;height:16px;"></i></span>`
                     }
                 </td>
-                <td style="font-size:0.78rem;color:#62676B;font-family:monospace;">${log.adresse_ip || log.ip_adresse || '—'}</td>
-                <td style="font-size:0.78rem;color:#1A1D20;">
+                <td data-label="Adresse IP" style="font-size:0.78rem;color:#62676B;font-family:monospace;">${log.adresse_ip || log.ip_adresse || '—'}</td>
+                <td data-label="Date et heure" style="font-size:0.78rem;color:#1A1D20;">
                     <div>${date}</div>
                     <div style="color:#62676B;">${heure}</div>
                 </td>
-                <td>
+                <td data-label="Détails">
                     <button class="adm-icon-btn" style="background:rgba(10,102,194,0.06);border:1px solid rgba(10,102,194,0.15);color:#0A66C2;" data-log-idx="${logs.indexOf(log)}" title="Voir détails">
                         <i data-lucide="eye"></i>
                     </button>

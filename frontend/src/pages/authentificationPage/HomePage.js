@@ -1,6 +1,6 @@
 import { HomeClientPage } from './HomeClientPage.js';
-import { HomeCoiffeurPage } from './HomeCoiffeurPage.js';
-import { HomeAdminPage } from './HomeAdminPage.js';
+import { CoiffeurDashboardPage } from '../dashboardPage/CoiffeurDashboardPage.js';
+import { AdminDashboardPage } from '../adminDashboard/AdminDashboardPage.js';
 
 /**
  * Page : HomePage
@@ -18,7 +18,16 @@ import { HomeAdminPage } from './HomeAdminPage.js';
 export const HomePage = () => {
     const role = (localStorage.getItem('user_role') || 'client').toLowerCase().trim();
 
-    if (role === 'admin') return HomeAdminPage();
-    if (role === 'coiffeur') return HomeCoiffeurPage();
+    // Après connexion, chaque rôle arrive directement dans son espace de
+    // travail. replaceState garde un historique propre sans provoquer un
+    // second rendu du routeur.
+    if (role === 'admin') {
+        window.history.replaceState({}, '', '/admin/dashboard');
+        return AdminDashboardPage();
+    }
+    if (role === 'coiffeur') {
+        window.history.replaceState({}, '', '/coiffeur/dashboard');
+        return CoiffeurDashboardPage();
+    }
     return HomeClientPage();
 };

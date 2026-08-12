@@ -25,7 +25,7 @@ export const WeekScheduleGrid = (horaires = [], handlers = {}) => {
         col.innerHTML = `
             <div class="wsg-col-header">
                 <span>${jour.label}</span>
-                <button class="wsg-add-btn" type="button" title="Ajouter un créneau">
+                <button class="wsg-add-btn" type="button" title="Ajouter un créneau" aria-label="Ajouter un créneau le ${jour.label}">
                     <i data-lucide="plus"></i>
                 </button>
             </div>
@@ -43,8 +43,8 @@ export const WeekScheduleGrid = (horaires = [], handlers = {}) => {
                 slot.innerHTML = `
                     <span class="wsg-slot-time">${h.heure_debut.slice(0,5)} – ${h.heure_fin.slice(0,5)}</span>
                     <div class="wsg-slot-actions">
-                        <button class="wsg-icon-btn" data-action="edit" title="Modifier"><i data-lucide="pencil"></i></button>
-                        <button class="wsg-icon-btn wsg-icon-danger" data-action="delete" title="Supprimer"><i data-lucide="trash-2"></i></button>
+                        <button class="wsg-icon-btn" data-action="edit" title="Modifier" aria-label="Modifier le créneau ${h.heure_debut.slice(0,5)} à ${h.heure_fin.slice(0,5)}"><i data-lucide="pencil"></i></button>
+                        <button class="wsg-icon-btn wsg-icon-danger" data-action="delete" title="Supprimer" aria-label="Supprimer le créneau ${h.heure_debut.slice(0,5)} à ${h.heure_fin.slice(0,5)}"><i data-lucide="trash-2"></i></button>
                     </div>
                 `;
                 slot.querySelector('[data-action="edit"]').addEventListener('click', () => handlers.onEdit?.(h));

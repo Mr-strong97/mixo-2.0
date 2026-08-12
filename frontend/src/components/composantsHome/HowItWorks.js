@@ -39,7 +39,6 @@ export const HowItWorks = () => {
     section.innerHTML = `
         <div class="mixo-container">
             <div class="mixo-section-head" data-animate="fade-up">
-                <span class="mixo-eyebrow"><i data-lucide="route"></i><span>Comment ça fonctionne ?</span></span>
                 <h2 class="mixo-section-title">Cinq étapes pour démarrer sur Mixo.</h2>
                 <p class="mixo-section-subtitle">
                     Que vous soyez client ou professionnel, le parcours Mixo reste simple

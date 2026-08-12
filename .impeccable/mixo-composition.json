@@ -1,0 +1,45 @@
+{
+  "title": "Composition du shell mobile Mixo",
+  "question": "Choisissez la structure qui doit guider le nouveau shell commun aux espaces client, coiffeur et administrateur.",
+  "options": [
+    {
+      "id": "action-first",
+      "label": "Action prioritaire",
+      "kicker": "OPTION A",
+      "lineage": "fiche de prestation dominante",
+      "thesis": "La prochaine tâche occupe le premier plan et conduit immédiatement vers l’action utile.",
+      "palette": ["#0B4F9C", "#1776D2", "#18212F", "#F4F7FA", "#FFFFFF"],
+      "materials": ["fiche matte", "onglet cobalt", "règles fines"],
+      "viewport": "Une action métier dominante, suivie de filtres et de raccourcis compacts au-dessus de la navigation.",
+      "risk": "La fiche principale peut prendre trop de place lorsque la tâche du jour contient beaucoup de détails.",
+      "hero": ".impeccable/mocks/mixo-shell-action-first.png"
+    },
+    {
+      "id": "timeline",
+      "label": "Agenda chronologique",
+      "kicker": "OPTION B",
+      "lineage": "carnet de rendez-vous vertical",
+      "thesis": "La journée se lit du haut vers le bas et chaque rendez-vous devient un ticket directement actionnable.",
+      "palette": ["#0B4F9C", "#1776D2", "#18212F", "#F4F7FA", "#FFFFFF"],
+      "materials": ["ligne d’agenda", "tickets indexés", "statuts tamponnés"],
+      "viewport": "Une timeline centrale organise les rendez-vous, puis un dock rapproche les actions récurrentes du pouce.",
+      "risk": "Cette structure est très forte pour les rendez-vous, mais moins naturelle pour les paramètres ou l’administration.",
+      "hero": ".impeccable/mocks/mixo-shell-timeline.png"
+    },
+    {
+      "id": "task-deck",
+      "label": "Dossiers empilés",
+      "kicker": "OPTION C",
+      "lineage": "fichier client indexé",
+      "thesis": "Le dossier actif est complet et les tâches suivantes restent visibles derrière lui sans détourner l’attention.",
+      "palette": ["#0B4F9C", "#1776D2", "#18212F", "#F4F7FA", "#FFFFFF"],
+      "materials": ["feuilles superposées", "index cobalt", "listes réglées"],
+      "viewport": "Une fiche active détaillée, deux dossiers à venir et des actions métier structurées en lignes.",
+      "risk": "La superposition demande une adaptation soigneuse pour rester lisible sur les très petits écrans.",
+      "hero": ".impeccable/mocks/mixo-shell-task-deck.png"
+    }
+  ],
+  "reroll": false,
+  "canon": false,
+  "steer": true
+}

@@ -1,180 +1,205 @@
 /* ============================================================
-   variables.css — Source unique de vérité (Design System)
-   Importez ce fichier EN PREMIER dans tous vos composants.
-   Ne déclarez AUCUN :root dans les autres fichiers CSS.
+   MIXO — Design tokens
+   Direction: « Fiche de prestation » · mobile-first · Operate
    ============================================================ */
 
 :root {
+    color-scheme: light;
 
-    /* ─────────────────────────────────────────
-       COULEURS PRIMAIRES (LinkedIn Blue System)
-    ───────────────────────────────────────── */
-    --blue:           #0A66C2;   /* Primaire principal */
-    --blue-dark:      #004182;   /* Hover / actif */
-    --blue-hover:     #08519c;   /* Survol intermédiaire */
-    --blue-light:     #70B5F9;   /* Accentuation légère */
-    --blue-dim:       rgba(10, 102, 194, 0.08);  /* Fond teinté discret */
-    --blue-dim-md:    rgba(10, 102, 194, 0.12);  /* Focus ring */
-    --blue-dim-lg:    rgba(10, 102, 194, 0.22);  /* Ombre bouton */
-    --blue-border:    rgba(10, 102, 194, 0.20);  /* Bordure subtile */
-    --blue-border-md: rgba(10, 102, 194, 0.45);  /* Focus border */
-    --focus-ring:     0 0 0 4px rgba(10, 102, 194, 0.12);
+    /* Brand */
+    --mixo-cobalt-950: #082F62;
+    --mixo-cobalt-900: #0B3F7F;
+    --mixo-cobalt-800: #0B4F9C;
+    --mixo-cobalt-700: #0E61BA;
+    --mixo-cobalt-600: #1776D2;
+    --mixo-cobalt-100: #DCEBFA;
+    --mixo-cobalt-50: #EDF5FD;
 
-    /* ─────────────────────────────────────────
-       NEUTRES
-    ───────────────────────────────────────── */
-    --white:          #FFFFFF;
-    --black:          #000000;
-    --text-dark:      #1A1D20;   /* Texte principal */
-    --text-muted:     #62676B;   /* Texte secondaire */
-    --text-tertiary:  #A0A5A8;   /* Texte discret */
-    --text-disabled:  #bcbfc2;   /* Désactivé */
+    /* Ink and paper */
+    --mixo-ink-950: #101722;
+    --mixo-ink-900: #18212F;
+    --mixo-ink-700: #344054;
+    --mixo-ink-600: #475467;
+    --mixo-ink-500: #667085;
+    --mixo-ink-400: #8A94A3;
+    --mixo-paper: #F4F7FA;
+    --mixo-surface: #FFFFFF;
+    --mixo-surface-muted: #EEF3F7;
+    --mixo-rule: #D9E1E8;
+    --mixo-rule-strong: #C7D1DB;
 
-    /* ─────────────────────────────────────────
-       FONDS & SURFACES
-    ───────────────────────────────────────── */
-    --bg-page:        #F8F9FA;   /* Fond global de page */
-    --bg-surface:     #FFFFFF;   /* Carte / modal */
-    --bg-input:       #F0F4F9;   /* Champ de saisie au repos */
-    --bg-input-focus: #EAF2FE;   /* Champ de saisie focus */
-    --bg-light:       #F8F9FA;   /* Fond léger générique */
+    /* Semantic */
+    --mixo-success: #127A45;
+    --mixo-success-bg: #E8F5EE;
+    --mixo-warning: #946200;
+    --mixo-warning-bg: #FFF5DA;
+    --mixo-danger: #C63838;
+    --mixo-danger-bg: #FCEBEC;
+    --mixo-info: #175CD3;
+    --mixo-info-bg: #EAF2FF;
 
-    /* ─────────────────────────────────────────
-       BORDURES
-    ───────────────────────────────────────── */
-    --border:         rgba(0, 0, 0, 0.06);  /* Bordure standard */
-    --border-md:      rgba(0, 0, 0, 0.08);  /* Bordure légèrement plus visible */
-    --border-light:   rgba(15, 23, 42, 0.04);
+    /* Typography — local variable font bundled with the app */
+    --font-main: 'Public Sans Variable', 'Public Sans', sans-serif;
+    --font-display: 'Public Sans Variable', 'Public Sans', sans-serif;
+    --font-ui: 'Public Sans Variable', 'Public Sans', sans-serif;
+    --font-title: 'Public Sans Variable', 'Public Sans', sans-serif;
 
-    /* ─────────────────────────────────────────
-       ÉTATS SÉMANTIQUES
-    ───────────────────────────────────────── */
-    --success:        #22C55E;
-    --warning:        #F59E0B;
-    --danger:         #EF4444;
-    --danger-dim:     rgba(231, 76, 60, 0.04);
-    --danger-border:  rgba(231, 76, 60, 0.20);
+    /* Sizing */
+    --mixo-appbar-height: 64px;
+    --mixo-mobile-nav-height: 72px;
+    --mixo-rail-width: 248px;
+    --mixo-content-max: 1240px;
+    --mixo-touch: 44px;
 
-    /* ─────────────────────────────────────────
-       OMBRES
-    ───────────────────────────────────────── */
-    --shadow-xs:   0 1px 2px rgba(0, 0, 0, 0.05);
-    --shadow-sm:   0 4px 12px rgba(0, 0, 0, 0.04);
-    --shadow-md:   0 8px 24px rgba(0, 0, 0, 0.08);
-    --shadow-lg:   0 12px 40px rgba(15, 23, 42, 0.08);
-    --shadow-blue: 0 10px 25px rgba(10, 102, 194, 0.15);
-    --shadow-blue-hover: 0 15px 30px rgba(10, 102, 194, 0.25);
-
-    /* ─────────────────────────────────────────
-       BORDER RADIUS
-    ───────────────────────────────────────── */
-    --radius-xs:   6px;
-    --radius-sm:   10px;
-    --radius-md:   12px;
-    --radius-lg:   16px;
-    --radius-xl:   20px;
-    --radius-2xl:  24px;
-    --radius-3xl:  30px;
+    /* Shape and depth */
+    --radius-xs: 6px;
+    --radius-sm: 10px;
+    --radius-md: 12px;
+    --radius-lg: 14px;
+    --radius-xl: 16px;
+    --radius-2xl: 16px;
+    --radius-3xl: 20px;
     --radius-pill: 999px;
+    --mixo-shadow-xs: 0 1px 2px rgba(16, 24, 40, 0.05);
+    --mixo-shadow-sm: 0 6px 18px rgba(16, 36, 64, 0.07);
+    --mixo-shadow-md: 0 14px 34px rgba(16, 36, 64, 0.10);
 
-    /* ─────────────────────────────────────────
-       TYPOGRAPHIE
-    ───────────────────────────────────────── */
-    --font-main:    'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-    --font-display: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-    --font-ui:      -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    /* Motion */
+    --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition: 220ms cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-fast: 150ms ease;
 
-    /* ─────────────────────────────────────────
-       TRANSITIONS & EASINGS
-    ───────────────────────────────────────── */
-    --ease-expo:    cubic-bezier(0.16, 1, 0.3, 1);  /* Expo out — fluide & snappy */
-    --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1); /* Ressort — pour toggles */
-    --ease-smooth:  cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    --transition:   all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-    --transition-fast: all 0.2s ease;
+    /* Legacy aliases: old screens keep working while they migrate. */
+    --blue: var(--mixo-cobalt-800);
+    --blue-dark: var(--mixo-cobalt-950);
+    --blue-hover: var(--mixo-cobalt-700);
+    --blue-light: #79AEE3;
+    --blue-dim: var(--mixo-cobalt-50);
+    --blue-dim-md: rgba(23, 118, 210, 0.12);
+    --blue-dim-lg: rgba(23, 118, 210, 0.22);
+    --blue-border: rgba(11, 79, 156, 0.22);
+    --blue-border-md: rgba(11, 79, 156, 0.48);
+    --focus-ring: 0 0 0 4px rgba(23, 118, 210, 0.16);
+    --white: var(--mixo-surface);
+    --black: #000000;
+    --text-dark: var(--mixo-ink-900);
+    --text-muted: var(--mixo-ink-600);
+    --text-tertiary: var(--mixo-ink-400);
+    --text-disabled: #AEB6C2;
+    --bg-page: var(--mixo-paper);
+    --bg-surface: var(--mixo-surface);
+    --bg-input: #F7F9FB;
+    --bg-input-focus: var(--mixo-surface);
+    --bg-light: var(--mixo-paper);
+    --border: var(--mixo-rule);
+    --border-md: var(--mixo-rule-strong);
+    --border-light: #E9EEF2;
+    --success: var(--mixo-success);
+    --warning: var(--mixo-warning);
+    --danger: var(--mixo-danger);
+    --danger-dim: var(--mixo-danger-bg);
+    --danger-border: rgba(198, 56, 56, 0.28);
+    --shadow-xs: var(--mixo-shadow-xs);
+    --shadow-sm: var(--mixo-shadow-sm);
+    --shadow-md: var(--mixo-shadow-md);
+    --shadow-lg: 0 20px 48px rgba(16, 36, 64, 0.12);
+    --shadow-blue: 0 10px 24px rgba(11, 79, 156, 0.18);
+    --shadow-blue-hover: 0 14px 30px rgba(11, 79, 156, 0.24);
+    --nav-width: var(--mixo-rail-width);
+    --footer-width: var(--mixo-rail-width);
+    --glass-bg-subtle: rgba(255, 255, 255, 0.92);
+    --glass-border-subtle: rgba(255, 255, 255, 0.75);
+    --blur-sm: blur(8px);
+    --blur-md: blur(12px);
+    --blur-lg: blur(18px);
+}
 
-    /* ─────────────────────────────────────────
-       GLASSMORPHISM (hérité WelcomePage/Slider)
-       Préfixé --glass- pour éviter les conflits
-    ───────────────────────────────────────── */
-    --glass-bg-subtle:      rgba(255, 255, 255, 0.08);
-    --glass-border-subtle:  rgba(255, 255, 255, 0.12);
-    --blur-sm:   blur(8px);
-    --blur-md:   blur(12px);
-    --blur-lg:   blur(18px);
-
-    /* ─────────────────────────────────────────
-       NAVBAR / LAYOUT WIDTHS
-    ───────────────────────────────────────── */
-    --nav-width:    280px;
-    --footer-width: 260px;
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
 html {
+    min-width: 320px;
     scroll-behavior: smooth;
+    background: var(--mixo-paper);
 }
 
 body {
-    background:
-        radial-gradient(circle at top left, rgba(10, 102, 194, 0.08), transparent 26%),
-        radial-gradient(circle at top right, rgba(112, 181, 249, 0.12), transparent 20%),
-        linear-gradient(180deg, #ffffff 0%, #f8f9fb 100%);
-    color: var(--text-dark);
-    text-rendering: geometricPrecision;
+    min-width: 320px;
+    min-height: 100vh;
+    margin: 0;
+    overflow-x: hidden;
+    background: var(--mixo-paper);
+    color: var(--mixo-ink-900);
+    font-family: var(--font-main);
+    font-size: 16px;
+    line-height: 1.5;
+    text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button,
+[role='button'],
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+    outline: 3px solid rgba(23, 118, 210, 0.32);
+    outline-offset: 2px;
+}
+
+img,
+svg,
+video {
+    max-width: 100%;
+}
+
 ::selection {
-    background: var(--blue);
-    color: var(--white);
+    background: var(--mixo-cobalt-800);
+    color: var(--mixo-surface);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .perspective-3d {
-        perspective: 1200px;
-        transform-style: preserve-3d;
-    }
+@keyframes mixo-enter {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes floatSoft {
-    0%, 100% { transform: translate3d(0, 0, 0); }
-    50% { transform: translate3d(0, -10px, 18px); }
+@keyframes mixo-spin {
+    to { transform: rotate(360deg); }
 }
 
-@keyframes glowPulse {
-    0%, 100% { box-shadow: 0 0 0 rgba(10, 102, 194, 0); }
-    50% { box-shadow: 0 18px 45px rgba(10, 102, 194, 0.18); }
+@keyframes mixo-shimmer {
+    from { background-position: 180% 0; }
+    to { background-position: -80% 0; }
 }
 
-@keyframes softTilt {
-    0%, 100% { transform: rotateX(0deg) rotateY(0deg) translateZ(0); }
-    50% { transform: rotateX(2deg) rotateY(-2deg) translateZ(8px); }
+@keyframes mixo-progress {
+    0% { transform: scaleX(0); }
+    55% { transform: scaleX(0.72); }
+    100% { transform: scaleX(1); }
 }
 
-@keyframes shimmerMove {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 100% 50%; }
-}
-
-@keyframes floatDrift {
-    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-    50% { transform: translate3d(0, -12px, 0) scale(1.02); }
-}
-
-@keyframes softRise {
-    0% { opacity: 0; transform: translate3d(0, 14px, 0); }
-    100% { opacity: 1; transform: translate3d(0, 0, 0); }
-}
-
-@keyframes breathPulse {
-    0%, 100% { transform: scale(1); filter: saturate(1); }
-    50% { transform: scale(1.015); filter: saturate(1.08); }
-}
-
-@keyframes shineSweep {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 180% 50%; }
+@keyframes mixo-logo-pulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 8px 24px rgba(11, 79, 156, 0.18); }
+    50% { transform: scale(1.035); box-shadow: 0 12px 32px rgba(11, 79, 156, 0.28); }
 }
 
 @media (prefers-reduced-motion: reduce) {

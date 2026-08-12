@@ -73,7 +73,6 @@ export const Testimonials = () => {
     section.innerHTML = `
         <div class="mixo-container">
             <div class="mixo-section-head" data-animate="fade-up">
-                <span class="mixo-eyebrow"><i data-lucide="quote"></i><span>Ils en parlent</span></span>
                 <h2 class="mixo-section-title">Ce que clients et coiffeurs en disent.</h2>
                 <p class="mixo-section-subtitle">
                     Des milliers de rendez-vous pris chaque mois — voici quelques retours,

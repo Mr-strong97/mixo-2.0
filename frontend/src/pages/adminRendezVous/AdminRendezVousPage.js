@@ -32,7 +32,6 @@ export const AdminRendezVousPage = () => {
     main.innerHTML = `
         <section class="arv-hero">
             <div>
-                <p class="arv-kicker">Supervision</p>
                 <h1>Gestion des rendez-vous</h1>
                 <p>Recherche, filtres, détail complet et actions administratives tracées.</p>
             </div>
@@ -60,7 +59,6 @@ export const AdminRendezVousPage = () => {
             <article class="arv-card">
                 <div class="arv-card-head">
                     <div>
-                        <p class="adm-card-kicker">Liste</p>
                         <h2>Rendez-vous enregistrés</h2>
                     </div>
                     <span class="adm-pill" id="arv-count">0</span>
@@ -203,23 +201,25 @@ function renderTable(items) {
         <table class="arv-table">
             <thead><tr><th>#</th><th>Client</th><th>Coiffeur</th><th>Service</th><th>Date</th><th>Statut</th><th>Paiement</th><th>Actions</th></tr></thead>
             <tbody>
-                ${items.map((rdv, i) => `
+                ${items.map((rdv, i) => {
+                    const statut = String(rdv.statut || 'INCONNU');
+                    return `
                     <tr>
-                        <td>${i + 1}</td>
-                        <td>${escapeHtml(rdv.client_username || '')}</td>
-                        <td>${escapeHtml(rdv.coiffeur_username || '')}</td>
-                        <td>${escapeHtml(rdv.service_name || rdv.service_nom_snapshot || '')}</td>
-                        <td>${formatDate(rdv.date_heure_debut)}</td>
-                        <td><span class="arv-badge arv-badge-${rdv.statut.toLowerCase()}">${escapeHtml(rdv.statut)}</span></td>
-                        <td>${rdv.paiement ? escapeHtml(String(rdv.paiement)) : '—'}</td>
-                        <td class="arv-actions">
+                        <td data-label="N°">${i + 1}</td>
+                        <td data-label="Client">${escapeHtml(rdv.client_username || '')}</td>
+                        <td data-label="Coiffeur">${escapeHtml(rdv.coiffeur_username || '')}</td>
+                        <td data-label="Service">${escapeHtml(rdv.service_name || rdv.service_nom_snapshot || '')}</td>
+                        <td data-label="Date">${formatDate(rdv.date_heure_debut)}</td>
+                        <td data-label="Statut"><span class="arv-badge arv-badge-${statut.toLowerCase()}">${escapeHtml(statut)}</span></td>
+                        <td data-label="Paiement">${rdv.paiement ? escapeHtml(String(rdv.paiement)) : '—'}</td>
+                        <td class="arv-actions" data-label="Actions">
                             <button class="adm-icon-btn" data-rdv-id="${rdv.id}" title="Détail"><i data-lucide="eye"></i></button>
                             <button class="adm-icon-btn" data-action="edit" data-rdv-id="${rdv.id}" title="Modifier"><i data-lucide="pencil"></i></button>
                             <button class="adm-icon-btn" data-action="suspend" data-rdv-id="${rdv.id}" title="Suspendre"><i data-lucide="pause-circle"></i></button>
                             <button class="adm-icon-btn" data-action="cancel" data-rdv-id="${rdv.id}" title="Annuler"><i data-lucide="x-circle"></i></button>
                         </td>
                     </tr>
-                `).join('')}
+                `}).join('')}
             </tbody>
         </table>
     `;
@@ -234,10 +234,9 @@ function renderDetail(rdv) {
         <div class="arv-detail-card">
             <div class="arv-detail-head">
                 <div>
-                    <p class="adm-card-kicker">Détail</p>
                     <h2>${escapeHtml(service.nom_prestation || rdv.service_nom_snapshot || 'Rendez-vous')}</h2>
                 </div>
-                <span class="arv-badge arv-badge-${rdv.statut.toLowerCase()}">${escapeHtml(rdv.statut)}</span>
+                <span class="arv-badge arv-badge-${String(rdv.statut || 'inconnu').toLowerCase()}">${escapeHtml(rdv.statut || 'INCONNU')}</span>
             </div>
 
             <div class="arv-detail-grid">

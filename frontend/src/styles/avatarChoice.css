@@ -16,6 +16,11 @@
 .mxo-avatar--lg { width: 72px; height: 72px; font-size: 1.15rem; }
 .mxo-avatar--xl { width: 96px; height: 96px; font-size: 1.55rem; }
 
+.mxo-avatar--initials {
+    background: var(--mixo-cobalt-800, #0B4F9C);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+}
+
 .mxo-avatar--photo img {
     width: 100%;
     height: 100%;

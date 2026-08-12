@@ -136,6 +136,16 @@ export const AdminUserSection = () => {
         const tbody = tableZone.querySelector('#tbl-body');
         slice.forEach(u => tbody.insertAdjacentHTML('beforeend', buildRow(u, currentTab)));
 
+        // Les libellés servent au rendu mobile en fiches, sans dupliquer le
+        // contenu ni modifier les colonnes du tableau desktop.
+        const labels = [...tableZone.querySelectorAll('.adm-tbl thead th')]
+            .map((th) => th.textContent.trim());
+        tableZone.querySelectorAll('.adm-tbl tbody tr').forEach((row) => {
+            [...row.children].forEach((cell, index) => {
+                cell.dataset.label = labels[index] || '';
+            });
+        });
+
         tableZone.querySelectorAll('[data-action]').forEach(btn => {
             btn.addEventListener('click', () =>
                 handleAction(btn.dataset.action, btn.dataset.id, btn.dataset.name));
@@ -163,63 +173,63 @@ export const AdminUserSection = () => {
         const name  = [u.first_name, u.last_name].filter(Boolean).join(' ') || u.username;
 
         const userCell = `
-            <td class="adm-tbl-user">
+            <td class="adm-tbl-user" data-label="Utilisateur">
                 <div class="adm-tbl-avatar">${ini}</div>
                 <div><div class="adm-tbl-name">${name}</div><div class="adm-tbl-email">${u.email || '—'}</div></div>
             </td>`;
 
         if (tab === 'attente') return `<tr>${userCell}
-            <td class="adm-tbl-muted">${u.specialite || '—'}</td>
-            <td class="adm-tbl-muted">${date}</td>
-            <td><span class="adm-badge adm-badge-pending">EN ATTENTE</span></td>
-            <td class="adm-tbl-actions">
-                <button class="adm-icon-btn adm-icon-validate" data-action="valider" data-id="${u.id}" data-name="${u.username}" title="Valider"><i data-lucide="check"></i></button>
-                <button class="adm-icon-btn adm-icon-reject"   data-action="rejeter" data-id="${u.id}" data-name="${u.username}" title="Rejeter"><i data-lucide="x"></i></button>
+            <td class="adm-tbl-muted" data-label="Spécialité">${u.specialite || '—'}</td>
+            <td class="adm-tbl-muted" data-label="Inscription">${date}</td>
+            <td data-label="Statut"><span class="adm-badge adm-badge-pending">EN ATTENTE</span></td>
+            <td class="adm-tbl-actions" data-label="Actions">
+                <button class="adm-icon-btn adm-icon-validate" data-action="valider" data-id="${u.id}" data-name="${u.username}" title="Valider" aria-label="Valider ${name}"><i data-lucide="check"></i></button>
+                <button class="adm-icon-btn adm-icon-reject"   data-action="rejeter" data-id="${u.id}" data-name="${u.username}" title="Rejeter" aria-label="Rejeter ${name}"><i data-lucide="x"></i></button>
             </td></tr>`;
 
         if (tab === 'coiffeurs') return `<tr>
-            <td class="adm-tbl-user">
+            <td class="adm-tbl-user" data-label="Coiffeur">
                 <div class="adm-tbl-avatar">${ini}</div>
                 <div><div class="adm-tbl-name">${name}</div><div class="adm-tbl-email">@${u.username}</div></div>
             </td>
-            <td class="adm-tbl-muted">${u.email || '—'}</td>
-            <td class="adm-tbl-muted">${date}</td>
-            <td><span class="adm-badge adm-badge-active">ACTIF</span></td>
-            <td class="adm-tbl-actions">
-                <button class="adm-icon-btn adm-icon-suspend" data-action="suspendre" data-id="${u.id}" data-name="${u.username}" title="Suspendre"><i data-lucide="pause-circle"></i></button>
-                <button class="adm-icon-btn adm-icon-ban"     data-action="bannir"    data-id="${u.id}" data-name="${u.username}" title="Bannir"><i data-lucide="ban"></i></button>
+            <td class="adm-tbl-muted" data-label="Email">${u.email || '—'}</td>
+            <td class="adm-tbl-muted" data-label="Inscription">${date}</td>
+            <td data-label="Statut"><span class="adm-badge adm-badge-active">ACTIF</span></td>
+            <td class="adm-tbl-actions" data-label="Actions">
+                <button class="adm-icon-btn adm-icon-suspend" data-action="suspendre" data-id="${u.id}" data-name="${u.username}" title="Suspendre" aria-label="Suspendre ${name}"><i data-lucide="pause-circle"></i></button>
+                <button class="adm-icon-btn adm-icon-ban"     data-action="bannir"    data-id="${u.id}" data-name="${u.username}" title="Bannir" aria-label="Bannir ${name}"><i data-lucide="ban"></i></button>
             </td></tr>`;
 
         if (tab === 'clients') return `<tr>${userCell}
-            <td class="adm-tbl-muted">${u.email || '—'}</td>
-            <td class="adm-tbl-muted">${date}</td>
-            <td><span class="adm-badge adm-badge-active">ACTIF</span></td>
-            <td class="adm-tbl-actions">
-                <button class="adm-icon-btn adm-icon-suspend" data-action="suspendre" data-id="${u.id}" data-name="${u.username}" title="Suspendre"><i data-lucide="pause-circle"></i></button>
-                <button class="adm-icon-btn adm-icon-ban"     data-action="bannir"    data-id="${u.id}" data-name="${u.username}" title="Bannir"><i data-lucide="ban"></i></button>
+            <td class="adm-tbl-muted" data-label="Email">${u.email || '—'}</td>
+            <td class="adm-tbl-muted" data-label="Inscription">${date}</td>
+            <td data-label="Statut"><span class="adm-badge adm-badge-active">ACTIF</span></td>
+            <td class="adm-tbl-actions" data-label="Actions">
+                <button class="adm-icon-btn adm-icon-suspend" data-action="suspendre" data-id="${u.id}" data-name="${u.username}" title="Suspendre" aria-label="Suspendre ${name}"><i data-lucide="pause-circle"></i></button>
+                <button class="adm-icon-btn adm-icon-ban"     data-action="bannir"    data-id="${u.id}" data-name="${u.username}" title="Bannir" aria-label="Bannir ${name}"><i data-lucide="ban"></i></button>
             </td></tr>`;
 
         if (tab === 'suspendus') {
             const ds = u.updated_at ? new Date(u.updated_at).toLocaleDateString('fr-FR') : '—';
             return `<tr>${userCell}
-                <td class="adm-tbl-muted">${ds}</td>
-                <td class="adm-tbl-muted">${u.raison_suspension || '—'}</td>
-                <td><span class="adm-badge adm-badge-suspended">SUSPENDU</span></td>
-                <td class="adm-tbl-actions">
-                    <button class="adm-icon-btn adm-icon-reactivate" data-action="reactiver" data-id="${u.id}" data-name="${u.username}" title="Réactiver"><i data-lucide="rotate-ccw"></i></button>
-                    <button class="adm-icon-btn adm-icon-delete"     data-action="voir"      data-id="${u.id}" data-name="${u.username}" title="Voir détails"><i data-lucide="eye"></i></button>
+                <td class="adm-tbl-muted" data-label="Suspension">${ds}</td>
+                <td class="adm-tbl-muted" data-label="Raison">${u.raison_suspension || '—'}</td>
+                <td data-label="Statut"><span class="adm-badge adm-badge-suspended">SUSPENDU</span></td>
+                <td class="adm-tbl-actions" data-label="Actions">
+                    <button class="adm-icon-btn adm-icon-reactivate" data-action="reactiver" data-id="${u.id}" data-name="${u.username}" title="Réactiver" aria-label="Réactiver ${name}"><i data-lucide="rotate-ccw"></i></button>
+                    <button class="adm-icon-btn adm-icon-delete"     data-action="voir"      data-id="${u.id}" data-name="${u.username}" title="Voir détails" aria-label="Voir les détails de ${name}"><i data-lucide="eye"></i></button>
                 </td></tr>`;
         }
 
         if (tab === 'bannis') {
             const db = u.updated_at ? new Date(u.updated_at).toLocaleDateString('fr-FR', { day:'2-digit', month:'short', year:'numeric' }) : '—';
             return `<tr>${userCell}
-                <td class="adm-tbl-muted">${u.raison_bannissement || '—'}</td>
-                <td class="adm-tbl-muted">${db}</td>
-                <td><span class="adm-badge adm-badge-banned">BANNI</span></td>
-                <td class="adm-tbl-actions">
-                    <button class="adm-icon-btn adm-icon-reactivate" data-action="reactiver" data-id="${u.id}" data-name="${u.username}" title="Réactiver"><i data-lucide="rotate-ccw"></i></button>
-                    <button class="adm-icon-btn adm-icon-delete"     data-action="voir"      data-id="${u.id}" data-name="${u.username}" title="Voir détails"><i data-lucide="eye"></i></button>
+                <td class="adm-tbl-muted" data-label="Raison">${u.raison_bannissement || '—'}</td>
+                <td class="adm-tbl-muted" data-label="Date">${db}</td>
+                <td data-label="Statut"><span class="adm-badge adm-badge-banned">BANNI</span></td>
+                <td class="adm-tbl-actions" data-label="Actions">
+                    <button class="adm-icon-btn adm-icon-reactivate" data-action="reactiver" data-id="${u.id}" data-name="${u.username}" title="Réactiver" aria-label="Réactiver ${name}"><i data-lucide="rotate-ccw"></i></button>
+                    <button class="adm-icon-btn adm-icon-delete"     data-action="voir"      data-id="${u.id}" data-name="${u.username}" title="Voir détails" aria-label="Voir les détails de ${name}"><i data-lucide="eye"></i></button>
                 </td></tr>`;
         }
         return '';

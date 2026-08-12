@@ -55,7 +55,7 @@ export const ServiceDetailPage = ({ id } = {}) => {
                             <div class="sdp-meta-row">
                                 <i data-lucide="clock"></i> ${s.duree_minutes} min
                                 <span class="sdp-sep">•</span>
-                                <span class="sdp-price">${formatPrix(s.prix)}FC</span>
+                                <span class="sdp-price">${formatPrix(s.prix)} FC</span>
                             </div>
 
                             <p class="sdp-description">${escapeHtml(s.description) || 'Aucune description disponible pour ce service.'}</p>
@@ -146,7 +146,7 @@ export const ServiceDetailPage = ({ id } = {}) => {
 function formatPrix(prix) {
     const n = parseFloat(prix);
     if (Number.isNaN(n)) return '0';
-    return Number.isInteger(n) ? String(n) : n.toFixed(2);
+    return n.toLocaleString('fr-FR', { maximumFractionDigits: 2 });
 }
 
 function escapeHtml(str = '') {

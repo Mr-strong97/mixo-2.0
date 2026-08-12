@@ -236,13 +236,13 @@ function buildTable(title, users = [], field, showEmpty = false) {
                     const ini  = (u.username||'U').substring(0,2).toUpperCase();
                     const role = (u.role||'CLIENT').toUpperCase();
                     return `<tr>
-                        <td style="color:#62676B;font-weight:700;font-size:0.82rem;">${i+1}</td>
-                        <td class="adm-tbl-user">
+                        <td data-label="Rang" style="color:#62676B;font-weight:700;font-size:0.82rem;">${i+1}</td>
+                        <td class="adm-tbl-user" data-label="Utilisateur">
                             <div class="adm-tbl-avatar" style="width:32px;height:32px;font-size:0.65rem;">${ini}</div>
                             <span class="adm-tbl-name" style="font-size:0.84rem;">@${u.username}</span>
                         </td>
-                        <td><span class="adm-badge adm-badge-role-${role.toLowerCase()}">${role}</span></td>
-                        <td style="font-size:0.78rem;color:#62676B;">${date}</td>
+                        <td data-label="Rôle"><span class="adm-badge adm-badge-role-${role.toLowerCase()}">${role}</span></td>
+                        <td data-label="Date" style="font-size:0.78rem;color:#62676B;">${date}</td>
                     </tr>`;
                 }).join('')}
             </tbody>

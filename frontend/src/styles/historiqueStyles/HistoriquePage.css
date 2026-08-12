@@ -358,7 +358,6 @@
 @media (max-width: 768px) {
     .his-main { padding: 34px 24px 56px; }
     .his-hero { padding: 0; margin-bottom: 22px; border: 0; box-shadow: none; background: transparent; }
-    .his-kicker { display: none; }
     .his-hero h1 { font-size: 2rem; color: var(--text-dark) !important; }
     .his-hero p { margin-top: 8px; font-size: 1rem; color: #666; }
     .his-stats { grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin-bottom: 24px; }

@@ -47,7 +47,6 @@ export const LaisserAvisPage = ({ id } = {}) => {
         main.innerHTML = `
             <section class="lap-card">
                 <div class="lap-header">
-                    <p class="lap-kicker">Demande d’avis</p>
                     <h1>${isEditing ? 'Modifier votre avis' : 'Votre rendez-vous est terminé'}</h1>
                     <p>${isEditing ? 'Vous pouvez ajuster votre note et votre commentaire.' : 'Prenez quelques secondes pour partager votre retour. C’est optionnel, mais très utile pour améliorer les prestations.'}</p>
                 </div>

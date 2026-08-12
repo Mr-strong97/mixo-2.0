@@ -12,12 +12,26 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="theme-color" content="#0A66C2">
+    <meta name="theme-color" content="#0B4F9C">
     
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 <body>
-
+    <!--
+    THESIS: Mixo turns each role's next task into a precise salon work sheet; it refuses the generic metric-card dashboard.
+    OWN-WORLD: cool matte paper, cobalt index marks, fine ruled dividers, direct photography and restrained semantic color.
+    STORY: the user identifies their role, sees the current state, acts, then reaches the next destination without training.
+    FIRST VIEWPORT: compact Mixo app bar, task-led heading, dominant priority action, concise secondary rows and thumb navigation.
+    FORM: action-priority composition, selected first among three probes; seed bae920a2.
+    FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+    -->
+    <div class="mixo-route-progress" aria-hidden="true"></div>
+    <div class="mixo-boot" id="mixo-boot" role="status" aria-live="polite">
+        <div class="mixo-boot__content">
+            <span class="mixo-boot__mark" aria-hidden="true">M</span>
+            <div><strong>Mixo</strong><span>Préparation de votre espace…</span></div>
+        </div>
+    </div>
     <div id="app"></div>
     
     <script type="module" src="/src/main.js"></script>

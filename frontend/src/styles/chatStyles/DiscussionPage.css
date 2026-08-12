@@ -18,15 +18,6 @@
     margin-bottom: 18px;
 }
 
-.chat-kicker {
-    margin: 0 0 8px;
-    text-transform: uppercase;
-    letter-spacing: .16em;
-    color: var(--blue);
-    font-weight: 700;
-    font-size: .75rem;
-}
-
 .chat-hero h1 {
     margin: 0 0 8px;
     font-size: clamp(1.8rem, 3vw, 2.6rem);
@@ -750,7 +741,7 @@
     .chat-message-bubble { padding: 14px 16px; }
     .chat-message-meta strong { display: none; }
     .chat-message-meta { margin-bottom: 4px; }
-    .chat-composer { position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; padding: 10px 16px 14px; box-shadow: 0 -4px 18px rgba(15,23,42,.08); }
+    .chat-composer { position: fixed; left: 0; right: 0; bottom: calc(var(--mixo-mobile-nav-height) + env(safe-area-inset-bottom, 0px)); z-index: 5; padding: 10px 16px 14px; box-shadow: 0 -4px 18px rgba(15,23,42,.08); }
     .chat-input { border-radius: 26px; padding-right: 16px; }
 }
 
@@ -759,7 +750,6 @@
 @media (max-width: 400px) {
     .chat-main { padding: 12px 8px 20px; }
     .chat-hero { gap: 10px; margin-bottom: 10px; }
-    .chat-kicker { font-size: .62rem; margin-bottom: 5px; }
     .chat-hero h1 { font-size: 1.35rem; line-height: 1.08; }
     .chat-hero p { font-size: .75rem; line-height: 1.4; }
     .chat-hero-card { padding: 10px 12px; font-size: .72rem; }

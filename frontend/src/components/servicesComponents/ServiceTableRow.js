@@ -18,7 +18,7 @@ export const ServiceTableRow = (service, handlers = {}) => {
     const descCourte  = description.length > 60 ? `${description.slice(0, 60)}…` : description;
 
     tr.innerHTML = `
-        <td class="str-service">
+        <td class="str-service" data-label="Service">
             ${service.image
                 ? `<img src="${service.image}" class="str-thumb" alt="" loading="lazy"/>`
                 : `<div class="str-thumb str-thumb-placeholder"><i data-lucide="image"></i></div>`
@@ -28,17 +28,17 @@ export const ServiceTableRow = (service, handlers = {}) => {
                 <span class="str-desc">${escapeHtml(descCourte)}</span>
             </div>
         </td>
-        <td><span class="str-badge-cat">${escapeHtml(service.categorie_nom || '—')}</span></td>
-        <td class="str-price">${formatPrix(service.prix)}&nbsp;FC</td>
-        <td class="str-muted">${service.duree_minutes} min</td>
-        <td class="str-muted">${service.nb_reservations ?? 0}</td>
-        <td>
+        <td data-label="Catégorie"><span class="str-badge-cat">${escapeHtml(service.categorie_nom || '—')}</span></td>
+        <td class="str-price" data-label="Prix">${formatPrix(service.prix)}&nbsp;FC</td>
+        <td class="str-muted" data-label="Durée">${service.duree_minutes} min</td>
+        <td class="str-muted" data-label="Réservations">${service.nb_reservations ?? 0}</td>
+        <td data-label="Statut">
             <label class="str-toggle" title="${isActive ? 'Désactiver' : 'Activer'} ce service">
                 <input type="checkbox" ${isActive ? 'checked' : ''}/>
                 <span class="str-toggle-slider"></span>
             </label>
         </td>
-        <td class="str-actions">
+        <td class="str-actions" data-label="Actions">
             <button class="str-icon-btn" data-action="view"   title="Voir"><i data-lucide="eye"></i></button>
             <button class="str-icon-btn" data-action="edit"   title="Modifier"><i data-lucide="pencil"></i></button>
             <button class="str-icon-btn str-icon-danger" data-action="delete" title="Supprimer"><i data-lucide="trash-2"></i></button>
@@ -58,7 +58,7 @@ export const ServiceTableRow = (service, handlers = {}) => {
 function formatPrix(prix) {
     const n = parseFloat(prix);
     if (Number.isNaN(n)) return '0';
-    return Number.isInteger(n) ? String(n) : n.toFixed(2);
+    return n.toLocaleString('fr-FR', { maximumFractionDigits: 2 });
 }
 
 function escapeHtml(str = '') {

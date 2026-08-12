@@ -162,13 +162,15 @@ select.cse-input { cursor: pointer; }
 }
 
 @media (max-width: 640px) {
-    .cse-main { padding: 20px 16px 120px; }
+    .cse-main { padding: 20px 16px 170px; }
     .cse-header h1 { font-size: 1.2rem; }
     .cse-card { padding: 18px; }
     .cse-row { flex-direction: column; }
     .cse-toggle-row { flex-direction: column; align-items: flex-start; }
-    .cse-footer-sticky { padding: 14px 16px; flex-direction: column; }
-    .cse-btn-cancel, .cse-btn-save { width: 100%; justify-content: center; }
+    .cse-footer-sticky { bottom: calc(var(--mixo-mobile-nav-height) + env(safe-area-inset-bottom, 0px)); padding: 10px 14px; flex-direction: row; }
+    .cse-btn-cancel, .cse-btn-save { min-width: 0; padding-inline: 12px; justify-content: center; }
+    .cse-btn-cancel { flex: 0 1 34%; }
+    .cse-btn-save { flex: 1 1 66%; }
     .cse-chips { gap: 6px; }
     .cse-chip { flex: 1; min-width: 60px; padding: 0 8px; font-size: 0.76rem; }
 }
@@ -177,6 +179,7 @@ select.cse-input { cursor: pointer; }
     .cse-main { padding-left: 14px; padding-right: 14px; }
     .cse-header h1 { font-size: 1.1rem; }
     .cse-status { width: 100%; justify-content: center; }
+    .cse-btn-cancel, .cse-btn-save { font-size: .75rem; }
 }
 
 @keyframes cseFadeUp {

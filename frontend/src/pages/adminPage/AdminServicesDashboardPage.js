@@ -118,7 +118,6 @@ export const AdminServicesDashboardPage = () => {
                 detailWrap.innerHTML = `
                     <div class="adb-detail-head">
                         <div>
-                            <p class="adb-detail-kicker">Service sélectionné</p>
                             <h3>${escapeHtml(detail.nom_prestation || 'Service')}</h3>
                         </div>
                         <span class="adb-detail-badge" style="background:${color}15;color:${color};">
@@ -131,7 +130,7 @@ export const AdminServicesDashboardPage = () => {
                     <div class="adb-detail-grid">
                         <div><span>Coiffeur</span><strong>${escapeHtml(detail.coiffeur_username || '—')}</strong></div>
                         <div><span>Catégorie</span><strong>${escapeHtml(detail.categorie_nom || '—')}</strong></div>
-                        <div><span>Prix</span><strong>${formatPrix(detail.prix)} €</strong></div>
+                        <div><span>Prix</span><strong>${formatPrix(detail.prix)} FC</strong></div>
                         <div><span>Durée</span><strong>${escapeHtml(String(detail.duree_minutes ?? '—'))} min</strong></div>
                         <div><span>Ville</span><strong>${escapeHtml(detail.ville || '—')}</strong></div>
                         <div><span>Réservations</span><strong>${escapeHtml(String(detail.nb_reservations ?? 0))}</strong></div>

@@ -17,10 +17,10 @@ export const DayScheduleRow = (jourSemaine, horaireExistant, onSave, onClose) =>
     const isEdit = !!horaireExistant;
 
     overlay.innerHTML = `
-        <div class="dsr-modal">
+        <div class="dsr-modal" role="dialog" aria-modal="true" aria-labelledby="dsr-title">
             <div class="dsr-header">
-                <h3>${isEdit ? 'Modifier le créneau' : 'Ajouter un créneau'} — ${JOURS_LABELS[jourSemaine]}</h3>
-                <button class="dsr-close" type="button"><i data-lucide="x"></i></button>
+                <h3 id="dsr-title">${isEdit ? 'Modifier le créneau' : 'Ajouter un créneau'} — ${JOURS_LABELS[jourSemaine]}</h3>
+                <button class="dsr-close" type="button" aria-label="Fermer"><i data-lucide="x"></i></button>
             </div>
             <div class="dsr-body">
                 <div class="dsr-row">
@@ -46,6 +46,7 @@ export const DayScheduleRow = (jourSemaine, horaireExistant, onSave, onClose) =>
     overlay.querySelector('.dsr-close').addEventListener('click', close);
     overlay.querySelector('.dsr-btn-cancel').addEventListener('click', close);
     overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+    overlay.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
 
     overlay.querySelector('.dsr-btn-save').addEventListener('click', async () => {
         const debut = overlay.querySelector('#dsr-debut').value;
@@ -71,6 +72,9 @@ export const DayScheduleRow = (jourSemaine, horaireExistant, onSave, onClose) =>
         }
     });
 
-    setTimeout(() => { if (window.lucide) window.lucide.createIcons(); }, 0);
+    setTimeout(() => {
+        if (window.lucide) window.lucide.createIcons();
+        overlay.querySelector('#dsr-debut')?.focus();
+    }, 0);
     return overlay;
 };
